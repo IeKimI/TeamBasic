@@ -1,0 +1,284 @@
+swagger: '2.0'
+info:
+  description: This is a simple API for Team Basic Webpage
+  version: 1.0.0
+  title: Team Basic Webpage API
+  # put the contact info for your development or API team
+  contact:
+    email: ekim4@wpi.edu
+
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+
+# tags are used for organizing operations
+tags:
+- name: admins
+  description: Secured Admin-only calls
+- name: teamMembers
+  description: Operations available to regular teamMembers
+
+paths:
+  /choice:
+    get:
+      tags:
+      - admins
+      summary: gets a list of Choices
+      operationId: getChoices
+      description: |
+        You can get a list of Choices
+      produces:
+      - application/json
+      responses:
+        200:
+          description: search results matching criteria
+          schema:
+              $ref: '#/definitions/ListOfChoices'
+        400:
+          description: bad input parameter
+    post:
+      tags:
+      - teamMembers
+      summary: creates a choice
+      operationId: createChoice
+      description: Creates a choice
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: Choice
+        description: Choice to create
+        schema:
+          $ref: '#/definitions/Choice'
+      responses:
+        200:
+          description: Choice created
+        400:
+          description: invalid input, object invalid
+        409:
+          description: an existing item already exists
+    put:
+      tags:
+      - admins
+      summary: deletes a list of Choices
+      operationId: deleteChoices
+      description: |
+        You can delete a list of Choices
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: Choice
+        description: Choice to create
+        schema:
+          $ref: '#/definitions/Choice'
+      responses:
+        200:
+          description: search results matching criteria
+          schema:
+              $ref: '#/definitions/ListOfChoices'
+        400:
+          description: bad input parameter
+      
+     
+  /choice/{uniqueID}:
+    get:
+      tags:
+      - teamMembers
+      summary: gets a Choice
+      operationId: getChoice
+      description: |
+        You can get the Choice
+      consumes:
+        - applicaton/json
+      produces:
+        - application/json
+      parameters:
+        - name: uniqueID
+          in: path
+          required: true
+          type: string
+      responses:
+        200:
+          description: Choice created
+        400:
+          description: invalid input, object invalid
+    put:
+      tags:
+      - teamMembers
+      summary: completes a Choice
+      operationId: completeChoice
+      description: |
+        You can complete a Choice
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+        - name: uniqueID
+          in: path
+          required: true
+          type: string
+      responses:
+        200:
+          description: Completed the Choice
+        400:
+          description: invalid input, object invalid
+  /alternativeChoice:
+    get:
+      tags:
+      - teamMembers
+      summary: gets alternatives
+      operationId: getAlternatives
+      description: |
+        You can get alternatives
+      produces:
+      - application/json
+      responses:
+        200:
+          description: search results matching criteria
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/AlternativeChoice'
+        400:
+          description: bad input parameter
+    put:
+      tags:
+      - teamMembers
+      summary: updates an alternative
+      operationId: updateAlternative
+      description: |
+        You can update the alternative - votes, list of team members updated
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: Alternative
+        description: Vote an altnertive passed in
+        schema:
+          $ref: '#/definitions/AlternativeChoice'
+      responses:
+        200:
+          description: Alternative updated
+        400:
+          description: invalid input, object invalid
+      
+  /feedback:
+    post:
+      tags:
+      - teamMembers
+      summary: creates a feedback
+      operationId: createFeedback
+      description: Creates a feedback
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: Alternative
+        description: Add a feedback to an alternative
+        schema:
+          $ref: '#/definitions/Feedback'
+      responses:
+        200:
+          description: Feedback created
+        400:
+          description: invalid input, object invalid
+    get:
+      tags:
+      - teamMembers
+      summary: gets a feedback
+      operationId: getFeedback
+      description: |
+        You can get a feedback
+      produces:
+      - application/json
+      responses:
+        200:
+          description: search results matching criteria
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Feedback'
+        400:
+          description: bad input parameter
+definitions:
+  Choice:
+    type: object
+    required:
+    - uniqueID
+    - alternatives
+    - participatingMembers
+    - description
+    - daysOld
+    - isCompleted
+    properties:
+      uniqueID:
+        type: string
+      alternatives:
+        type: array
+        items: 
+          type: object
+      participatingMembers:
+        type: array
+        items:
+          type: object
+      description:
+        type: string
+      daysOld:
+        type: number
+      isCompleted:
+        type: boolean
+  ListOfChoices:
+    type: array
+    items:
+     $ref: "#/definitions/Choice"
+  AlternativeChoice:
+    type: object
+    required:
+    - description
+    - approvals
+    - disapprovals
+    - feedback
+    - isSelected
+    properties:
+      description:
+        type: string
+      approvals:
+        type: array
+        items:
+          type: object
+      disapprovals:
+        type: array
+        items:
+          type: object
+      feedback:
+        type: array
+        items:
+          type: object
+      isSelected:
+        type: boolean
+  Feedback:
+    type: object
+    required:
+    - timeStamp
+    - user
+    - text
+    properties:
+      timeStamp:
+        type: string
+      user:
+        type: object
+      text:
+        type: string
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com
+basePath: /IeKimI/TeamBasic/1.0.0
+schemes:
+ - https
