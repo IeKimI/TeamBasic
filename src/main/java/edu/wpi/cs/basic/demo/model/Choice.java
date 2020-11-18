@@ -5,13 +5,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Choice {
-	public final String uniqueID = "";
+	public String uniqueID = "";
 	ArrayList<AlternativeChoice> alternativeChoices = new ArrayList<AlternativeChoice>();
 	ArrayList<TeamMember> participatingMembers = new ArrayList<TeamMember>();
 	String description;
 	Date dayOfCompletion;
 	float daysOld;
 	boolean isCompleted;
+
+	public Choice(String uniqueID, ArrayList<AlternativeChoice> alternativeChoices,
+			ArrayList<TeamMember> participatingMembers, String description, Date dayOfCompletion, float daysOld,
+			boolean isCompleted) {
+		super();
+		this.uniqueID = uniqueID;
+		this.alternativeChoices = alternativeChoices;
+		this.participatingMembers = participatingMembers;
+		this.description = description;
+		this.dayOfCompletion = dayOfCompletion;
+		this.daysOld = daysOld;
+		this.isCompleted = isCompleted;
+	}
 
 	public ArrayList<AlternativeChoice> getAlternativeChoices() {
 		return alternativeChoices;
@@ -63,21 +76,6 @@ public class Choice {
 
 	public String getUniqueID() {
 		return uniqueID;
-	}
-
-	public Choice(ArrayList<AlternativeChoice> alternativeChoices, ArrayList<TeamMember> participatingMembers,
-			String description, Date dayOfCompletion, float daysOld, boolean isCompleted) {
-		super();
-		this.alternativeChoices = alternativeChoices;
-		this.participatingMembers = participatingMembers;
-		this.description = description;
-		this.dayOfCompletion = dayOfCompletion;
-		this.daysOld = daysOld;
-		this.isCompleted = isCompleted;
-	}
-
-	public Choice() {
-
 	}
 
 	public String getReport(TeamMember member) {
