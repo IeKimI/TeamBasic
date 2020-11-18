@@ -21,7 +21,7 @@ public class Choice {
 	}
 	
 	public Choice() {
-		//eren is hot
+		
 	}
 	
 	public String getReport(TeamMember member) {
