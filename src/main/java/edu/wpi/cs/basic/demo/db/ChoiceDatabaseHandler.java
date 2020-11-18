@@ -15,7 +15,7 @@ public class ChoiceDatabaseHandler {
 
 	public String getNextID() {
 
-		return 0;
+		return null;
 	}
 
 	public boolean pushChoice(Choice choice) {
