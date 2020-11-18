@@ -24,17 +24,6 @@ public class AlternativeChoice {
 		
 	}
 	
-	boolean flipApproval(TeamMember member) {
-		
-		return false;
-		
-	}
-	
-	boolean flipDisapproval(TeamMember member) {
-		return false;
-		
-	}
-	
 	Feedback createFeedback() {
 		return null;
 		
