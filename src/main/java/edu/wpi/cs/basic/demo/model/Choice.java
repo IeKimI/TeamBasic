@@ -13,8 +13,11 @@ public class Choice {
 	float daysOld;
 	boolean isCompleted;
 
-	public Choice(ArrayList<AlternativeChoice> alternativeChoices, ArrayList<TeamMember> participatingMembers,
-			String description, Date dayOfCompletion, float daysOld, boolean isCompleted) {
+	public Choice(String uniqueID, ArrayList<AlternativeChoice> alternativeChoices,
+			ArrayList<TeamMember> participatingMembers, String description, Date dayOfCompletion, float daysOld,
+			boolean isCompleted) {
+		super();
+		this.uniqueID = uniqueID;
 		this.alternativeChoices = alternativeChoices;
 		this.participatingMembers = participatingMembers;
 		this.description = description;
