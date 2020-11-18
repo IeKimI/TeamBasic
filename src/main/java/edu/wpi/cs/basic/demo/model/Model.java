@@ -3,7 +3,7 @@ package edu.wpi.cs.basic.demo.model;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
-import edu.wpi.cs.basic.demo.db.ChoiceDatabaseHandler;
+import edu.wpi.cs.basic.demo.ChoiceDatabaseHandler;
 
 public class Model { // Eren
 	Hashtable<String, TeamMember> teamMembers;

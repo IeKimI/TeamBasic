@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-import edu.wpi.cs.basic.demo.db.ChoiceDatabaseHandler;
+import edu.wpi.cs.basic.demo.ChoiceDatabaseHandler;
 
 public class Admin extends TeamMember { //Eren
 	
