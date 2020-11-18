@@ -24,13 +24,13 @@ public class AlternativeChoice {
 		
 	}
 	
-	boolean flipApproval() {
+	boolean flipApproval(TeamMember member) {
 		
 		return false;
 		
 	}
 	
-	boolean flipDisapproval() {
+	boolean flipDisapproval(TeamMember member) {
 		return false;
 		
 	}
