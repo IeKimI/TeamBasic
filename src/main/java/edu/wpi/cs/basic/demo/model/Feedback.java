@@ -6,7 +6,7 @@ import java.util.List;
 public class Feedback {
 	final String timeStamp;
 	final String text;
-	List <TeamMember> users=new ArrayList<TeamMember>();
+	List <TeamMember> users;
 
 	public Feedback(String timeS, String txt, ArrayList<TeamMember> users) {
 		super();
