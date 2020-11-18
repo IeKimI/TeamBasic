@@ -17,15 +17,14 @@ public class Admin extends TeamMember {
 			Choice temp = iterator.next();
 			reportOutput += "Choice ID: " + temp.uniqueID + "\n";
 			reportOutput += "\t";
-			if(temp.isComplete()){
-				reportOutput+="Uncomplete";
+			if (temp.isComplete()) {
+				reportOutput += "Uncomplete";
+			} else {
+				reportOutput += "Complete";
+				reportOutput += "\n\tDay Of Completion: " + temp.dayOfCompletion.toString() + "\n";
 			}
-			else {
-				reportOutput+="Complete\n";
-				reportOutput+="\tDay Of Completion: "+ dayOfCompletion;
-			}
-+		}
-		return null;
+		}
+		return reportOutput;
 	}
 
 }
