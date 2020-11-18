@@ -1,10 +1,16 @@
 package edu.wpi.cs.basic.demo.model;
 
-public class Admin extends TeamMember{
+import java.util.Collection;
+
+public class Admin extends TeamMember {
 
 	public Admin() {
-		// TODO Auto-generated constructor stub
+		super("ADMIN");
+	}
+	
+	String createReport(Collection C){
 		
+		return null;
 	}
 
 }
