@@ -19,7 +19,10 @@ public class Model { // Eren
 
 	public void makeChoice() {
 		if (loggedInUser != null) {
-			handler.pushChoice(new Choice(handler.getNextID(), null, null, null, null, 0, false));
+			handler.pushChoice(new Choice(handler.getNextID(), null, null, null, null, 0, false)); // Make sure that the
+																									// made choice is
+																									// valid before
+																									// pushing
 		}
 	}
 
