@@ -13,7 +13,7 @@ public class ChoiceDatabaseHandler {
 		return null;
 	}
 
-	public int getNextID() {
+	public String getNextID() {
 
 		return 0;
 	}
