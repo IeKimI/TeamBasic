@@ -1,6 +1,7 @@
 package edu.wpi.cs.basic.demo.model;
 
 import java.util.Collection;
+import java.util.Iterator;
 
 public class Admin extends TeamMember {
 
@@ -8,8 +9,11 @@ public class Admin extends TeamMember {
 		super("ADMIN");
 	}
 	
-	String createReport(Collection C){
-		
+	String createReport(Collection<Choice> choices){
+		Iterator<Choice> iterator= choices.iterator();
+		while(iterator.hasNext()) {
+			
+		}
 		return null;
 	}
 
