@@ -20,10 +20,6 @@ public class AlternativeChoice {
 		this.description = description;
 	}
 	
-	public AlternativeChoice() {
-		
-	}
-	
 	Feedback createFeedback() {
 		return null;
 		
