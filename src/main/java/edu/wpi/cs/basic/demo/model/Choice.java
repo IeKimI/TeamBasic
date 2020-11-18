@@ -13,6 +13,16 @@ public class Choice {
 	float daysOld;
 	boolean isCompleted;
 
+	public Choice(ArrayList<AlternativeChoice> alternativeChoices, ArrayList<TeamMember> participatingMembers,
+			String description, Date dayOfCompletion, float daysOld, boolean isCompleted) {
+		this.alternativeChoices = alternativeChoices;
+		this.participatingMembers = participatingMembers;
+		this.description = description;
+		this.dayOfCompletion = dayOfCompletion;
+		this.daysOld = daysOld;
+		this.isCompleted = isCompleted;
+	}
+
 	public ArrayList<AlternativeChoice> getAlternativeChoices() {
 		return alternativeChoices;
 	}
@@ -63,21 +73,6 @@ public class Choice {
 
 	public String getUniqueID() {
 		return uniqueID;
-	}
-
-	public Choice(ArrayList<AlternativeChoice> alternativeChoices, ArrayList<TeamMember> participatingMembers,
-			String description, Date dayOfCompletion, float daysOld, boolean isCompleted) {
-		super();
-		this.alternativeChoices = alternativeChoices;
-		this.participatingMembers = participatingMembers;
-		this.description = description;
-		this.dayOfCompletion = dayOfCompletion;
-		this.daysOld = daysOld;
-		this.isCompleted = isCompleted;
-	}
-
-	public Choice() {
-
 	}
 
 	public String getReport(TeamMember member) {
