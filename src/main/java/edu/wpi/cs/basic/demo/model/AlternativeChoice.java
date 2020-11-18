@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AlternativeChoice {
-	List<TeamMember> approvals = new ArrayList<TeamMember>();
-	List<TeamMember> disapprovals = new ArrayList<TeamMember>();
-	List<Feedback> feedback = new ArrayList<Feedback>();
+	ArrayList<TeamMember> approvals = new ArrayList<TeamMember>();
+	ArrayList<TeamMember> disapprovals = new ArrayList<TeamMember>();
+	ArrayList<Feedback> feedback = new ArrayList<Feedback>();
 	String description;
 	String alternativeID;
 	String choiceID;
 	
 	
-	public AlternativeChoice(List<TeamMember> approvals, List<TeamMember> disapprovals, List<Feedback> feedback,
+	public AlternativeChoice(ArrayList<TeamMember> approvals, ArrayList<TeamMember> disapprovals, ArrayList<Feedback> feedback,
 			String description) {
 		this.approvals = approvals;
 		this.disapprovals = disapprovals;
