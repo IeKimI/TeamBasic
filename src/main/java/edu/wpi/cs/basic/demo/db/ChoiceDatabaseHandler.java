@@ -13,8 +13,12 @@ public class ChoiceDatabaseHandler {
 		return null;
 	}
 
-	int getNextID() {
+	public int getNextID() {
 
 		return 0;
+	}
+
+	public boolean pushChoice(Choice choice) {
+		return false;
 	}
 }
