@@ -1,19 +1,21 @@
 package edu.wpi.cs.basic.demo.model;
 
-public class TeamMember {
+public class TeamMember { // Eren
 	final String name;
 	final String password;
 
 	public TeamMember(String name, String password) {
-		super();
 		this.name = name;
 		this.password = password;
 	}
 
 	public TeamMember(String name) {
-		super();
 		this.name = name;
 		this.password = null;
 	}
 
+	public boolean equals(Object x) {
+		return (x instanceof TeamMember) && ((TeamMember) x).name.equals(name)
+				&& ((TeamMember) x).password.equals(password);
+	}
 }

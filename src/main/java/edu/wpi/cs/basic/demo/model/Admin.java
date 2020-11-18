@@ -3,9 +3,12 @@ package edu.wpi.cs.basic.demo.model;
 import java.time.DayOfWeek;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
-public class Admin extends TeamMember {
+import edu.wpi.cs.basic.demo.db.ChoiceDatabaseHandler;
 
+public class Admin extends TeamMember { //Eren
+	
 	public Admin() {
 		super("ADMIN");
 	}
@@ -25,6 +28,11 @@ public class Admin extends TeamMember {
 			}
 		}
 		return reportOutput;
+	}
+	
+	boolean deleteChoice(int daysOld, List<Choice> choices) {
+		return false;
+		
 	}
 
 }
