@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Choice {
-	public final String uniqueID = "";
+	public String uniqueID = "";
 	ArrayList<AlternativeChoice> alternativeChoices = new ArrayList<AlternativeChoice>();
 	ArrayList<TeamMember> participatingMembers = new ArrayList<TeamMember>();
 	String description;
