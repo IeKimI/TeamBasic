@@ -1,5 +1,82 @@
 package edu.wpi.cs.basic.demo.http;
 
+import java.sql.Date;
+import java.util.ArrayList;
+
+import edu.wpi.cs.basic.demo.model.AlternativeChoice;
+import edu.wpi.cs.basic.demo.model.TeamMember;
+
 public class CreateChoiceRequest {
 // eri 
+	public String uniqueID;
+	ArrayList<AlternativeChoice> alternativeChoices = new ArrayList<AlternativeChoice>();
+	ArrayList<TeamMember> participatingMembers = new ArrayList<TeamMember>();
+	String description;
+	Date dayOfCompletion;
+	float daysOld;
+	boolean isCompleted;
+	
+	public String getUniqueID() {
+		return uniqueID;
+	}
+	public void setUniqueID(String uniqueID) {
+		this.uniqueID = uniqueID;
+	}
+	
+	public ArrayList<AlternativeChoice> getAlternativeChoices() {
+		return alternativeChoices;
+	}
+	public void setAlternativeChoices(ArrayList<AlternativeChoice> alternativeChoices) {
+		this.alternativeChoices = alternativeChoices;
+	}
+	
+	public ArrayList<TeamMember> getParticipatingMembers() {
+		return participatingMembers;
+	}
+	public void setParticipatingMembers(ArrayList<TeamMember> participatingMembers) {
+		this.participatingMembers = participatingMembers;
+	}
+	
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+	public Date getDayOfCompletion() {
+		return dayOfCompletion;
+	}
+	public void setDayOfCompletion(Date dayOfCompletion) {
+		this.dayOfCompletion = dayOfCompletion;
+	}
+	
+	public float getDaysOld() {
+		return daysOld;
+	}
+	public void setDaysOld(float daysOld) {
+		this.daysOld = daysOld;
+	}
+	
+	public boolean isCompleted() {
+		return isCompleted;
+	}
+	public void setCompleted(boolean isCompleted) {
+		this.isCompleted = isCompleted;
+	}
+	
+	public CreateChoiceRequest(String uniqueID, ArrayList<AlternativeChoice> alternativeChoices,
+			ArrayList<TeamMember> participatingMembers, String description, Date dayOfCompletion, float daysOld,
+			boolean isCompleted) {
+		super();
+		this.uniqueID = uniqueID;
+		this.alternativeChoices = alternativeChoices;
+		this.participatingMembers = participatingMembers;
+		this.description = description;
+		this.dayOfCompletion = dayOfCompletion;
+		this.daysOld = daysOld;
+		this.isCompleted = isCompleted;
+	}
+	
+	
 }
