@@ -11,7 +11,26 @@ import edu.wpi.cs.basic.demo.model.AlternativeChoice;
 import edu.wpi.cs.basic.demo.model.Choice;
 import edu.wpi.cs.basic.demo.model.TeamMember;
 
+/**
+ * create table `choice` ( 
+`uniqueID` VARCHAR(64) not null default, 
+`description` VARCHAR(64) not null default, 
 
+‘maxNumOfteamMembers’ INT, 
+
+‘chosenAlternativeID’ VARCHAR(64), 
+
+‘isCompleted’ BOOLEAN, 
+
+‘dateOfCompletion’ DATE, 
+
+'dateOfCreation’ DATE, 
+primary key (`uniqueID`) 
+
+) engine=MyISAM default charset=latin1; 
+ * @author eri
+ *
+ */
 public class ChoiceDAO {
 
 java.sql.Connection conn;
@@ -65,8 +84,8 @@ java.sql.Connection conn;
     
     public boolean deleteChoice(Choice Choice) throws Exception {
         try {
-            PreparedStatement ps = conn.prepareStatement("DELETE FROM " + tblName + " WHERE name = ?;");
-            ps.setString(1, Choice.name);
+            PreparedStatement ps = conn.prepareStatement("DELETE FROM " + tblName + " WHERE uniqueID = ?;");
+            ps.setString(1, Choice.uniqueID);
             int numAffected = ps.executeUpdate();
             ps.close();
             
@@ -80,7 +99,7 @@ java.sql.Connection conn;
 
     public boolean addChoice(Choice Choice) throws Exception {
         try {
-            PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE name = ?;");
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE uniqueID = ?;");
             ps.setString(1, Choice.uniqueID);
             ResultSet resultSet = ps.executeQuery();
             
@@ -125,13 +144,13 @@ java.sql.Connection conn;
     
     private Choice generateChoice(ResultSet resultSet) throws Exception {
         String uniqueID  = resultSet.getString("name");
-        ArrayList<AlternativeChoice> alternativeChoices;
+        String alternativeID = resultSet.getString("alternativeChoice");
 		ArrayList<TeamMember> participatingMembers;
-		String description;
-		Date dayOfCompletion;
-		float daysOld;
-		boolean isCompleted;
-		return new Choice(uniqueID, alternativeChoices, participatingMembers, description, dayOfCompletion, daysOld,
+		String description = resultSet.getString("description");
+		Date dayOfCompletion = resultSet.getDate("dayOfCompletion");
+		float daysOld = resultSet.getFloat("daysOld");
+		boolean isCompleted = resultSet.getBoolean("isCompleted");
+		return new Choice(uniqueID, alternativeID, participatingMembers, description, dayOfCompletion, daysOld,
 				isCompleted);
     }
 }
