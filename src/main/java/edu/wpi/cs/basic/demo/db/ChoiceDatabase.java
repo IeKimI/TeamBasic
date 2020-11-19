@@ -3,27 +3,22 @@ package edu.wpi.cs.basic.demo.db;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import javax.sql.rowset.serial.SerialArray;
 
 import edu.wpi.cs.basic.demo.model.AlternativeChoice;
 import edu.wpi.cs.basic.demo.model.Choice;
 import edu.wpi.cs.basic.demo.model.TeamMember;
 
 /**
- * `uniqueID` VARCHAR(64) not null default, 
-`description` VARCHAR(64) not null default, 
-
-‘maxNumOfteamMembers’ INT, 
-
-‘chosenAlternativeID’ VARCHAR(64), 
-
-‘isCompleted’ BOOLEAN, 
-
-‘dateOfCompletion’ DATE, 
-
-'dateOfCreation’ DATE, 
-
+ * String uniqueID, ArrayList<AlternativeChoice> alternativeChoices,
+ * ArrayList<TeamMember> participatingMembers, String description, Date
+ * dayOfCompletion, float daysOld, boolean isCompleted
+ * 
+ * @author eri
+ *
  */
-
 public class ChoiceDatabase {
 
 	java.sql.Connection conn;
@@ -93,12 +88,147 @@ public class ChoiceDatabase {
 					+ " (uniqueID, alternativeChoices, participatingMembers, description, dayOfCompletion, daysOld, isCompleted) values(?,?,?,?,?,?,?);");
 			ps.setString(1, choice.uniqueID);
 //			ps.setDouble(2, choice.value);
-			ps.setArray(2, (Array) choice.getAlternativeChoices());
-			ps.setArray(3, (Array) choice.getParticipatingMembers()); 
+			
+			Array alternativeChoicesArray = new Array() {
+				Choice clone = choice;
+				@Override
+				public void free() throws SQLException {
+					// TODO Auto-generated method stub
+
+				}
+
+				@Override
+				public Object getArray() throws SQLException {
+					return clone.getAlternativeChoices().toArray();
+				}
+
+				@Override
+				public Object getArray(Map<String, Class<?>> arg0) throws SQLException {
+					return clone.getAlternativeChoices().toArray();
+				}
+
+				@Override
+				public Object getArray(long arg0, int arg1) throws SQLException {
+					return clone.getAlternativeChoices().toArray();
+				}
+
+				@Override
+				public Object getArray(long arg0, int arg1, Map<String, Class<?>> arg2) throws SQLException {
+					return clone.getAlternativeChoices().toArray();
+				}
+
+				@Override
+				public int getBaseType() throws SQLException {
+					// TODO Auto-generated method stub
+					return 0;
+				}
+
+				@Override
+				public String getBaseTypeName() throws SQLException {
+					// TODO Auto-generated method stub
+					return null;
+				}
+
+				@Override
+				public ResultSet getResultSet() throws SQLException {
+					// TODO Auto-generated method stub
+					return null;
+				}
+
+				@Override
+				public ResultSet getResultSet(Map<String, Class<?>> arg0) throws SQLException {
+					// TODO Auto-generated method stub
+					return null;
+				}
+
+				@Override
+				public ResultSet getResultSet(long arg0, int arg1) throws SQLException {
+					// TODO Auto-generated method stub
+					return null;
+				}
+
+				@Override
+				public ResultSet getResultSet(long arg0, int arg1, Map<String, Class<?>> arg2) throws SQLException {
+					// TODO Auto-generated method stub
+					return null;
+				}
+
+			};
+			Array participatingMembersArray = new Array() {
+				Choice clone = choice;
+				@Override
+				public void free() throws SQLException {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public Object getArray() throws SQLException {
+					// TODO Auto-generated method stub
+					return  clone.getParticipatingMembers();
+				}
+
+				@Override
+				public Object getArray(Map<String, Class<?>> map) throws SQLException {
+					// TODO Auto-generated method stub
+					return  clone.getParticipatingMembers();
+				}
+
+				@Override
+				public Object getArray(long index, int count) throws SQLException {
+					// TODO Auto-generated method stub
+					return  clone.getParticipatingMembers();
+				}
+
+				@Override
+				public Object getArray(long index, int count, Map<String, Class<?>> map) throws SQLException {
+					// TODO Auto-generated method stub
+					return  clone.getParticipatingMembers();
+				}
+
+				@Override
+				public int getBaseType() throws SQLException {
+					// TODO Auto-generated method stub
+					return 0;
+				}
+
+				@Override
+				public String getBaseTypeName() throws SQLException {
+					// TODO Auto-generated method stub
+					return null;
+				}
+
+				@Override
+				public ResultSet getResultSet() throws SQLException {
+					// TODO Auto-generated method stub
+					return null;
+				}
+
+				@Override
+				public ResultSet getResultSet(Map<String, Class<?>> map) throws SQLException {
+					// TODO Auto-generated method stub
+					return null;
+				}
+
+				@Override
+				public ResultSet getResultSet(long index, int count) throws SQLException {
+					// TODO Auto-generated method stub
+					return null;
+				}
+
+				@Override
+				public ResultSet getResultSet(long index, int count, Map<String, Class<?>> map) throws SQLException {
+					// TODO Auto-generated method stub
+					return null;
+				}
+				
+			};
+			ps.setArray(2, alternativeChoicesArray);
+			ps.setArray(3, participatingMembersArray);
 			ps.setString(4, choice.getDescription());
 			ps.setDate(5, choice.getDayOfCompletion());
 			ps.setFloat(6, choice.getDaysOld());
-			ps.setBoolean(7, choice.isComplete());
+			ps.setBoolean(7, choice.isCompleted());
 			ps.execute();
 			return true;
 
@@ -130,8 +260,12 @@ public class ChoiceDatabase {
 
 	private Choice generateConstant(ResultSet resultSet) throws Exception {
 		String uniqueID = resultSet.getString("uniqueID");
-		ArrayList<AlternativeChoice> alternativeChoices = (ArrayList<AlternativeChoice>) resultSet
-				.getArray("alternativeChoices");
+		ArrayList<AlternativeChoice> alternativeChoices = new ArrayList<AlternativeChoice>();
+		Array data= resultSet
+		.getArray("alternativeChoices");
+		for(int i=0;i<data.length;i++) { //Need to find a way to traverse the Array and copy all elements to the ArrayList
+			
+		}
 		ArrayList<TeamMember> participatingMembers = (ArrayList<TeamMember>) resultSet.getArray("participatingMembers");
 		String description = resultSet.getString("description");
 		Date dayOfCompletion = resultSet.getDate("dayOfCompletion");
