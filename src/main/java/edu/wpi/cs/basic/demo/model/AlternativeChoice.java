@@ -20,21 +20,6 @@ public class AlternativeChoice {
 		this.description = description;
 	}
 	
-	public AlternativeChoice() {
-		
-	}
-	
-	boolean flipApproval() {
-		
-		return false;
-		
-	}
-	
-	boolean flipDisapproval() {
-		return false;
-		
-	}
-	
 	Feedback createFeedback() {
 		return null;
 		

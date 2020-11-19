@@ -59,7 +59,7 @@ paths:
           description: invalid input, object invalid
         409:
           description: an existing item already exists
-    put:
+    delete:
       tags:
       - admins
       summary: deletes a list of Choices
@@ -70,7 +70,7 @@ paths:
       - application/json
       parameters:
       - in: body
-        name: Choice
+        name: daysOld
         description: Choice to create
         schema:
           $ref: '#/definitions/Choice'
@@ -126,7 +126,7 @@ paths:
           description: Completed the Choice
         400:
           description: invalid input, object invalid
-  /alternativeChoice:
+  /alternativeChoice/{choiceID}:
     get:
       tags:
       - teamMembers
@@ -136,6 +136,11 @@ paths:
         You can get alternatives
       produces:
       - application/json
+      parameters:
+        - name: choiceID
+          in: path
+          required: true
+          type: string
       responses:
         200:
           description: search results matching criteria
@@ -157,6 +162,10 @@ paths:
       produces:
       - application/json
       parameters:
+      - name: choiceID
+        in: path
+        required: true
+        type: string
       - in: body
         name: Alternative
         description: Vote an altnertive passed in
@@ -167,7 +176,124 @@ paths:
           description: Alternative updated
         400:
           description: invalid input, object invalid
-      
+  /approval: 
+    get: 
+      tags: 
+      - teamMembers 
+      summary: get the approval with the list of members 
+      operationId: getApproval 
+      description: | 
+        You can get an approval 
+      produces: 
+      - application/json 
+      responses: 
+        200: 
+          description: search results matching criteria 
+        400: 
+          description: bad input parameter 
+    post: 
+      tags: 
+      - teamMembers 
+      summary: upvote 
+      operationId: approveAlternative 
+      description: Upvote an alternative 
+      consumes: 
+      - application/json 
+      produces: 
+      - application/json 
+      parameters: 
+      - in: body 
+        name: Alternative 
+        description: Upvote an altnertive passed in 
+        schema: 
+          $ref: '#/definitions/Approval' 
+      responses: 
+        200: 
+          description: Approval created 
+        400: 
+          description: invalid input, object invalid 
+    put: 
+      tags: 
+      - teamMembers 
+      summary: flip the approval state 
+      operationId: flipApproval 
+      description: flip the approval 
+      consumes: 
+      - application/json 
+      produces: 
+      - application/json 
+      parameters: 
+      - in: body 
+        name: teamMember 
+        description: Takes in the team member and remove or add it to the list 
+        schema: 
+          $ref: '#/definitions/Approval' 
+      responses: 
+        200: 
+          description: Approval fliped 
+        400: 
+          description: invalid input, object invalid 
+  /disapproval: 
+    get: 
+      tags: 
+      - teamMembers 
+      summary: get the disapproval with the list of members 
+      operationId: getDisapproval 
+      description: | 
+        You can get an disapproval 
+      produces:
+      - application/json 
+      responses: 
+        200: 
+          description: search results matching criteria 
+          schema: 
+            type: array 
+            items: 
+              $ref: '#/definitions/Disapproval' 
+        400: 
+          description: bad input parameter 
+    post: 
+      tags: 
+      - teamMembers 
+      summary: downvote 
+      operationId: disapproveAlternative 
+      description: Downvote an alternative 
+      consumes: 
+      - application/json 
+      produces: 
+      - application/json 
+      parameters: 
+      - in: body 
+        name: Alternative 
+        description: Downvote an altnertive passed in 
+        schema: 
+          $ref: '#/definitions/Disapproval' 
+      responses: 
+        200: 
+          description: Approval created 
+        400: 
+          description: invalid input, object invalid 
+    put: 
+      tags: 
+      - teamMembers 
+      summary: flip the disapproval state 
+      operationId: flipDisapproval 
+      description: flip the disapproval 
+      consumes: 
+      - application/json 
+      produces: 
+      - application/json 
+      parameters: 
+      - in: body 
+        name: teamMember 
+        description: Takes in the team member and remove or add it to the list 
+        schema: 
+          $ref: '#/definitions/Disapproval' 
+      responses: 
+        200: 
+          description: Disapproval fliped 
+        400: 
+          description: invalid input, object invalid 
   /feedback:
     post:
       tags:
@@ -264,6 +390,30 @@ definitions:
           type: object
       isSelected:
         type: boolean
+  Approval: 
+    type: object 
+    required: 
+    - teamMembers 
+    - numOfApprovals 
+    properties: 
+      teamMembers: 
+        type: array 
+        items: 
+          type: object 
+      numOfApprovals: 
+        type: integer 
+  Disapproval: 
+    type: object 
+    required: 
+    - teamMembers 
+    - numOfDisapprovals 
+    properties: 
+      teamMembers: 
+        type: array 
+        items: 
+          type: object 
+      numOfApprovals: 
+        type: integer 
   Feedback:
     type: object
     required:

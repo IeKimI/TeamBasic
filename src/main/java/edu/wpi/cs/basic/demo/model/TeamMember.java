@@ -18,4 +18,26 @@ public class TeamMember { // Eren
 		return (x instanceof TeamMember) && ((TeamMember) x).name.equals(name)
 				&& ((TeamMember) x).password.equals(password);
 	}
+
+	boolean flipApproval(AlternativeChoice alt) {
+		alt.disapprovals.remove(this);
+		if (alt.approvals.contains(this)) {
+			alt.approvals.remove(this);
+			return false;
+		} else {
+			return alt.approvals.add(this);
+		}
+
+	}
+
+	boolean flipDisapproval(AlternativeChoice alt) {
+		alt.approvals.remove(this);
+		if (alt.disapprovals.contains(this)) {
+			alt.disapprovals.remove(this);
+			return false;
+		} else {
+			return alt.disapprovals.add(this);
+		}
+	}
+
 }
