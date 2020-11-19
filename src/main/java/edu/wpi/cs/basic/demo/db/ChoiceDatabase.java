@@ -94,7 +94,7 @@ public class ChoiceDatabase {
 			ps.setString(1, choice.uniqueID);
 //			ps.setDouble(2, choice.value);
 			ps.setArray(2, (Array) choice.getAlternativeChoices());
-			ps.setArray(3, (Array) choice.getParticipatingMembers());
+			ps.setArray(3, (Array) choice.getParticipatingMembers()); 
 			ps.setString(4, choice.getDescription());
 			ps.setDate(5, choice.getDayOfCompletion());
 			ps.setFloat(6, choice.getDaysOld());
