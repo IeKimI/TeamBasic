@@ -12,7 +12,7 @@ public class Choice {
 	Date dayOfCompletion;
 	float daysOld;
 	boolean isCompleted;
-	AlternativeChoice chosenAlternative; //remember to implement this into the constructor
+	AlternativeChoice chosenAlternative = null; 
 
 	public Choice(String uniqueID, ArrayList<AlternativeChoice> alternativeChoices,
 			ArrayList<TeamMember> participatingMembers, String description, Date dayOfCompletion, float daysOld,
@@ -24,9 +24,7 @@ public class Choice {
 		this.description = description;
 		this.dayOfCompletion = dayOfCompletion;
 		this.daysOld = daysOld;
-		this.isCompleted = isCompleted;
-
-		
+		this.isCompleted = isCompleted;	
 	}
 	
 
@@ -70,9 +68,6 @@ public class Choice {
 		this.daysOld = daysOld;
 	}
 
-	public boolean isCompleted() {
-		return isCompleted;
-	}
 
 	public void setCompleted(boolean isCompleted) {
 		this.isCompleted = isCompleted;
@@ -81,13 +76,29 @@ public class Choice {
 	public String getUniqueID() {
 		return uniqueID;
 	}
-
-	public String getReport(TeamMember member) {
-		return null;
+	
+	public AlternativeChoice getChosenAlternative() {
+		return this.chosenAlternative;
+	}
+	
+	public void setChosenAlternative(AlternativeChoice alternativeChoice) {
+		if(this.alternativeChoices.contains(alternativeChoice) || alternativeChoice == null) {
+			this.chosenAlternative = alternativeChoice;
+		}
+		else {
+			//must display error message;
+		}
 	}
 
+//	public String getReport(TeamMember member) {
+//		String reportOutput = "";
+//		reportOutput += "Report on Team Member"+ member.name + "";
+//		return reportOutput;
+//	}
+
 	public boolean completeChoice(Choice choice) {
-		return false;
+		choice.setCompleted(true);
+		return choice.isComplete();
 	}
 
 	public boolean isComplete() {
