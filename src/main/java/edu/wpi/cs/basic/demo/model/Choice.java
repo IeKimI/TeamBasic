@@ -17,7 +17,6 @@ public class Choice {
 	public Choice(String uniqueID, ArrayList<AlternativeChoice> alternativeChoices,
 			ArrayList<TeamMember> participatingMembers, String description, Date dayOfCompletion, float daysOld,
 			boolean isCompleted) {
-		super();
 		this.uniqueID = uniqueID;
 		this.alternativeChoices = alternativeChoices;
 		this.participatingMembers = participatingMembers;
