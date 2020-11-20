@@ -3,6 +3,7 @@ package edu.wpi.cs.basic.demo.db;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import edu.wpi.cs.basic.demo.model.AlternativeChoice;
@@ -15,7 +16,7 @@ public class FeedbackDAO {
 
 	final static String tblName = "AlternativeChoices"; // Exact capitalization
 
-	public ApprovalDAO() {
+	public FeedbackDAO() {
 		try {
 			conn = DatabaseUtil.connect();
 		} catch (Exception e) {
@@ -128,27 +129,38 @@ public class FeedbackDAO {
 
 	Feedback generateFeedback(ResultSet resultSet) throws Exception {
 		String alternativeID = resultSet.getString("alternativeID");
-		
-		ArrayList<TeamMembers> = ApprovalDAO.getApprovals(alternativeID);
-		
-		String choiceID = resultSet.getString("choiceID");
-		String description = resultSet.getString("description");
+		String feedbackID = resultSet.getString("feedbackID");
+		String teamMemberName = resultSet.getString("teamMemberName");
+		Timestamp timestamp = resultSet.getTimestamp("timestamp");
+		String text = resultSet.getString("text");
 
-	
+		// passing in feedbackID?
+		ArrayList<TeamMember> teamMembers = TeamMemberDAO.getAllTeamMembers(feedbackID);
+
 //		AlternativeChoice databaseInquery= 
-		return new AlternativeChoice(alternativeID, choiceID, description);
-	/**
-	 * 	
-create table `approval` ( 
-`teamMemberName` VARCHAR(64), 
-
-‘alternativeID’ VARCHAR(64), 
-primary key (`teamMemberName`) 
-
-) engine=MyISAM default charset=latin1; 
-	}
-
-	 */
+		return new Feedback(timestamp, text, teamMembers);
+		/**
+		 * 
+		 * public Feedback(String timeS, String txt, ArrayList<TeamMember> users) {
+		 * super(); this.timeStamp=timeS; this.text=txt; this.users=users;
+		 * 
+		 * 
+		 * }
+		 * 
+		 * create table `feedback` (
+		 * 
+		 * ‘feedbackID’ VARCHAR(64) not null default,
+		 * 
+		 * ‘alternativeID’, VARCHAR(64) not null default,
+		 * 
+		 * ‘teamMemberName’ VARCHAR(64) not null default,
+		 * 
+		 * `timestamp` TIMESTAMP(), `text` VARCHAR(64),
+		 * 
+		 * primary key (`feedbackID`)
+		 * 
+		 * ) engine=MyISAM default charset=latin1;
+		 */
 	}
 
 }

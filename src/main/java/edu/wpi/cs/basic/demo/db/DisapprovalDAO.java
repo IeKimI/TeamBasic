@@ -126,7 +126,7 @@ public class DisapprovalDAO {
 		}
 	}
 
-	Approval generateApprovals(ResultSet resultSet) throws Exception {
+	Disapproval generateApprovals(ResultSet resultSet) throws Exception {
 		String alternativeID = resultSet.getString("alternativeID");
 		
 		ArrayList<TeamMembers> = ApprovalDAO.getApprovals(alternativeID);
