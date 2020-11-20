@@ -13,7 +13,7 @@ public class Choice {
 	float daysOld;
 	boolean isCompleted;
 	AlternativeChoice chosenAlternative = null; 
-
+	
 	public Choice(String uniqueID, ArrayList<AlternativeChoice> alternativeChoices,
 			ArrayList<TeamMember> participatingMembers, String description, Date dayOfCompletion, float daysOld,
 			boolean isCompleted) {
