@@ -28,7 +28,7 @@ import edu.wpi.cs.basic.demo.model.TeamMember;
 primary key (`uniqueID`) 
 
 ) engine=MyISAM default charset=latin1; 
- * @author eri
+ * @author teamBasic
  *
  */
 public class ChoiceDAO {
@@ -156,7 +156,8 @@ java.sql.Connection conn;
 		Date dayOfCompletion = resultSet.getDate("dayOfCompletion");
 		float daysOld = resultSet.getFloat("daysOld");
 		boolean isCompleted = resultSet.getBoolean("isCompleted");
-		return new Choice(uniqueID, alternativeID, participatingMembers, description, dayOfCompletion, daysOld,
+		AlternativeChoice databaseInquery= 
+		return new Choice(uniqueID, alternativeChoice, participatingMembers, description, dayOfCompletion, daysOld,
 				isCompleted);
     }
 }
