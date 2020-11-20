@@ -15,6 +15,7 @@ public class Choice {
 	boolean isCompleted;
 	Date dateOfCompletion;
 	Date dateOfCreation;
+	//test
 	
 	
 	public Choice(String uniqueID, ArrayList<AlternativeChoice> alternativeChoices,
