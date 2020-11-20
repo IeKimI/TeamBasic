@@ -9,24 +9,23 @@ import java.util.List;
 
 import edu.wpi.cs.basic.demo.model.AlternativeChoice;
 import edu.wpi.cs.basic.demo.model.Choice;
+import edu.wpi.cs.basic.demo.model.Feedback;
 import edu.wpi.cs.basic.demo.model.TeamMember;
 
 /**
-create table `alternativeChoice` ( 
-`alternativeID` VARCHAR(64) not null default, 
-`choiceID` VARCHAR(64) not null default,  
-
-`description` VARCHAR(64), 
-primary key (`alternativeID`) 
-
-) engine=MyISAM default charset=latin1; 
+ * create table `alternativeChoice` ( `alternativeID` VARCHAR(64) not null
+ * default, `choiceID` VARCHAR(64) not null default,
+ * 
+ * `description` VARCHAR(64), primary key (`alternativeID`)
+ * 
+ * ) engine=MyISAM default charset=latin1;
  *
  */
 public class AlternativeChoiceDAO {
 
 	static java.sql.Connection conn;
 
-	final String tblName = "AlternativeChoices"; // Exact capitalization
+	final static String tblName = "AlternativeChoices"; // Exact capitalization
 
 	public AlternativeChoiceDAO() {
 		try {
@@ -40,8 +39,8 @@ public class AlternativeChoiceDAO {
 
 		try {
 			AlternativeChoice alternativeChoice = null;
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE uniqueID=?;");
-			ps.setString(1, uniqueID);
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE alternativeID=?;");
+			ps.setString(1, alternativeChoice.getAlternativeID());
 			ResultSet resultSet = ps.executeQuery();
 
 			while (resultSet.next()) {
@@ -140,33 +139,25 @@ public class AlternativeChoiceDAO {
 	}
 
 	AlternativeChoice generateAltnerativeChoice(ResultSet resultSet) throws Exception {
-		String uniqueID = resultSet.getString("name");
-		String alternativeID = resultSet.getString("alternativeChoice");
-		ArrayList<AlternativeChoice> alternativeChoices = AlternativeChoiceDatabase.getAllAlternatives(uniqueID);
-		ArrayList<TeamMember> participatingMembers = TeamMemberDAO.getAllTeamMembers(uniqueID);
+		String alternativeID = resultSet.getString("alternativeID");
+		String choiceID = resultSet.getString("choiceID");
 		String description = resultSet.getString("description");
-		Date dayOfCompletion = resultSet.getDate("dayOfCompletion");
-		Date dayOfCreation = resultSet.getDate("dayOfCreation");
 
-//		float daysOld = resultSet.getFloat("daysOld");
-		boolean isCompleted = resultSet.getBoolean("isCompleted");
-		int maxNumOfTeamMembers = participatingMembers.size();
-		
+	
 //		AlternativeChoice databaseInquery= 
-		return new Choice(uniqueID, alternativeChoices, participatingMembers, description, dayOfCompletion, dayOfCreation,
-				isCompleted, maxNumOfTeamMembers);
-		/**
-		 * 	public Choice(String uniqueID, ArrayList<AlternativeChoice> alternativeChoices,
-			ArrayList<TeamMember> participatingMembers, String description, Date dateOfCompletion, Date dateOfCreation,
-			boolean isCompleted) {
-		this.uniqueID = uniqueID;
-		this.alternativeChoices = alternativeChoices;
-		this.participatingMembers = participatingMembers;
+		return new AlternativeChoice(alternativeID, choiceID, description);
+	/**
+	 * 	public AlternativeChoice(ArrayList<TeamMember> approvals, ArrayList<TeamMember> disapprovals,
+			ArrayList<Feedback> feedback, String description, String alternativeID, String choiceID) {
+		super();
+		this.approvals = approvals;
+		this.disapprovals = disapprovals;
+		this.feedback = feedback;
 		this.description = description;
-		this.dateOfCompletion = dateOfCompletion;
-		this.dateOfCreation = dateOfCreation;
-		this.isCompleted = isCompleted;
+		this.alternativeID = alternativeID;
+		this.choiceID = choiceID;
 	}
-		 */
+
+	 */
 	}
 }
