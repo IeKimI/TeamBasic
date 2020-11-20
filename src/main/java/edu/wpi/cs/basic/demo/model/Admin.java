@@ -24,7 +24,7 @@ public class Admin extends TeamMember { //Eren
 				reportOutput += "Uncomplete";
 			} else {
 				reportOutput += "Complete";
-				reportOutput += "\n\tDay Of Completion: " + temp.dayOfCompletion.toString() + "\n";
+				reportOutput += "\n\tDay Of Completion: " + temp.dateOfCompletion.toString() + "\n";
 			}
 		}
 		return reportOutput;
