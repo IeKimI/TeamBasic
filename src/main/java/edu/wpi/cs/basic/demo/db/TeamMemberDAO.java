@@ -11,32 +11,12 @@ import edu.wpi.cs.basic.demo.model.AlternativeChoice;
 import edu.wpi.cs.basic.demo.model.Choice;
 import edu.wpi.cs.basic.demo.model.TeamMember;
 
-/**
- * create table `choice` ( `uniqueID` VARCHAR(64) not null default,
- * `description` VARCHAR(64) not null default,
- * 
- * ‘maxNumOfteamMembers’ INT,
- * 
- * ‘chosenAlternativeID’ VARCHAR(64),
- * 
- * ‘isCompleted’ BOOLEAN,
- * 
- * ‘dateOfCompletion’ DATE,
- * 
- * 'dateOfCreation’ DATE, primary key (`uniqueID`)
- * 
- * ) engine=MyISAM default charset=latin1;
- * 
- * @author teamBasic
- *
- */
-public class ChoiceDAO {
-
-	java.sql.Connection conn;
+public class TeamMemberDAO {
+	static java.sql.Connection conn;
 
 	final String tblName = "Choices"; // Exact capitalization
 
-	public ChoiceDAO() {
+	public TeamMemberDAO() {
 		try {
 			conn = DatabaseUtil.connect();
 		} catch (Exception e) {
@@ -44,7 +24,7 @@ public class ChoiceDAO {
 		}
 	}
 
-	public Choice getChoice(String uniqueID) throws Exception {
+	public TeamMember getTeamMember(String uniqueID) throws Exception {
 
 		try {
 			Choice choice = null;
@@ -114,8 +94,8 @@ public class ChoiceDAO {
 			ps.setString(2, Choice.getChosenAlternative().getAlternativeID());
 			ps.setInt(3, Choice.getParticipatingMembers().size());
 			ps.setString(4, Choice.getDescription());
-			ps.setDate(5, Choice.getDateOfCompletion());
-			ps.setDate(6, Choice.getDateOfCreation());
+			ps.setDate(5, Choice.getDayOfCompletion());
+			ps.setFloat(6, Choice.getDaysOld());
 			ps.setBoolean(7, Choice.isComplete());
 			ps.execute();
 			return true;
@@ -125,16 +105,16 @@ public class ChoiceDAO {
 		}
 	}
 
-	public List<Choice> getAllChoices() throws Exception {
+	public static ArrayList<TeamMember> getAllTeamMembers(String uniqueID) throws Exception {
 
-		List<Choice> allChoices = new ArrayList<>();
+		ArrayList<TeamMember> allChoices = new ArrayList<>();
 		try {
 			Statement statement = conn.createStatement();
 			String query = "SELECT * FROM " + tblName + ";";
 			ResultSet resultSet = statement.executeQuery(query);
 
 			while (resultSet.next()) {
-				Choice c = generateChoice(resultSet);
+				TeamMember c = generateTeamMember(resultSet);
 				allChoices.add(c);
 			}
 			resultSet.close();
@@ -146,32 +126,18 @@ public class ChoiceDAO {
 		}
 	}
 
-	Choice generateChoice(ResultSet resultSet) throws Exception {
+	TeamMember generateTeamMember(ResultSet resultSet) throws Exception {
 		String uniqueID = resultSet.getString("name");
 		String alternativeID = resultSet.getString("alternativeChoice");
 		ArrayList<AlternativeChoice> alternativeChoices = AlternativeChoiceDatabase.getAllAlternatives(uniqueID);
-		ArrayList<TeamMember> participatingMembers = TeamMemberDAO.getAllTeamMembers(uniqueID);
+		ArrayList<TeamMember> participatingMembers;
 		String description = resultSet.getString("description");
 		Date dayOfCompletion = resultSet.getDate("dayOfCompletion");
-		Date dayOfCreation = resultSet.getDate("dayOfCreation");
-
-//		float daysOld = resultSet.getFloat("daysOld");
+		float daysOld = resultSet.getFloat("daysOld");
 		boolean isCompleted = resultSet.getBoolean("isCompleted");
 //		AlternativeChoice databaseInquery= 
-		return new Choice(uniqueID, alternativeChoices, participatingMembers, description, dayOfCompletion, dayOfCreation,
+		return new Choice(uniqueID, alternativeChoices, participatingMembers, description, dayOfCompletion, daysOld,
 				isCompleted);
-		/**
-		 * 	public Choice(String uniqueID, ArrayList<AlternativeChoice> alternativeChoices,
-			ArrayList<TeamMember> participatingMembers, String description, Date dateOfCompletion, Date dateOfCreation,
-			boolean isCompleted) {
-		this.uniqueID = uniqueID;
-		this.alternativeChoices = alternativeChoices;
-		this.participatingMembers = participatingMembers;
-		this.description = description;
-		this.dateOfCompletion = dateOfCompletion;
-		this.dateOfCreation = dateOfCreation;
-		this.isCompleted = isCompleted;
 	}
-		 */
-	}
+
 }

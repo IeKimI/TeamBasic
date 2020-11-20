@@ -26,7 +26,7 @@ primary key (`alternativeID`)
  */
 public class AlternativeChoiceDatabase {
 
-	java.sql.Connection conn;
+	static java.sql.Connection conn;
 
 	final String tblName = "Alternative Choice"; // Exact capitalization
 
@@ -242,16 +242,16 @@ public class AlternativeChoiceDatabase {
 		}
 	}
 
-	public List<Choice> getAllChoices() throws Exception {
+	public static ArrayList<AlternativeChoice> getAllAlternatives(String uniqueID) throws Exception {
 
-		List<Choice> allChoices = new ArrayList<>();
+		ArrayList<AlternativeChoice> allChoices = new ArrayList<>();
 		try {
 			Statement statement = conn.createStatement();
 			String query = "SELECT * FROM " + tblName + ";";
 			ResultSet resultSet = statement.executeQuery(query);
 
 			while (resultSet.next()) {
-				Choice c = generateConstant(resultSet);
+				AlternativeChoice c = generateAlternativeChoice(resultSet);
 				allChoices.add(c);
 			}
 			resultSet.close();
@@ -263,7 +263,7 @@ public class AlternativeChoiceDatabase {
 		}
 	}
 
-	private Choice generateConstant(ResultSet resultSet) throws Exception {
+	private AlternativeChoice generateAlternativeChoice(ResultSet resultSet) throws Exception {
 		String uniqueID = resultSet.getString("uniqueID");
 		ArrayList<AlternativeChoice> alternativeChoices = new ArrayList<AlternativeChoice>();
 		Array data= resultSet
