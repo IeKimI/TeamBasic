@@ -5,26 +5,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Choice {
-	public String uniqueID = "";
+	
 	ArrayList<AlternativeChoice> alternativeChoices = new ArrayList<AlternativeChoice>();
 	ArrayList<TeamMember> participatingMembers = new ArrayList<TeamMember>();
+	public String uniqueID = "";
+	int maxNumOfTeamMembers;
 	String description;
-	Date dayOfCompletion;
-	float daysOld;
-	boolean isCompleted;
 	AlternativeChoice chosenAlternative = null; 
+	boolean isCompleted;
+	Date dateOfCompletion;
+	Date dateOfCreation;
+	
 	
 	public Choice(String uniqueID, ArrayList<AlternativeChoice> alternativeChoices,
-			ArrayList<TeamMember> participatingMembers, String description, Date dayOfCompletion, float daysOld,
+			ArrayList<TeamMember> participatingMembers, String description, Date dateOfCompletion, Date dateOfCreation,
 			boolean isCompleted) {
 		this.uniqueID = uniqueID;
 		this.alternativeChoices = alternativeChoices;
 		this.participatingMembers = participatingMembers;
 		this.description = description;
-		this.dayOfCompletion = dayOfCompletion;
-		this.daysOld = daysOld;
+		this.dateOfCompletion = dateOfCompletion;
+		this.dateOfCreation = dateOfCreation;
 		this.isCompleted = isCompleted;	
 	}
+	
+	
 	
 
 	public ArrayList<AlternativeChoice> getAlternativeChoices() {
