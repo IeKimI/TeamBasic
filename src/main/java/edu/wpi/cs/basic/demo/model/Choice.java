@@ -22,8 +22,8 @@ public class Choice {
 			boolean isCompleted, int maxNumOfTeamMembers) {
 		this.maxNumOfTeamMembers = maxNumOfTeamMembers;
 		this.uniqueID = uniqueID;
-		this.alternativeChoices = alternativeChoices;
-		this.participatingMembers = participatingMembers;
+		this.setAlternativeChoices(alternativeChoices);
+		this.setParticipatingMembers(participatingMembers);
 		this.description = description;
 		this.dateOfCompletion = dateOfCompletion;
 		this.dateOfCreation = dateOfCreation;
