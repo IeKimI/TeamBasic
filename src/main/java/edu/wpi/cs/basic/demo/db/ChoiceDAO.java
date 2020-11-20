@@ -157,9 +157,11 @@ public class ChoiceDAO {
 
 //		float daysOld = resultSet.getFloat("daysOld");
 		boolean isCompleted = resultSet.getBoolean("isCompleted");
+		int maxNumOfTeamMembers = participatingMembers.size();
+		
 //		AlternativeChoice databaseInquery= 
 		return new Choice(uniqueID, alternativeChoices, participatingMembers, description, dayOfCompletion, dayOfCreation,
-				isCompleted);
+				isCompleted, maxNumOfTeamMembers);
 		/**
 		 * 	public Choice(String uniqueID, ArrayList<AlternativeChoice> alternativeChoices,
 			ArrayList<TeamMember> participatingMembers, String description, Date dateOfCompletion, Date dateOfCreation,
