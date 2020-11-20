@@ -28,6 +28,16 @@ public class Choice {
 		this.dateOfCreation = dateOfCreation;
 		this.isCompleted = isCompleted;
 	}
+	
+	public Choice(String uniqueID) {
+		this.uniqueID = uniqueID;
+		this.alternativeChoices = null;
+		this.participatingMembers = null;
+		this.description = null;
+		this.dateOfCompletion = null;
+		this.dateOfCreation = null;
+		this.isCompleted = false;
+	}
 
 	public ArrayList<AlternativeChoice> getAlternativeChoices() {
 		return alternativeChoices;
