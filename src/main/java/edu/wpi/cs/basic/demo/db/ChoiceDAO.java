@@ -149,7 +149,7 @@ public class ChoiceDAO {
 	Choice generateChoice(ResultSet resultSet) throws Exception {
 		String uniqueID = resultSet.getString("name");
 		String alternativeID = resultSet.getString("alternativeChoice");
-		ArrayList<AlternativeChoice> alternativeChoices = AlternativeChoiceDatabase.getAllAlternatives(uniqueID);
+		ArrayList<AlternativeChoice> alternativeChoices = AlternativeChoiceDAO.getAllAlternatives(uniqueID);
 		ArrayList<TeamMember> participatingMembers = TeamMemberDAO.getAllTeamMembers(uniqueID);
 		String description = resultSet.getString("description");
 		Date dayOfCompletion = resultSet.getDate("dayOfCompletion");
