@@ -5,19 +5,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Choice {
-	
+
 	ArrayList<AlternativeChoice> alternativeChoices = new ArrayList<AlternativeChoice>();
 	ArrayList<TeamMember> participatingMembers = new ArrayList<TeamMember>();
 	public String uniqueID = "";
 	int maxNumOfTeamMembers;
 	String description;
-	AlternativeChoice chosenAlternative = null; 
+	AlternativeChoice chosenAlternative = null;
 	boolean isCompleted;
 	Date dateOfCompletion;
 	Date dateOfCreation;
-	//test
-	
-	
+	// test
+
 	public Choice(String uniqueID, ArrayList<AlternativeChoice> alternativeChoices,
 			ArrayList<TeamMember> participatingMembers, String description, Date dateOfCompletion, Date dateOfCreation,
 			boolean isCompleted) {
@@ -27,11 +26,8 @@ public class Choice {
 		this.description = description;
 		this.dateOfCompletion = dateOfCompletion;
 		this.dateOfCreation = dateOfCreation;
-		this.isCompleted = isCompleted;	
+		this.isCompleted = isCompleted;
 	}
-	
-	
-	
 
 	public ArrayList<AlternativeChoice> getAlternativeChoices() {
 		return alternativeChoices;
@@ -49,6 +45,22 @@ public class Choice {
 		this.participatingMembers = participatingMembers;
 	}
 
+	public String getUniqueID() {
+		return uniqueID;
+	}
+
+	public void setUniqueID(String uniqueID) {
+		this.uniqueID = uniqueID;
+	}
+
+	public int getMaxNumOfTeamMembers() {
+		return maxNumOfTeamMembers;
+	}
+
+	public void setMaxNumOfTeamMembers(int maxNumOfTeamMembers) {
+		this.maxNumOfTeamMembers = maxNumOfTeamMembers;
+	}
+
 	public String getDescription() {
 		return description;
 	}
@@ -57,41 +69,39 @@ public class Choice {
 		this.description = description;
 	}
 
-	public Date getDayOfCompletion() {
-		return dayOfCompletion;
+	public boolean isCompleted() {
+		return isCompleted;
 	}
-
-	public void setDayOfCompletion(Date dayOfCompletion) {
-		this.dayOfCompletion = dayOfCompletion;
-	}
-
-	public float getDaysOld() {
-		return daysOld;
-	}
-
-	public void setDaysOld(float daysOld) {
-		this.daysOld = daysOld;
-	}
-
 
 	public void setCompleted(boolean isCompleted) {
 		this.isCompleted = isCompleted;
 	}
 
-	public String getUniqueID() {
-		return uniqueID;
+	public Date getDateOfCompletion() {
+		return dateOfCompletion;
 	}
-	
+
+	public void setDateOfCompletion(Date dateOfCompletion) {
+		this.dateOfCompletion = dateOfCompletion;
+	}
+
+	public Date getDateOfCreation() {
+		return dateOfCreation;
+	}
+
+	public void setDateOfCreation(Date dateOfCreation) {
+		this.dateOfCreation = dateOfCreation;
+	}
+
 	public AlternativeChoice getChosenAlternative() {
-		return this.chosenAlternative;
+		return chosenAlternative;
 	}
-	
+
 	public void setChosenAlternative(AlternativeChoice alternativeChoice) {
-		if(this.alternativeChoices.contains(alternativeChoice) || alternativeChoice == null) {
+		if (this.alternativeChoices.contains(alternativeChoice) || alternativeChoice == null) {
 			this.chosenAlternative = alternativeChoice;
-		}
-		else {
-			//must display error message;
+		} else {
+			// must display error message;
 		}
 	}
 
