@@ -152,6 +152,7 @@ public class TeamMemberDAO {
 		String choiceID = resultSet.getString("choiceID");
 		
 		return new TeamMember(name, password, choiceID);
+
 	}
 
 
