@@ -116,9 +116,9 @@ java.sql.Connection conn;
             ps.setString(2,  Choice.getChosenAlternative().getAlternativeID());
             ps.setInt(3, Choice.getParticipatingMembers().size());
             ps.setString(4, Choice.getDescription());
-            ps.setDate(4,  Choice.getDayOfCompletion());
-            ps.setFloat(5, Choice.getDaysOld());
-            ps.setBoolean(6, Choice.isComplete());
+            ps.setDate(5,  Choice.getDayOfCompletion());
+            ps.setFloat(6, Choice.getDaysOld());
+            ps.setBoolean(7, Choice.isComplete());
             ps.execute();
             return true;
 
