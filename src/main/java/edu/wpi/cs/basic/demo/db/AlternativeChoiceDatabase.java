@@ -38,12 +38,12 @@ public class AlternativeChoiceDatabase {
 		}
 	}
 
-	public AlternativeChoice getAlternativeChoice(String uniqueID) throws Exception {
+	public AlternativeChoice getAlternativeChoice(String alternativeID) throws Exception {
 
 		try {
 			AlternativeChoice altchoice = null;
 			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE uniqueID=?;");
-			ps.setString(1, ulternativeID);
+			ps.setString(1, alternativeID);
 			ResultSet resultSet = ps.executeQuery();
 
 			while (resultSet.next()) {
@@ -60,10 +60,10 @@ public class AlternativeChoiceDatabase {
 		}
 	}
 
-	public boolean deleteConstant(Choice choice) throws Exception {
+	public boolean deleteConstant(AlternativeChoice altchoice) throws Exception {
 		try {
 			PreparedStatement ps = conn.prepareStatement("DELETE FROM " + tblName + " WHERE uniqueID = ?;");
-			ps.setString(1, choice.uniqueID);
+			ps.setString(1, altchoice.alternativeID);
 			int numAffected = ps.executeUpdate();
 			ps.close();
 
@@ -74,15 +74,15 @@ public class AlternativeChoiceDatabase {
 		}
 	}
 
-	public boolean addChoice(Choice choice) throws Exception {
+	public boolean addAlternativeChoice(AlternativeChoice altchoice) throws Exception {
 		try {
 			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE uniqueID = ?;");
-			ps.setString(1, choice.uniqueID);
+			ps.setString(1, altchoice.alternativeID);
 			ResultSet resultSet = ps.executeQuery();
 
 			// already present?
 			while (resultSet.next()) {
-				Choice c = generateConstant(resultSet);
+				AlternativeChoice ac = generateConstant(resultSet);
 				resultSet.close();
 				return false;
 			}
@@ -91,11 +91,11 @@ public class AlternativeChoiceDatabase {
 			// VALUES (value1, value2, value3, ...);
 			ps = conn.prepareStatement("INSERT INTO " + tblName
 					+ " (uniqueID, alternativeChoices, participatingMembers, description, dayOfCompletion, daysOld, isCompleted) values(?,?,?,?,?,?,?);");
-			ps.setString(1, choice.uniqueID);
+			ps.setString(1, altchoice.alternativeID);
 //			ps.setDouble(2, choice.value);
 			
 			Array alternativeChoicesArray = new Array() {
-				Choice clone = choice;
+				AlternativeChoice clone = altchoice;
 				@Override
 				public void free() throws SQLException {
 					// TODO Auto-generated method stub
@@ -160,7 +160,7 @@ public class AlternativeChoiceDatabase {
 
 			};
 			Array participatingMembersArray = new Array() {
-				Choice clone = choice;
+				Choice clone = altchoice;
 				@Override
 				public void free() throws SQLException {
 					// TODO Auto-generated method stub
@@ -228,42 +228,60 @@ public class AlternativeChoiceDatabase {
 				}
 				
 			};
-			ps.setArray(2, alternativeChoicesArray);
-			ps.setArray(3, participatingMembersArray);
-			ps.setString(4, choice.getDescription());
-			ps.setDate(5, choice.getDayOfCompletion());
-			ps.setFloat(6, choice.getDaysOld());
-			ps.setBoolean(7, choice.isCompleted());
-			ps.execute();
-			return true;
+//			FIX THIS
+//			ps.setArray(2, alternativeChoicesArray);
+//			ps.setArray(3, participatingMembersArray);
+//			ps.setString(4, altchoice.getDescription());
+//			ps.setDate(5, altchoice.getDayOfCompletion());
+//			ps.setFloat(6, altchoice.getDaysOld());
+//			ps.setBoolean(7, altchoice.isCompleted());
+//			ps.execute();
+//			return true;
 
 		} catch (Exception e) {
 			throw new Exception("Failed to insert constant: " + e.getMessage());
 		}
 	}
 
+<<<<<<< HEAD
 	public static ArrayList<AlternativeChoice> getAllAlternatives(String uniqueID) throws Exception {
+=======
+	public List<AlternativeChoice> getAllAlternativeChoices() throws Exception {
+>>>>>>> branch 'master' of https://github.com/IeKimI/TeamBasic.git
 
+<<<<<<< HEAD
 		ArrayList<AlternativeChoice> allChoices = new ArrayList<>();
+=======
+		List<AlternativeChoice> allAlternativeChoices = new ArrayList<>();
+>>>>>>> branch 'master' of https://github.com/IeKimI/TeamBasic.git
 		try {
 			Statement statement = conn.createStatement();
 			String query = "SELECT * FROM " + tblName + ";";
 			ResultSet resultSet = statement.executeQuery(query);
 
 			while (resultSet.next()) {
+<<<<<<< HEAD
 				AlternativeChoice c = generateAlternativeChoice(resultSet);
 				allChoices.add(c);
+=======
+				AlternativeChoice ac = generateConstant(resultSet);
+				allAlternativeChoices.add(ac);
+>>>>>>> branch 'master' of https://github.com/IeKimI/TeamBasic.git
 			}
 			resultSet.close();
 			statement.close();
-			return allChoices;
+			return allAlternativeChoices;
 
 		} catch (Exception e) {
 			throw new Exception("Failed in getting constants: " + e.getMessage());
 		}
 	}
 
+<<<<<<< HEAD
 	private AlternativeChoice generateAlternativeChoice(ResultSet resultSet) throws Exception {
+=======
+	private AlternativeChoice generateConstant(ResultSet resultSet) throws Exception {
+>>>>>>> branch 'master' of https://github.com/IeKimI/TeamBasic.git
 		String uniqueID = resultSet.getString("uniqueID");
 		ArrayList<AlternativeChoice> alternativeChoices = new ArrayList<AlternativeChoice>();
 		Array data= resultSet
