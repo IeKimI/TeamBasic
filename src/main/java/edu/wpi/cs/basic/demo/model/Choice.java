@@ -19,7 +19,8 @@ public class Choice {
 
 	public Choice(String uniqueID, ArrayList<AlternativeChoice> alternativeChoices,
 			ArrayList<TeamMember> participatingMembers, String description, Date dateOfCompletion, Date dateOfCreation,
-			boolean isCompleted) {
+			boolean isCompleted, int maxNumOfTeamMembers) {
+		this.maxNumOfTeamMembers = maxNumOfTeamMembers;
 		this.uniqueID = uniqueID;
 		this.alternativeChoices = alternativeChoices;
 		this.participatingMembers = participatingMembers;
@@ -44,7 +45,12 @@ public class Choice {
 	} 
 
 	public void setAlternativeChoices(ArrayList<AlternativeChoice> alternativeChoices) {
-		this.alternativeChoices = alternativeChoices;
+		if(alternativeChoices.size() < 6 || alternativeChoices.size() > 1) {
+			this.alternativeChoices = alternativeChoices;
+		}
+		else {
+			// must display error message
+		}
 	}
 
 	public ArrayList<TeamMember> getParticipatingMembers() {
@@ -52,7 +58,12 @@ public class Choice {
 	}
 
 	public void setParticipatingMembers(ArrayList<TeamMember> participatingMembers) {
-		this.participatingMembers = participatingMembers;
+		if(participatingMembers.size() < this.maxNumOfTeamMembers) {
+			this.participatingMembers = participatingMembers;
+		}
+		else {
+			// must have error message
+		}
 	}
 
 	public String getUniqueID() {
