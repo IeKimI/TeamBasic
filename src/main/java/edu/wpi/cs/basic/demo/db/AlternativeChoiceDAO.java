@@ -141,13 +141,15 @@ public class AlternativeChoiceDAO {
 	static AlternativeChoice generateAltnerativeChoice(ResultSet resultSet) throws Exception {
 		String alternativeID = resultSet.getString("alternativeID");
 		
+		// pass in the alternativeID to get the approvals of a specific alternative
 		ArrayList<TeamMember> approvals= ApprovalDAO.getApprovals(alternativeID);
 		
+		// pass in the altnerativeID to get the disapprovals of a specific alternative
 		ArrayList<TeamMember> disapprovals= DisapprovalDAO.getDisapprovals(alternativeID);
 		
+		// pass in the alternativeID to get the feedback of a specific alternativeID
 		ArrayList<Feedback> feedback = FeedbackDAO.getFeedbacks(alternativeID);
 
-		
 		String choiceID = resultSet.getString("choiceID");
 		String description = resultSet.getString("description");
 

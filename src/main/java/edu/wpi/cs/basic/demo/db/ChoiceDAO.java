@@ -152,7 +152,11 @@ public class ChoiceDAO {
 //		//Do we need an alternativeID in the choice?
 //		//No, the table that stores choice will just have that index. Then when you get the choice, you take the choice ID
 //		//check the alternative table for the alternativeChocies with corresponding forgein key (the choice ID)
+		
+		// pass in the choiceID to get the list of alternatives that belongs to the specific choice
 		ArrayList<AlternativeChoice> alternativeChoices = AlternativeChoiceDAO.getAllAlternatives(uniqueID);
+		
+		// pass in the choiceID to get the list of participating members that belongs to the specific choice
 		ArrayList<TeamMember> participatingMembers = TeamMemberDAO.getAllTeamMembers(uniqueID);
 		String description = resultSet.getString("description");
 		Date dayOfCompletion = resultSet.getDate("dayOfCompletion");
@@ -163,6 +167,8 @@ public class ChoiceDAO {
 		int maxNumOfTeamMembers = participatingMembers.size();
 		Choice output = new Choice(uniqueID, alternativeChoices, participatingMembers, description, dayOfCompletion, dayOfCreation,
 				isCompleted, maxNumOfTeamMembers);
+		
+		// set the chosenAlternative to null when generating the choice
 		output.setChosenAlternative(null);
 //		AlternativeChoice databaseInquery= 
 		return output;
