@@ -3,20 +3,20 @@ function processCreateResponse(result) {
   // contents dynamically via javascript
   console.log("result:" + result);
 
-  refreshConstantsList();
+  refreshChoiceList();
 }
 
 function handleCreateClick(e) {
   var form = document.createForm;
  
   var data = {};
-  data["name"] = form.constantName.value;
+  data["uniqueID"] = form.uniqueID.value;
   
   if (form.system.checked) {  // be sure to flag system constant requests...
      data["system"] = true;
   }
   
-  data["value"] = form.constantValue.value;
+  data["description"] = form.description.value;
 
   var js = JSON.stringify(data);
   console.log("JS:" + js);
