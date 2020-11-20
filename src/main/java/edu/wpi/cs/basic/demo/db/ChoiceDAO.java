@@ -69,7 +69,7 @@ java.sql.Connection conn;
     
     public boolean updateChoice(Choice Choice) throws Exception {
         try {
-        	String query = "UPDATE " + tblName + " SET value=? WHERE name=?;";
+        	String query = "UPDATE " + tblName + " SET value=? WHERE uniqueID=?;";
         	PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, Choice.uniqueID);
             ps.setString(2, Choice.alternativeID);
@@ -112,7 +112,7 @@ java.sql.Connection conn;
 
             ps = conn.prepareStatement("INSERT INTO " + tblName + " (name,value) values(?,?);");
             ps.setString(1,  Choice.uniqueID);
-            ps.setDouble(2,  Choice.value);
+            ps.setString(2,  Choice.getChosenAlternative().getAlternativeID());
             ps.execute();
             return true;
 
