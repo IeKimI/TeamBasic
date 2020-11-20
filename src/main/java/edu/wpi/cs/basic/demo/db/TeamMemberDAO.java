@@ -135,9 +135,10 @@ public class TeamMemberDAO {
 		Date dayOfCompletion = resultSet.getDate("dayOfCompletion");
 		float daysOld = resultSet.getFloat("daysOld");
 		boolean isCompleted = resultSet.getBoolean("isCompleted");
+		int maxNumOfTeamMembers = resultSet.getInt("maxNumOfTeamMembers");
 //		AlternativeChoice databaseInquery= 
 		return new Choice(uniqueID, alternativeChoices, participatingMembers, description, dayOfCompletion, daysOld,
-				isCompleted);
+				isCompleted, maxNumOfTeamMembers);
 	}
 
 }
