@@ -31,7 +31,7 @@ public class Choice {
 
 	public ArrayList<AlternativeChoice> getAlternativeChoices() {
 		return alternativeChoices;
-	}
+	} 
 
 	public void setAlternativeChoices(ArrayList<AlternativeChoice> alternativeChoices) {
 		this.alternativeChoices = alternativeChoices;
