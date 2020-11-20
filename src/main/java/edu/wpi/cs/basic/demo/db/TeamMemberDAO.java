@@ -11,10 +11,21 @@ import edu.wpi.cs.basic.demo.model.AlternativeChoice;
 import edu.wpi.cs.basic.demo.model.Choice;
 import edu.wpi.cs.basic.demo.model.TeamMember;
 
+/**
+create table `teamMember` ( 
+`uniqueName` VARCHAR(64), 
+`password` VARCHAR(64), 
+
+‘choiceID’ VARCHAR(64) not null default, 
+primary key (`uniqueName`) 
+
+) engine=MyISAM default charset=latin1; 
+ *
+ */
 public class TeamMemberDAO {
 	static java.sql.Connection conn;
 
-	final String tblName = "Choices"; // Exact capitalization
+	final static String tblName = "TeamMember"; // Exact capitalization
 
 	public TeamMemberDAO() {
 		try {
@@ -27,18 +38,21 @@ public class TeamMemberDAO {
 	public TeamMember getTeamMember(String uniqueID) throws Exception {
 
 		try {
-			Choice choice = null;
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE uniqueID=?;");
-			ps.setString(1, uniqueID);
+			TeamMember teamMember = null;
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE teamMemberName=?;");
+			ps.setString(1, teamMember.getName());
+			ps.setString(2, teamMember.getPassword());
+			ps.setString(3, teamMember.getChoiceID());
+
 			ResultSet resultSet = ps.executeQuery();
 
 			while (resultSet.next()) {
-				choice = generateChoice(resultSet);
+				teamMember = generateTeamMember(resultSet);
 			}
 			resultSet.close();
 			ps.close();
 
-			return choice;
+			return teamMember;
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -46,13 +60,14 @@ public class TeamMemberDAO {
 		}
 	}
 
-	public boolean updateChoice(Choice choice) throws Exception {
+	public boolean updateTeamMember(TeamMember teamMember) throws Exception {
 		try {
 			String query = "UPDATE " + tblName + " SET isCompleted=? WHERE uniqueID=?;";
 			PreparedStatement ps = conn.prepareStatement(query);
-			ps.setString(1, choice.uniqueID);
+			ps.setString(1, teamMember.getName());
 //            ps.setString(2, Choice.getChosenAlternative().getAlternativeID());
-			ps.setBoolean(7, choice.completeChoice(choice));
+			ps.setString(2, teamMember.getPassword());
+			ps.setString(3, teamMember.getChoiceID());
 			int numAffected = ps.executeUpdate();
 			ps.close();
 
@@ -62,41 +77,46 @@ public class TeamMemberDAO {
 		}
 	}
 
-	boolean deleteChoice(Choice Choice) throws Exception {
+//	boolean d(Choice Choice) throws Exception {
+//		try {
+//			PreparedStatement ps = conn.prepareStatement("DELETE FROM " + tblName + " WHERE uniqueID = ?;");
+//			ps.setString(1, Choice.uniqueID);
+//			int numAffected = ps.executeUpdate();
+//			ps.close();
+//
+//			return (numAffected == 1);
+//
+//		} catch (Exception e) {
+//			throw new Exception("Failed to insert Choice: " + e.getMessage());
+//		}
+//	}
+
+	public boolean addTeamMember(TeamMember teamMember) throws Exception {
 		try {
-			PreparedStatement ps = conn.prepareStatement("DELETE FROM " + tblName + " WHERE uniqueID = ?;");
-			ps.setString(1, Choice.uniqueID);
-			int numAffected = ps.executeUpdate();
-			ps.close();
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE teamMemberName = ?;");
+			ps.setString(1, teamMember.getName());
 
-			return (numAffected == 1);
 
-		} catch (Exception e) {
-			throw new Exception("Failed to insert Choice: " + e.getMessage());
-		}
-	}
-
-	public boolean addChoice(Choice Choice) throws Exception {
-		try {
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE uniqueID = ?;");
-			ps.setString(1, Choice.uniqueID);
 			ResultSet resultSet = ps.executeQuery();
 
 			// already present?
 			while (resultSet.next()) {
-				Choice c = generateChoice(resultSet);
+				TeamMember tm = generateTeamMember(resultSet);
 				resultSet.close();
 				return false;
 			}
 
 			ps = conn.prepareStatement("INSERT INTO " + tblName + " (name,value) values(?,?);");
-			ps.setString(1, Choice.uniqueID);
-			ps.setString(2, Choice.getChosenAlternative().getAlternativeID());
-			ps.setInt(3, Choice.getParticipatingMembers().size());
-			ps.setString(4, Choice.getDescription());
-			ps.setDate(5, Choice.getDayOfCompletion());
-			ps.setFloat(6, Choice.getDaysOld());
-			ps.setBoolean(7, Choice.isComplete());
+//			ps.setString(1, Choice.uniqueID);
+//			ps.setString(2, Choice.getChosenAlternative().getAlternativeID());
+//			ps.setInt(3, Choice.getParticipatingMembers().size());
+//			ps.setString(4, Choice.getDescription());
+//			ps.setDate(5, Choice.getDayOfCompletion());
+//			ps.setFloat(6, Choice.getDaysOld());
+//			ps.setBoolean(7, Choice.isComplete());
+			ps.setString(1, teamMember.getName());
+			ps.setString(2, teamMember.getPassword());
+			ps.setString(2, teamMember.getChoiceID());
 			ps.execute();
 			return true;
 
@@ -126,18 +146,13 @@ public class TeamMemberDAO {
 		}
 	}
 
-	TeamMember generateTeamMember(ResultSet resultSet) throws Exception {
-		String uniqueID = resultSet.getString("name");
-		String alternativeID = resultSet.getString("alternativeChoice");
-		ArrayList<AlternativeChoice> alternativeChoices = AlternativeChoiceDatabase.getAllAlternatives(uniqueID);
-		ArrayList<TeamMember> participatingMembers;
-		String description = resultSet.getString("description");
-		Date dayOfCompletion = resultSet.getDate("dayOfCompletion");
-		float daysOld = resultSet.getFloat("daysOld");
-		boolean isCompleted = resultSet.getBoolean("isCompleted");
-//		AlternativeChoice databaseInquery= 
-		return new Choice(uniqueID, alternativeChoices, participatingMembers, description, dayOfCompletion, daysOld,
-				isCompleted);
+	static TeamMember generateTeamMember(ResultSet resultSet) throws Exception {
+		String name = resultSet.getString("teamMeberName");
+		String password = resultSet.getString("password");
+		String choiceID = resultSet.getString("choiceID");
+		
+		return new TeamMember(name, password, choiceID);
 	}
+
 
 }

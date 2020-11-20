@@ -3,6 +3,7 @@ package edu.wpi.cs.basic.demo.model;
 public class TeamMember { // Eren
 	final String name;
 	final String password;
+	String choiceID;
 
 	public TeamMember(String name, String password) {
 		this.name = name;
@@ -12,6 +13,28 @@ public class TeamMember { // Eren
 	public TeamMember(String name) {
 		this.name = name;
 		this.password = null;
+	}
+
+	public TeamMember(String name, String password, String choiceID) {
+		this.name = name;
+		this.password = password;
+		this.choiceID = choiceID;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public String getChoiceID() {
+		return choiceID;
+	}
+
+	public void setChoiceID(String choiceID) {
+		this.choiceID = choiceID;
 	}
 
 	public boolean equals(Object x) {

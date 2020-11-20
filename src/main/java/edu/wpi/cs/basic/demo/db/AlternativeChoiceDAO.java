@@ -26,7 +26,7 @@ public class AlternativeChoiceDAO {
 
 	static java.sql.Connection conn;
 
-	final String tblName = "Choices"; // Exact capitalization
+	final String tblName = "AlternativeChoices"; // Exact capitalization
 
 	public AlternativeChoiceDAO() {
 		try {
@@ -36,21 +36,21 @@ public class AlternativeChoiceDAO {
 		}
 	}
 
-	public Choice getChoice(String uniqueID) throws Exception {
+	public AlternativeChoice getAlternativeChoice(String uniqueID) throws Exception {
 
 		try {
-			Choice choice = null;
+			AlternativeChoice alternativeChoice = null;
 			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE uniqueID=?;");
 			ps.setString(1, uniqueID);
 			ResultSet resultSet = ps.executeQuery();
 
 			while (resultSet.next()) {
-				choice = generateChoice(resultSet);
+				alternativeChoice = generateAlternativeChoice(resultSet);
 			}
 			resultSet.close();
 			ps.close();
 
-			return choice;
+			return alternativeChoice;
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -58,13 +58,14 @@ public class AlternativeChoiceDAO {
 		}
 	}
 
-	public boolean updateChoice(Choice choice) throws Exception {
+	public boolean updateChoice(AlternativeChoice alternativeChoice) throws Exception {
 		try {
 			String query = "UPDATE " + tblName + " SET isCompleted=? WHERE uniqueID=?;";
 			PreparedStatement ps = conn.prepareStatement(query);
-			ps.setString(1, choice.uniqueID);
+			ps.setString(1, alternativeChoice.getAlternativeID());
 //            ps.setString(2, Choice.getChosenAlternative().getAlternativeID());
-			ps.setBoolean(7, choice.completeChoice(choice));
+			ps.setString(2, alternativeChoice.getChoiceID());
+			ps.setString(3, alternativeChoice.getDescription());
 			int numAffected = ps.executeUpdate();
 			ps.close();
 
@@ -96,7 +97,7 @@ public class AlternativeChoiceDAO {
 
 			// already present?
 			while (resultSet.next()) {
-				Choice c = generateChoice(resultSet);
+				AlternativeChoice c = generateAltnerativeChoice(resultSet);
 				resultSet.close();
 				return false;
 			}
@@ -126,7 +127,7 @@ public class AlternativeChoiceDAO {
 			ResultSet resultSet = statement.executeQuery(query);
 
 			while (resultSet.next()) {
-				AlternativeChoice c = generateAlternativeChoice(resultSet);
+				AlternativeChoice c = generateAltnerativeChoice(resultSet);
 				allChoices.add(c);
 			}
 			resultSet.close();
@@ -138,7 +139,7 @@ public class AlternativeChoiceDAO {
 		}
 	}
 
-	AlternativeChoice generateAlternativeChoice(ResultSet resultSet) throws Exception {
+	AlternativeChoice generateAltnerativeChoice(ResultSet resultSet) throws Exception {
 		String uniqueID = resultSet.getString("name");
 		String alternativeID = resultSet.getString("alternativeChoice");
 		ArrayList<AlternativeChoice> alternativeChoices = AlternativeChoiceDatabase.getAllAlternatives(uniqueID);

@@ -12,6 +12,18 @@ public class AlternativeChoice {
 	String choiceID;
 	
 	
+	
+	public AlternativeChoice(ArrayList<TeamMember> approvals, ArrayList<TeamMember> disapprovals,
+			ArrayList<Feedback> feedback, String description, String alternativeID, String choiceID) {
+		super();
+		this.approvals = approvals;
+		this.disapprovals = disapprovals;
+		this.feedback = feedback;
+		this.description = description;
+		this.alternativeID = alternativeID;
+		this.choiceID = choiceID;
+	}
+
 	public AlternativeChoice(ArrayList<TeamMember> approvals, ArrayList<TeamMember> disapprovals, ArrayList<Feedback> feedback,
 			String description) {
 		this.approvals = approvals;

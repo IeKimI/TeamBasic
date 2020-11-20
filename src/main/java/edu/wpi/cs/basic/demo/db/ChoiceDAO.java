@@ -148,20 +148,24 @@ public class ChoiceDAO {
 
 	Choice generateChoice(ResultSet resultSet) throws Exception {
 		String uniqueID = resultSet.getString("name");
-		String alternativeID = resultSet.getString("alternativeChoice");
+//		String alternativeID = resultSet.getString("alternativeChoice");
+//		//Do we need an alternativeID in the choice?
+//		//No, the table that stores choice will just have that index. Then when you get the choice, you take the choice ID
+//		//check the alternative table for the alternativeChocies with corresponding forgein key (the choice ID)
 		ArrayList<AlternativeChoice> alternativeChoices = AlternativeChoiceDAO.getAllAlternatives(uniqueID);
 		ArrayList<TeamMember> participatingMembers = TeamMemberDAO.getAllTeamMembers(uniqueID);
 		String description = resultSet.getString("description");
 		Date dayOfCompletion = resultSet.getDate("dayOfCompletion");
 		Date dayOfCreation = resultSet.getDate("dayOfCreation");
-
+		AlternativeChoice chosenAlternative = null;
 //		float daysOld = resultSet.getFloat("daysOld");
 		boolean isCompleted = resultSet.getBoolean("isCompleted");
 		int maxNumOfTeamMembers = participatingMembers.size();
-		
-//		AlternativeChoice databaseInquery= 
-		return new Choice(uniqueID, alternativeChoices, participatingMembers, description, dayOfCompletion, dayOfCreation,
+		Choice output = new Choice(uniqueID, alternativeChoices, participatingMembers, description, dayOfCompletion, dayOfCreation,
 				isCompleted, maxNumOfTeamMembers);
+		output.setChosenAlternative(null);
+//		AlternativeChoice databaseInquery= 
+		return output;
 		/**
 		 * 	public Choice(String uniqueID, ArrayList<AlternativeChoice> alternativeChoices,
 			ArrayList<TeamMember> participatingMembers, String description, Date dateOfCompletion, Date dateOfCreation,
