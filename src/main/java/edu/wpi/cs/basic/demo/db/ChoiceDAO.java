@@ -67,12 +67,13 @@ java.sql.Connection conn;
 		}
 	}
     
-    public boolean updateChoice(Choice Choice) throws Exception {
+    public boolean updateChoice(Choice choice) throws Exception {
         try {
-        	String query = "UPDATE " + tblName + " SET value=? WHERE name=?;";
+        	String query = "UPDATE " + tblName + " SET isCompleted=? WHERE uniqueID=?;";
         	PreparedStatement ps = conn.prepareStatement(query);
-            ps.setString(1, Choice.uniqueID);
-            ps.setString(2, Choice.alternativeID);
+            ps.setString(1, choice.uniqueID);
+//            ps.setString(2, Choice.getChosenAlternative().getAlternativeID());
+            ps.setBoolean(7, choice.completeChoice(choice));
             int numAffected = ps.executeUpdate();
             ps.close();
             
@@ -112,7 +113,12 @@ java.sql.Connection conn;
 
             ps = conn.prepareStatement("INSERT INTO " + tblName + " (name,value) values(?,?);");
             ps.setString(1,  Choice.uniqueID);
-            ps.setDouble(2,  Choice.value);
+            ps.setString(2,  Choice.getChosenAlternative().getAlternativeID());
+            ps.setInt(3, Choice.getParticipatingMembers().size());
+            ps.setString(4, Choice.getDescription());
+            ps.setDate(5,  Choice.getDayOfCompletion());
+            ps.setFloat(6, Choice.getDaysOld());
+            ps.setBoolean(7, Choice.isComplete());
             ps.execute();
             return true;
 
