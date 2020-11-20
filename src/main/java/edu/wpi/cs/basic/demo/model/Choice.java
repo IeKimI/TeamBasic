@@ -20,6 +20,7 @@ public class Choice {
 	public Choice(String uniqueID, ArrayList<AlternativeChoice> alternativeChoices,
 			ArrayList<TeamMember> participatingMembers, String description, Date dateOfCompletion, Date dateOfCreation,
 			boolean isCompleted, int maxNumOfTeamMembers) {
+		this.maxNumOfTeamMembers = maxNumOfTeamMembers;
 		this.uniqueID = uniqueID;
 		this.alternativeChoices = alternativeChoices;
 		this.participatingMembers = participatingMembers;
@@ -27,7 +28,6 @@ public class Choice {
 		this.dateOfCompletion = dateOfCompletion;
 		this.dateOfCreation = dateOfCreation;
 		this.isCompleted = isCompleted;
-		this.maxNumOfTeamMembers = maxNumOfTeamMembers;
 	}
 	
 	public Choice(String uniqueID) {
