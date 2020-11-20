@@ -1,33 +1,21 @@
 package edu.wpi.cs.basic.demo.db;
 
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 
 import edu.wpi.cs.basic.demo.model.AlternativeChoice;
 import edu.wpi.cs.basic.demo.model.Choice;
 import edu.wpi.cs.basic.demo.model.Feedback;
 import edu.wpi.cs.basic.demo.model.TeamMember;
 
-/**
- * create table `alternativeChoice` ( `alternativeID` VARCHAR(64) not null
- * default, `choiceID` VARCHAR(64) not null default,
- * 
- * `description` VARCHAR(64), primary key (`alternativeID`)
- * 
- * ) engine=MyISAM default charset=latin1;
- *
- */
-public class AlternativeChoiceDAO {
-
+public class FeedbackDAO {
 	static java.sql.Connection conn;
 
 	final static String tblName = "AlternativeChoices"; // Exact capitalization
 
-	public AlternativeChoiceDAO() {
+	public ApprovalDAO() {
 		try {
 			conn = DatabaseUtil.connect();
 		} catch (Exception e) {
@@ -44,7 +32,7 @@ public class AlternativeChoiceDAO {
 			ResultSet resultSet = ps.executeQuery();
 
 			while (resultSet.next()) {
-				alternativeChoice = generateAltnerativeChoice(resultSet);
+				alternativeChoice = generateApprovals(resultSet);
 			}
 			resultSet.close();
 			ps.close();
@@ -117,16 +105,16 @@ public class AlternativeChoiceDAO {
 		}
 	}
 
-	public static ArrayList<AlternativeChoice> getAllAlternatives(String uniqueID) throws Exception {
+	public static ArrayList<Feedback> getFeedbacks(String uniqueID) throws Exception {
 
-		ArrayList<AlternativeChoice> allChoices = new ArrayList<>();
+		ArrayList<Feedback> allChoices = new ArrayList<>();
 		try {
 			Statement statement = conn.createStatement();
 			String query = "SELECT * FROM " + tblName + ";";
 			ResultSet resultSet = statement.executeQuery(query);
 
 			while (resultSet.next()) {
-				AlternativeChoice c = generateAltnerativeChoice(resultSet);
+				Feedback c = generateFeedback(resultSet);
 				allChoices.add(c);
 			}
 			resultSet.close();
@@ -138,34 +126,29 @@ public class AlternativeChoiceDAO {
 		}
 	}
 
-	static AlternativeChoice generateAltnerativeChoice(ResultSet resultSet) throws Exception {
+	Feedback generateFeedback(ResultSet resultSet) throws Exception {
 		String alternativeID = resultSet.getString("alternativeID");
 		
-		ArrayList<TeamMember> approvals= ApprovalDAO.getApprovals(alternativeID);
-		
-		ArrayList<TeamMember> disapprovals= DisapprovalDAO.getDisapprovals(alternativeID);
-		
-		ArrayList<Feedback> feedback = FeedbackDAO.getFeedbacks(alternativeID);
-
+		ArrayList<TeamMembers> = ApprovalDAO.getApprovals(alternativeID);
 		
 		String choiceID = resultSet.getString("choiceID");
 		String description = resultSet.getString("description");
 
 	
 //		AlternativeChoice databaseInquery= 
-		return new AlternativeChoice(approvals, disapprovals, feedback, description, alternativeID, choiceID);
+		return new AlternativeChoice(alternativeID, choiceID, description);
 	/**
-	 * 	public AlternativeChoice(ArrayList<TeamMember> approvals, ArrayList<TeamMember> disapprovals,
-			ArrayList<Feedback> feedback, String description, String alternativeID, String choiceID) {
-		super();
-		this.approvals = approvals;
-		this.disapprovals = disapprovals;
-		this.feedback = feedback;
-		this.description = description;
-		this.alternativeID = alternativeID;
-		this.choiceID = choiceID;
+	 * 	
+create table `approval` ( 
+`teamMemberName` VARCHAR(64), 
+
+‘alternativeID’ VARCHAR(64), 
+primary key (`teamMemberName`) 
+
+) engine=MyISAM default charset=latin1; 
 	}
 
 	 */
 	}
+
 }
