@@ -132,7 +132,7 @@ public class CreateChoiceHandler implements RequestHandler<CreateChoiceRequest, 
 	void deleteSystemChoice(float daysOld) {
 		if (s3 == null) {
 			logger.log("attach to S3 request");
-			s3 = AmazonS3ClientBuilder.standard().withRegion(Regions.US_EAST_1).build();
+			s3 = AmazonS3ClientBuilder.standard().withRegion(Regions.US_EAST_2).build();
 			logger.log("attach to S3 succeed");
 		}
 		String folder = BucketManager.getChoiceFolder() + "/";

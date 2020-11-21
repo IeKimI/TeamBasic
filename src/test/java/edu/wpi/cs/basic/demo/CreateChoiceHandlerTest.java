@@ -59,7 +59,7 @@ public class CreateChoiceHandlerTest extends LambdaTest {
 		alternatives.add(alt1);
 		alternatives.add(alt2);
 
-		System.out.println(alternatives);
+		System.out.println(alternatives.isEmpty());
 		CreateChoiceRequest ccr = new CreateChoiceRequest("uniqueID", alternatives, null, "Choice1");
 		String SAMPLE_INPUT_STRING = new Gson().toJson(ccr);
 
@@ -73,7 +73,8 @@ public class CreateChoiceHandlerTest extends LambdaTest {
 
 //        DeleteConstantRequest dcr = new DeleteConstantRequest(var);
 //        DeleteConstantResponse d_resp = new DeleteConstantHandler().handleRequest(dcr, createContext("delete"));
-		Assert.assertEquals("uniqueID", c_resp.httpCode);
+		System.out.println(c_resp.response);
+		Assert.assertEquals("uniqueID", c_resp.response);
 	}
 
 }
