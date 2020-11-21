@@ -129,7 +129,7 @@ public class DisapprovalDAO {
 	Disapproval generateApprovals(ResultSet resultSet) throws Exception {
 		String alternativeID = resultSet.getString("alternativeID");
 		
-		ArrayList<TeamMembers> = ApprovalDAO.getApprovals(alternativeID);
+		ArrayList<TeamMember> teamMembers = ApprovalDAO.getApprovals(alternativeID);
 		
 		String choiceID = resultSet.getString("choiceID");
 		String description = resultSet.getString("description");

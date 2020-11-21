@@ -10,13 +10,22 @@ function handleCreateClick(e) {
   var form = document.createForm;
  
   var data = {};
-  data["uniqueID"] = form.uniqueID.value;
-  
+  data["description"] = form.description.value;
+/*  
   if (form.system.checked) {  // be sure to flag system constant requests...
      data["system"] = true;
-  }
+  }*/
   
-  data["description"] = form.description.value;
+  data["alternative1"] = form.alternative1.value;
+
+  data["alternative2"] = form.alternative2.value;
+
+  data["alternative3"] = form.alternative3.value;
+
+  data["alternative4"] = form.alternative4.value;
+
+  data["alternative5"] = form.alternative5.value;
+
 
   var js = JSON.stringify(data);
   console.log("JS:" + js);
