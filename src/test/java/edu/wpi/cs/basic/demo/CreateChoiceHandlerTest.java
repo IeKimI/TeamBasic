@@ -29,7 +29,7 @@ public class CreateChoiceHandlerTest extends LambdaTest {
 
 		CreateChoiceResponse resp = handler.handleRequest(req, createContext("create"));
 		Assert.assertEquals(200, resp.httpCode);
-		
+
 		return resp.response;
 	}
 
@@ -39,33 +39,30 @@ public class CreateChoiceHandlerTest extends LambdaTest {
 
 		CreateChoiceResponse resp = handler.handleRequest(req, createContext("create"));
 		Assert.assertEquals(failureCode, resp.httpCode);
-		
+
 		return resp.response;
 	}
 
 	// NOTE: this proliferates large number of constants! Be mindful
 	@Test
 	public void testShouldBeOk() {
-		int rndNum = (int) (990 * (Math.random()));
-		String var = "throwAway" + rndNum;
-
 		/**
 		 * public AlternativeChoice(ArrayList<TeamMember> approvals,
 		 * ArrayList<TeamMember> disapprovals, ArrayList<Feedback> feedback, String
 		 * description) { this.approvals = approvals; this.disapprovals = disapprovals;
 		 * this.feedback = feedback; this.description = description; }
 		 */
-		ArrayList<AlternativeChoice> alternatives = null;
+		ArrayList<AlternativeChoice> alternatives = new ArrayList<AlternativeChoice>();
 		AlternativeChoice alt1 = new AlternativeChoice(null, null, null, "Hello");
-		AlternativeChoice alt2 = new AlternativeChoice(null, null, null, "Hello");
+		AlternativeChoice alt2 = new AlternativeChoice(null, null, null, "Hello2");
 
 		alternatives.add(alt1);
 		alternatives.add(alt2);
-		
+
 		System.out.println(alternatives);
 		CreateChoiceRequest ccr = new CreateChoiceRequest("uniqueID", alternatives, null, "Choice1");
 		String SAMPLE_INPUT_STRING = new Gson().toJson(ccr);
-		
+
 		CreateChoiceResponse c_resp = new CreateChoiceHandler().handleRequest(ccr, createContext("post"));
 
 		try {
@@ -76,7 +73,7 @@ public class CreateChoiceHandlerTest extends LambdaTest {
 
 //        DeleteConstantRequest dcr = new DeleteConstantRequest(var);
 //        DeleteConstantResponse d_resp = new DeleteConstantHandler().handleRequest(dcr, createContext("delete"));
-        Assert.assertEquals("uniqueID", c_resp.httpCode);
+		Assert.assertEquals("uniqueID", c_resp.httpCode);
 	}
 
 }
