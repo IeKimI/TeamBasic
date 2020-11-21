@@ -106,7 +106,7 @@ public class ChoiceDAO {
 			while (resultSet.next()) {
 				Choice c = generateChoice(resultSet);
 				resultSet.close();
-				return false;
+				return false; 
 			}
 
 			ps = conn.prepareStatement("INSERT INTO " + tblName + " (name,value) values(?,?);");
