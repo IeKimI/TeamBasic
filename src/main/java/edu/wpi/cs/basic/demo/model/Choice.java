@@ -30,6 +30,25 @@ public class Choice {
 		this.isCompleted = isCompleted;
 	}
 	
+	
+	
+	public Choice(String uniqueID,ArrayList<AlternativeChoice> alternativeChoices, ArrayList<TeamMember> participatingMembers,
+			 String description, AlternativeChoice chosenAlternative,
+			Date dateOfCompletion, Date dateOfCreation, boolean isCompleted) {
+		super();
+		this.uniqueID = uniqueID;
+
+		this.alternativeChoices = alternativeChoices;
+		this.participatingMembers = participatingMembers;
+		this.description = description;
+		this.chosenAlternative = chosenAlternative;
+		this.isCompleted = isCompleted;
+		this.dateOfCompletion = dateOfCompletion;
+		this.dateOfCreation = dateOfCreation;
+	}
+
+
+
 	public Choice(String uniqueID) {
 		this.uniqueID = uniqueID;
 		this.alternativeChoices = null;

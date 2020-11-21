@@ -88,10 +88,10 @@ public class AlternativeChoiceDAO {
 		}
 	}
 
-	public boolean addChoice(Choice Choice) throws Exception {
+	public boolean addAlternative(AlternativeChoice alternative) throws Exception {
 		try {
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE uniqueID = ?;");
-			ps.setString(1, Choice.uniqueID);
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE alternativeID = ?;");
+			ps.setString(1, alternative.getAlternativeID());
 			ResultSet resultSet = ps.executeQuery();
 
 			// already present?
@@ -102,13 +102,10 @@ public class AlternativeChoiceDAO {
 			}
 
 			ps = conn.prepareStatement("INSERT INTO " + tblName + " (name,value) values(?,?);");
-			ps.setString(1, Choice.uniqueID);
-			ps.setString(2, Choice.getChosenAlternative().getAlternativeID());
-			ps.setInt(3, Choice.getParticipatingMembers().size());
-			ps.setString(4, Choice.getDescription());
-			ps.setDate(5, Choice.getDateOfCompletion());
-			ps.setDate(6, Choice.getDateOfCreation());
-			ps.setBoolean(7, Choice.isComplete());
+			alternative.setChoiceID(alternative.getAlternativeID());
+			ps.setString(1, alternative.getAlternativeID());
+			ps.setString(2, alternative.getChoiceID());
+			ps.setString(3, alternative.getDescription());
 			ps.execute();
 			return true;
 

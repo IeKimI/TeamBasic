@@ -66,6 +66,14 @@ public class CreateChoiceRequest {
 	}
 	
 	public CreateChoiceRequest(String uniqueID, ArrayList<AlternativeChoice> alternativeChoices,
+			ArrayList<TeamMember> participatingMembers, String description) {
+		super();
+		this.uniqueID = uniqueID;
+		this.alternativeChoices = alternativeChoices;
+		this.participatingMembers = participatingMembers;
+		this.description = description;
+	}
+	public CreateChoiceRequest(String uniqueID, ArrayList<AlternativeChoice> alternativeChoices,
 			ArrayList<TeamMember> participatingMembers, String description, Date dayOfCompletion, float daysOld,
 			boolean isCompleted) {
 		super();
