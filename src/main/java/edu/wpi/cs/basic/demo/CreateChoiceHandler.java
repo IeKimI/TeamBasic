@@ -95,24 +95,24 @@ LambdaLogger logger;
 	 * 
 	 * @throws Exception 
 	 */
-	boolean createSystemChioce(String name, double value) throws Exception {
+	boolean createSystemChioce(String uniqueID, ArrayList<AlternativeChoice> alternatives, ArrayList<TeamMember> teamMembers, String description, Date dateOfCompletion, float daysOld, boolean isCompleted) throws Exception {
 		if (logger != null) { logger.log("in createSystemConstant"); }
 		
 		if (s3 == null) {
 			logger.log("attach to S3 request");
-			s3 = AmazonS3ClientBuilder.standard().withRegion(Regions.US_EAST_1).build();
+			s3 = AmazonS3ClientBuilder.standard().withRegion(Regions.US_EAST_2).build();
 			logger.log("attach to S3 succeed");
 		}
 
-		String folder = BucketManager.getConstantsFolder() + "/";
+		String folder = BucketManager.getChoiceFolder() + "/";
 		
-		byte[] contents = ("" + value).getBytes();
+		byte[] contents = ("" + alternatives.get(1)).getBytes();
 		ByteArrayInputStream bais = new ByteArrayInputStream(contents);
 		ObjectMetadata omd = new ObjectMetadata();
 		omd.setContentLength(contents.length);
 		
 		// makes the object publicly visible
-		PutObjectResult res = s3.putObject(new PutObjectRequest(BucketManager.bucket, folder + name, bais, omd)
+		PutObjectResult res = s3.putObject(new PutObjectRequest(BucketManager.bucket, folder + uniqueID, bais, omd)
 				.withCannedAcl(CannedAccessControlList.PublicRead));
 		
 		// if we ever get here, then whole thing was stored
@@ -120,38 +120,48 @@ LambdaLogger logger;
 	}
 	
 	/** Here primarily to clean up testing. */
-	void deleteSystemConstant(String name) {
+	void deleteSystemChoice(float daysOld) {
 		if (s3 == null) {
 			logger.log("attach to S3 request");
 			s3 = AmazonS3ClientBuilder.standard().withRegion(Regions.US_EAST_1).build();
 			logger.log("attach to S3 succeed");
 		}
-		String folder = BucketManager.getConstantsFolder() + "/";
-		s3.deleteObject(new DeleteObjectRequest(BucketManager.bucket, folder + name));
+		String folder = BucketManager.getChoiceFolder() + "/";
+		s3.deleteObject(new DeleteObjectRequest(BucketManager.bucket, folder + daysOld));
 	}
 	
 	@Override 
-	public CreateConstantResponse handleRequest(CreateConstantRequest req, Context context)  {
+	public CreateChoiceResponse handleRequest(CreateChoiceRequest req, Context context)  {
 		logger = context.getLogger();
 		logger.log(req.toString());
 
-		CreateConstantResponse response;
+		/**
+		 * 		this.uniqueID = uniqueID;
+		this.alternativeChoices = alternativeChoices;
+		this.participatingMembers = participatingMembers;
+		this.description = description;
+		this.dayOfCompletion = dayOfCompletion;
+		this.daysOld = daysOld;
+		this.isCompleted = isCompleted;
+	}
+		 */
+		CreateChoiceResponse response;
 		try {
-			if (req.system) {
-				if (createSystemConstant(req.name, req.value)) {
-					response = new CreateConstantResponse(req.name);
+			if (!req.isCompleted()) {
+				if (createSystemChioce(req.uniqueID, AlternativeChoiceDAO.getAllAlternatives(req.uniqueID), TeamMemberDAO.getAllTeamMembers(req.uniqueID), req.getDescription(), req.getDayOfCompletion(), req.getDaysOld(), req.isCompleted())) {
+					response = new CreateChoiceResponse(req.uniqueID);
 				} else {
-					response = new CreateConstantResponse(req.name, 422);
+					response = new CreateChoiceResponse(req.uniqueID, 422);
 				}
 			} else {
-				if (createConstant(req.name, req.value)) {
-					response = new CreateConstantResponse(req.name);
+				if ( createChoice(req.uniqueID, req.getDescription(), req.getParticipatingMembers().size())) {
+					response = new CreateChoiceResponse(req.uniqueID);
 				} else {
-					response = new CreateConstantResponse(req.name, 422);
+					response = new CreateChoiceResponse(req.uniqueID, 422);
 				}
 			}
 		} catch (Exception e) {
-			response = new CreateConstantResponse("Unable to create constant: " + req.name + "(" + e.getMessage() + ")", 400);
+			response = new CreateChoiceResponse("Unable to create constant: " + req.uniqueID + "(" + e.getMessage() + ")", 400);
 		}
 
 		return response;
