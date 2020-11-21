@@ -33,7 +33,7 @@ public class FeedbackDAO {
 			ResultSet resultSet = ps.executeQuery();
 
 			while (resultSet.next()) {
-				alternativeChoice = generateApprovals(resultSet);
+				alternativeChoice = generateApprovals(resultSet); // return a list of teamMembers and not an Approval object
 			}
 			resultSet.close();
 			ps.close();
