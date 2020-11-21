@@ -226,8 +226,8 @@ public class ChoiceDatabase {
 			ps.setArray(2, alternativeChoicesArray);
 			ps.setArray(3, participatingMembersArray);
 			ps.setString(4, choice.getDescription());
-			ps.setDate(5, choice.getDayOfCompletion());
-			ps.setFloat(6, choice.getDaysOld());
+			ps.setDate(5, choice.getDateOfCompletion());
+			ps.setDate(6, choice.getDateOfCreation());
 			ps.setBoolean(7, choice.isCompleted());
 			ps.execute();
 			return true;

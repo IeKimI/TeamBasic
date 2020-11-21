@@ -14,15 +14,15 @@ public class Model { // Eren
 	TeamMember loggedInUser;
 
 	public Model() {
-		// TODO Auto-generated constructor stub
+		handler = new CreateChoiceHandler();
 	}
 
-	public void makeChoice() {
+	public void makeChoice() throws Exception {
 		if (loggedInUser != null) {
-			handler.pushChoice(new Choice(handler.getNextID())); // Make sure that the
-																									// made choice is
-																									// valid before
-																									// pushing
+			handler.createChoice(new Choice(handler.getNextID())); // Make sure that the
+																	// made choice is
+																	// valid before
+																	// pushing
 		}
 	}
 

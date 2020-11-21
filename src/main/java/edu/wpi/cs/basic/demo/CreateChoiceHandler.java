@@ -34,10 +34,13 @@ public class CreateChoiceHandler implements RequestHandler<CreateChoiceRequest, 
 //		return null;
 //	}
 //
-//	public String getNextID() {
-//
-//		return null;
-//	}
+	private int id=0;
+	public String getNextID() {
+		//Can through database for earliest available ID
+		return (new Integer(id++)).toString();
+	}
+	
+	
 //
 //	public boolean pushChoice(Choice choice) {
 //		return false;
@@ -64,7 +67,7 @@ public class CreateChoiceHandler implements RequestHandler<CreateChoiceRequest, 
 	 * 
 	 * @throws Exception
 	 */
-	boolean createChoice(String uniqueID, String description, int maxNumTeamMember,
+	public boolean createChoice(String uniqueID, String description, int maxNumTeamMember,
 			ArrayList<AlternativeChoice> alternatives) throws Exception {
 		if (logger != null) {
 			logger.log("in createChoice");
@@ -91,13 +94,19 @@ public class CreateChoiceHandler implements RequestHandler<CreateChoiceRequest, 
 			alternativeDAO.addAlternative(alt);
 		}
 		Choice choice = new Choice(uniqueID, AlternativeChoiceDAO.getAllAlternatives(uniqueID),
-				new ArrayList<TeamMember>(maxNumTeamMember), description, null, null,
+				new ArrayList<TeamMember>(maxNumTeamMember), description, null, null, // Change to an array instead of
+																						// an arrayList
 				new java.sql.Date(System.currentTimeMillis()), false);
 		if (exist == null) {
 			return choiceDao.addChoice(choice);
 		} else {
 			return false;
 		}
+	}
+	//Overloaded function
+	public boolean createChoice(Choice c) throws Exception {
+		return createChoice(c.getUniqueID(), c.getDescription(), c.getMaxNumOfTeamMembers(), c.getAlternativeChoices());
+
 	}
 
 //	/** Create S3 bucket
@@ -130,6 +139,7 @@ public class CreateChoiceHandler implements RequestHandler<CreateChoiceRequest, 
 
 	/** Here primarily to clean up testing. */
 	void deleteSystemChoice(float daysOld) {
+		//TODO: add logic for replacing deleted id numbers
 		if (s3 == null) {
 			logger.log("attach to S3 request");
 			s3 = AmazonS3ClientBuilder.standard().withRegion(Regions.US_EAST_1).build();

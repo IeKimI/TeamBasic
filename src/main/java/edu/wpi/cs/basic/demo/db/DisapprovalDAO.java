@@ -114,7 +114,7 @@ public class DisapprovalDAO {
 			ResultSet resultSet = statement.executeQuery(query);
 
 			while (resultSet.next()) {
-				TeamMember c = generateAltnerativeChoice(resultSet);
+				TeamMember c = generateAltnerativeChoice(resultSet); // return list of teamMember and not a Disapproval object
 				allChoices.add(c);
 			}
 			resultSet.close();
