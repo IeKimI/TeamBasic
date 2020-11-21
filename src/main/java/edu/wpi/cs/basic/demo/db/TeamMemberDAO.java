@@ -121,7 +121,7 @@ public class TeamMemberDAO {
 			return true;
 
 		} catch (Exception e) {
-			throw new Exception("Failed to insert Choice: " + e.getMessage());
+			throw new Exception("Failed to insert teamMember: " + e.getMessage());
 		}
 	}
 
@@ -142,7 +142,7 @@ public class TeamMemberDAO {
 			return allChoices;
 
 		} catch (Exception e) {
-			throw new Exception("Failed in getting Choices: " + e.getMessage());
+			throw new Exception("Failed in getting teamMembers: " + e.getMessage());
 		}
 	}
 

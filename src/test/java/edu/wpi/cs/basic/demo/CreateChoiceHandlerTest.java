@@ -28,9 +28,12 @@ public class CreateChoiceHandlerTest extends LambdaTest {
 		CreateChoiceRequest req = new Gson().fromJson(incoming, CreateChoiceRequest.class);
 
 		CreateChoiceResponse resp = handler.handleRequest(req, createContext("create"));
+		System.out.println(resp.toString());
 		Assert.assertEquals(200, resp.httpCode);
 
+		System.out.println(resp.response);
 		return resp.response;
+		
 	}
 
 	String testFailInput(String incoming, int failureCode) throws IOException {
@@ -52,18 +55,24 @@ public class CreateChoiceHandlerTest extends LambdaTest {
 		 * description) { this.approvals = approvals; this.disapprovals = disapprovals;
 		 * this.feedback = feedback; this.description = description; }
 		 */
+
 		ArrayList<AlternativeChoice> alternatives = new ArrayList<AlternativeChoice>();
-		AlternativeChoice alt1 = new AlternativeChoice(null, null, null, "Hello");
-		AlternativeChoice alt2 = new AlternativeChoice(null, null, null, "Hello2");
+		AlternativeChoice alt1 = new AlternativeChoice(new ArrayList<TeamMember>(), new ArrayList<TeamMember>(),
+				new ArrayList<Feedback>(), "Hello", "ID1", "uniqueID");
+		AlternativeChoice alt2 = new AlternativeChoice(new ArrayList<TeamMember>(), new ArrayList<TeamMember>(),
+				new ArrayList<Feedback>(), "Hello", "ID2", "uniqueID");
+		AlternativeChoice alt3 = new AlternativeChoice("description", "alternativeID", "uniqueID");
+//
+//		alternatives.add(alt1);
+//		alternatives.add(alt2);
+		alternatives.add(alt3);
 
-		alternatives.add(alt1);
-		alternatives.add(alt2);
-
-		System.out.println(alternatives.isEmpty());
-		CreateChoiceRequest ccr = new CreateChoiceRequest("uniqueID", alternatives, null, "Choice1");
+//		System.out.println(alternatives.isEmpty());
+		CreateChoiceRequest ccr = new CreateChoiceRequest("uniqueID", alternatives, new ArrayList<TeamMember>(),
+				"Choice1");
 		String SAMPLE_INPUT_STRING = new Gson().toJson(ccr);
-
-		CreateChoiceResponse c_resp = new CreateChoiceHandler().handleRequest(ccr, createContext("post"));
+		System.out.println(SAMPLE_INPUT_STRING);
+		CreateChoiceResponse c_resp = new CreateChoiceHandler().handleRequest(ccr, createContext("create"));
 
 		try {
 			testSuccessInput(SAMPLE_INPUT_STRING);
@@ -73,8 +82,8 @@ public class CreateChoiceHandlerTest extends LambdaTest {
 
 //        DeleteConstantRequest dcr = new DeleteConstantRequest(var);
 //        DeleteConstantResponse d_resp = new DeleteConstantHandler().handleRequest(dcr, createContext("delete"));
-		System.out.println(c_resp.response);
-		Assert.assertEquals("uniqueID", c_resp.response);
+		System.out.println(c_resp.toString());
+		Assert.assertEquals(ccr.uniqueID, c_resp.response);
 	}
 
 }

@@ -163,16 +163,16 @@ public class CreateChoiceHandler implements RequestHandler<CreateChoiceRequest, 
 		CreateChoiceResponse response;
 		try {
 
-			if (createChoice(req.uniqueID, req.getDescription(), req.getParticipatingMembers().size(),
+			if (createChoice(req.getUniqueID(), req.getDescription(), req.getParticipatingMembers().size(),
 					req.getAlternativeChoices())) {
-				response = new CreateChoiceResponse(req.uniqueID, 200);
+				response = new CreateChoiceResponse(req.getUniqueID(), 200);
 			} else {
-				response = new CreateChoiceResponse(req.uniqueID, 400);
+				response = new CreateChoiceResponse(req.getUniqueID(), 400);
 			}
 
 		} catch (Exception e) {
 			response = new CreateChoiceResponse(
-					"Unable to create constant: " + req.uniqueID + "(" + e.getMessage() + ")", 400);
+					"Unable to create Choice: " + req.getUniqueID() + "(" + e.getMessage() + ")", 400);
 		}
 
 		return response;

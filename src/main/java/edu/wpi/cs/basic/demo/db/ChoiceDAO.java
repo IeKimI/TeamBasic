@@ -34,7 +34,7 @@ public class ChoiceDAO {
 
 	java.sql.Connection conn;
 
-	final String tblName = "Choices"; // Exact capitalization
+	final String tblName = "Choice"; // Exact capitalization
 
 	public ChoiceDAO() {
 		try {
@@ -109,14 +109,15 @@ public class ChoiceDAO {
 				return false; 
 			}
 
-			ps = conn.prepareStatement("INSERT INTO " + tblName + " (name,value) values(?,?);");
-			ps.setString(1, Choice.uniqueID);
-			ps.setString(2, Choice.getChosenAlternative().getAlternativeID());
+			ps = conn.prepareStatement("INSERT INTO " + tblName + " (uniqueID, description, maxNumOfTeamMembers, chosenAlternative, isCompleted, dateOfCompletion, dateOfCreation) values(?,?,?,?,?,?,?);");
+			ps.setString(1, Choice.getUniqueID());
+			ps.setString(2, Choice.getDescription());
 			ps.setInt(3, Choice.getParticipatingMembers().size());
-			ps.setString(4, Choice.getDescription());
-			ps.setDate(5, Choice.getDateOfCompletion());
-			ps.setDate(6, Choice.getDateOfCreation());
-			ps.setBoolean(7, Choice.isComplete());
+			ps.setString(4, Choice.getChosenAlternative().getAlternativeID());
+			ps.setBoolean(5, Choice.isComplete());
+			ps.setDate(6, Choice.getDateOfCompletion());
+			ps.setDate(7, Choice.getDateOfCreation());
+
 			ps.execute();
 			return true;
 

@@ -25,7 +25,7 @@ public class AlternativeChoiceDAO {
 
 	static java.sql.Connection conn;
 
-	final static String tblName = "AlternativeChoices"; // Exact capitalization
+	final static String tblName = "AlternativeChoice"; // Exact capitalization
 
 	public AlternativeChoiceDAO() {
 		try {
@@ -39,7 +39,7 @@ public class AlternativeChoiceDAO {
 
 		try {
 			AlternativeChoice alternativeChoice = null;
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE alternativeID=?;");
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE choiceID=?;");
 			ps.setString(1, alternativeChoice.getAlternativeID());
 			ResultSet resultSet = ps.executeQuery();
 
@@ -53,26 +53,26 @@ public class AlternativeChoiceDAO {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new Exception("Failed in getting choice: " + e.getMessage());
+			throw new Exception("Failed in getting Alternatives: " + e.getMessage());
 		}
 	}
 
-	public boolean updateChoice(AlternativeChoice alternativeChoice) throws Exception {
-		try {
-			String query = "UPDATE " + tblName + " SET isCompleted=? WHERE uniqueID=?;";
-			PreparedStatement ps = conn.prepareStatement(query);
-			ps.setString(1, alternativeChoice.getAlternativeID());
-//            ps.setString(2, Choice.getChosenAlternative().getAlternativeID());
-			ps.setString(2, alternativeChoice.getChoiceID());
-			ps.setString(3, alternativeChoice.getDescription());
-			int numAffected = ps.executeUpdate();
-			ps.close();
-
-			return (numAffected == 1);
-		} catch (Exception e) {
-			throw new Exception("Failed to update report: " + e.getMessage());
-		}
-	}
+//	public boolean updateChoice(AlternativeChoice alternativeChoice) throws Exception {
+//		try {
+//			String query = "UPDATE " + tblName + " SET isCompleted=? WHERE uniqueID=?;";
+//			PreparedStatement ps = conn.prepareStatement(query);
+//			ps.setString(1, alternativeChoice.getAlternativeID());
+////            ps.setString(2, Choice.getChosenAlternative().getAlternativeID());
+//			ps.setString(2, alternativeChoice.getChoiceID());
+//			ps.setString(3, alternativeChoice.getDescription());
+//			int numAffected = ps.executeUpdate();
+//			ps.close();
+//
+//			return (numAffected == 1);
+//		} catch (Exception e) {
+//			throw new Exception("Failed to update report: " + e.getMessage());
+//		}
+//	}
 
 	boolean deleteChoice(Choice Choice) throws Exception {
 		try {
@@ -84,7 +84,7 @@ public class AlternativeChoiceDAO {
 			return (numAffected == 1);
 
 		} catch (Exception e) {
-			throw new Exception("Failed to insert Choice: " + e.getMessage());
+			throw new Exception("Failed to insert Alternative: " + e.getMessage());
 		}
 	}
 
@@ -101,8 +101,8 @@ public class AlternativeChoiceDAO {
 				return false;
 			}
 
-			ps = conn.prepareStatement("INSERT INTO " + tblName + " (name,value) values(?,?);");
-			alternative.setChoiceID(alternative.getAlternativeID());
+			ps = conn.prepareStatement("INSERT INTO " + tblName + " (alternativeID,choiceID, description) values(?,?,?);");
+//			alternative.setChoiceID(alternative.getAlternativeID());
 			ps.setString(1, alternative.getAlternativeID());
 			ps.setString(2, alternative.getChoiceID());
 			ps.setString(3, alternative.getDescription());
@@ -110,7 +110,7 @@ public class AlternativeChoiceDAO {
 			return true;
 
 		} catch (Exception e) {
-			throw new Exception("Failed to insert Choice: " + e.getMessage());
+			throw new Exception("Failed to insert Alternatives: " + e.getMessage());
 		}
 	}
 
@@ -131,28 +131,28 @@ public class AlternativeChoiceDAO {
 			return allChoices;
 
 		} catch (Exception e) {
-			throw new Exception("Failed in getting Choices: " + e.getMessage());
+			throw new Exception("Failed in getting Alternatives: " + e.getMessage());
 		}
 	}
 
 	static AlternativeChoice generateAltnerativeChoice(ResultSet resultSet) throws Exception {
 		String alternativeID = resultSet.getString("alternativeID");
 		
-		// pass in the alternativeID to get the approvals of a specific alternative
-		ArrayList<TeamMember> approvals= ApprovalDAO.getApprovals(alternativeID);
-		
-		// pass in the altnerativeID to get the disapprovals of a specific alternative
-		ArrayList<TeamMember> disapprovals= DisapprovalDAO.getDisapprovals(alternativeID);
-		
-		// pass in the alternativeID to get the feedback of a specific alternativeID
-		ArrayList<Feedback> feedback = FeedbackDAO.getFeedbacks(alternativeID);
+//		// pass in the alternativeID to get the approvals of a specific alternative
+//		ArrayList<TeamMember> approvals= ApprovalDAO.getApprovals(alternativeID);
+//		
+//		// pass in the altnerativeID to get the disapprovals of a specific alternative
+//		ArrayList<TeamMember> disapprovals= DisapprovalDAO.getDisapprovals(alternativeID);
+//		
+//		// pass in the alternativeID to get the feedback of a specific alternativeID
+//		ArrayList<Feedback> feedback = FeedbackDAO.getFeedbacks(alternativeID);
 
 		String choiceID = resultSet.getString("choiceID");
 		String description = resultSet.getString("description");
 
 	
 //		AlternativeChoice databaseInquery= 
-		return new AlternativeChoice(approvals, disapprovals, feedback, description, alternativeID, choiceID);
+		return new AlternativeChoice(description, alternativeID, choiceID);
 	/**
 	 * 	public AlternativeChoice(ArrayList<TeamMember> approvals, ArrayList<TeamMember> disapprovals,
 			ArrayList<Feedback> feedback, String description, String alternativeID, String choiceID) {
