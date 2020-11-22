@@ -17,6 +17,9 @@ function handleLoginClick(e) {
 	username["description"]=form.username.value;
 	password["description"]=form.password.value;
 	
+	data["name"] = username;
+	data["password"] = password;
+	
 	
 
 	var js = JSON.stringify(data);
