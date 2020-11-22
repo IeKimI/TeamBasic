@@ -100,7 +100,7 @@ public class ChoiceDAO {
 		try {
 			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE uniqueID = ?;");
 			ps.setString(1, choice.getUniqueID());
-			ResultSet resultSet = ps.executeQuery();
+			ResultSet resultSet = ps.executeQuery(); 
 
 			// already present?
 			while (resultSet.next()) {
