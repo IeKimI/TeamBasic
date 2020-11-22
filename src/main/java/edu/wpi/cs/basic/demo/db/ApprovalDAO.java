@@ -23,7 +23,7 @@ public class ApprovalDAO {
 //		}
 //	}
 //
-//	public AlternativeChoice getAlternativeChoice(String uniqueID) throws Exception {
+//	public Approvals getApproval(AlternativeChoice alternativeID) throws Exception {
 //
 //		try {
 //			AlternativeChoice alternativeChoice = null;

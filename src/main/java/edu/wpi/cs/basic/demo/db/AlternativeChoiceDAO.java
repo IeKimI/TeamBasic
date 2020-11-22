@@ -13,8 +13,9 @@ import edu.wpi.cs.basic.demo.model.Feedback;
 import edu.wpi.cs.basic.demo.model.TeamMember;
 
 /**
- * create table `alternativeChoice` ( `alternativeID` VARCHAR(64) not null
- * default, `choiceID` VARCHAR(64) not null default,
+ * create table `alternativeChoice` ( 
+ * `alternativeID` VARCHAR(64) not null default, 
+ * `choiceID` VARCHAR(64) not null default,
  * 
  * `description` VARCHAR(64), primary key (`alternativeID`)
  * 
@@ -96,7 +97,7 @@ public class AlternativeChoiceDAO {
 
 			// already present?
 			while (resultSet.next()) {
-				AlternativeChoice c = generateAltnerativeChoice(resultSet);
+				AlternativeChoice ac = generateAltnerativeChoice(resultSet);
 				resultSet.close();
 				return false;
 			}
