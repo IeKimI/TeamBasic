@@ -8,7 +8,7 @@ public class AlternativeChoice {
 	ArrayList<TeamMember> disapprovals = new ArrayList<TeamMember>();
 	ArrayList<Feedback> feedback = new ArrayList<Feedback>();
 	String description;
-	String alternativeID;
+	int alternativeID;
 	String choiceID;
 	
 	
@@ -18,7 +18,7 @@ public class AlternativeChoice {
 		this.description = description;
 	}
 
-	public AlternativeChoice(String alternativeID, String choiceID,String description) {
+	public AlternativeChoice(int alternativeID, String choiceID,String description) {
 		super();
 		this.alternativeID = alternativeID;
 		this.choiceID = choiceID;
@@ -27,7 +27,7 @@ public class AlternativeChoice {
 	}
 
 	public AlternativeChoice(ArrayList<TeamMember> approvals, ArrayList<TeamMember> disapprovals,
-			ArrayList<Feedback> feedback, String description, String alternativeID, String choiceID) {
+			ArrayList<Feedback> feedback, String description, int alternativeID, String choiceID) {
 		super();
 		this.approvals = approvals;
 		this.disapprovals = disapprovals;
@@ -77,11 +77,11 @@ public class AlternativeChoice {
 		this.description = description;
 	}
 
-	public String getAlternativeID() {
+	public int getAlternativeID() {
 		return alternativeID;
 	}
 
-	public void setAlternativeID(String alternativeID) {
+	public void setAlternativeID(int alternativeID) {
 		this.alternativeID = alternativeID;
 	}
 

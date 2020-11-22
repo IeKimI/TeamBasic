@@ -100,7 +100,7 @@ public class ChoiceDAO {
 		try {
 			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE uniqueID = ?;");
 			ps.setString(1, choice.getUniqueID());
-			ResultSet resultSet = ps.executeQuery();
+			ResultSet resultSet = ps.executeQuery(); 
 
 			// already present?
 			while (resultSet.next()) {
@@ -113,7 +113,7 @@ public class ChoiceDAO {
 					+ " (uniqueID, description, maxNumOfTeamMembers, chosenAlternativeID, isCompleted, dateOfCompletion, dateOfCreation) values(?,?,?,?,?,?,?);");
 			ps.setString(1, choice.getUniqueID());
 			ps.setString(2, choice.getDescription());
-			ps.setInt(3, choice.getParticipatingMembers().size());
+			ps.setInt(3, choice.getMaxNumOfTeamMembers());
 //			ps.setString(4, choice.getChosenAlternative().getAlternativeID());
 			ps.setString(4, null);
 			ps.setBoolean(5, choice.isComplete());

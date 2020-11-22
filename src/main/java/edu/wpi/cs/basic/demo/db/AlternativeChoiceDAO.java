@@ -41,7 +41,7 @@ public class AlternativeChoiceDAO {
 		try {
 			AlternativeChoice alternativeChoice = null;
 			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE choiceID=?;");
-			ps.setString(1, alternativeChoice.getAlternativeID());
+			ps.setInt(1, alternativeChoice.getAlternativeID());
 			ResultSet resultSet = ps.executeQuery();
 
 			while (resultSet.next()) {
@@ -92,7 +92,7 @@ public class AlternativeChoiceDAO {
 	public boolean addAlternative(AlternativeChoice alternative) throws Exception {
 		try {
 			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE alternativeID = ?;");
-			ps.setString(1, alternative.getAlternativeID());
+			ps.setInt(1, alternative.getAlternativeID());
 			ResultSet resultSet = ps.executeQuery();
 
 			// already present?
@@ -102,11 +102,10 @@ public class AlternativeChoiceDAO {
 				return false;
 			}
 
-			ps = conn.prepareStatement("INSERT INTO " + tblName + " (alternativeID,choiceID, description) values(?,?,?);");
+			ps = conn.prepareStatement("INSERT INTO " + tblName + " (choiceID, description) values(?,?);");
 //			alternative.setChoiceID(alternative.getAlternativeID());
-			ps.setString(1, alternative.getAlternativeID());
-			ps.setString(2, alternative.getChoiceID());
-			ps.setString(3, alternative.getDescription());
+			ps.setString(1, alternative.getChoiceID());
+			ps.setString(2, alternative.getDescription());
 			ps.execute();
 			return true;
 
@@ -138,7 +137,7 @@ public class AlternativeChoiceDAO {
 	}
 
 	private static AlternativeChoice generateAltnerativeChoice(ResultSet resultSet) throws Exception {
-		String alternativeID = resultSet.getString("alternativeID");
+		int alternativeID = resultSet.getInt("alternativeID");
 		
 //		// pass in the alternativeID to get the approvals of a specific alternative
 //		ArrayList<TeamMember> approvals= ApprovalDAO.getApprovals(alternativeID);
@@ -154,7 +153,7 @@ public class AlternativeChoiceDAO {
 
 	
 //		AlternativeChoice databaseInquery= 
-		return new AlternativeChoice(description, alternativeID, choiceID);
+		return new AlternativeChoice(alternativeID, choiceID, description);
 	/**
 	 * 	public AlternativeChoice(ArrayList<TeamMember> approvals, ArrayList<TeamMember> disapprovals,
 			ArrayList<Feedback> feedback, String description, String alternativeID, String choiceID) {

@@ -75,11 +75,15 @@ public class Choice {
 		this.isCompleted = false;
 	}
 
+	// using this for lambda function
 	public Choice(String uniqueID, String description, int maxNumOfTeamMembers) {
 		this.uniqueID = uniqueID;
 		this.description = description;
 		this.maxNumOfTeamMembers = maxNumOfTeamMembers;
-
+		this.dateOfCreation = new java.sql.Date(System.currentTimeMillis());
+		this.isCompleted = false;
+		this.dateOfCompletion = null;
+		this.chosenAlternativeID = null;
 		// TODO Auto-generated constructor stub
 	}
 
