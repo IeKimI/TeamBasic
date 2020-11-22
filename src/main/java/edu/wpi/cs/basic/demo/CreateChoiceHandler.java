@@ -34,13 +34,13 @@ public class CreateChoiceHandler implements RequestHandler<CreateChoiceRequest, 
 //		return null;
 //	}
 //
-	private int id=0;
+	private int id = 0;
+
 	public String getNextID() {
-		//Can through database for earliest available ID
+		// Can through database for earliest available ID
 		return (new Integer(id++)).toString();
 	}
-	
-	
+
 //
 //	public boolean pushChoice(Choice choice) {
 //		return false;
@@ -67,46 +67,72 @@ public class CreateChoiceHandler implements RequestHandler<CreateChoiceRequest, 
 	 * 
 	 * @throws Exception
 	 */
-	public boolean createChoice(String uniqueID, String description, int maxNumTeamMember,
-			ArrayList<AlternativeChoice> alternatives) throws Exception {
+//	public boolean createChoice(String description, int maxNumTeamMember,
+//			ArrayList<AlternativeChoice> alternatives) throws Exception {
+//		if (logger != null) {
+//			logger.log("in createChoice");
+//		}
+//		String uniqueID = Integer.toString(description.hashCode()+alternatives.get(1).getDescription().hashCode());
+//		ChoiceDAO choiceDao = new ChoiceDAO();
+//		/**
+//		 * public Choice(String uniqueID, ArrayList<AlternativeChoice>
+//		 * alternativeChoices, ArrayList<TeamMember> participatingMembers, String
+//		 * description, Date dateOfCompletion, Date dateOfCreation, boolean isCompleted,
+//		 * int maxNumOfTeamMembers) { this.maxNumOfTeamMembers = maxNumOfTeamMembers;
+//		 * this.uniqueID = uniqueID; this.setAlternativeChoices(alternativeChoices);
+//		 * this.setParticipatingMembers(participatingMembers); this.description =
+//		 * description; this.dateOfCompletion = dateOfCompletion; this.dateOfCreation =
+//		 * dateOfCreation; this.isCompleted = isCompleted; }
+//		 */
+//		// check if present
+//		Choice exist = choiceDao.getChoice(uniqueID);
+//
+//		// go through alternatives and put each in alternativeDAO
+//		AlternativeChoiceDAO alternativeDAO = new AlternativeChoiceDAO();
+//
+//		for (AlternativeChoice alt : alternatives) {
+//			alt.setChoiceID(uniqueID);
+//			alt.setDescription(alt.getDescription());
+//			alternativeDAO.addAlternative(alt);
+//		}
+//		Choice choice = new Choice(uniqueID, AlternativeChoiceDAO.getAllAlternatives(uniqueID),
+//				new ArrayList<TeamMember>(maxNumTeamMember), description, null, null, // Change to an array instead of
+//																						// an arrayList
+//				new java.sql.Date(System.currentTimeMillis()), false);
+//		if (exist == null) {
+//			return choiceDao.addChoice(choice);
+//		} else {
+//			return false;
+//		}
+//	}
+//	//Overloaded function
+//	public boolean createChoice(Choice c) throws Exception {
+//		return createChoice(c.getDescription(), c.getMaxNumOfTeamMembers(), c.getAlternativeChoices());
+//
+//	}
+
+	boolean createChoice(String uniqueID, CreateChoiceRequest req) throws Exception {
 		if (logger != null) {
 			logger.log("in createChoice");
 		}
-		ChoiceDAO choiceDao = new ChoiceDAO();
-		/**
-		 * public Choice(String uniqueID, ArrayList<AlternativeChoice>
-		 * alternativeChoices, ArrayList<TeamMember> participatingMembers, String
-		 * description, Date dateOfCompletion, Date dateOfCreation, boolean isCompleted,
-		 * int maxNumOfTeamMembers) { this.maxNumOfTeamMembers = maxNumOfTeamMembers;
-		 * this.uniqueID = uniqueID; this.setAlternativeChoices(alternativeChoices);
-		 * this.setParticipatingMembers(participatingMembers); this.description =
-		 * description; this.dateOfCompletion = dateOfCompletion; this.dateOfCreation =
-		 * dateOfCreation; this.isCompleted = isCompleted; }
-		 */
-		// check if present
-		Choice exist = choiceDao.getChoice(uniqueID);
+		ChoiceDAO choiceDAO = new ChoiceDAO();
 
-		// go through alternatives and put each in alternativeDAO
-		AlternativeChoiceDAO alternativeDAO = new AlternativeChoiceDAO();
-
-		for (AlternativeChoice alt : alternatives) {
-			alt.setChoiceID(uniqueID);
-			alternativeDAO.addAlternative(alt);
-		}
-		Choice choice = new Choice(uniqueID, AlternativeChoiceDAO.getAllAlternatives(uniqueID),
-				new ArrayList<TeamMember>(maxNumTeamMember), description, null, null, // Change to an array instead of
-																						// an arrayList
-				new java.sql.Date(System.currentTimeMillis()), false);
+		Choice exist = choiceDAO.getChoice(uniqueID);
+		Choice choice = new Choice(uniqueID, req.getDescription(), req.getMaxNum());
 		if (exist == null) {
-			return choiceDao.addChoice(choice);
+			choiceDAO.addChoice(choice);
 		} else {
 			return false;
 		}
-	}
-	//Overloaded function
-	public boolean createChoice(Choice c) throws Exception {
-		return createChoice(c.getUniqueID(), c.getDescription(), c.getMaxNumOfTeamMembers(), c.getAlternativeChoices());
 
+		AlternativeChoiceDAO altDAO = new AlternativeChoiceDAO();
+		ArrayList<AlternativeChoice> alternatives = req.getAlternativeChoices();
+		for (AlternativeChoice alt : alternatives) {
+			alt.setChoiceID(uniqueID);
+//			alt.setDescription(alt.getDescription());
+			altDAO.addAlternative(alt);
+		}
+		return true;
 	}
 
 //	/** Create S3 bucket
@@ -139,7 +165,7 @@ public class CreateChoiceHandler implements RequestHandler<CreateChoiceRequest, 
 
 	/** Here primarily to clean up testing. */
 	void deleteSystemChoice(float daysOld) {
-		//TODO: add logic for replacing deleted id numbers
+		// TODO: add logic for replacing deleted id numbers
 		if (s3 == null) {
 			logger.log("attach to S3 request");
 			s3 = AmazonS3ClientBuilder.standard().withRegion(Regions.US_EAST_2).build();
@@ -149,22 +175,21 @@ public class CreateChoiceHandler implements RequestHandler<CreateChoiceRequest, 
 		s3.deleteObject(new DeleteObjectRequest(BucketManager.bucket, folder + daysOld));
 	}
 
+	String uniqueChoiceID(CreateChoiceRequest req) {
+		String uniqueID = Integer.toString(
+				req.getDescription().hashCode() + req.getAlternativeChoices().get(1).getDescription().hashCode());
+		return uniqueID;
+	}
+
 	@Override
 	public CreateChoiceResponse handleRequest(CreateChoiceRequest req, Context context) {
 		logger = context.getLogger();
 		logger.log(req.toString());
 
-		/**
-		 * this.uniqueID = uniqueID; this.alternativeChoices = alternativeChoices;
-		 * this.participatingMembers = participatingMembers; this.description =
-		 * description; this.dayOfCompletion = dayOfCompletion; this.daysOld = daysOld;
-		 * this.isCompleted = isCompleted; }
-		 */
 		CreateChoiceResponse response;
 		try {
-
-			if (createChoice(req.getUniqueID(), req.getDescription(), req.getMaxNum(),
-					req.getAlternativeChoices())) {
+			String uniqueID = uniqueChoiceID(req);
+			if (createChoice(uniqueID, req)) {
 				response = new CreateChoiceResponse(req.getUniqueID(), 200);
 			} else {
 				response = new CreateChoiceResponse(req.getUniqueID(), 400);
@@ -172,7 +197,8 @@ public class CreateChoiceHandler implements RequestHandler<CreateChoiceRequest, 
 
 		} catch (Exception e) {
 			response = new CreateChoiceResponse(
-					"Unable to create Choice: " + req.getDescription() +req.getUniqueID() + "(" + e.getMessage() + ")", 400);
+					"Unable to create Choice: " + req.getDescription() + req.getUniqueID() + "(" + e.getMessage() + ")",
+					400);
 		}
 
 		return response;

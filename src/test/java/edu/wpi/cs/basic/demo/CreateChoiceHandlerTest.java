@@ -15,6 +15,7 @@ import com.google.gson.Gson;
 import edu.wpi.cs.basic.demo.http.CreateChoiceRequest;
 import edu.wpi.cs.basic.demo.http.CreateChoiceResponse;
 import edu.wpi.cs.basic.demo.model.AlternativeChoice;
+import edu.wpi.cs.basic.demo.model.Choice;
 import edu.wpi.cs.basic.demo.model.Feedback;
 import edu.wpi.cs.basic.demo.model.TeamMember;
 
@@ -55,7 +56,6 @@ public class CreateChoiceHandlerTest extends LambdaTest {
 		 * description) { this.approvals = approvals; this.disapprovals = disapprovals;
 		 * this.feedback = feedback; this.description = description; }
 		 */
-
 		ArrayList<AlternativeChoice> alternatives = new ArrayList<AlternativeChoice>();
 		AlternativeChoice alt1 = new AlternativeChoice(new ArrayList<TeamMember>(), new ArrayList<TeamMember>(),
 				new ArrayList<Feedback>(), "Hello", "ID1", "uniqueID");
@@ -68,8 +68,7 @@ public class CreateChoiceHandlerTest extends LambdaTest {
 		alternatives.add(alt3);
 
 //		System.out.println(alternatives.isEmpty());
-		CreateChoiceRequest ccr = new CreateChoiceRequest("uniqueID4", alternatives,
-				"Choice2", 10);
+		CreateChoiceRequest ccr = new CreateChoiceRequest("ChoiceDescription", 10, alternatives);
 		String SAMPLE_INPUT_STRING = new Gson().toJson(ccr);
 		System.out.println(SAMPLE_INPUT_STRING);
 		CreateChoiceResponse c_resp = new CreateChoiceHandler().handleRequest(ccr, createContext("create"));

@@ -75,6 +75,16 @@ public class Choice {
 		this.isCompleted = false;
 	}
 
+	public Choice(String uniqueID, String description, int maxNumOfTeamMembers) {
+		this.uniqueID = uniqueID;
+		this.description = description;
+		this.maxNumOfTeamMembers = maxNumOfTeamMembers;
+
+		// TODO Auto-generated constructor stub
+	}
+
+
+
 	public ArrayList<AlternativeChoice> getAlternativeChoices() {
 		return alternativeChoices;
 	} 

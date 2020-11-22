@@ -13,6 +13,11 @@ public class AlternativeChoice {
 	
 	
 	
+	
+	public AlternativeChoice(String description) {
+		this.description = description;
+	}
+
 	public AlternativeChoice(String alternativeID, String choiceID,String description) {
 		super();
 		this.alternativeID = alternativeID;

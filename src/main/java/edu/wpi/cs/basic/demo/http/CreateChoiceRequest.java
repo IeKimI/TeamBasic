@@ -80,6 +80,12 @@ public class CreateChoiceRequest {
 		this.description = description;
 		this.maxNum = maxNum;
 	}
+	
+	public CreateChoiceRequest(String description, int maxNum, ArrayList<AlternativeChoice> alternativeChoices) {
+		this.alternativeChoices = alternativeChoices;
+		this.description = description;
+		this.maxNum = maxNum;
+	}
 	public CreateChoiceRequest(String uniqueID, ArrayList<AlternativeChoice> alternativeChoices,
 			ArrayList<TeamMember> participatingMembers, String description) {
 		super();
