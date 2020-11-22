@@ -17,13 +17,9 @@ function handleCreateClick(e) {
   }*/
   
   data["alternative1"] = form.alternative1.value;
-
   data["alternative2"] = form.alternative2.value;
-
   data["alternative3"] = form.alternative3.value;
-
   data["alternative4"] = form.alternative4.value;
-
   data["alternative5"] = form.alternative5.value;
 
 

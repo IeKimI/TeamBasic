@@ -163,7 +163,7 @@ public class CreateChoiceHandler implements RequestHandler<CreateChoiceRequest, 
 		CreateChoiceResponse response;
 		try {
 
-			if (createChoice(req.getUniqueID(), req.getDescription(), req.getParticipatingMembers().size(),
+			if (createChoice(req.getUniqueID(), req.getDescription(), req.getMaxNum(),
 					req.getAlternativeChoices())) {
 				response = new CreateChoiceResponse(req.getUniqueID(), 200);
 			} else {

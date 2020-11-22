@@ -66,6 +66,13 @@ public class CreateChoiceRequest {
 		this.isCompleted = isCompleted;
 	}
 	
+	
+	public int getMaxNum() {
+		return maxNum;
+	}
+	public void setMaxNum(int maxNum) {
+		this.maxNum = maxNum;
+	}
 	public CreateChoiceRequest(String uniqueID, ArrayList<AlternativeChoice> alternativeChoices, String description, int maxNum) {
 		super();
 		this.uniqueID = uniqueID;
