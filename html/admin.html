@@ -18,16 +18,20 @@ function initialize() {
 
 
 <h1>Admin Page</h1>
-
-<form name="Generate Report" method="post">
+<div>
+<form name="Generate Report" method="post" >
    <input type="button" id="generateReport" value="Generate Report" onClick="JavaScript:handleGenerateClick(this)">
 
+</div>
 
-   
+
+ <div style="horizontal-align:center;"> 
    <form name="Delete Choices that are N days old"post">
     <input name="N days" value="N days"/>
+    <input type="button" id="deleteChoices" value="Delete Choices" onClick="JavaScript:handleDeleteClick(this)">
+ </div>
    
-      <input type="button" id="deleteChoices" value="Delete Choices" onClick="JavaScript:handleDeleteClick(this)">
+      
    
    
   
