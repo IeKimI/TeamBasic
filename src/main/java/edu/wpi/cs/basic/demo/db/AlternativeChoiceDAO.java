@@ -116,26 +116,27 @@ public class AlternativeChoiceDAO {
 
 	public static ArrayList<AlternativeChoice> getAllAlternatives(String uniqueID) throws Exception {
 
-		ArrayList<AlternativeChoice> allChoices = new ArrayList<>();
+		ArrayList<AlternativeChoice> alternatives = new ArrayList<>();
 		try {
 			Statement statement = conn.createStatement();
-			String query = "SELECT * FROM " + tblName + ";";
-			ResultSet resultSet = statement.executeQuery(query);
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE choiceID = ?;");
+			ps.setString(1, uniqueID);
+			ResultSet resultSet = ps.executeQuery();
 
 			while (resultSet.next()) {
 				AlternativeChoice c = generateAltnerativeChoice(resultSet);
-				allChoices.add(c);
+				alternatives.add(c);
 			}
 			resultSet.close();
 			statement.close();
-			return allChoices;
+			return alternatives;
 
 		} catch (Exception e) {
 			throw new Exception("Failed in getting Alternatives: " + e.getMessage());
 		}
 	}
 
-	static AlternativeChoice generateAltnerativeChoice(ResultSet resultSet) throws Exception {
+	private static AlternativeChoice generateAltnerativeChoice(ResultSet resultSet) throws Exception {
 		String alternativeID = resultSet.getString("alternativeID");
 		
 //		// pass in the alternativeID to get the approvals of a specific alternative

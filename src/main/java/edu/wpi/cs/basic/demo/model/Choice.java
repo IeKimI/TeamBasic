@@ -15,8 +15,10 @@ public class Choice {
 	boolean isCompleted;
 	Date dateOfCompletion;
 	Date dateOfCreation;
+	String chosenAlternativeID;
 	// test
 
+	
 	public Choice(String uniqueID, ArrayList<AlternativeChoice> alternativeChoices,
 			ArrayList<TeamMember> participatingMembers, String description, Date dateOfCompletion, Date dateOfCreation,
 			boolean isCompleted, int maxNumOfTeamMembers) {
@@ -32,6 +34,20 @@ public class Choice {
 	
 	
 	
+	public Choice(String uniqueID, int maxNumOfTeamMembers, String description, String chosenAlternativeID,
+			boolean isCompleted, Date dateOfCompletion, Date dateOfCreation) {
+		super();
+		this.uniqueID = uniqueID;
+		this.maxNumOfTeamMembers = maxNumOfTeamMembers;
+		this.description = description;
+		this.chosenAlternativeID = chosenAlternativeID;
+		this.isCompleted = isCompleted;
+		this.dateOfCompletion = dateOfCompletion;
+		this.dateOfCreation = dateOfCreation;
+	}
+
+
+
 	public Choice(String uniqueID,ArrayList<AlternativeChoice> alternativeChoices, ArrayList<TeamMember> participatingMembers,
 			 String description, AlternativeChoice chosenAlternative,
 			Date dateOfCompletion, Date dateOfCreation, boolean isCompleted) {

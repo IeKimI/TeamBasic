@@ -1,6 +1,5 @@
 package edu.wpi.cs.basic.demo;
 
-
 import com.amazonaws.services.lambda.runtime.Context;
 
 public class LambdaTest {

@@ -15,6 +15,7 @@ public class CreateChoiceRequest {
 	Date dayOfCompletion;
 	float daysOld;
 	boolean isCompleted;
+	int maxNum;
 	
 	public String getUniqueID() {
 		return uniqueID;
@@ -65,6 +66,13 @@ public class CreateChoiceRequest {
 		this.isCompleted = isCompleted;
 	}
 	
+	public CreateChoiceRequest(String uniqueID, ArrayList<AlternativeChoice> alternativeChoices, String description, int maxNum) {
+		super();
+		this.uniqueID = uniqueID;
+		this.alternativeChoices = alternativeChoices;
+		this.description = description;
+		this.maxNum = maxNum;
+	}
 	public CreateChoiceRequest(String uniqueID, ArrayList<AlternativeChoice> alternativeChoices,
 			ArrayList<TeamMember> participatingMembers, String description) {
 		super();

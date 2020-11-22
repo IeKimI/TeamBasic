@@ -172,7 +172,7 @@ public class CreateChoiceHandler implements RequestHandler<CreateChoiceRequest, 
 
 		} catch (Exception e) {
 			response = new CreateChoiceResponse(
-					"Unable to create Choice: " + req.getUniqueID() + "(" + e.getMessage() + ")", 400);
+					"Unable to create Choice: " + req.getDescription() +req.getUniqueID() + "(" + e.getMessage() + ")", 400);
 		}
 
 		return response;

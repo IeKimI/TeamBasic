@@ -96,31 +96,34 @@ public class ChoiceDAO {
 		}
 	}
 
-	public boolean addChoice(Choice Choice) throws Exception {
+	public boolean addChoice(Choice choice) throws Exception {
 		try {
 			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE uniqueID = ?;");
-			ps.setString(1, Choice.uniqueID);
+			ps.setString(1, choice.getUniqueID());
 			ResultSet resultSet = ps.executeQuery();
 
 			// already present?
 			while (resultSet.next()) {
 				Choice c = generateChoice(resultSet);
 				resultSet.close();
-				return false; 
+				return false;
 			}
 
-			ps = conn.prepareStatement("INSERT INTO " + tblName + " (uniqueID, description, maxNumOfTeamMembers, chosenAlternative, isCompleted, dateOfCompletion, dateOfCreation) values(?,?,?,?,?,?,?);");
-			ps.setString(1, Choice.getUniqueID());
-			ps.setString(2, Choice.getDescription());
-			ps.setInt(3, Choice.getParticipatingMembers().size());
-			ps.setString(4, Choice.getChosenAlternative().getAlternativeID());
-			ps.setBoolean(5, Choice.isComplete());
-			ps.setDate(6, Choice.getDateOfCompletion());
-			ps.setDate(7, Choice.getDateOfCreation());
+			ps = conn.prepareStatement("INSERT INTO " + tblName
+					+ " (uniqueID, description, maxNumOfTeamMembers, chosenAlternativeID, isCompleted, dateOfCompletion, dateOfCreation) values(?,?,?,?,?,?,?);");
+			ps.setString(1, choice.getUniqueID());
+			ps.setString(2, choice.getDescription());
+			ps.setInt(3, choice.getParticipatingMembers().size());
+//			ps.setString(4, choice.getChosenAlternative().getAlternativeID());
+			ps.setString(4, null);
+			ps.setBoolean(5, choice.isComplete());
+			ps.setDate(6, choice.getDateOfCompletion());
+			ps.setDate(7, choice.getDateOfCreation());
 
 			ps.execute();
-			return true;
+			System.out.println(choice.getDescription());
 
+			return true;
 		} catch (Exception e) {
 			throw new Exception("Failed to insert Choice: " + e.getMessage());
 		}
@@ -148,43 +151,43 @@ public class ChoiceDAO {
 	}
 
 	Choice generateChoice(ResultSet resultSet) throws Exception {
-		String uniqueID = resultSet.getString("name");
+		String uniqueID = resultSet.getString("uniqueID");
 //		String alternativeID = resultSet.getString("alternativeChoice");
 //		//Do we need an alternativeID in the choice?
 //		//No, the table that stores choice will just have that index. Then when you get the choice, you take the choice ID
 //		//check the alternative table for the alternativeChocies with corresponding forgein key (the choice ID)
-		
-		// pass in the choiceID to get the list of alternatives that belongs to the specific choice
-		ArrayList<AlternativeChoice> alternativeChoices = AlternativeChoiceDAO.getAllAlternatives(uniqueID);
-		
-		// pass in the choiceID to get the list of participating members that belongs to the specific choice
-		ArrayList<TeamMember> participatingMembers = TeamMemberDAO.getAllTeamMembers(uniqueID);
+
+		// pass in the choiceID to get the list of alternatives that belongs to the
+		// specific choice
+//		ArrayList<AlternativeChoice> alternativeChoices = AlternativeChoiceDAO.getAllAlternatives(uniqueID);
+
+		// pass in the choiceID to get the list of participating members that belongs to
+		// the specific choice
+//		ArrayList<TeamMember> participatingMembers = TeamMemberDAO.getAllTeamMembers(uniqueID);
 		String description = resultSet.getString("description");
-		Date dayOfCompletion = resultSet.getDate("dayOfCompletion");
-		Date dayOfCreation = resultSet.getDate("dayOfCreation");
+		int maxNum = resultSet.getInt("maxNumOfTeamMembers");
+		Date dayOfCompletion = resultSet.getDate("dateOfCompletion");
+		Date dayOfCreation = resultSet.getDate("dateOfCreation");
+		String chosenAlternativeID = resultSet.getString("chosenAlternativeID");
 		AlternativeChoice chosenAlternative = null;
 //		float daysOld = resultSet.getFloat("daysOld");
 		boolean isCompleted = resultSet.getBoolean("isCompleted");
-		int maxNumOfTeamMembers = participatingMembers.size();
-		Choice output = new Choice(uniqueID, alternativeChoices, participatingMembers, description, dayOfCompletion, dayOfCreation,
-				isCompleted, maxNumOfTeamMembers);
-		
+
+		Choice output = new Choice(uniqueID, maxNum, description, chosenAlternativeID, isCompleted, dayOfCompletion,
+				dayOfCreation);
+
 		// set the chosenAlternative to null when generating the choice
 		output.setChosenAlternative(null);
 //		AlternativeChoice databaseInquery= 
 		return output;
 		/**
-		 * 	public Choice(String uniqueID, ArrayList<AlternativeChoice> alternativeChoices,
-			ArrayList<TeamMember> participatingMembers, String description, Date dateOfCompletion, Date dateOfCreation,
-			boolean isCompleted) {
-		this.uniqueID = uniqueID;
-		this.alternativeChoices = alternativeChoices;
-		this.participatingMembers = participatingMembers;
-		this.description = description;
-		this.dateOfCompletion = dateOfCompletion;
-		this.dateOfCreation = dateOfCreation;
-		this.isCompleted = isCompleted;
-	}
+		 * public Choice(String uniqueID, ArrayList<AlternativeChoice>
+		 * alternativeChoices, ArrayList<TeamMember> participatingMembers, String
+		 * description, Date dateOfCompletion, Date dateOfCreation, boolean isCompleted)
+		 * { this.uniqueID = uniqueID; this.alternativeChoices = alternativeChoices;
+		 * this.participatingMembers = participatingMembers; this.description =
+		 * description; this.dateOfCompletion = dateOfCompletion; this.dateOfCreation =
+		 * dateOfCreation; this.isCompleted = isCompleted; }
 		 */
 	}
 }

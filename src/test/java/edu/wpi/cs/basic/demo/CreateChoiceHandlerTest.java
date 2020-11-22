@@ -61,15 +61,15 @@ public class CreateChoiceHandlerTest extends LambdaTest {
 				new ArrayList<Feedback>(), "Hello", "ID1", "uniqueID");
 		AlternativeChoice alt2 = new AlternativeChoice(new ArrayList<TeamMember>(), new ArrayList<TeamMember>(),
 				new ArrayList<Feedback>(), "Hello", "ID2", "uniqueID");
-		AlternativeChoice alt3 = new AlternativeChoice("description", "alternativeID", "uniqueID");
+		AlternativeChoice alt3 = new AlternativeChoice( "alternativeID", "uniqueID","description");
 //
 //		alternatives.add(alt1);
 //		alternatives.add(alt2);
 		alternatives.add(alt3);
 
 //		System.out.println(alternatives.isEmpty());
-		CreateChoiceRequest ccr = new CreateChoiceRequest("uniqueID", alternatives, new ArrayList<TeamMember>(),
-				"Choice1");
+		CreateChoiceRequest ccr = new CreateChoiceRequest("uniqueID", alternatives,
+				"Choice1", 10);
 		String SAMPLE_INPUT_STRING = new Gson().toJson(ccr);
 		System.out.println(SAMPLE_INPUT_STRING);
 		CreateChoiceResponse c_resp = new CreateChoiceHandler().handleRequest(ccr, createContext("create"));
