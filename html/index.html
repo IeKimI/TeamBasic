@@ -18,6 +18,18 @@ function initialize() {
 
 
 <h1>Choices</h1>
+
+<div>
+	<form action="isLoggedIn">
+	<label>Username</label><br>
+	<input name="username" value=""><br>
+	<label>Password</label><br>
+	<input name="password" value=""><br>
+	<input type="hidden" name="form_submitted" value="1" />				
+				<input type="submit" value="Submit">
+	<input type="button" id="login" value="Log In" onClick="JavaScript:handleLoginClick(this)">
+	</form>
+</div>
 <div >
 
 <form name="createForm" method="post" >
@@ -35,7 +47,7 @@ function initialize() {
    <input name="alternative4" value=""/><br>
    <input name="alternative5" value=""/>
    
-   </div>
+</div>
   
    <input type="button" id="createButton" value="Create Choice" onClick="JavaScript:handleCreateClick(this)">
 </form>
