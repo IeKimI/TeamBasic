@@ -10,10 +10,12 @@ function handleLoginClick(e) {
 	var form = document.createForm;
 
 	var data = {};
-	data["description"] = form.description.value;
 
-	var name = "";
+	var username = "";
 	var password = "";
+	
+	username["description"]=form.username.value;
+	password["description"]=form.password.value;
 	
 	
 
