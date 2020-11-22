@@ -56,7 +56,7 @@ public class TeamMemberDAO {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new Exception("Failed in getting choice: " + e.getMessage());
+			throw new Exception("Failed in getting team member: " + e.getMessage());
 		}
 	}
 
@@ -65,7 +65,6 @@ public class TeamMemberDAO {
 			String query = "UPDATE " + tblName + " SET isCompleted=? WHERE uniqueID=?;";
 			PreparedStatement ps = conn.prepareStatement(query);
 			ps.setString(1, teamMember.getName());
-//            ps.setString(2, Choice.getChosenAlternative().getAlternativeID());
 			ps.setString(2, teamMember.getPassword());
 			ps.setString(3, teamMember.getChoiceID());
 			int numAffected = ps.executeUpdate();
@@ -116,7 +115,7 @@ public class TeamMemberDAO {
 //			ps.setBoolean(7, Choice.isComplete());
 			ps.setString(1, teamMember.getName());
 			ps.setString(2, teamMember.getPassword());
-			ps.setString(2, teamMember.getChoiceID());
+			ps.setString(3, teamMember.getChoiceID());
 			ps.execute();
 			return true;
 
@@ -127,19 +126,19 @@ public class TeamMemberDAO {
 
 	public static ArrayList<TeamMember> getAllTeamMembers(String uniqueID) throws Exception {
 
-		ArrayList<TeamMember> allChoices = new ArrayList<>();
+		ArrayList<TeamMember> allTM = new ArrayList<>();
 		try {
 			Statement statement = conn.createStatement();
 			String query = "SELECT * FROM " + tblName + ";";
 			ResultSet resultSet = statement.executeQuery(query);
 
 			while (resultSet.next()) {
-				TeamMember c = generateTeamMember(resultSet);
-				allChoices.add(c);
+				TeamMember tm = generateTeamMember(resultSet);
+				allTM.add(tm);
 			}
 			resultSet.close();
 			statement.close();
-			return allChoices;
+			return allTM;
 
 		} catch (Exception e) {
 			throw new Exception("Failed in getting teamMembers: " + e.getMessage());
