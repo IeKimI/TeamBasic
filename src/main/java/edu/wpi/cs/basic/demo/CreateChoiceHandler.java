@@ -175,7 +175,7 @@ public class CreateChoiceHandler implements RequestHandler<CreateChoiceRequest, 
 		s3.deleteObject(new DeleteObjectRequest(BucketManager.bucket, folder + daysOld));
 	}
 
-	String uniqueChoiceID(CreateChoiceRequest req) {
+	String createUniqueChoiceID(CreateChoiceRequest req) {
 		String uniqueID = Integer.toString(
 				req.getDescription().hashCode() + req.getAlternativeChoices().get(1).getDescription().hashCode());
 		return uniqueID;
@@ -188,16 +188,16 @@ public class CreateChoiceHandler implements RequestHandler<CreateChoiceRequest, 
 
 		CreateChoiceResponse response;
 		try {
-			String uniqueID = uniqueChoiceID(req);
+			String uniqueID = createUniqueChoiceID(req);
 			if (createChoice(uniqueID, req)) {
-				response = new CreateChoiceResponse(req.getUniqueID(), 200);
+				response = new CreateChoiceResponse(uniqueID, 200);
 			} else {
-				response = new CreateChoiceResponse(req.getUniqueID(), 400);
+				response = new CreateChoiceResponse(uniqueID, 400);
 			}
 
 		} catch (Exception e) {
 			response = new CreateChoiceResponse(
-					"Unable to create Choice: " + req.getDescription() + req.getUniqueID() + "(" + e.getMessage() + ")",
+					"Unable to create Choice: " + req.getDescription() + "(" + e.getMessage() + ")",
 					400);
 		}
 

@@ -50,27 +50,21 @@ public class CreateChoiceHandlerTest extends LambdaTest {
 	// NOTE: this proliferates large number of constants! Be mindful
 	@Test
 	public void testShouldBeOk() {
-		/**
-		 * public AlternativeChoice(ArrayList<TeamMember> approvals,
-		 * ArrayList<TeamMember> disapprovals, ArrayList<Feedback> feedback, String
-		 * description) { this.approvals = approvals; this.disapprovals = disapprovals;
-		 * this.feedback = feedback; this.description = description; }
-		 */
+	
 		ArrayList<AlternativeChoice> alternatives = new ArrayList<AlternativeChoice>();
-		AlternativeChoice alt1 = new AlternativeChoice(new ArrayList<TeamMember>(), new ArrayList<TeamMember>(),
-				new ArrayList<Feedback>(), "Hello", "ID1", "uniqueID");
-		AlternativeChoice alt2 = new AlternativeChoice(new ArrayList<TeamMember>(), new ArrayList<TeamMember>(),
-				new ArrayList<Feedback>(), "Hello", "ID2", "uniqueID");
-		AlternativeChoice alt3 = new AlternativeChoice( "alternativeID4", "uniqueID4","test4 hope it works");
-//
-//		alternatives.add(alt1);
-//		alternatives.add(alt2);
+
+		AlternativeChoice alt1 = new AlternativeChoice("Alt1");
+		AlternativeChoice alt2 = new AlternativeChoice("Alt2");
+		AlternativeChoice alt3 = new AlternativeChoice("Alt3");
+
+		alternatives.add(alt1);
+		alternatives.add(alt2);
 		alternatives.add(alt3);
 
-//		System.out.println(alternatives.isEmpty());
-		CreateChoiceRequest ccr = new CreateChoiceRequest("ChoiceDescription", 10, alternatives);
+		CreateChoiceRequest ccr = new CreateChoiceRequest("Choice_Description", 10, alternatives);
 		String SAMPLE_INPUT_STRING = new Gson().toJson(ccr);
 		System.out.println(SAMPLE_INPUT_STRING);
+		
 		CreateChoiceResponse c_resp = new CreateChoiceHandler().handleRequest(ccr, createContext("create"));
 
 		try {
@@ -82,7 +76,7 @@ public class CreateChoiceHandlerTest extends LambdaTest {
 //        DeleteConstantRequest dcr = new DeleteConstantRequest(var);
 //        DeleteConstantResponse d_resp = new DeleteConstantHandler().handleRequest(dcr, createContext("delete"));
 		System.out.println(c_resp.toString());
-		Assert.assertEquals(ccr.uniqueID, c_resp.response);
+		Assert.assertEquals(ccr.getDescription(), c_resp.response);
 	}
 
 }
