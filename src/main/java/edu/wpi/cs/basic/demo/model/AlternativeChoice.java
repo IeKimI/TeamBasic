@@ -4,14 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AlternativeChoice {
-	ArrayList<TeamMember> approvals = new ArrayList<TeamMember>();
-	ArrayList<TeamMember> disapprovals = new ArrayList<TeamMember>();
-	ArrayList<Feedback> feedback = new ArrayList<Feedback>();
+	List<TeamMember> approvals = new ArrayList<TeamMember>();
+	List<TeamMember> disapprovals = new ArrayList<TeamMember>();
+	List<Feedback> feedback = new ArrayList<Feedback>();
 	String description;
 	int alternativeID;
 	String choiceID;
 	
-	
+	public AlternativeChoice () {
+		
+	}
 	
 	
 	public AlternativeChoice(String description) {
@@ -25,8 +27,8 @@ public class AlternativeChoice {
 
 	}
 
-	public AlternativeChoice(ArrayList<TeamMember> approvals, ArrayList<TeamMember> disapprovals,
-			ArrayList<Feedback> feedback, String description, int alternativeID, String choiceID) {
+	public AlternativeChoice(List<TeamMember> approvals, List<TeamMember> disapprovals,
+			List<Feedback> feedback, String description, int alternativeID, String choiceID) {
 		this.approvals = approvals;
 		this.disapprovals = disapprovals;
 		this.feedback = feedback;
@@ -35,7 +37,7 @@ public class AlternativeChoice {
 		this.choiceID = choiceID;
 	}
 
-	public AlternativeChoice(ArrayList<TeamMember> approvals, ArrayList<TeamMember> disapprovals, ArrayList<Feedback> feedback,
+	public AlternativeChoice(List<TeamMember> approvals, List<TeamMember> disapprovals, List<Feedback> feedback,
 			String description) {
 		this.approvals = approvals;
 		this.disapprovals = disapprovals;
@@ -43,27 +45,27 @@ public class AlternativeChoice {
 		this.description = description;
 	}
 	
-	public ArrayList<TeamMember> getApprovals() {
+	public List<TeamMember> getApprovals() {
 		return approvals;
 	}
 
-	public void setApprovals(ArrayList<TeamMember> approvals) {
+	public void setApprovals(List<TeamMember> approvals) {
 		this.approvals = approvals;
 	}
 
-	public ArrayList<TeamMember> getDisapprovals() {
+	public List<TeamMember> getDisapprovals() {
 		return disapprovals;
 	}
 
-	public void setDisapprovals(ArrayList<TeamMember> disapprovals) {
+	public void setDisapprovals(List<TeamMember> disapprovals) {
 		this.disapprovals = disapprovals;
 	}
 
-	public ArrayList<Feedback> getFeedback() {
+	public List<Feedback> getFeedback() {
 		return feedback;
 	}
 
-	public void setFeedback(ArrayList<Feedback> feedback) {
+	public void setFeedback(List<Feedback> feedback) {
 		this.feedback = feedback;
 	}
 

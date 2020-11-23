@@ -1,0 +1,70 @@
+<html><head>
+<!-- relative path-name to access js -->
+<script type='text/javascript' src='../js/api.js'></script>
+<!-- <script type='text/javascript' src='../js/get_choiceList.js'></script>
+<script type='text/javascript' src='../js/add.js'></script> -->
+<script type='text/javascript' src='../js/create.js'></script>
+<!-- <script type='text/javascript' src='../js/delete.js'></script>
+ -->
+<script type="text/javascript">
+function initialize() {
+  
+   // get all choices
+/*    refreshChoiceList();
+ */}
+</script>
+</head>
+<body onload="initialize()">
+
+
+<h1>Choices</h1>
+
+<div>
+	<form>
+	<label>Username</label><br>
+	<input name="username" value=""><br>
+	<label>Password</label><br>
+	<input name="password" value=""><br>						
+	<input type="submit" id="login" value="Login"  onClick="JavaScript:handleLoginClick(this)">
+	
+	</form>
+</div>
+<?php
+  try {
+  $con= new PDO('mysql:host=localhost;dbname=dbName', "user", "pwd");
+  $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  $query = "SELECT * FROM contact";
+  //first pass just gets the column names
+  print "<table> n";
+  $result = $con->query($query);
+  //return only the first row (we only need field names)
+  $row = $result->fetch(PDO::FETCH_ASSOC);
+  print " <tr> n";
+  foreach ($row as $field => $value){
+   print " <th>$field</th> n";
+  } // end foreach
+  print " </tr> n";
+  //second query gets the data
+  $data = $con->query($query);
+  $data->setFetchMode(PDO::FETCH_ASSOC);
+  foreach($data as $row){
+   print " <tr> n";
+   foreach ($row as $name=>$value){
+   print " <td>$value</td> n";
+   } // end field loop
+   print " </tr> n";
+  } // end record loop
+  print "</table> n";
+  } catch(PDOException $e) {
+   echo 'ERROR: ' . $e->getMessage();
+  } // end try
+ ?>
+
+
+  
+
+<!--<div id="choiceList"></div>  -->
+
+
+</body>
+</html>

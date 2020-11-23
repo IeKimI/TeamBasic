@@ -1,20 +1,19 @@
 package edu.wpi.cs.basic.demo.http;
 
-import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 
 import edu.wpi.cs.basic.demo.model.AlternativeChoice;
-import edu.wpi.cs.basic.demo.model.TeamMember;
 
 public class CreateChoiceRequest {
 // eri 
-	ArrayList<AlternativeChoice> alternativeChoices = new ArrayList<AlternativeChoice>();
+	List<AlternativeChoice> alternativeChoices = new ArrayList<AlternativeChoice>();
 	String description;
 	int maxNum;
 	
 
 	
-	public ArrayList<AlternativeChoice> getAlternativeChoices() {
+	public List<AlternativeChoice> getAlternativeChoices() {
 		return alternativeChoices;
 	}
 	public void setAlternativeChoices(ArrayList<AlternativeChoice> alternativeChoices) {
@@ -41,6 +40,10 @@ public class CreateChoiceRequest {
 		this.maxNum = maxNum;
 		this.alternativeChoices = alternativeChoices;
 
+	}
+	
+	public CreateChoiceRequest() {
+		
 	}
 
 	

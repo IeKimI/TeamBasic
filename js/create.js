@@ -11,24 +11,7 @@ function handleCreateClick(e) {
 
 	var data = {};
 	data["description"] = form.description.value;
-	/*  
-	  if (form.system.checked) {  // be sure to flag system constant requests...
-		 data["system"] = true;
-	  }*/
-	/*
-	{
-	  "uniqueID": "string",
-	  "description": "string",
-	  "participatingMembers": 0,
-	  "alternatives": [
-		{
-		"altname1": "alt1Name",
-		"altDes1" : "alt1Desc"
-		},
-		{altname2 .... }
-	  ]
-	}
-	*/
+	
 	var alternatives = [];
 
 	var alternative1 = {};
@@ -44,7 +27,7 @@ function handleCreateClick(e) {
 	alternative5["description"] = form.alternative5.value;
 
 	alternatives = [alternative1, alternative2, alternative3, alternative4, alternative5];
-	data["maxNumOfTeamMembers"] = form.maxNumOfMembers.value;
+	data["maxNum"] = form.maxNumOfMembers.value;
 	data["alternativeChoices"] = alternatives;
 
 

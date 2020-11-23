@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import com.google.gson.Gson;
 
+import edu.wpi.cs.basic.demo.db.ChoiceDAO;
 import edu.wpi.cs.basic.demo.http.CreateChoiceRequest;
 import edu.wpi.cs.basic.demo.http.CreateChoiceResponse;
 import edu.wpi.cs.basic.demo.model.AlternativeChoice;
@@ -34,7 +35,7 @@ public class CreateChoiceHandlerTest extends LambdaTest {
 
 		System.out.println(resp.response);
 		return resp.response;
-		
+
 	}
 
 	String testFailInput(String incoming, int failureCode) throws IOException {
@@ -50,7 +51,7 @@ public class CreateChoiceHandlerTest extends LambdaTest {
 	// NOTE: this proliferates large number of constants! Be mindful
 	@Test
 	public void testShouldBeOk() {
-	
+
 		ArrayList<AlternativeChoice> alternatives = new ArrayList<AlternativeChoice>();
 
 		AlternativeChoice alt1 = new AlternativeChoice("Alt1");
@@ -61,21 +62,47 @@ public class CreateChoiceHandlerTest extends LambdaTest {
 		alternatives.add(alt2);
 		alternatives.add(alt3);
 
-		CreateChoiceRequest ccr = new CreateChoiceRequest("Description", 10, alternatives);
+
+		CreateChoiceRequest ccr = new CreateChoiceRequest("t", 10, alternatives);
 		String SAMPLE_INPUT_STRING = new Gson().toJson(ccr);
-		System.out.println(SAMPLE_INPUT_STRING);
+//		System.out.println("{\n" + "\"alternativeChoices\" : [\n{\n" + "\"approvals\" : [],\n" + "\"disapprovals\" : [],\n"
+//				+ "\"feedback\" : [],\n" + "\"description\" : " + "\"Alt1\",\n" + "\"alternativeID\" : 0\n"
+//				+ "},\n" + "{\n" + "\"approvals\" : [],\n" + "\"disapprovals\" : [],\n" + "\"feedback\" : [],\n"
+//				+ "\"description\" : " + "\"Alt2\",\n" + "\"alternativeID\" : 0\n" + "},\n" + "{\n"
+//				+ "\"approvals\" : [],\n" + "\"disapprovals\" : [],\n" + "\"feedback\" : [],\n"
+//				+ "\"description\" : " + "\"Alt3\",\n" + "\"alternativeID\" : 0\n" + "}\n" + "],\n"
+//				+ "\"description\" : " + "\"Description\",\n" + "\"maxNum\" : 10" + "}\n");
+		CreateChoiceRequest c = new Gson().fromJson(
+				"{\n" + "\"alternativeChoices\" : [\n{\n" + "\"approvals\" : [],\n" + "\"disapprovals\" : [],\n"
+						+ "\"feedback\" : [],\n" + "\"description\" : " + "\"AltTest1\",\n" + "\"alternativeID\" : 0\n"
+						+ "},\n" + "{\n" + "\"approvals\" : [],\n" + "\"disapprovals\" : [],\n" + "\"feedback\" : [],\n"
+						+ "\"description\" : " + "\"AltTest2\",\n" + "\"alternativeID\" : 0\n" + "},\n" + "{\n"
+						+ "\"approvals\" : [],\n" + "\"disapprovals\" : [],\n" + "\"feedback\" : [],\n"
+						+ "\"description\" : " + "\"AltTest3\",\n" + "\"alternativeID\" : 0\n" + "}\n" + "],\n"
+						+ "\"description\" : " + "\"Description\",\n" + "\"maxNum\" : 10" + "}\n",
+				CreateChoiceRequest.class);
 		
+		System.out.println(SAMPLE_INPUT_STRING);
+		String sample = new Gson().toJson(c);
+		System.out.println(sample);
+
+
 		CreateChoiceResponse c_resp = new CreateChoiceHandler().handleRequest(ccr, createContext("create"));
+//		CreateChoiceResponse c_resp2 = new CreateChoiceHandler().handleRequest(c, createContext("create"));
+
 
 		try {
 			testSuccessInput(SAMPLE_INPUT_STRING);
 		} catch (IOException ioe) {
 			Assert.fail("Invalid:" + ioe.getMessage());
 		}
-
 //        DeleteConstantRequest dcr = new DeleteConstantRequest(var);
 //        DeleteConstantResponse d_resp = new DeleteConstantHandler().handleRequest(dcr, createContext("delete"));
+
 		System.out.println(c_resp.toString());
+//		System.out.println(c_resp2.toString());
+		
+
 		Assert.assertEquals(ccr.getDescription(), c_resp.response);
 	}
 

@@ -16,14 +16,4 @@ public class Model { // Eren
 	public Model() {
 		handler = new CreateChoiceHandler();
 	}
-
-	public void makeChoice() throws Exception {
-		if (loggedInUser != null) {
-			handler.createChoice(new Choice(handler.getNextID())); // Make sure that the
-																	// made choice is
-																	// valid before
-																	// pushing
-		}
-	}
-
 }
