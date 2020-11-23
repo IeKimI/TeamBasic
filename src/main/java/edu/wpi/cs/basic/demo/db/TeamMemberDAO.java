@@ -35,7 +35,7 @@ public class TeamMemberDAO {
 		}
 	}
 
-	public TeamMember getTeamMember(String uniqueID) throws Exception {
+	public TeamMember getTeamMember(String name) throws Exception {
 
 		try {
 			TeamMember teamMember = null;
