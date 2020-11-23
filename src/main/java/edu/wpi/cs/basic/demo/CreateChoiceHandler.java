@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.lambda.runtime.Context;
@@ -126,7 +127,7 @@ public class CreateChoiceHandler implements RequestHandler<CreateChoiceRequest, 
 		}
 
 		AlternativeChoiceDAO altDAO = new AlternativeChoiceDAO();
-		ArrayList<AlternativeChoice> alternatives = req.getAlternativeChoices();
+		List<AlternativeChoice> alternatives = req.getAlternativeChoices();
 		for (AlternativeChoice alt : alternatives) {
 			alt.setChoiceID(uniqueID);
 //			alt.setDescription(alt.getDescription());

@@ -169,25 +169,17 @@ public class ChoiceDAO {
 		Date dayOfCompletion = resultSet.getDate("dateOfCompletion");
 		Date dayOfCreation = resultSet.getDate("dateOfCreation");
 		String chosenAlternativeID = resultSet.getString("chosenAlternativeID");
-		AlternativeChoice chosenAlternative = null;
+//		AlternativeChoice chosenAlternative = null;
 //		float daysOld = resultSet.getFloat("daysOld");
 		boolean isCompleted = resultSet.getBoolean("isCompleted");
 
 		Choice output = new Choice(uniqueID, maxNum, description, chosenAlternativeID, isCompleted, dayOfCompletion,
 				dayOfCreation);
+		return output;
 
 		// set the chosenAlternative to null when generating the choice
-		output.setChosenAlternative(null);
+//		output.setChosenAlternative(null);
 //		AlternativeChoice databaseInquery= 
-		return output;
-		/**
-		 * public Choice(String uniqueID, ArrayList<AlternativeChoice>
-		 * alternativeChoices, ArrayList<TeamMember> participatingMembers, String
-		 * description, Date dateOfCompletion, Date dateOfCreation, boolean isCompleted)
-		 * { this.uniqueID = uniqueID; this.alternativeChoices = alternativeChoices;
-		 * this.participatingMembers = participatingMembers; this.description =
-		 * description; this.dateOfCompletion = dateOfCompletion; this.dateOfCreation =
-		 * dateOfCreation; this.isCompleted = isCompleted; }
-		 */
+//		return output;
 	}
 }
