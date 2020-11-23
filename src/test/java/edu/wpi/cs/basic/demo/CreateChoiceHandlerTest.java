@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import com.google.gson.Gson;
 
+import edu.wpi.cs.basic.demo.db.ChoiceDAO;
 import edu.wpi.cs.basic.demo.http.CreateChoiceRequest;
 import edu.wpi.cs.basic.demo.http.CreateChoiceResponse;
 import edu.wpi.cs.basic.demo.model.AlternativeChoice;
@@ -62,7 +63,7 @@ public class CreateChoiceHandlerTest extends LambdaTest {
 		alternatives.add(alt3);
 
 
-		CreateChoiceRequest ccr = new CreateChoiceRequest("Description", 10, alternatives);
+		CreateChoiceRequest ccr = new CreateChoiceRequest("t", 10, alternatives);
 		String SAMPLE_INPUT_STRING = new Gson().toJson(ccr);
 //		System.out.println("{\n" + "\"alternativeChoices\" : [\n{\n" + "\"approvals\" : [],\n" + "\"disapprovals\" : [],\n"
 //				+ "\"feedback\" : [],\n" + "\"description\" : " + "\"Alt1\",\n" + "\"alternativeID\" : 0\n"
@@ -87,7 +88,7 @@ public class CreateChoiceHandlerTest extends LambdaTest {
 
 
 		CreateChoiceResponse c_resp = new CreateChoiceHandler().handleRequest(ccr, createContext("create"));
-		CreateChoiceResponse c_resp2 = new CreateChoiceHandler().handleRequest(c, createContext("create"));
+//		CreateChoiceResponse c_resp2 = new CreateChoiceHandler().handleRequest(c, createContext("create"));
 
 
 		try {
@@ -95,11 +96,12 @@ public class CreateChoiceHandlerTest extends LambdaTest {
 		} catch (IOException ioe) {
 			Assert.fail("Invalid:" + ioe.getMessage());
 		}
-
 //        DeleteConstantRequest dcr = new DeleteConstantRequest(var);
 //        DeleteConstantResponse d_resp = new DeleteConstantHandler().handleRequest(dcr, createContext("delete"));
+
 		System.out.println(c_resp.toString());
-		System.out.println(c_resp2.toString());
+//		System.out.println(c_resp2.toString());
+		
 
 		Assert.assertEquals(ccr.getDescription(), c_resp.response);
 	}
