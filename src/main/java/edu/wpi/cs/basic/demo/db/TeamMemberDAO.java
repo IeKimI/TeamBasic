@@ -105,7 +105,7 @@ public class TeamMemberDAO {
 				return false;
 			}
 
-			ps = conn.prepareStatement("INSERT INTO " + tblName + " (name,value) values(?,?);");
+			ps = conn.prepareStatement("INSERT INTO " + tblName + " (teamMemberName, password, choiceID) values(?,?,?);");
 //			ps.setString(1, Choice.uniqueID);
 //			ps.setString(2, Choice.getChosenAlternative().getAlternativeID());
 //			ps.setInt(3, Choice.getParticipatingMembers().size());
