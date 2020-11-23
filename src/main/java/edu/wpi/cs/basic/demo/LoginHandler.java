@@ -125,7 +125,7 @@ public class LoginHandler implements RequestHandler<LoginRequest, LoginResponse>
 		int maxNum = choiceDAO.getMaxNum(req.getChoiceID());
 		if (list.size() >= maxNum) { return false;}
 		
-		TeamMember exist = new TeamMember(req.getChoiceID(), req.getName(), req.getPassword());
+		TeamMember exist = new TeamMember(req.getName(), req.getPassword(), req.getChoiceID());
 //		TeamMember tm = new TeamMember(name);
 //		if (exist == null) {
 //			teamMemberDAO.addTeamMember(tm);

@@ -80,11 +80,11 @@ public class LoginHandlerTest extends LambdaTest {
 		
 		ArrayList<AlternativeChoice> alternatives = new ArrayList<AlternativeChoice>();
 		
-		AlternativeChoice alt1 = new AlternativeChoice("DEScription1");
-		AlternativeChoice alt2 = new AlternativeChoice("DEScription2");
-		AlternativeChoice alt3 = new AlternativeChoice("DEScription3");
+		AlternativeChoice alt1 = new AlternativeChoice("12");
+		AlternativeChoice alt2 = new AlternativeChoice("123");
+		AlternativeChoice alt3 = new AlternativeChoice("1234");
 		
-		alternatives.add(alt1);
+		alternatives.add(alt1); 
 		alternatives.add(alt2); 
 		alternatives.add(alt3);
 		String uniqueID = null;
@@ -95,7 +95,7 @@ public class LoginHandlerTest extends LambdaTest {
 		CreateChoiceResponse c_resp = choiceHandler.handleRequest(ccr, createContext("create"));
 		uniqueID = c_resp.response;
 		
-		TeamMember tm1 = new TeamMember("name", "password", uniqueID);
+		TeamMember tm1 = new TeamMember("Eri", "EriKim", uniqueID);
 //		TeamMember tm1 = new TeamMember(uniqueID, "name", "password");
 //		TeamMember tm1 = new TeamMember(uniqueID, "name", "password");
 //		TeamMember tm1 = new TeamMember(uniqueID, "name", "password");
