@@ -27,7 +27,7 @@ function handleCreateClick(e) {
 	alternative5["description"] = form.alternative5.value;
 
 	alternatives = [alternative1, alternative2, alternative3, alternative4, alternative5];
-	data["maxNumOfTeamMembers"] = form.maxNumOfMembers.value;
+	data["maxNum"] = form.maxNumOfMembers.value;
 	data["alternativeChoices"] = alternatives;
 
 
