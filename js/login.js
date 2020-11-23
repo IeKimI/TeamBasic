@@ -11,14 +11,14 @@ function handleLoginClick(e) {
 
 	var data = {};
 
-	var username = "";
-	var password = "";
+/*	var username = "";
+	var password = "";*/
 	
-	username["description"]=form.username.value;
-	password["description"]=form.password.value;
+	data["teamMemberName"]=form.username.value;
+	data["password"]=form.password.value;
 	
-	data["name"] = username;
-	data["password"] = password;
+	/*data["name"] = username;
+	data["password"] = password;*/
 	
 	
 
