@@ -65,6 +65,31 @@ public class ChoiceDAO {
 			throw new Exception("Failed in getting choice: " + e.getMessage());
 		}
 	}
+	
+	public int getMaxNum(String uniqueID) throws Exception {
+		try {
+			Choice choice = null;
+			
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE uniqueID=?;");
+			ps.setString(1, uniqueID);
+			ResultSet resultSet = ps.executeQuery();
+			
+			while(resultSet.next()) {
+				choice = generateChoice(resultSet);
+			}
+			
+			resultSet.close();
+			ps.close();
+			
+			if(choice == null) {
+				throw new Exception ("No choice with : " + uniqueID);
+			}
+			return choice.getMaxNumOfTeamMembers();
+		} catch(Exception e) {
+			e.printStackTrace();
+			throw new Exception("Cannot get the maxNum for: " + uniqueID + e.getMessage());
+		}
+	}
 
 	public boolean updateChoice(Choice choice) throws Exception {
 		try {

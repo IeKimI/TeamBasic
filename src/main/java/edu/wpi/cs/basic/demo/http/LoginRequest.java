@@ -11,10 +11,23 @@ public class LoginRequest {
 //matt
 	String name;
 	String password;
+	String choiceID;
 
 	
 
 	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getChoiceID() {
+		return choiceID;
+	}
+	public void setChoiceID(String choiceID) {
+		this.choiceID = choiceID;
+	}
 	public String getUsername() {
 		return name;
 	}
@@ -32,9 +45,14 @@ public class LoginRequest {
 	
 	
 	//using this for the lambda function
-	public LoginRequest(String username, String password) {
+	public LoginRequest(String username, String password, String choiceID) {
 		this.name = username;
 		this.password = password;
+		this.choiceID = choiceID;
+	}
+	
+	public String toString() {
+		return "Registering teamMember...: " + name + "for choiceID" + choiceID;
 	}
 
 	

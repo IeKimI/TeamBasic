@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.lambda.runtime.Context;
@@ -111,20 +112,34 @@ public class LoginHandler implements RequestHandler<LoginRequest, LoginResponse>
 //
 //	}
 
-	boolean createTeamMember(String name, LoginRequest req) throws Exception {
+	boolean createTeamMember(LoginRequest req) throws Exception {
 		if (logger != null) {
 			logger.log("in createTeamMember");
 		}
-		TeamMemberDAO teamMemberDAO = new TeamMemberDAO();
 
-		TeamMember exist = teamMemberDAO.getTeamMember(name);
-		TeamMember tm = new TeamMember(name);
-		if (exist == null) {
-			teamMemberDAO.addTeamMember(tm);
-		} else {
-			return false;
+		TeamMemberDAO teamMemberDAO = new TeamMemberDAO();
+		ChoiceDAO choiceDAO = new ChoiceDAO();
+
+		List<TeamMember> list = TeamMemberDAO.getAllTeamMembers(req.getChoiceID());
+		
+		int maxNum = choiceDAO.getMaxNum(req.getChoiceID());
+		if (list.size() >= maxNum) { return false;}
+		
+		TeamMember exist = new TeamMember(req.getChoiceID(), req.getName(), req.getPassword());
+//		TeamMember tm = new TeamMember(name);
+//		if (exist == null) {
+//			teamMemberDAO.addTeamMember(tm);
+//		} else {
+//			return false;
+//		}
+//		return true;
+		for (TeamMember tm: list) {
+			if(exist.equals(tm)) {
+				return false;
+			}
 		}
-		return true;
+		
+		return teamMemberDAO.addTeamMember(exist);
 	}
 
 //	/** Create S3 bucket
@@ -170,18 +185,29 @@ public class LoginHandler implements RequestHandler<LoginRequest, LoginResponse>
 
 		LoginResponse response;
 		try {
-			String uniqueUsername = createUniqueUsername(req);
-			if (createTeamMember(uniqueUsername, req)) {
-				response = new LoginResponse(uniqueUsername, 200);
+//			String uniqueUsername = createUniqueUsername(req);
+//			if (createTeamMember(uniqueUsername, req)) {
+//				response = new LoginResponse(uniqueUsername, 200);
+//			} else {
+//				response = new LoginResponse(uniqueUsername, 400);
+//			}
+//
+//		} catch (Exception e) {
+//			response = new LoginResponse(
+//					"Unable to create Team Member: " + req.getUsername() + "(" + e.getMessage() + ")",
+//					400);
+//		}
+			
+			if (createTeamMember(req)) {
+				response = new LoginResponse("Sucessful: " + req.getName(), 200);
 			} else {
-				response = new LoginResponse(uniqueUsername, 400);
+				response = new LoginResponse("Cannot create a teamMember" + req.getName(), 400);
 			}
-
-		} catch (Exception e) {
-			response = new LoginResponse(
-					"Unable to create Team Member: " + req.getUsername() + "(" + e.getMessage() + ")",
-					400);
+		}catch (Exception e) {
+			response = new LoginResponse("Cant" + req.getName() + e.getMessage());
 		}
+				
+				
 
 		return response;
 	}

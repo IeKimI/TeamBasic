@@ -35,46 +35,45 @@ public class TeamMemberDAO {
 		}
 	}
 
-	public TeamMember getTeamMember(String name) throws Exception {
-
-		try {
-			TeamMember teamMember = null;
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE teamMemberName=?;");
-			ps.setString(1, teamMember.getName());
-			ps.setString(2, teamMember.getPassword());
-			ps.setString(3, teamMember.getChoiceID());
-
-			ResultSet resultSet = ps.executeQuery();
-
-			while (resultSet.next()) {
-				teamMember = generateTeamMember(resultSet);
-			}
-			resultSet.close();
-			ps.close();
-
-			return teamMember;
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new Exception("Failed in getting team member: " + e.getMessage());
-		}
-	}
-
-	public boolean updateTeamMember(TeamMember teamMember) throws Exception {
-		try {
-			String query = "UPDATE " + tblName + " SET isCompleted=? WHERE uniqueID=?;";
-			PreparedStatement ps = conn.prepareStatement(query);
-			ps.setString(1, teamMember.getName());
-			ps.setString(2, teamMember.getPassword());
-			ps.setString(3, teamMember.getChoiceID());
-			int numAffected = ps.executeUpdate();
-			ps.close();
-
-			return (numAffected == 1);
-		} catch (Exception e) {
-			throw new Exception("Failed to update report: " + e.getMessage());
-		}
-	}
+//	public TeamMember getTeamMember(String name) throws Exception {
+//
+//		try {
+//			TeamMember teamMember = null;
+//			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE teamMemberName=?;");
+//			ps.setString(1, teamMember.getName());
+////			ps.setString(2, teamMember.getPassword());
+////			ps.setString(3, teamMember.getChoiceID());
+//
+//			ResultSet resultSet = ps.executeQuery();
+//
+//			while (resultSet.next()) {
+//				teamMember = generateTeamMember(resultSet);
+//			}
+//			resultSet.close();
+//			ps.close();
+//			return teamMember;
+//
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			throw new Exception("Failed in getting team member: " + e.getMessage());
+//		}
+//	}
+//
+//	public boolean updateTeamMember(TeamMember teamMember) throws Exception {
+//		try {
+//			String query = "UPDATE " + tblName + " SET isCompleted=? WHERE uniqueID=?;";
+//			PreparedStatement ps = conn.prepareStatement(query);
+//			ps.setString(1, teamMember.getName());
+//			ps.setString(2, teamMember.getPassword());
+//			ps.setString(3, teamMember.getChoiceID());
+//			int numAffected = ps.executeUpdate();
+//			ps.close();
+//
+//			return (numAffected == 1);
+//		} catch (Exception e) {
+//			throw new Exception("Failed to update report: " + e.getMessage());
+//		}
+//	}
 
 //	boolean d(Choice Choice) throws Exception {
 //		try {
@@ -92,20 +91,20 @@ public class TeamMemberDAO {
 
 	public boolean addTeamMember(TeamMember teamMember) throws Exception {
 		try {
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE teamMemberName = ?;");
-			ps.setString(1, teamMember.getName());
+//			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE teamMemberName = ?;");
+//			ps.setString(1, teamMember.getName());
+//
+//
+//			ResultSet resultSet = ps.executeQuery();
+//
+//			// already present?
+//			while (resultSet.next()) {
+//				TeamMember tm = generateTeamMember(resultSet);
+//				resultSet.close();
+//				return false;
+//			}
 
-
-			ResultSet resultSet = ps.executeQuery();
-
-			// already present?
-			while (resultSet.next()) {
-				TeamMember tm = generateTeamMember(resultSet);
-				resultSet.close();
-				return false;
-			}
-
-			ps = conn.prepareStatement("INSERT INTO " + tblName + " (teamMemberName, password, choiceID) values(?,?,?);");
+			PreparedStatement ps = conn.prepareStatement("INSERT INTO " + tblName + " (teamMemberName, password, choiceID) values(?,?,?);");
 //			ps.setString(1, Choice.uniqueID);
 //			ps.setString(2, Choice.getChosenAlternative().getAlternativeID());
 //			ps.setInt(3, Choice.getParticipatingMembers().size());
