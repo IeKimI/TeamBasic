@@ -16,8 +16,11 @@ function handleLoginClick(e) {
 	
 	data["teamMemberName"]=form.username.value;
 	data["password"]=form.password.value;
-	
-	/*data["name"] = username;
+/*	data["choiceID"] = //need parsing
+
+
+
+*/	/*data["name"] = username;
 	data["password"] = password;*/
 	
 	

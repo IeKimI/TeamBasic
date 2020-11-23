@@ -4,7 +4,17 @@ function processCreateResponse(result) {
 	console.log("result:" + result);
 
 	/*refreshChoiceList();*/
+	var choiceID = JSON.parse(result)["response"];
+	console.log(choiceID);
+	window.location.href = "https://2zylw79630.execute-api.us-east-2.amazonaws.com/teamBasic/choice.hml?" + choiceID;
+	var choiceInfo = document.getElementById["choiceInfo"];
+	
+	  var output = "Eri Kim";
+
+	choiceInfo.innerHTML = output;
+	
 }
+
 
 function handleCreateClick(e) {
 	var form = document.createForm;
