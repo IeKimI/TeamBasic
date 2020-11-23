@@ -31,24 +31,41 @@ function processListResponse(result) {
   console.log("res:" + result);
   // Can grab any DIV or SPAN HTML element and can then manipulate its contents dynamically via javascript
   var js = JSON.parse(result);
-  var constList = document.getElementById('constantList');
+  var choiceList = document.getElementById('choiceList');
   
   var output = "";
   for (var i = 0; i < js.list.length; i++) {
-    var constantJson = js.list[i];
-    console.log(constantJson);
+    var choiceJson = js.list[i];
+    console.log(choiceJson);
     
-    var cname = constantJson["name"];
-    var cval = constantJson["value"];
-    var sysvar = constantJson["system"];
-    if (sysvar) {
-    	output = output + "<div id=\"const" + cname + "\"><b>" + cname + ":</b> = " + cval + "<br></div>";
-    } else {
-    	output = output + "<div id=\"const" + cname + "\"><b>" + cname + ":</b> = " + cval + "(<a href='javaScript:requestDelete(\"" + cname + "\")'><img src='deleteIcon.png'></img></a>) <br></div>";
-    }
+/**
+data["description"] = form.description.value;
+	
+	var alternatives = [];
+
+	var alternative1 = {};
+	var alternative2 = {};
+	var alternative3 = {};
+	var alternative4 = {};
+	var alternative5 = {};
+
+	alternative1["description"] = form.alternative1.value;
+	alternative2["description"] = form.alternative2.value;
+	alternative3["description"] = form.alternative3.value;
+	alternative4["description"] = form.alternative4.value;
+	alternative5["description"] = form.alternative5.value;
+
+	alternatives = [alternative1, alternative2, alternative3, alternative4, alternative5];
+	data["maxNumOfTeamMembers"] = form.maxNumOfMembers.value;
+	data["alternativeChoices"] = alternatives; */
+    var cdescription = choiceJson["description"];
+    var calternatives = choiceJson["alternativeChoices"];
+  
+    	output = output + "<div id=\"choice" + cdescription + "\"><b>" + cdescription + ":</b> = " + calternatives + "(<a href='javaScript:requestDelete(\"" + cdescription + "\")'><img src='deleteIcon.png'></img></a>) <br></div>";
+    
   }
 
   // Update computation result
-  constList.innerHTML = output;
+  choiceList.innerHTML = output;
 }
 

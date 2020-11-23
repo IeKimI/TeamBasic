@@ -11,24 +11,7 @@ function handleCreateClick(e) {
 
 	var data = {};
 	data["description"] = form.description.value;
-	/*  
-	  if (form.system.checked) {  // be sure to flag system constant requests...
-		 data["system"] = true;
-	  }*/
-	/*
-	{
-	  "uniqueID": "string",
-	  "description": "string",
-	  "participatingMembers": 0,
-	  "alternatives": [
-		{
-		"altname1": "alt1Name",
-		"altDes1" : "alt1Desc"
-		},
-		{altname2 .... }
-	  ]
-	}
-	*/
+	
 	var alternatives = [];
 
 	var alternative1 = {};

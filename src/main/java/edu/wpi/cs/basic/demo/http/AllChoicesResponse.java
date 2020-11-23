@@ -32,8 +32,8 @@ public AllChoicesResponse(List<Choice> list, int code) {
 	}
 	
 	public String toString() {
-		if (list == null) { return "EmptyConstants"; }
-		return "AllConstants(" + list.size() + ")";
+		if (list == null) { return "EmtpyChoice"; }
+		return "AllChoices(" + list.size() + ")";
 	}
 
 }

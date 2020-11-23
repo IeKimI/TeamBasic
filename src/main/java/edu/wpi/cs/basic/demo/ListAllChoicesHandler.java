@@ -96,7 +96,7 @@ public class ListAllChoicesHandler implements RequestHandler<Object,AllChoicesRe
 	@Override
 	public AllChoicesResponse handleRequest(Object input, Context context)  {
 		logger = context.getLogger();
-		logger.log("Loading Java Lambda handler to list all constants");
+		logger.log("Loading Java Lambda handler to list all choices");
 
 		AllChoicesResponse response;
 		try {
