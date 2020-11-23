@@ -125,7 +125,7 @@ paths:
       type: "aws"
     post: 
       tags: 
-      - teamMembers 
+      - alternativeChoice
       summary: creates a disapproval
       operationId: createApproval
       description: Creates an approval
@@ -179,7 +179,7 @@ paths:
       type: "aws"
     post: 
       tags: 
-      - teamMembers 
+      - alternativeChoice
       summary: creates a disapproval
       operationId: createDisapproval
       description: Creates a disapproval
@@ -232,7 +232,8 @@ paths:
       type: "aws"
     post: 
       tags: 
-      - teamMembers 
+      - alternativeChoice
+      - teamMembers
       summary: creates feedback
       operationId: createFeedback
       description: Creates feedback
@@ -258,7 +259,59 @@ paths:
         400: 
           description: invalid input, object invalid 
 
-          
+  /teamMember:
+    get:
+      operationId: "getTeamMember"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "200 response"
+          schema:
+            $ref: '#/definitions/TeamMember'
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        400:
+          description: "400 response"
+    x-amazon-apigateway-integration:
+      uri: "arn:aws:lambda:us-east-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-2:767398080992:function:getChoices/invocations"
+      responses:
+        default:
+          statusCode: "200"
+          responseParameters:
+            method.response.header.Access-Control-Allow-Origin: "'*'"
+      passthroughBehavior: "when_no_match"
+      httpMethod: "GET"
+      contentHandling: "CONVERT_TO_TEXT"
+      type: "aws"
+    post: 
+      tags: 
+      - choiceID
+      summary: creates a teamMember
+      operationId: createTeamMember
+      description: Creates a teamMember
+      consumes: 
+      - "applicatoin/json" 
+      produces: 
+      - "application/json" 
+      parameters: 
+      - in: "body" 
+        name: "createTeamMemberRequest"
+        required: true 
+        description: teamMember to create
+        schema: 
+          $ref: '#/definitions/CreateTeamMemberRequest'
+      responses: 
+        200: 
+          description: feedback created
+          schema: 
+            $ref: '#/definitions/TeamMemberResponse'
+          headers: 
+            Access-control-Allow-origin: 
+              type: "string" 
+        400: 
+          description: invalid input, object invalid           
 definitions:
   Choice:
     type: object
@@ -334,7 +387,19 @@ definitions:
         type: "string"
       teamMemberID:
         type: "string"
-
+  TeamMember:
+    type: object
+    required:
+      - "uniqueID"
+      - "password"
+      - "choiceID"
+    properties:
+      uniqueID:
+        type: "string"
+      password:
+        type: "string"
+      choiceID:
+        type: "string"
   AlternativeChoice:
     type: object
     required:
@@ -453,7 +518,29 @@ definitions:
         type: "string"
       statusChode:
         type: "string"
-
+  CreateTeamMemberRequest:
+    type: object
+    required:
+      - "uniqueID"
+      - "password"
+      - "choiceID"
+    properties:
+        uniqueID:
+          type: "string"
+        password:
+          type: "string"
+        choiceID:
+          type: "string"
+  TeamMemberResponse:
+   type: object
+   required:
+      - "response"
+      - "statusCode"
+   properties:
+      response:
+        type: "string"
+      statusChode:
+        type: "string"
     
 # Added by API Auto Mocking Plugin
 host: virtserver.swaggerhub.com
