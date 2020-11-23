@@ -1,5 +1,6 @@
 package edu.wpi.cs.basic.demo;
 
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -19,10 +20,11 @@ import edu.wpi.cs.basic.demo.db.ChoiceDAO;
 import edu.wpi.cs.basic.demo.http.AllChoicesResponse;
 import edu.wpi.cs.basic.demo.model.Choice;
 
+
 /**
  * Eliminated need to work with JSON
  */
-public class ListAllChoicesHandler implements RequestHandler<Object,AllChoicesResponse> {
+public class ListAllChoicesHandlerTest implements RequestHandler<Object,AllChoicesResponse> {
 
 	public LambdaLogger logger;
 
@@ -35,7 +37,7 @@ public class ListAllChoicesHandler implements RequestHandler<Object,AllChoicesRe
 	 * @throws Exception 
 	 */
 	List<Choice> getChoices() throws Exception {
-		logger.log("in getChoices");
+		logger.log("in getConstants");
 		ChoiceDAO dao = new ChoiceDAO();
 		
 		return dao.getAllChoices();
@@ -60,7 +62,7 @@ public class ListAllChoicesHandler implements RequestHandler<Object,AllChoicesRe
 //		// retrieve listing of all objects in the designated bucket
 //		ListObjectsV2Request listObjectsRequest = new ListObjectsV2Request()
 //				  .withBucketName(BucketManager.bucket)                          // top-level bucket
-//				  .withPrefix(BucketManager.getChoiceFolder());            	 // sub-folder declarations here (i.e., a/b/c)
+//				  .withPrefix(BucketManager.getConstantsFolder());            	 // sub-folder declarations here (i.e., a/b/c)
 //		
 //		// request the s3 objects in the s3 bucket 'calculator-example/constants' -- change based on your bucket name
 //		logger.log("process request");
@@ -84,7 +86,7 @@ public class ListAllChoicesHandler implements RequestHandler<Object,AllChoicesRe
 //				
 //				// just grab name *after* the slash. Note this is a SYSTEM constant
 //				int postSlash = name.indexOf('/');
-//				sysConstants.add(new Choice(name.substring(postSlash+1), Double.valueOf(val), true));
+//				sysConstants.add(new Constant(name.substring(postSlash+1), Double.valueOf(val), true));
 //			} catch (Exception e) {
 //				logger.log("Unable to parse contents of " + name);
 //			}
@@ -103,14 +105,14 @@ public class ListAllChoicesHandler implements RequestHandler<Object,AllChoicesRe
 			// get all user defined constants AND system-defined constants.
 			// Note that user defined constants override system-defined constants.
 			List<Choice> list = getChoices();
-//			for (Choice c : systemConstants()) {
+//			for (Constant c : systemConstants()) {
 //				if (!list.contains(c)) {
 //					list.add(c);
 //				}
 //			}
 			response = new AllChoicesResponse(list, 200);
 		} catch (Exception e) {
-			response = new AllChoicesResponse(400, e.getMessage());
+			response = new AllChoicesResponse(403, e.getMessage());
 		}
 		
 		return response;

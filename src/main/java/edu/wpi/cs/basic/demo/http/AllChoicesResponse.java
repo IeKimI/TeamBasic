@@ -11,13 +11,21 @@ public class AllChoicesResponse {
 	public final int statusCode;
 	public final String error;
 	
-	public AllConstantsResponse (List<Choice> list, int code) {
+	public AllChoicesResponse(List<Choice> list, int statusCode, String error) {
+		super();
+		this.list = list;
+		this.statusCode = statusCode;
+		this.error = error;
+	}
+	
+
+public AllChoicesResponse(List<Choice> list, int code) {
 		this.list = list;
 		this.statusCode = code;
 		this.error = "";
 	}
-	
-	public AllConstantsResponse (int code, String errorMessage) {
+
+	public AllChoicesResponse (int code, String errorMessage) {
 		this.list = new ArrayList<Choice>();
 		this.statusCode = code;
 		this.error = errorMessage;
