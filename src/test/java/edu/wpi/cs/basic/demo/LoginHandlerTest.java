@@ -5,7 +5,6 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -14,15 +13,13 @@ import com.google.gson.Gson;
 
 import edu.wpi.cs.basic.demo.http.LoginRequest;
 import edu.wpi.cs.basic.demo.http.LoginResponse;
-import edu.wpi.cs.basic.demo.model.AlternativeChoice;
-import edu.wpi.cs.basic.demo.model.Choice;
-import edu.wpi.cs.basic.demo.model.Feedback;
-import edu.wpi.cs.basic.demo.model.TeamMember;
+
 
 /**
  * A simple test harness for locally invoking your Lambda function handler.
  */
 public class LoginHandlerTest extends LambdaTest {
+//aru
 
 	String testSuccessInput(String incoming) throws IOException {
 		LoginHandler handler = new LoginHandler();
@@ -51,21 +48,14 @@ public class LoginHandlerTest extends LambdaTest {
 	@Test
 	public void testShouldBeOk() {
 	
-		ArrayList<AlternativeChoice> alternatives = new ArrayList<AlternativeChoice>();
+		String username= "un1";
+		String password="pw1";
 
-		AlternativeChoice alt1 = new AlternativeChoice("Alt1");
-		AlternativeChoice alt2 = new AlternativeChoice("Alt2");
-		AlternativeChoice alt3 = new AlternativeChoice("Alt3");
-
-		alternatives.add(alt1);
-		alternatives.add(alt2);
-		alternatives.add(alt3);
-
-		LoginRequest lr = new LoginRequest("Choice_Description", 10, alternatives);
-		String SAMPLE_INPUT_STRING = new Gson().toJson(ccr);
+		LoginRequest lr = new LoginRequest(username, password);
+		String SAMPLE_INPUT_STRING = new Gson().toJson(lr);
 		System.out.println(SAMPLE_INPUT_STRING);
 		
-		LoginResponse c_resp = new CreateChoiceHandler().handleRequest(ccr, createContext("create"));
+		LoginResponse l_resp = new LoginHandler().handleRequest(lr, createContext("create"));
 
 		try {
 			testSuccessInput(SAMPLE_INPUT_STRING);
@@ -75,8 +65,8 @@ public class LoginHandlerTest extends LambdaTest {
 
 //        DeleteConstantRequest dcr = new DeleteConstantRequest(var);
 //        DeleteConstantResponse d_resp = new DeleteConstantHandler().handleRequest(dcr, createContext("delete"));
-		System.out.println(c_resp.toString());
-		Assert.assertEquals(ccr.getDescription(), c_resp.response);
+		System.out.println(l_resp.toString());
+		Assert.assertEquals(lr.getUsername(), l_resp.response);
 	}
 
 }
