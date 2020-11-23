@@ -87,7 +87,7 @@ public class LoginHandlerTest extends LambdaTest {
 		alternatives.add(alt1); 
 		alternatives.add(alt2); 
 		alternatives.add(alt3);
-		String uniqueID = null;
+		String uniqueID = null; 
 		
 		CreateChoiceHandler choiceHandler = new CreateChoiceHandler();
 		CreateChoiceRequest ccr = new CreateChoiceRequest("TEST", 3, alternatives);
