@@ -85,7 +85,7 @@ public class LoginHandlerTest extends LambdaTest {
 		AlternativeChoice alt3 = new AlternativeChoice("DEScription3");
 		
 		alternatives.add(alt1);
-		alternatives.add(alt2);
+		alternatives.add(alt2); 
 		alternatives.add(alt3);
 		String uniqueID = null;
 		
