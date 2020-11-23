@@ -176,8 +176,8 @@ public class CreateChoiceHandler implements RequestHandler<CreateChoiceRequest, 
 	}
 
 	String createUniqueChoiceID(CreateChoiceRequest req) {
-		String uniqueID = Integer.toString(
-				req.getDescription().hashCode() + req.getAlternativeChoices().get(1).getDescription().hashCode());
+		String uniqueID = Integer.toString(Math.abs(
+				req.getDescription().hashCode() + req.getAlternativeChoices().get(1).getDescription().hashCode()));
 		return uniqueID;
 	}
 

@@ -37,9 +37,10 @@ public class CreateChoiceRequest {
 	
 	//using this for the lambda function
 	public CreateChoiceRequest(String description, int maxNum, ArrayList<AlternativeChoice> alternativeChoices) {
-		this.alternativeChoices = alternativeChoices;
 		this.description = description;
 		this.maxNum = maxNum;
+		this.alternativeChoices = alternativeChoices;
+
 	}
 
 	

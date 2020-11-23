@@ -19,7 +19,6 @@ public class AlternativeChoice {
 	}
 
 	public AlternativeChoice(int alternativeID, String choiceID,String description) {
-		super();
 		this.alternativeID = alternativeID;
 		this.choiceID = choiceID;
 		this.description = description;
@@ -28,7 +27,6 @@ public class AlternativeChoice {
 
 	public AlternativeChoice(ArrayList<TeamMember> approvals, ArrayList<TeamMember> disapprovals,
 			ArrayList<Feedback> feedback, String description, int alternativeID, String choiceID) {
-		super();
 		this.approvals = approvals;
 		this.disapprovals = disapprovals;
 		this.feedback = feedback;
