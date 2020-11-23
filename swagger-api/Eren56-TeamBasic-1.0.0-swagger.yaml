@@ -1,0 +1,466 @@
+swagger: '2.0'
+info:
+  description: This is a simple API for Team Basic Webpage
+  version: 1.0.0
+  title: Team Basic Webpage API
+  # put the contact info for your development or API team
+
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+
+# tags are used for organizing operations
+tags:
+- name: admins
+  description: Secured Admin-only calls
+- name: teamMembers
+  description: Operations available to regular teamMembers
+
+paths:
+  /choice:
+    get:
+      operationId: "getChoices"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/ListOfChoices"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        400:
+          description: "400 response"
+    x-amazon-apigateway-integration:
+      uri: "arn:aws:lambda:us-east-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-2:767398080992:function:getChoices/invocations"
+      responses:
+        default:
+          statusCode: "200"
+          responseParameters:
+            method.response.header.Access-Control-Allow-Origin: "'*'"
+      passthroughBehavior: "when_no_match"
+      httpMethod: "GET"
+      contentHandling: "CONVERT_TO_TEXT"
+      type: "aws"
+    post: 
+      tags: 
+      - teamMembers 
+      summary: creates a choice 
+      operationId: createChoice 
+      description: Creates a choice 
+      consumes: 
+      - "applicatoin/json" 
+      produces: 
+      - "application/json" 
+      parameters: 
+      - in: "body" 
+        name: "CreateChoiceRequest" 
+        required: true 
+        description: Choice to create 
+        schema: 
+          $ref: '#/definitions/CreateChoiceRequest' 
+      responses: 
+        200: 
+          description: Choice created 
+          schema: 
+            $ref: "#/definitions/CreateChoiceResponse" 
+          headers: 
+            Access-control-Allow-origin: 
+              type: "string" 
+        400: 
+          description: invalid input, object invalid 
+  /alternativeChoice:
+    get:
+      operationId: "getAlternativeChoices"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/ListOfAlternatives"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        400:
+          description: "400 response"
+    x-amazon-apigateway-integration:
+      uri: "arn:aws:lambda:us-east-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-2:767398080992:function:getChoices/invocations"
+      responses:
+        default:
+          statusCode: "200"
+          responseParameters:
+            method.response.header.Access-Control-Allow-Origin: "'*'"
+      passthroughBehavior: "when_no_match"
+      httpMethod: "GET"
+      contentHandling: "CONVERT_TO_TEXT"
+      type: "aws" 
+      
+  /approval:
+    get:
+      operationId: "getApprovals"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "200 response"
+          schema:
+            $ref: '#/definitions/Approvals'
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        400:
+          description: "400 response"
+    x-amazon-apigateway-integration:
+      uri: "arn:aws:lambda:us-east-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-2:767398080992:function:getChoices/invocations"
+      responses:
+        default:
+          statusCode: "200"
+          responseParameters:
+            method.response.header.Access-Control-Allow-Origin: "'*'"
+      passthroughBehavior: "when_no_match"
+      httpMethod: "GET"
+      contentHandling: "CONVERT_TO_TEXT"
+      type: "aws"
+    post: 
+      tags: 
+      - teamMembers 
+      summary: creates a disapproval
+      operationId: createApproval
+      description: Creates an approval
+      consumes: 
+      - "applicatoin/json" 
+      produces: 
+      - "application/json" 
+      parameters: 
+      - in: "body" 
+        name: "ApprovalRequest" 
+        required: true 
+        description: Approval to create 
+        schema: 
+          $ref: '#/definitions/ApprovalRequest'
+      responses: 
+        200: 
+          description: approval created
+          schema: 
+            $ref: '#/definitions/ApprovalResponse'
+          headers: 
+            Access-control-Allow-origin: 
+              type: "string" 
+        400: 
+          description: invalid input, object invalid
+
+  /disapproval:
+    get:
+      operationId: "getDisapprovals"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "200 response"
+          schema:
+            $ref: '#/definitions/Disapprovals'
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        400:
+          description: "400 response"
+    x-amazon-apigateway-integration:
+      uri: "arn:aws:lambda:us-east-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-2:767398080992:function:getChoices/invocations"
+      responses:
+        default:
+          statusCode: "200"
+          responseParameters:
+            method.response.header.Access-Control-Allow-Origin: "'*'"
+      passthroughBehavior: "when_no_match"
+      httpMethod: "GET"
+      contentHandling: "CONVERT_TO_TEXT"
+      type: "aws"
+    post: 
+      tags: 
+      - teamMembers 
+      summary: creates a disapproval
+      operationId: createDisapproval
+      description: Creates a disapproval
+      consumes: 
+      - "applicatoin/json" 
+      produces: 
+      - "application/json" 
+      parameters: 
+      - in: "body" 
+        name: "DispprovalRequest" 
+        required: true 
+        description: Dissaproval to create
+        schema: 
+          $ref: '#/definitions/DisapprovalRequest'
+      responses: 
+        200: 
+          description: disapproval created
+          schema: 
+            $ref: '#/definitions/DisapprovalResponse'
+          headers: 
+            Access-control-Allow-origin: 
+              type: "string" 
+        400: 
+          description: invalid input, object invalid 
+  /feedback:
+    get:
+      operationId: "getFeedback"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "200 response"
+          schema:
+            $ref: '#/definitions/Feedback'
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        400:
+          description: "400 response"
+    x-amazon-apigateway-integration:
+      uri: "arn:aws:lambda:us-east-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-2:767398080992:function:getChoices/invocations"
+      responses:
+        default:
+          statusCode: "200"
+          responseParameters:
+            method.response.header.Access-Control-Allow-Origin: "'*'"
+      passthroughBehavior: "when_no_match"
+      httpMethod: "GET"
+      contentHandling: "CONVERT_TO_TEXT"
+      type: "aws"
+    post: 
+      tags: 
+      - teamMembers 
+      summary: creates feedback
+      operationId: createFeedback
+      description: Creates feedback
+      consumes: 
+      - "applicatoin/json" 
+      produces: 
+      - "application/json" 
+      parameters: 
+      - in: "body" 
+        name: "FeedbackRequest" 
+        required: true 
+        description: Dissaproval to create
+        schema: 
+          $ref: '#/definitions/CreateFeedbackRequest'
+      responses: 
+        200: 
+          description: feedback created
+          schema: 
+            $ref: '#/definitions/FeedbackResponse'
+          headers: 
+            Access-control-Allow-origin: 
+              type: "string" 
+        400: 
+          description: invalid input, object invalid 
+
+          
+definitions:
+  Choice:
+    type: object
+    required:
+    - description
+    - maxNum
+    - alternatives
+    properties:
+      description:
+        type: string
+      maxNum:
+        type: integer
+      alternatives:
+        type: array
+        items: 
+          type: object
+  ListOfChoices:
+    type: array
+    items:
+     $ref: "#/definitions/Choice"
+  ListOfAlternatives:
+    type: array
+    items:
+      $ref: "#/definitions/AlternativeChoice"
+  CreateChoiceRequest:
+    type: "object"
+    required:
+    - "description"
+    - "maxNum"
+    - "alternatives"
+    properties:
+      alternatives:
+        type: "array"
+        items:
+            $ref: "#/definitions/AlternativeChoice"
+      description:
+        type: "string"
+      maxNum:
+        type: "integer"
+  
+  Approvals:
+    type: object
+    required:
+      - "teamMemberID"
+    properties:
+      teamMembers:
+        type: "array"
+        items:
+            type: "string"
+            
+  Disapprovals:
+    type: object
+    required:
+      - "teamMemberID"
+    properties:
+      teamMembers:
+        type: "array"
+        items:
+            type: "string"
+  Feedback:
+    type: object
+    required:
+      - "description"
+      - "alternativeID"
+      - "feedbackID"
+      - "teamMemberID"
+    properties:
+      description:
+        type: "string"
+      alternativeID:
+        type: "integer"
+      feedbackID:
+        type: "string"
+      teamMemberID:
+        type: "string"
+
+  AlternativeChoice:
+    type: object
+    required:
+      - "approvals"
+      - "disapprovals"
+      - "feedback"
+      - "description"
+      - "alternativeID"
+    properties:
+      approvals:
+        type: "array"
+        items:
+          $ref: "#/definitions/Approvals"
+      disapprovals:
+        type: "array"
+        items:
+          $ref: "#/definitions/Disapprovals"
+      feedback:
+        type: "array"
+        items:
+          $ref: "#/definitions/Feedback"
+      description:
+        type: "string"
+      alternativeID:
+        type: "integer"
+  CreateChoiceResponse:
+    type: "object"
+    required:
+      - "response"
+      - "statusCode"
+    properties:
+      response:
+       type: "string"
+      statusCode:
+        type: "integer"
+  ApprovalRequest:
+    type: object
+    required:
+      - "teamMemberID"
+      - "alternativeChoiceID"
+    properties:
+      teamMemberID:
+        type: "string"
+      alternativeChoiceID:
+        type: "string"      
+  ApprovalResponse:
+    type: "object"
+    required:
+        - "response"
+        - "statusCode"
+    properties:
+      response:
+        type: "string"
+      statusCode:
+        type: "integer"
+  DisapprovalRequest:
+    type: object
+    required:
+      - "teamMemberID"
+      - "alternativeChoiceID"
+    properties:
+      teamMemberID:
+        type: "string"
+      alternativeChoiceID:
+        type: "string"   
+  DisapprovalResponse:
+    type: "object"
+    required:
+      - "response"
+      - "statusCode"
+    properties:
+      response:
+        type: "string"
+      statusCode:
+        type: "integer"
+  CompleteChoiceRequest:
+    type: object
+    required:
+      - "choiceID"
+      - "chosenAlternativeID"
+    properties:
+     choiceID:
+        type: "string"
+     chosenAlternative:
+        type: "string"
+  CompleteChoiceResponse:
+   type: object
+   required:
+      - "response"
+      - "statusCode"
+   properties:
+      response:
+        type: "string"
+      statusChode:
+        type: "string"
+  CreateFeedbackRequest:
+    type: object
+    required:
+      - "description"
+      - "associatedAlternativeID"
+      - "teamMemberID"
+    properties:
+        description:
+          type: "string"
+        associatedAlternativeID:
+          type: "string"
+        teamMemberID:
+          type: "string"
+  FeedbackResponse:
+   type: object
+   required:
+      - "response"
+      - "statusCode"
+   properties:
+      response:
+        type: "string"
+      statusChode:
+        type: "string"
+
+    
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com
+# basePath: /IeKimI/TeamBasic/1.0.0
+schemes:
+ - https
+# Added by API Auto Mocking Plugin
+# basePath: /IeKimI/Something/1.0.0
+# Added by API Auto Mocking Plugin
+basePath: /Eren56/TeamBasic/1.0.0
