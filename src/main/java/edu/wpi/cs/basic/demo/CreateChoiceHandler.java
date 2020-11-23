@@ -1,9 +1,5 @@
 package edu.wpi.cs.basic.demo;
 
-import java.io.ByteArrayInputStream;
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import com.amazonaws.regions.Regions;
@@ -12,19 +8,14 @@ import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.DeleteObjectRequest;
-import com.amazonaws.services.s3.model.ObjectMetadata;
-import com.amazonaws.services.s3.model.PutObjectRequest;
-import com.amazonaws.services.s3.model.PutObjectResult;
+
 
 import edu.wpi.cs.basic.demo.db.AlternativeChoiceDAO;
 import edu.wpi.cs.basic.demo.db.ChoiceDAO;
-import edu.wpi.cs.basic.demo.db.TeamMemberDAO;
 import edu.wpi.cs.basic.demo.http.*;
 import edu.wpi.cs.basic.demo.model.AlternativeChoice;
 import edu.wpi.cs.basic.demo.model.Choice;
-import edu.wpi.cs.basic.demo.model.TeamMember;
 
 public class CreateChoiceHandler implements RequestHandler<CreateChoiceRequest, CreateChoiceResponse> {
 //	boolean pruneDatabaseFunction() {
