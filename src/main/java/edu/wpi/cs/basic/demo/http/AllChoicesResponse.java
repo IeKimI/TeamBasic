@@ -18,7 +18,7 @@ public class AllChoicesResponse {
 	}
 	
 	public AllConstantsResponse (int code, String errorMessage) {
-		this.list = new List<Choice>();
+		this.list = new ArrayList<Choice>();
 		this.statusCode = code;
 		this.error = errorMessage;
 	}
