@@ -4,9 +4,16 @@
 <script type='text/javascript' src='../js/api.js'></script>
 <script type='text/javascript' src='../js/create.js'></script>
 <script type='text/javascript' src='../js/login.js'></script>
-
+<script type='text/javascript' src='../js/choiceInfo.js'></script>
+<script type="text/javascript">
+function initialize() {
+   // get all constants
+   refreshChoiceInfo();
+}
+</script>
 </head>
-<body>
+<body onload="initialize()">
+
 	<h1>Log In to Participate </h1>
 	<div>
 		<form name="loginForm" method="post">
@@ -20,6 +27,7 @@
 	<h2>
 
 	</h2>
+	
 
  
 	<div id="choiceInfo">

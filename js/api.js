@@ -7,5 +7,6 @@ var list_url   = base_url + "choice";    // GET
 var create_url = base_url + "choice";    // POST
 var a_choice_url=base_url + "choice";    // GET
 var login_url = base_url + "login"; // POST
+var getChoice_url = base_url + "getChoice";
 /*var delete_url = base_url + "constants";    // POST with {name} so we avoid CORS issues
 */ 
