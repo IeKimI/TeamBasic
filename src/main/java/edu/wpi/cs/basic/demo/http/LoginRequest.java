@@ -9,18 +9,15 @@ import edu.wpi.cs.basic.demo.model.TeamMember;
 public class LoginRequest {
 //aru
 //matt
-	String name;
+	String uniqueID;
 	String password;
 	String choiceID;
-
-	
-
 	
 	public String getName() {
-		return name;
+		return uniqueID;
 	}
 	public void setName(String name) {
-		this.name = name;
+		this.uniqueID = name;
 	}
 	public String getChoiceID() {
 		return choiceID;
@@ -29,10 +26,10 @@ public class LoginRequest {
 		this.choiceID = choiceID;
 	}
 	public String getUsername() {
-		return name;
+		return uniqueID;
 	}
 	public void setUsername(String n) {
-		this.name = n;
+		this.uniqueID = n;
 	}
 	
 	public String getPassword() {
@@ -42,17 +39,18 @@ public class LoginRequest {
 		this.password = p;
 	}
 	
-	
-	
+
 	//using this for the lambda function
 	public LoginRequest(String username, String password, String choiceID) {
-		this.name = username;
+		this.uniqueID = username;
 		this.password = password;
 		this.choiceID = choiceID;
 	}
-	
+	 public LoginRequest() {
+		 
+	 }
 	public String toString() {
-		return "Registering teamMember...: " + name + " for choiceID" + choiceID;
+		return "Registering teamMember...: " + uniqueID + " for choiceID" + choiceID;
 	}
 
 	

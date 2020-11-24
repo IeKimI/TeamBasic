@@ -25,7 +25,7 @@ primary key (`uniqueName`)
 public class TeamMemberDAO {
 	static java.sql.Connection conn;
 
-	final static String tblName = "TeamMember"; // Exact capitalization
+	final String tblName = "TeamMember"; // Exact capitalization
 
 	public TeamMemberDAO() {
 		try {
@@ -104,7 +104,7 @@ public class TeamMemberDAO {
 //				return false;
 //			}
 
-			PreparedStatement ps = conn.prepareStatement("INSERT INTO " + tblName + " (teamMemberName, password, choiceID) values(?,?,?);");
+			PreparedStatement ps = conn.prepareStatement("INSERT INTO " + tblName + " (uniqueID, password, choiceID) values(?,?,?);");
 //			ps.setString(1, Choice.uniqueID);
 //			ps.setString(2, Choice.getChosenAlternative().getAlternativeID());
 //			ps.setInt(3, Choice.getParticipatingMembers().size());
@@ -123,12 +123,12 @@ public class TeamMemberDAO {
 		}
 	}
 
-	public static ArrayList<TeamMember> getAllTeamMembers(String uniqueID) throws Exception {
+	public List<TeamMember> getAllTeamMembers(String uniqueID) throws Exception {
 
-		ArrayList<TeamMember> allTM = new ArrayList<>();
+		List<TeamMember> allTM = new ArrayList<>();
 		try {
 			Statement statement = conn.createStatement();
-			String query = "SELECT * FROM " + tblName + ";";
+			String query = "SELECT * FROM " + tblName + " WHERE choiceID=?;";
 			ResultSet resultSet = statement.executeQuery(query);
 
 			while (resultSet.next()) {
@@ -144,8 +144,8 @@ public class TeamMemberDAO {
 		}
 	}
 
-	static TeamMember generateTeamMember(ResultSet resultSet) throws Exception {
-		String name = resultSet.getString("teamMeberName");
+	 TeamMember generateTeamMember(ResultSet resultSet) throws Exception {
+		String name = resultSet.getString("uniqueID");
 		String password = resultSet.getString("password");
 		String choiceID = resultSet.getString("choiceID");
 		

@@ -120,7 +120,7 @@ public class LoginHandler implements RequestHandler<LoginRequest, LoginResponse>
 		TeamMemberDAO teamMemberDAO = new TeamMemberDAO();
 		ChoiceDAO choiceDAO = new ChoiceDAO();
 
-		List<TeamMember> list = TeamMemberDAO.getAllTeamMembers(req.getChoiceID());
+		List<TeamMember> list = teamMemberDAO.getAllTeamMembers(req.getChoiceID());
 		
 		int maxNum = choiceDAO.getMaxNum(req.getChoiceID());
 		if (list.size() >= maxNum) { return false;}

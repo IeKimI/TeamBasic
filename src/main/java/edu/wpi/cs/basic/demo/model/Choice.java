@@ -6,8 +6,8 @@ import java.util.List;
 
 public class Choice {
 
-	ArrayList<AlternativeChoice> alternativeChoices = new ArrayList<AlternativeChoice>();
-	ArrayList<TeamMember> participatingMembers = new ArrayList<TeamMember>();
+	List<AlternativeChoice> alternativeChoices = new ArrayList<AlternativeChoice>();
+	List<TeamMember> participatingMembers = new ArrayList<TeamMember>();
 	public String uniqueID = "";
 	int maxNumOfTeamMembers;
 	String description;
@@ -19,8 +19,8 @@ public class Choice {
 	// test
 
 	
-	public Choice(String uniqueID, ArrayList<AlternativeChoice> alternativeChoices,
-			ArrayList<TeamMember> participatingMembers, String description, Date dateOfCompletion, Date dateOfCreation,
+	public Choice(String uniqueID, List<AlternativeChoice> alternativeChoices,
+			List<TeamMember> participatingMembers, String description, Date dateOfCompletion, Date dateOfCreation,
 			boolean isCompleted, int maxNumOfTeamMembers) {
 		this.maxNumOfTeamMembers = maxNumOfTeamMembers;
 		this.uniqueID = uniqueID;
@@ -48,7 +48,7 @@ public class Choice {
 
 
 
-	public Choice(String uniqueID,ArrayList<AlternativeChoice> alternativeChoices, ArrayList<TeamMember> participatingMembers,
+	public Choice(String uniqueID,List<AlternativeChoice> alternativeChoices, List<TeamMember> participatingMembers,
 			 String description, AlternativeChoice chosenAlternative,
 			Date dateOfCompletion, Date dateOfCreation, boolean isCompleted) {
 		super();
@@ -89,11 +89,11 @@ public class Choice {
 
 
 
-	public ArrayList<AlternativeChoice> getAlternativeChoices() {
+	public List<AlternativeChoice> getAlternativeChoices() {
 		return alternativeChoices;
 	} 
 
-	public void setAlternativeChoices(ArrayList<AlternativeChoice> alternativeChoices) {
+	public void setAlternativeChoices(List<AlternativeChoice> alternativeChoices) {
 		if(alternativeChoices.size() < 6 || alternativeChoices.size() > 1) {
 			this.alternativeChoices = alternativeChoices;
 		}
@@ -102,11 +102,11 @@ public class Choice {
 		}
 	}
 
-	public ArrayList<TeamMember> getParticipatingMembers() {
+	public List<TeamMember> getParticipatingMembers() {
 		return participatingMembers;
 	}
 
-	public void setParticipatingMembers(ArrayList<TeamMember> participatingMembers) {
+	public void setParticipatingMembers(List<TeamMember> participatingMembers) {
 		if(participatingMembers.size() < this.maxNumOfTeamMembers) {
 			this.participatingMembers = participatingMembers;
 		}

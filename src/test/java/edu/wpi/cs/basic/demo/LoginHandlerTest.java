@@ -86,22 +86,23 @@ public class LoginHandlerTest extends LambdaTest {
 		
 		alternatives.add(alt1); 
 		alternatives.add(alt2); 
-		alternatives.add(alt3);
+		alternatives.add(alt3); 
 		String uniqueID = null; 
 		
 		CreateChoiceHandler choiceHandler = new CreateChoiceHandler();
-		CreateChoiceRequest ccr = new CreateChoiceRequest("TEST", 3, alternatives);
+		CreateChoiceRequest ccr = new CreateChoiceRequest("newChoice", 3, alternatives);
 		
 		CreateChoiceResponse c_resp = choiceHandler.handleRequest(ccr, createContext("create"));
 		uniqueID = c_resp.response;
 		
-		TeamMember tm1 = new TeamMember("Eri", "EriKim", uniqueID);
+		TeamMember tm1 = new TeamMember("teamMemberserser", "serserser", uniqueID);
 //		TeamMember tm1 = new TeamMember(uniqueID, "name", "password");
 //		TeamMember tm1 = new TeamMember(uniqueID, "name", "password");
 //		TeamMember tm1 = new TeamMember(uniqueID, "name", "password");
 
 		LoginRequest req1 = new LoginRequest(tm1.getName(), tm1.getPassword(), tm1.getChoiceID());
 		
+		System.out.println(c_resp.response.toString());
 		if (uniqueID == null) {
 			Assert.fail("FAILED");
 		}
