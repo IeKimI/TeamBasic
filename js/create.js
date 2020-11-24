@@ -7,6 +7,32 @@ function updateTheChoice() {
 	choiceDiv.innerHTML = queryString.toString() 
 }
 
+function updatingChoicePage(request) {
+	// Can grab any DIV or SPAN HTML element and can then manipulate its
+	// contents dynamically via javascript
+	console.log("result:" + response);
+
+	/*refreshChoiceList();*/
+	var description = JSON.parse(response)["description"];
+	console.log(description);
+//	window.location.href = "https://teambasic.s3.us-east-2.amazonaws.com/html/choice.html" + "?choice=" + choiceID;
+//
+//	var choiceURL = new URL("https://teambasic.s3.us-east-2.amazonaws.com/html/choice.html?");
+//	var choiceQueryString = new URLSearchParams(choiceURL.search);
+/*	var urlParams = new URLSearchParams(choiceQueryString);
+
+	console.log(choiceURL);
+
+	urlParams.append("choice", choiceID);
+	console.log(urlParams);
+
+	window.location.href = choiceURL + urlParams;*/
+	
+	
+	
+
+}
+
 function loadingChoicePage(response) {
 	// Can grab any DIV or SPAN HTML element and can then manipulate its
 	// contents dynamically via javascript
@@ -37,6 +63,12 @@ function processCreateChoiceResponse(result) {
 	console.log("result:" + result);
 	loadingChoicePage(result)
 }
+
+function processCreateChoiceRequest(result) {
+	console.log("result:" + result);
+	updatingChoicePage(result)
+}
+
 
 
 function handleCreateClick(e) {
@@ -80,6 +112,7 @@ function handleCreateClick(e) {
 			if (xhr.status == 200) {
 				console.log("XHR:" + xhr.responseText);
 				processCreateChoiceResponse(xhr.responseText);
+				processCreateChoiceRequest(xhr.request);
 			} else {
 				console.log("actual:" + xhr.responseText)
 				var js = JSON.parse(xhr.responseText);
