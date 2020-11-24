@@ -1,18 +1,23 @@
-function processCreateResponse(result) {
+function processCreateResponse(request, response) {
 	// Can grab any DIV or SPAN HTML element and can then manipulate its
 	// contents dynamically via javascript
-	console.log("result:" + result);
+	console.log("result:" + response);
 
 	/*refreshChoiceList();*/
-	var choiceID = JSON.parse(result)["response"];
+	var choiceID = JSON.parse(response)["response"];
 	console.log(choiceID);
-	window.location.href = "https://2zylw79630.execute-api.us-east-2.amazonaws.com/teamBasic/choice.hml?" + choiceID;
+	window.location.href = "https://teambasic.s3.us-east-2.amazonaws.com/html/choice.html?" + choiceID;
 	var choiceInfo = document.getElementById["choiceInfo"];
-	
-	  var output = "Eri Kim";
+
+	console.log("request:" + request);
+
+	var output = "";
+
+	output + "<div id=\"choice" + request + "\"><b>" + request + ":</b> = " + request + "<br></div>";
+
 
 	choiceInfo.innerHTML = output;
-	
+
 }
 
 
@@ -21,7 +26,7 @@ function handleCreateClick(e) {
 
 	var data = {};
 	data["description"] = form.description.value;
-	
+
 	var alternatives = [];
 
 	var alternative1 = {};
@@ -56,7 +61,7 @@ function handleCreateClick(e) {
 		if (xhr.readyState == XMLHttpRequest.DONE) {
 			if (xhr.status == 200) {
 				console.log("XHR:" + xhr.responseText);
-				processCreateResponse(xhr.responseText);
+				processCreateResponse(xhr.request, xhr.responseText);
 			} else {
 				console.log("actual:" + xhr.responseText)
 				var js = JSON.parse(xhr.responseText);
@@ -67,4 +72,5 @@ function handleCreateClick(e) {
 			processCreateResponse("N/A");
 		}
 	};
+
 }

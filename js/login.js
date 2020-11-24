@@ -7,23 +7,20 @@ function processCreateResponse(result) {
 }
 
 function handleLoginClick(e) {
-	var form = document.createForm;
+	var form = document.loginForm;
 
+
+	var url = window.location.href;
+	var choiceID = url.split('?')[1];
 	var data = {};
 
-/*	var username = "";
-	var password = "";*/
-	
-	data["teamMemberName"]=form.username.value;
-	data["password"]=form.password.value;
-/*	data["choiceID"] = //need parsing
+	/*	var username = "";
+		var password = "";*/
 
+	data["name"] = form.username.value;
+	data["password"] = form.password.value;
+	data["choiceID"] = choiceID;
 
-
-*/	/*data["name"] = username;
-	data["password"] = password;*/
-	
-	
 
 	var js = JSON.stringify(data);
 	console.log("JS:" + js);
