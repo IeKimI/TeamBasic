@@ -16,24 +16,13 @@ public class Choice {
 	Date dateOfCompletion;
 	Date dateOfCreation;
 	String chosenAlternativeID;
-	// test
 
-	
-	public Choice(String uniqueID, List<AlternativeChoice> alternativeChoices,
-			List<TeamMember> participatingMembers, String description, Date dateOfCompletion, Date dateOfCreation,
-			boolean isCompleted, int maxNumOfTeamMembers) {
-		this.maxNumOfTeamMembers = maxNumOfTeamMembers;
-		this.uniqueID = uniqueID;
-		this.setAlternativeChoices(alternativeChoices);
-		this.setParticipatingMembers(participatingMembers);
-		this.description = description;
-		this.dateOfCompletion = dateOfCompletion;
-		this.dateOfCreation = dateOfCreation;
-		this.isCompleted = isCompleted;
+	// test
+	public Choice() {
+		this.dateOfCompletion = null;
+		chosenAlternativeID = null;
 	}
-	
-	
-	
+
 	public Choice(String uniqueID, int maxNumOfTeamMembers, String description, String chosenAlternativeID,
 			boolean isCompleted, Date dateOfCompletion, Date dateOfCreation) {
 		super();
@@ -44,35 +33,6 @@ public class Choice {
 		this.isCompleted = isCompleted;
 		this.dateOfCompletion = dateOfCompletion;
 		this.dateOfCreation = dateOfCreation;
-	}
-
-
-
-	public Choice(String uniqueID,List<AlternativeChoice> alternativeChoices, List<TeamMember> participatingMembers,
-			 String description, AlternativeChoice chosenAlternative,
-			Date dateOfCompletion, Date dateOfCreation, boolean isCompleted) {
-		super();
-		this.uniqueID = uniqueID;
-
-		this.alternativeChoices = alternativeChoices;
-		this.participatingMembers = participatingMembers;
-		this.description = description;
-		this.chosenAlternative = chosenAlternative;
-		this.isCompleted = isCompleted;
-		this.dateOfCompletion = dateOfCompletion;
-		this.dateOfCreation = dateOfCreation;
-	}
-
-
-
-	public Choice(String uniqueID) {
-		this.uniqueID = uniqueID;
-		this.alternativeChoices = null;
-		this.participatingMembers = null;
-		this.description = null;
-		this.dateOfCompletion = null;
-		this.dateOfCreation = null;
-		this.isCompleted = false;
 	}
 
 	// using this for lambda function
@@ -87,17 +47,14 @@ public class Choice {
 		// TODO Auto-generated constructor stub
 	}
 
-
-
 	public List<AlternativeChoice> getAlternativeChoices() {
 		return alternativeChoices;
-	} 
+	}
 
 	public void setAlternativeChoices(List<AlternativeChoice> alternativeChoices) {
-		if(alternativeChoices.size() < 6 || alternativeChoices.size() > 1) {
+		if (alternativeChoices.size() < 6 || alternativeChoices.size() > 1) {
 			this.alternativeChoices = alternativeChoices;
-		}
-		else {
+		} else {
 			// must display error message
 		}
 	}
@@ -107,10 +64,9 @@ public class Choice {
 	}
 
 	public void setParticipatingMembers(List<TeamMember> participatingMembers) {
-		if(participatingMembers.size() < this.maxNumOfTeamMembers) {
+		if (participatingMembers.size() < this.maxNumOfTeamMembers) {
 			this.participatingMembers = participatingMembers;
-		}
-		else {
+		} else {
 			// must have error message
 		}
 	}
@@ -174,7 +130,6 @@ public class Choice {
 			// must display error message;
 		}
 	}
-	
 
 //	public String getReport(TeamMember member) {
 //		String reportOutput = "";

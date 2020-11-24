@@ -1,29 +1,11 @@
-function processCreateResponse(request, response) {
-	// Can grab any DIV or SPAN HTML element and can then manipulate its
-	// contents dynamically via javascript
-	console.log("result:" + result);
-	var choiceID = JSON.parse(response)["response"];
-	console.log(choiceID);
-	
-	var username = JSON.parse(request)["name"];
-	window.location.href = "https://teambasic.s3.us-east-2.amazonaws.com/html/choice.html?" + choiceID +"/" + name;
-	
-	
-	var choiceInfo = document.getElementById["choiceInfo"];
 
-
-	var output = "";
-	
-	/*refreshChoiceList();*/
-}
 
 function handleLoginClick(e) {
 	var form = document.loginForm;
 
-
+	data = {};
 	var url = window.location.href;
-	var choiceID = url.split('?')[1];
-	var data = {};
+	var choiceID = url.split('=')[1];
 
 	/*	var username = "";
 		var password = "";*/
@@ -35,6 +17,7 @@ function handleLoginClick(e) {
 
 	var js = JSON.stringify(data);
 	console.log("JS:" + js);
+	
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", login_url, true);
 
@@ -48,7 +31,7 @@ function handleLoginClick(e) {
 		if (xhr.readyState == XMLHttpRequest.DONE) {
 			if (xhr.status == 200) {
 				console.log("XHR:" + xhr.responseText);
-				processCreateResponse(xhr.request, xhr.responseText);
+				processLogIn(xhr.responseText);
 			} else {
 				console.log("actual:" + xhr.responseText)
 				var js = JSON.parse(xhr.responseText);
@@ -56,7 +39,26 @@ function handleLoginClick(e) {
 				alert(err);
 			}
 		} else {
-			processCreateResponse("N/A");
+			processLogIn("N/A");
 		}
 	};
+}
+
+function processLogIn(result) {
+	// Can grab any DIV or SPAN HTML element and can then manipulate its
+	// contents dynamically via javascript
+	console.log("result:" + result);
+	/*var choiceID = JSON.parse(response)["response"];
+	console.log(choiceID);
+	
+	var username = JSON.parse(request)["name"];
+	window.location.href = "https://teambasic.s3.us-east-2.amazonaws.com/html/choice.html?" + choiceID;
+	
+	
+	var choiceInfo = document.getElementById["choiceInfo"];
+
+
+	var output = "";*/
+
+	/*refreshChoiceList();*/
 }

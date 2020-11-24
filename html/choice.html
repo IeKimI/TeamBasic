@@ -2,37 +2,37 @@
 <head>
 <!-- relative path-name to access js -->
 <script type='text/javascript' src='../js/api.js'></script>
-<!-- <script type='text/javascript' src='../js/get_choiceList.js'></script>
-<script type='text/javascript' src='../js/add.js'></script> -->
 <script type='text/javascript' src='../js/create.js'></script>
-<script type='text/javascript' src='../js/getAChoice.js'></script>
 <script type='text/javascript' src='../js/login.js'></script>
-'
-<!-- <script type='text/javascript' src='../js/delete.js'></script>
- -->
+<script type='text/javascript' src='../js/choiceInfo.js'></script>
 <script type="text/javascript">
-	function initialize() {
-
-		// get all choices
-		/*    refreshChoiceList();
-		 */}
+function initialize() {
+   // get all constants
+   refreshChoiceInfo();
+}
 </script>
 </head>
-<body>
-	<h1>Choice</h1>
+<body onload="initialize()">
+
+	<h1>Log In to Participate </h1>
 	<div>
 		<form name="loginForm" method="post">
 			<label>Username</label><br> <input name="username" value=""><br>
 			<label>Password</label><br> <input name="password" value=""><br>
-			<input type="submit" id="login" value="Login"
+			<input type="button" id="login" value="Login"
 				onClick="JavaScript:handleLoginClick(this)">
 		</form>
 	</div>
+	
+	<h2>
 
+	</h2>
+	
 
+ 
 	<div id="choiceInfo">
 		<form name="choiceInfoForm" method="get">
-			<label for="other">Description:</label> 
+			<label for="other" id="choiceDesc">Description:</label> 
 			<label for="other">description here</label> 
 			<br> 
 			<label for="other">Maximum Number of TeamMembers:</label> 
@@ -58,7 +58,7 @@
 			<label for="other">Alternative 3:</label> 
 			<label for="other">place alternative 3 here</label> 
 			<br>
-			<label for="other">place list of alt3 approvals here</label> \
+			<label for="other">place list of alt3 approvals here</label>
 			<label for="other">place list of alt3 disapprovals here</label> 
 			<br> 
 			
@@ -77,14 +77,7 @@
 			<br>
 
 		</form>
-
-
 	</div>
-
-
-
-	<input type="hidden" id="hidden" value="" />
-
-
+ 
 </body>
 </html>

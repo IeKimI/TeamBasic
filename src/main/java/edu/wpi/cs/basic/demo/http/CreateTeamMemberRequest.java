@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import edu.wpi.cs.basic.demo.model.AlternativeChoice;
 import edu.wpi.cs.basic.demo.model.TeamMember;
 
-public class LoginRequest {
+public class CreateTeamMemberRequest {
 //aru
 //matt
 	String uniqueID;
@@ -41,16 +41,16 @@ public class LoginRequest {
 	
 
 	//using this for the lambda function
-	public LoginRequest(String username, String password, String choiceID) {
+	public CreateTeamMemberRequest(String username, String password, String choiceID) {
 		this.uniqueID = username;
 		this.password = password;
 		this.choiceID = choiceID;
 	}
-	 public LoginRequest() {
+	 public CreateTeamMemberRequest() {
 		 
 	 }
 	public String toString() {
-		return "Registering teamMember...: " + uniqueID + " for choiceID" + choiceID;
+		return "Registering teamMember...: " + getName() + " for choiceID" + getChoiceID();
 	}
 
 	

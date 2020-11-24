@@ -1,4 +1,4 @@
-function processCreateResponse(response) {
+function loadingChoicePage(response, request) {
 	// Can grab any DIV or SPAN HTML element and can then manipulate its
 	// contents dynamically via javascript
 	console.log("result:" + response);
@@ -6,30 +6,24 @@ function processCreateResponse(response) {
 	/*refreshChoiceList();*/
 	var choiceID = JSON.parse(response)["response"];
 	console.log(choiceID);
-	window.location.href = "https://teambasic.s3.us-east-2.amazonaws.com/html/choice.html";
+	window.location.href = "https://teambasic.s3.us-east-2.amazonaws.com/html/choice.html" + "?choice=" + choiceID;
+	
+		console.log("result:" + request);
 
-	var choiceURL = new URL("https://teambasic.s3.us-east-2.amazonaws.com/html/choice.html?");
-	var choiceQueryString = new URLSearchParams(choiceURL.search);
-	var urlParams = new URLSearchParams(choiceQueryString);
-
-	console.log(choiceURL);
-
-	urlParams.append("choice", choiceID);
-	console.log(urlParams);
-
-	window.location.href = (choiceURL + urlParams);
-
-	var choiceInfo = document.getElementById["choiceInfo"];
+	/*refreshChoiceList();*/
+	var description = JSON.parse(request)["description"];
+	console.log(description);
+	document.getElementById("choiceDesc").innerHTML = choiceID + description;
 
 
-	var output = "";
-
-	/*	output + "<div id=\"choice" + request + "\"><b>" + request + ":</b> = " + request + "<br></div>";*/
-
-
-	choiceInfo.innerHTML = output;
 
 }
+
+function processCreateChoiceResponse(result, request) {
+	console.log("result:" + result);
+	loadingChoicePage(result, request)
+}
+
 
 
 function handleCreateClick(e) {
@@ -72,7 +66,8 @@ function handleCreateClick(e) {
 		if (xhr.readyState == XMLHttpRequest.DONE) {
 			if (xhr.status == 200) {
 				console.log("XHR:" + xhr.responseText);
-				processCreateResponse(xhr.responseText);
+				var js = JSON.stringify(data);
+				processCreateChoiceResponse(xhr.responseText, js);
 			} else {
 				console.log("actual:" + xhr.responseText)
 				var js = JSON.parse(xhr.responseText);
