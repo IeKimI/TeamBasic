@@ -15,18 +15,21 @@ function loadingChoicePage(response) {
 	/*refreshChoiceList();*/
 	var choiceID = JSON.parse(response)["response"];
 	console.log(choiceID);
-	window.location.href = "https://teambasic.s3.us-east-2.amazonaws.com/html/choice.html";
+	window.location.href = "https://teambasic.s3.us-east-2.amazonaws.com/html/choice.html" + "?choice=" + choiceID;
 
 	var choiceURL = new URL("https://teambasic.s3.us-east-2.amazonaws.com/html/choice.html?");
 	var choiceQueryString = new URLSearchParams(choiceURL.search);
-	var urlParams = new URLSearchParams(choiceQueryString);
+/*	var urlParams = new URLSearchParams(choiceQueryString);
 
 	console.log(choiceURL);
 
 	urlParams.append("choice", choiceID);
 	console.log(urlParams);
 
-	window.location.href = choiceURL + urlParams;
+	window.location.href = choiceURL + urlParams;*/
+	
+	
+	
 
 }
 
