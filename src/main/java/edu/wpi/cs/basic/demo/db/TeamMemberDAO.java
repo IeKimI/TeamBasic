@@ -12,14 +12,11 @@ import edu.wpi.cs.basic.demo.model.Choice;
 import edu.wpi.cs.basic.demo.model.TeamMember;
 
 /**
-create table `teamMember` ( 
-`uniqueName` VARCHAR(64), 
-`password` VARCHAR(64), 
-
-‘choiceID’ VARCHAR(64) not null default, 
-primary key (`uniqueName`) 
-
-) engine=MyISAM default charset=latin1; 
+ * create table `teamMember` ( `uniqueName` VARCHAR(64), `password` VARCHAR(64),
+ * 
+ * ‘choiceID’ VARCHAR(64) not null default, primary key (`uniqueName`)
+ * 
+ * ) engine=MyISAM default charset=latin1;
  *
  */
 public class TeamMemberDAO {
@@ -35,83 +32,12 @@ public class TeamMemberDAO {
 		}
 	}
 
-//	public TeamMember getTeamMember(String name) throws Exception {
-//
-//		try {
-//			TeamMember teamMember = null;
-//			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE teamMemberName=?;");
-//			ps.setString(1, teamMember.getName());
-////			ps.setString(2, teamMember.getPassword());
-////			ps.setString(3, teamMember.getChoiceID());
-//
-//			ResultSet resultSet = ps.executeQuery();
-//
-//			while (resultSet.next()) {
-//				teamMember = generateTeamMember(resultSet);
-//			}
-//			resultSet.close();
-//			ps.close();
-//			return teamMember;
-//
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			throw new Exception("Failed in getting team member: " + e.getMessage());
-//		}
-//	}
-//
-//	public boolean updateTeamMember(TeamMember teamMember) throws Exception {
-//		try {
-//			String query = "UPDATE " + tblName + " SET isCompleted=? WHERE uniqueID=?;";
-//			PreparedStatement ps = conn.prepareStatement(query);
-//			ps.setString(1, teamMember.getName());
-//			ps.setString(2, teamMember.getPassword());
-//			ps.setString(3, teamMember.getChoiceID());
-//			int numAffected = ps.executeUpdate();
-//			ps.close();
-//
-//			return (numAffected == 1);
-//		} catch (Exception e) {
-//			throw new Exception("Failed to update report: " + e.getMessage());
-//		}
-//	}
-
-//	boolean d(Choice Choice) throws Exception {
-//		try {
-//			PreparedStatement ps = conn.prepareStatement("DELETE FROM " + tblName + " WHERE uniqueID = ?;");
-//			ps.setString(1, Choice.uniqueID);
-//			int numAffected = ps.executeUpdate();
-//			ps.close();
-//
-//			return (numAffected == 1);
-//
-//		} catch (Exception e) {
-//			throw new Exception("Failed to insert Choice: " + e.getMessage());
-//		}
-//	}
-
 	public boolean addTeamMember(TeamMember teamMember) throws Exception {
 		try {
-//			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE teamMemberName = ?;");
-//			ps.setString(1, teamMember.getName());
-//
-//
-//			ResultSet resultSet = ps.executeQuery();
-//
-//			// already present?
-//			while (resultSet.next()) {
-//				TeamMember tm = generateTeamMember(resultSet);
-//				resultSet.close();
-//				return false;
-//			}
 
-			PreparedStatement ps = conn.prepareStatement("INSERT INTO " + tblName + " (uniqueID, password, choiceID) values(?,?,?);");
-//			ps.setString(1, Choice.uniqueID);
-//			ps.setString(2, Choice.getChosenAlternative().getAlternativeID());
-//			ps.setInt(3, Choice.getParticipatingMembers().size());
-//			ps.setString(4, Choice.getDescription());
-//			ps.setDate(5, Choice.getDayOfCompletion());
-//			ps.setFloat(6, Choice.getDaysOld());
-//			ps.setBoolean(7, Choice.isComplete());
+			PreparedStatement ps = conn
+					.prepareStatement("INSERT INTO " + tblName + " (uniqueID, password, choiceID) values(?,?,?);");
+
 			ps.setString(1, teamMember.getName());
 			ps.setString(2, teamMember.getPassword());
 			ps.setString(3, teamMember.getChoiceID());
@@ -123,35 +49,38 @@ public class TeamMemberDAO {
 		}
 	}
 
-	public List<TeamMember> getAllTeamMembers(String uniqueID) throws Exception {
+	public List<TeamMember> getAllTeamMembers(String choiceID) throws Exception {
 
-		List<TeamMember> allTM = new ArrayList<>();
+		List<TeamMember> participants = new ArrayList<TeamMember>();
 		try {
 			Statement statement = conn.createStatement();
-			String query = "SELECT * FROM " + tblName + " WHERE choiceID=?;";
-			ResultSet resultSet = statement.executeQuery(query);
+
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE choiceID=?;");
+			ps.setString(1, choiceID);
+			// String query = "SELECT * FROM " + tblName + "GROUP BY alternative_id HAVING
+			// MAX(choice_id) = " + choiceID + " AND MIN(choice_id) = "+choiceID + ";";
+			ResultSet resultSet = ps.executeQuery();
 
 			while (resultSet.next()) {
-				TeamMember tm = generateTeamMember(resultSet);
-				allTM.add(tm);
+				TeamMember p = generateTeamMember(resultSet);
+				participants.add(p);
 			}
 			resultSet.close();
 			statement.close();
-			return allTM;
+			return participants;
 
 		} catch (Exception e) {
-			throw new Exception("Failed in getting teamMembers: " + e.getMessage());
+			throw new Exception("Failed in getting alternatives: " + e.getMessage());
 		}
 	}
 
-	 TeamMember generateTeamMember(ResultSet resultSet) throws Exception {
+	TeamMember generateTeamMember(ResultSet resultSet) throws Exception {
 		String name = resultSet.getString("uniqueID");
 		String password = resultSet.getString("password");
 		String choiceID = resultSet.getString("choiceID");
-		
+
 		return new TeamMember(name, password, choiceID);
 
 	}
-
 
 }

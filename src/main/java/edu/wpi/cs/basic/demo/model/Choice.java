@@ -18,6 +18,9 @@ public class Choice {
 	String chosenAlternativeID;
 	// test
 
+	public Choice() {
+		
+	}
 	
 	public Choice(String uniqueID, List<AlternativeChoice> alternativeChoices,
 			List<TeamMember> participatingMembers, String description, Date dateOfCompletion, Date dateOfCreation,

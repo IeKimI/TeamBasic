@@ -1,9 +1,13 @@
 package edu.wpi.cs.basic.demo.model;
 
 public class TeamMember { // Eren
-	final String name;
-	final String password;
+	String name;
+	String password;
 	String choiceID;
+
+	public TeamMember() {
+
+	}
 
 	public TeamMember(String name, String password) {
 		this.name = name;

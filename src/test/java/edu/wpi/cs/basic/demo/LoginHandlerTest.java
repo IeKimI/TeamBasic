@@ -14,8 +14,8 @@ import com.google.gson.Gson;
 
 import edu.wpi.cs.basic.demo.http.CreateChoiceRequest;
 import edu.wpi.cs.basic.demo.http.CreateChoiceResponse;
-import edu.wpi.cs.basic.demo.http.LoginRequest;
-import edu.wpi.cs.basic.demo.http.LoginResponse;
+import edu.wpi.cs.basic.demo.http.CreateTeamMemberRequest;
+import edu.wpi.cs.basic.demo.http.CreateTeamMemberResponse;
 import edu.wpi.cs.basic.demo.model.AlternativeChoice;
 import edu.wpi.cs.basic.demo.model.TeamMember;
 
@@ -28,9 +28,9 @@ public class LoginHandlerTest extends LambdaTest {
 
 	String testSuccessInput(String incoming) throws IOException {
 		LoginHandler handler = new LoginHandler();
-		LoginRequest req = new Gson().fromJson(incoming, LoginRequest.class);
+		CreateTeamMemberRequest req = new Gson().fromJson(incoming, CreateTeamMemberRequest.class);
 
-		LoginResponse resp = handler.handleRequest(req, createContext("create"));
+		CreateTeamMemberResponse resp = handler.handleRequest(req, createContext("create"));
 		System.out.println(resp.toString());
 		Assert.assertEquals(200, resp.httpCode);
 
@@ -41,9 +41,9 @@ public class LoginHandlerTest extends LambdaTest {
 
 	String testFailInput(String incoming, int failureCode) throws IOException {
 		LoginHandler handler = new LoginHandler();
-		LoginRequest req = new Gson().fromJson(incoming, LoginRequest.class);
+		CreateTeamMemberRequest req = new Gson().fromJson(incoming, CreateTeamMemberRequest.class);
 
-		LoginResponse resp = handler.handleRequest(req, createContext("create"));
+		CreateTeamMemberResponse resp = handler.handleRequest(req, createContext("create"));
 		Assert.assertEquals(failureCode, resp.httpCode);
 
 		return resp.response;
@@ -90,17 +90,25 @@ public class LoginHandlerTest extends LambdaTest {
 		String uniqueID = null; 
 		
 		CreateChoiceHandler choiceHandler = new CreateChoiceHandler();
-		CreateChoiceRequest ccr = new CreateChoiceRequest("newChoice", 3, alternatives);
+		CreateChoiceRequest ccr = new CreateChoiceRequest("343", 3, alternatives);
 		
 		CreateChoiceResponse c_resp = choiceHandler.handleRequest(ccr, createContext("create"));
 		uniqueID = c_resp.response;
 		
-		TeamMember tm1 = new TeamMember("teamMemberserser", "serserser", uniqueID);
+		TeamMember tm1 = new TeamMember("3dg", "sersqderser", uniqueID);
 //		TeamMember tm1 = new TeamMember(uniqueID, "name", "password");
 //		TeamMember tm1 = new TeamMember(uniqueID, "name", "password");
 //		TeamMember tm1 = new TeamMember(uniqueID, "name", "password");
+		String sampleInput = "{\n" + 
+				"    \"name\" : \"hello\",\n" + 
+				"    \"password\" : \"ERERERERE\",\n" + 
+				"    \"choiceID\" : \"663344601\"\n" + 
+				"}";
 
-		LoginRequest req1 = new LoginRequest(tm1.getName(), tm1.getPassword(), tm1.getChoiceID());
+//		CreateTeamMemberRequest req1 = new CreateTeamMemberRequest(tm1.getName(), tm1.getPassword(), tm1.getChoiceID());
+		CreateTeamMemberRequest req1 = new Gson().fromJson(sampleInput, CreateTeamMemberRequest.class);
+		
+		System.out.println(req1.toString());
 		
 		System.out.println(c_resp.response.toString());
 		if (uniqueID == null) {
