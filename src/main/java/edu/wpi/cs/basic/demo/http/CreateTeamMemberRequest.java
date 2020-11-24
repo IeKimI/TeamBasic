@@ -50,7 +50,7 @@ public class CreateTeamMemberRequest {
 		 
 	 }
 	public String toString() {
-		return "Registering teamMember...: " + uniqueID + " for choiceID" + choiceID;
+		return "Registering teamMember...: " + getName() + " for choiceID" + getChoiceID();
 	}
 
 	

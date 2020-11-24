@@ -90,7 +90,7 @@ public class LoginHandlerTest extends LambdaTest {
 		String uniqueID = null; 
 		
 		CreateChoiceHandler choiceHandler = new CreateChoiceHandler();
-		CreateChoiceRequest ccr = new CreateChoiceRequest("343", 3, alternatives);
+		CreateChoiceRequest ccr = new CreateChoiceRequest("gegege", 3, alternatives);
 		
 		CreateChoiceResponse c_resp = choiceHandler.handleRequest(ccr, createContext("create"));
 		uniqueID = c_resp.response;
@@ -100,13 +100,13 @@ public class LoginHandlerTest extends LambdaTest {
 //		TeamMember tm1 = new TeamMember(uniqueID, "name", "password");
 //		TeamMember tm1 = new TeamMember(uniqueID, "name", "password");
 		String sampleInput = "{\n" + 
-				"    \"name\" : \"hello\",\n" + 
+				"    \"uniqueID\" : \"hello\",\n" + 
 				"    \"password\" : \"ERERERERE\",\n" + 
-				"    \"choiceID\" : \"663344601\"\n" + 
+				"    \"choiceID\" : " + uniqueID + 
 				"}";
 
-//		CreateTeamMemberRequest req1 = new CreateTeamMemberRequest(tm1.getName(), tm1.getPassword(), tm1.getChoiceID());
-		CreateTeamMemberRequest req1 = new Gson().fromJson(sampleInput, CreateTeamMemberRequest.class);
+		CreateTeamMemberRequest req1 = new CreateTeamMemberRequest(tm1.getName(), tm1.getPassword(), tm1.getChoiceID());
+//		CreateTeamMemberRequest req1 = new Gson().fromJson(sampleInput, CreateTeamMemberRequest.class);
 		
 		System.out.println(req1.toString());
 		

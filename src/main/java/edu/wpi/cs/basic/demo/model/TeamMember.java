@@ -43,7 +43,7 @@ public class TeamMember { // Eren
 
 	public boolean equals(Object x) {
 		return (x instanceof TeamMember) && ((TeamMember) x).name.equals(name)
-				&& ((TeamMember) x).password.equals(password);
+				&& ((TeamMember) x).choiceID.equals(choiceID);
 	}
 
 	boolean flipApproval(AlternativeChoice alt) {

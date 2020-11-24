@@ -54,8 +54,8 @@ public class LoginHandler implements RequestHandler<CreateTeamMemberRequest, Cre
 
 		List<TeamMember> list = teamMemberDAO.getAllTeamMembers(req.getChoiceID());
 		
-//		int maxNum = choiceDAO.getMaxNum(req.getChoiceID());
-//		if (list.size() >= maxNum) { return false;}
+		int maxNum = choiceDAO.getMaxNum(req.getChoiceID());
+		if (list.size() >= maxNum) { return false;}
 		
 		TeamMember exist = new TeamMember(req.getName(), req.getPassword(), req.getChoiceID());
 //		TeamMember tm = new TeamMember(name);
@@ -73,34 +73,6 @@ public class LoginHandler implements RequestHandler<CreateTeamMemberRequest, Cre
 		
 		return teamMemberDAO.addTeamMember(exist);
 	}
-
-//	/** Create S3 bucket
-//	 * 
-//	 * @throws Exception 
-//	 */
-//	boolean createSystemChioce(String uniqueID, ArrayList<AlternativeChoice> alternatives, ArrayList<TeamMember> teamMembers, String description, Date dateOfCompletion, float daysOld, boolean isCompleted) throws Exception {
-//		if (logger != null) { logger.log("in createSystemConstant"); }
-//		
-//		if (s3 == null) {
-//			logger.log("attach to S3 request");
-//			s3 = AmazonS3ClientBuilder.standard().withRegion(Regions.US_EAST_2).build();
-//			logger.log("attach to S3 succeed");
-//		}
-//
-//		String folder = BucketManager.getChoiceFolder() + "/";
-//		
-//		byte[] contents = ("" + alternatives.get(1)).getBytes();
-//		ByteArrayInputStream bais = new ByteArrayInputStream(contents);
-//		ObjectMetadata omd = new ObjectMetadata();
-//		omd.setContentLength(contents.length);
-//		
-//		// makes the object publicly visible
-//		PutObjectResult res = s3.putObject(new PutObjectRequest(BucketManager.bucket, folder + uniqueID, bais, omd)
-//				.withCannedAcl(CannedAccessControlList.PublicRead));
-//		
-//		// if we ever get here, then whole thing was stored
-//		return true;
-//	}
 
 
 
