@@ -1,4 +1,13 @@
-function processCreateResponse(response) {
+function updateTheChoice() {
+	let queryString = new URLSearchParams(window.location.search)
+	
+	console.log(queryString.toString())
+	
+	var choiceDiv = document.getElementById("choiceInfo")
+	choiceDiv.innerHTML = queryString.toString()
+}
+
+function loadingChoicePage(response) {
 	// Can grab any DIV or SPAN HTML element and can then manipulate its
 	// contents dynamically via javascript
 	console.log("result:" + response);
@@ -17,18 +26,13 @@ function processCreateResponse(response) {
 	urlParams.append("choice", choiceID);
 	console.log(urlParams);
 
-	window.location.href = (choiceURL + urlParams);
+	window.location.href = choiceURL + urlParams;
 
-	var choiceInfo = document.getElementById["choiceInfo"];
+}
 
-
-	var output = "";
-
-	/*	output + "<div id=\"choice" + request + "\"><b>" + request + ":</b> = " + request + "<br></div>";*/
-
-
-	choiceInfo.innerHTML = output;
-
+function processCreateChoiceResponse(result) {
+	console.log("result:" + result);
+	loadingChoicePage(result)
 }
 
 
@@ -72,7 +76,7 @@ function handleCreateClick(e) {
 		if (xhr.readyState == XMLHttpRequest.DONE) {
 			if (xhr.status == 200) {
 				console.log("XHR:" + xhr.responseText);
-				processCreateResponse(xhr.responseText);
+				processCreateChoiceResponse(xhr.responseText);
 			} else {
 				console.log("actual:" + xhr.responseText)
 				var js = JSON.parse(xhr.responseText);
