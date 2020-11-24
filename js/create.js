@@ -4,7 +4,7 @@ function updateTheChoice() {
 	console.log(queryString.toString())
 	
 	var choiceDiv = document.getElementById("choiceInfo")
-	choiceDiv.innerHTML = queryString.toString()
+	choiceDiv.innerHTML = queryString.toString() 
 }
 
 function loadingChoicePage(response) {
