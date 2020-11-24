@@ -36,7 +36,7 @@ public class AlternativeChoiceDAO {
 		}
 	}
 
-	public static AlternativeChoice getAlternativeChoice(String uniqueID) throws Exception {
+	public AlternativeChoice getAlternativeChoice(String uniqueID) throws Exception {
 
 		try {
 			AlternativeChoice alternativeChoice = null;
