@@ -46,7 +46,7 @@ public class TeamMemberDAO {
 
 		} catch (Exception e) {
 			throw new Exception("Failed to insert teamMember: " + e.getMessage());
-		}
+		} 
 	}
 
 	public List<TeamMember> getAllTeamMembers(String choiceID) throws Exception {
