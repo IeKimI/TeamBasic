@@ -5,10 +5,9 @@ import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 
 import edu.wpi.cs.basic.demo.db.ChoiceDAO;
-import edu.wpi.cs.basic.demo.http.GetChoiceResponse;
 import edu.wpi.cs.basic.demo.model.Choice;
 
-public class GetChoiceHandler implements RequestHandler<String, GetChoiceResponse> {
+public class GetChoiceHandler implements RequestHandler<String, Choice> {
 	LambdaLogger logger;
 
 	public GetChoiceHandler() {
@@ -26,12 +25,12 @@ public class GetChoiceHandler implements RequestHandler<String, GetChoiceRespons
 
 	}
 	
-	public GetChoiceResponse handleRequest(String choiceID, Context c) {
+	public Choice handleRequest(String choiceID, Context c) {
 		logger = c.getLogger();
 		logger.log("Getting Choice " + choiceID);
 
 		try {
-			return new GetChoiceResponse(choiceID, getChoice(choiceID));
+			return getChoice(choiceID);
 		} catch (Exception e) {
 			logger.log("An exception was caught in the handleRequest when getting the choice.");
 			return null;
