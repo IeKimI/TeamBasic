@@ -7,9 +7,7 @@ import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 
 import edu.wpi.cs.basic.demo.db.AlternativeChoiceDAO;
-import edu.wpi.cs.basic.demo.db.ChoiceDAO;
 import edu.wpi.cs.basic.demo.model.AlternativeChoice;
-import edu.wpi.cs.basic.demo.model.Choice;
 
 public class GetAlternativeChoiceHandler implements RequestHandler<String, List<AlternativeChoice>> {
 	LambdaLogger logger;
