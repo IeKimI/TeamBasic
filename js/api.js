@@ -10,3 +10,4 @@ var login_url = base_url + "login"; // POST
 var getChoice_url = base_url + "choice";
 /*var delete_url = base_url + "constants";    // POST with {name} so we avoid CORS issues
 */ 
+ 
