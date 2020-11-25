@@ -7,9 +7,10 @@ import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 
 import edu.wpi.cs.basic.demo.db.AlternativeChoiceDAO;
+import edu.wpi.cs.basic.demo.http.GetAlternativesResponse;
 import edu.wpi.cs.basic.demo.model.AlternativeChoice;
 
-public class GetAlternativeChoiceHandler implements RequestHandler<String, List<AlternativeChoice>> {
+public class GetAlternativeChoiceHandler implements RequestHandler<String, GetAlternativesResponse> {
 	LambdaLogger logger;
 
 	public GetAlternativeChoiceHandler() {
@@ -26,12 +27,12 @@ public class GetAlternativeChoiceHandler implements RequestHandler<String, List<
 		return request;
 	}
 
-	public List<AlternativeChoice> handleRequest(String choiceID, Context c) {
+	public GetAlternativesResponse handleRequest(String choiceID, Context c) {
 		logger = c.getLogger();
 		logger.log("Getting Alternatives for Choice " + choiceID + ".");
 
 		try {
-			return getAlternativeChoices(choiceID);
+			return new GetAlternativesResponse(choiceID, getAlternativeChoices(choiceID));
 		} catch (Exception e) {
 			logger.log(
 					"An exception was caught in the handleRequest when getting the alternatives associated with choice "
