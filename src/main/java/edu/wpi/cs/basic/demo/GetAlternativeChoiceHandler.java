@@ -20,22 +20,24 @@ public class GetAlternativeChoiceHandler implements RequestHandler<String, List<
 
 	List<AlternativeChoice> getAlternativeChoices(String choiceID) throws Exception {
 		if (logger != null)
-			logger.log("getChoice has been called.");
+			logger.log("getAlternativeChoices has been called.");
 		AlternativeChoiceDAO database = new AlternativeChoiceDAO();
 		List<AlternativeChoice> request = database.getAlternativeChoice(choiceID);
 		if (logger != null)
-			logger.log("The choice has been got.");
+			logger.log("The alternatives have been got.");
 		return request;
 	}
 
-	public List<AlternativeChoice> handleRequest(String altID, Context c) {
+	public List<AlternativeChoice> handleRequest(String choiceID, Context c) {
 		logger = c.getLogger();
-		logger.log("Getting Choice " + altID);
+		logger.log("Getting Alternatives for Choice " + choiceID + ".");
 
 		try {
-			return getAlternativeChoices(altID);
+			return getAlternativeChoices(choiceID);
 		} catch (Exception e) {
-			logger.log("An exception was caught in the handleRequest when getting the choice.");
+			logger.log(
+					"An exception was caught in the handleRequest when getting the alternatives associated with choice "
+							+ choiceID + ".");
 			return null;
 		}
 	}
