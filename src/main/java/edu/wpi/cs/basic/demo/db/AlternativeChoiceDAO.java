@@ -36,21 +36,21 @@ public class AlternativeChoiceDAO {
 		}
 	}
 
-	public AlternativeChoice getAlternativeChoice(String uniqueID) throws Exception {
+	public List<AlternativeChoice> getAlternativeChoice(String uniqueID) throws Exception {
 
 		try {
-			AlternativeChoice alternativeChoice = null;
+			List<AlternativeChoice> alternativeChoices = new ArrayList<AlternativeChoice>();
 			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE choiceID=?;");
-			ps.setInt(1, alternativeChoice.getAlternativeID());
+			ps.setString(1, uniqueID);
 			ResultSet resultSet = ps.executeQuery();
 
 			while (resultSet.next()) {
-				alternativeChoice = generateAltnerativeChoice(resultSet);
+				alternativeChoices.add(generateAltnerativeChoice(resultSet));
 			}
 			resultSet.close();
 			ps.close();
 
-			return alternativeChoice;
+			return alternativeChoices;
 
 		} catch (Exception e) {
 			e.printStackTrace();
