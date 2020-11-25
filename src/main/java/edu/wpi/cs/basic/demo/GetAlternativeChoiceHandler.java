@@ -11,33 +11,53 @@ import edu.wpi.cs.basic.demo.http.GetAlternativesResponse;
 import edu.wpi.cs.basic.demo.model.AlternativeChoice;
 
 public class GetAlternativeChoiceHandler implements RequestHandler<String, GetAlternativesResponse> {
-	LambdaLogger logger;
+//	LambdaLogger logger;
+//
+//	public GetAlternativeChoiceHandler() {
+//		// TODO Auto-generated constructor stub
+//	}
+//
+//	List<AlternativeChoice> getAlternativeChoices(String choiceID) throws Exception {
+//		if (logger != null)
+//			logger.log("getAlternativeChoices has been called.");
+//		AlternativeChoiceDAO database = new AlternativeChoiceDAO();
+//		List<AlternativeChoice> request = database.getAlternativeChoice(choiceID);
+//		if (logger != null)
+//			logger.log("The alternatives have been got.");
+//		return request;
+//	}
+//
+//	public GetAlternativesResponse handleRequest(String choiceID, Context c) {
+//		logger = c.getLogger();
+//		logger.log("Getting Alternatives for Choice " + choiceID + ".");
+//
+//		try {
+//			return new GetAlternativesResponse(choiceID, getAlternativeChoices(choiceID));
+//		} catch (Exception e) {
+//			logger.log(
+//					"An exception was caught in the handleRequest when getting the alternatives associated with choice "
+//							+ choiceID + ".");
+//			return null;
+//		}
+//	}
+	
 
-	public GetAlternativeChoiceHandler() {
-		// TODO Auto-generated constructor stub
-	}
+	public LambdaLogger logger;
 
-	List<AlternativeChoice> getAlternativeChoices(String choiceID) throws Exception {
-		if (logger != null)
-			logger.log("getAlternativeChoices has been called.");
-		AlternativeChoiceDAO database = new AlternativeChoiceDAO();
-		List<AlternativeChoice> request = database.getAlternativeChoice(choiceID);
-		if (logger != null)
-			logger.log("The alternatives have been got.");
-		return request;
-	}
-
-	public GetAlternativesResponse handleRequest(String choiceID, Context c) {
-		logger = c.getLogger();
-		logger.log("Getting Alternatives for Choice " + choiceID + ".");
-
+	
+	@Override 
+	public GetAlternativesResponse handleRequest(String choiceID, Context context){
+		logger = context.getLogger();
+		logger.log("Loading Java Lambda handler to list all alternatives for ID: "+ choiceID);
+		
 		try {
-			return new GetAlternativesResponse(choiceID, getAlternativeChoices(choiceID));
+			AlternativeChoiceDAO dao = new AlternativeChoiceDAO();
+			List<AlternativeChoice> alternatives = dao.getAllAlternatives(choiceID);;
+			return new GetAlternativesResponse("Succesfully fetched alternatives", alternatives);
+			
 		} catch (Exception e) {
-			logger.log(
-					"An exception was caught in the handleRequest when getting the alternatives associated with choice "
-							+ choiceID + ".");
-			return null;
+			logger.log(e.getMessage());
+			return new GetAlternativesResponse(404, "ChoiceID not found");
 		}
 	}
 }

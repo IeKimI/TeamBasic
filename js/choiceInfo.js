@@ -1,11 +1,20 @@
 function refreshChoiceInfo() {
-	var xhr = new XMLHttpRequest();
+	
 
 	var choiceURL = window.location.href;
 	var choiceID = choiceURL.split('=')[1];
 
+	var data = {};
+	data["choiceID"] = choiceID;
+	console.log(choiceID);
+	
+	var js = JSON.stringify(data);
+	console.log(js);
+	
+	var xhr = new XMLHttpRequest();
+	
 	xhr.open("GET", getChoice_url + "/" + choiceID, true);
-	xhr.send();
+	xhr.send(js);
 
 	xhr.onloadend = function() {
 		if (xhr.readyState == XMLHttpRequest.DONE) {
@@ -18,9 +27,32 @@ function refreshChoiceInfo() {
 		}
 
 	}
+	getAlternatives(choiceID);
+	
 }
 	
+function getAlternatives(choiceID){
+	
+		var data = {};
+	data["choiceID"] = choiceID;
+	
+	var js = JSON.stringify(data);
+	
+	var xhr = new XMLHttpRequest();
+	xhr.open("GET", alternative_url + "/" + choiceID, true);
+	xhr.send(js);
 
+	xhr.onloadend = function() {
+		if (xhr.readyState == XMLHttpRequest.DONE) {
+			if (xhr.status == 200) {
+				console.log("XHR:" + xhr.responseText);
+				processAlternatives(xhr.responseText);
+			} else {
+				processAlternatives("N/A");
+			}
+		}
+	}
+}
 
 function processChoiceResponse(result) {
 	console.log("res:" + result);
@@ -29,15 +61,9 @@ function processChoiceResponse(result) {
 	var choiceInfo = document.getElementById('choiceInfo');
 	console.log(js);
 
-
+	js = js["choice"];
 	var description = js["description"];
-	var maxnum = js["maxNum"];
-
-	var alternative1 = js["alternatives"][0];
-	var alternative2 = js["alternatives"][1];
-	var alternative3 = js["alternatives"][2];
-	var alternative4 = js["alternatives"][3];
-	var alternative5 = js["alternatives"][4];
+	var maxnum = js["maxNumOfTeamMembers"];
 
 
 	var output = "";
@@ -47,4 +73,27 @@ function processChoiceResponse(result) {
 	choiceInfo.innerHTML = output;
 }
 
+function processAlternatives(result) {
+	console.log("res:" + result);
+	
+	var js = JSON.parse(result);
+	
+	var alternatives = document.getElementById('alternatives');
+	console.log(js);
+	
+	js = js["listOfAlternatives"];
+	
+	var i, output = ""
+	var count = 0;
+	
+	for (i in js) {
+		var alternative = js[i]
+		count  = count + 1
+		
+		let alternativeDesc = alternative["alternativeChoices"];
+		
+		ouput = output + "<h4> Alternative " + count + ": " + alternativeDesc +"</h4>"
+	}
+	alternatives.innerHTML = output
+}
 

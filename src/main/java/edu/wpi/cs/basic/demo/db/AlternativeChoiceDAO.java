@@ -26,7 +26,7 @@ public class AlternativeChoiceDAO {
 
 	static java.sql.Connection conn;
 
-	final static String tblName = "AlternativeChoice"; // Exact capitalization
+	final String tblName = "AlternativeChoice"; // Exact capitalization
 
 	public AlternativeChoiceDAO() {
 		try {
@@ -114,9 +114,9 @@ public class AlternativeChoiceDAO {
 		}
 	}
 
-	public static ArrayList<AlternativeChoice> getAllAlternatives(String uniqueID) throws Exception {
+	public List<AlternativeChoice> getAllAlternatives(String uniqueID) throws Exception {
 
-		ArrayList<AlternativeChoice> alternatives = new ArrayList<>();
+		List<AlternativeChoice> alternatives = new ArrayList<>();
 		try {
 			Statement statement = conn.createStatement();
 			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE choiceID = ?;");
@@ -136,7 +136,7 @@ public class AlternativeChoiceDAO {
 		}
 	}
 
-	private static AlternativeChoice generateAltnerativeChoice(ResultSet resultSet) throws Exception {
+	private AlternativeChoice generateAltnerativeChoice(ResultSet resultSet) throws Exception {
 		int alternativeID = resultSet.getInt("alternativeID");
 		
 //		// pass in the alternativeID to get the approvals of a specific alternative
