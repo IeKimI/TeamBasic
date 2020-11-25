@@ -4,11 +4,13 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import edu.wpi.cs.basic.demo.db.ChoiceDAO;
 import edu.wpi.cs.basic.demo.http.CreateChoiceRequest;
 import edu.wpi.cs.basic.demo.http.CreateChoiceResponse;
+import edu.wpi.cs.basic.demo.http.GetChoiceResponse;
 import edu.wpi.cs.basic.demo.model.AlternativeChoice;
 import edu.wpi.cs.basic.demo.model.Choice;
 
@@ -18,6 +20,7 @@ import edu.wpi.cs.basic.demo.model.Choice;
 public class GetChoiceHandlerTest extends LambdaTest {
 	@Test
 	public void testGetChoiceHandler() throws Exception {
+		
 		GetChoiceHandler handler = new GetChoiceHandler();
 		ChoiceDAO database = new ChoiceDAO();
 		Choice input = new Choice("", "123456", 10);
@@ -28,12 +31,24 @@ public class GetChoiceHandlerTest extends LambdaTest {
 		alternatives.add(alt1);
 		alternatives.add(alt2);
 		alternatives.add(alt3);
+		
+		String choiceID = null;
+		
 		CreateChoiceHandler cch = new CreateChoiceHandler();
-		CreateChoiceRequest ccr = new CreateChoiceRequest("123456", 10, alternatives);
-		CreateChoiceResponse response = cch.handleRequest(ccr, createContext("create"));
-		Choice c = handler.getChoice(response.response);
-		input.setUniqueID(response.response);
-		input.setAlternativeChoices(alternatives);
-		assertTrue(c.equals(input));
+		CreateChoiceRequest ccr = new CreateChoiceRequest("testtesttest", 10, alternatives);
+		CreateChoiceResponse c_resp = cch.handleRequest(ccr, createContext("create"));
+		
+
+		choiceID = c_resp.response;
+		
+		if (choiceID == null) {Assert.fail("Created choiceID is null");}
+        GetChoiceResponse resp = handler.handleRequest(choiceID, createContext("list"));
+        if(resp.httpCode == 404) { Assert.fail("ChoiceID not found");
+        }
+        
+        Choice choice = resp.choice;
+        
+        Assert.assertTrue(choice.getDescription().equals("testtesttest"));
+        Assert.assertTrue(choice.getMaxNumOfTeamMembers() == 10);
 	}
 }

@@ -8,7 +8,7 @@ function refreshChoiceInfo() {
 	xhr.send();
 
 	xhr.onloadend = function() {
-		if (xhr.readyState == XMHttpRequest.DONE) {
+		if (xhr.readyState == XMLHttpRequest.DONE) {
 			if (xhr.status == 200) {
 				console.log("XHR:" + xhr.responseText);
 				processChoiceResponse(xhr.responseText);
