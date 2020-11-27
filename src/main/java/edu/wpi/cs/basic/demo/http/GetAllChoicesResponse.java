@@ -6,12 +6,12 @@ import java.util.List;
 import edu.wpi.cs.basic.demo.model.Choice;
 
 
-public class AllChoicesResponse {
+public class GetAllChoicesResponse {
 	public final List<Choice> list;
 	public final int statusCode;
 	public final String error;
 	
-	public AllChoicesResponse(List<Choice> list, int statusCode, String error) {
+	public GetAllChoicesResponse(List<Choice> list, int statusCode, String error) {
 		super();
 		this.list = list;
 		this.statusCode = statusCode;
@@ -19,13 +19,13 @@ public class AllChoicesResponse {
 	}
 	
 
-public AllChoicesResponse(List<Choice> list, int code) {
+public GetAllChoicesResponse(List<Choice> list, int code) {
 		this.list = list;
 		this.statusCode = code;
 		this.error = "";
 	}
 
-	public AllChoicesResponse (int code, String errorMessage) {
+	public GetAllChoicesResponse (int code, String errorMessage) {
 		this.list = new ArrayList<Choice>();
 		this.statusCode = code;
 		this.error = errorMessage;

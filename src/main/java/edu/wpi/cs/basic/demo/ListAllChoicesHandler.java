@@ -16,13 +16,13 @@ import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 
 import edu.wpi.cs.basic.demo.db.ChoiceDAO;
-import edu.wpi.cs.basic.demo.http.AllChoicesResponse;
+import edu.wpi.cs.basic.demo.http.GetAllChoicesResponse;
 import edu.wpi.cs.basic.demo.model.Choice;
 
 /**
  * Eliminated need to work with JSON
  */
-public class ListAllChoicesHandler implements RequestHandler<Object,AllChoicesResponse> {
+public class ListAllChoicesHandler implements RequestHandler<Object,GetAllChoicesResponse> {
 
 	public LambdaLogger logger;
 
@@ -94,11 +94,11 @@ public class ListAllChoicesHandler implements RequestHandler<Object,AllChoicesRe
 //	}
 	
 	@Override
-	public AllChoicesResponse handleRequest(Object input, Context context)  {
+	public GetAllChoicesResponse handleRequest(Object input, Context context)  {
 		logger = context.getLogger();
 		logger.log("Loading Java Lambda handler to list all choices");
 
-		AllChoicesResponse response;
+		GetAllChoicesResponse response;
 		try {
 			// get all user defined constants AND system-defined constants.
 			// Note that user defined constants override system-defined constants.
@@ -108,9 +108,9 @@ public class ListAllChoicesHandler implements RequestHandler<Object,AllChoicesRe
 //					list.add(c);
 //				}
 //			}
-			response = new AllChoicesResponse(list, 200);
+			response = new GetAllChoicesResponse(list, 200);
 		} catch (Exception e) {
-			response = new AllChoicesResponse(400, e.getMessage());
+			response = new GetAllChoicesResponse(400, e.getMessage());
 		}
 		
 		return response;
