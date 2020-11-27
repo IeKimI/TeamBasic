@@ -20,7 +20,7 @@ public class DeleteChoicesHandlerTest extends LambdaTest {
 		CreateChoiceRequest ccr = new CreateChoiceRequest("Test1", 10, null);
 		CreateChoiceResponse c_resp = cch.handleRequest(ccr, createContext("create"));
 
-		database.deleteChoicesNDaysOld(0);
+		database.deleteChoicesNDaysOld(100);
 		assertTrue(database.getAllChoices().size() == 0);
 
 		ccr = new CreateChoiceRequest("Test1", 10, null);
@@ -30,13 +30,13 @@ public class DeleteChoicesHandlerTest extends LambdaTest {
 		ccr = new CreateChoiceRequest("Test3", 10, null);
 		c_resp = cch.handleRequest(ccr, createContext("create"));
 
-		database.deleteChoicesNDaysOld(0);
+		database.deleteChoicesNDaysOld(100);
 		assertTrue(database.getAllChoices().size() == 0);
 
 		ccr = new CreateChoiceRequest("Test1", 10, null);
 		c_resp = cch.handleRequest(ccr, createContext("create"));
 
-		database.deleteChoicesNDaysOld(1);
+		database.deleteChoicesNDaysOld(100);
 		assertTrue(database.getAllChoices().size() == 1);
 
 		ccr = new CreateChoiceRequest("Test1", 10, null);
@@ -46,7 +46,7 @@ public class DeleteChoicesHandlerTest extends LambdaTest {
 		ccr = new CreateChoiceRequest("Test3", 10, null);
 		c_resp = cch.handleRequest(ccr, createContext("create"));
 
-		database.deleteChoicesNDaysOld(1);
+		database.deleteChoicesNDaysOld(100);
 		assertTrue(database.getAllChoices().size() == 3);
 
 	}
