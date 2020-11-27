@@ -4,8 +4,12 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.joda.time.Days;
 
 import edu.wpi.cs.basic.demo.model.AlternativeChoice;
 import edu.wpi.cs.basic.demo.model.Choice;
@@ -206,5 +210,27 @@ public class ChoiceDAO {
 //		output.setChosenAlternative(null);
 //		AlternativeChoice databaseInquery= 
 //		return output;
+	}
+
+	public String deleteChoicesNDaysOld(Integer n) throws Exception {
+		List<Choice> listOfChoices = getAllChoices();
+		String resultLog = "";
+		int secondsPassed = n.intValue() * 24 * 60 * 60; // converting n days into n seconds
+
+		for (Choice c : listOfChoices) {
+			long choiceSecondsFrom = c.getDateOfCreation().getTime();// Get the total number of seconds from
+			String localTimeString = LocalDate.now().toString(); // 2007-12-03
+			String year = localTimeString.substring(0, 4);
+			String month = localTimeString.substring(5, 7);
+			String day = localTimeString.substring(9);
+			Date date = new Date(Integer.valueOf(year), Integer.valueOf(month), Integer.valueOf(day));
+			long currentSecondsFrom = date.getTime();
+			if (currentSecondsFrom - choiceSecondsFrom >= secondsPassed) {
+				deleteChoice(c);
+				resultLog += "Deleted Choice: " + c.uniqueID + "\n";
+			}
+		}
+		return resultLog;
+
 	}
 }
