@@ -34,7 +34,7 @@ public class CreateChoiceHandlerTest extends LambdaTest {
 		Assert.assertEquals(200, resp.httpCode);
 
 		System.out.println("IS this working" + resp.response);
-		return resp.response; 
+		return resp.response;
 
 	}
 
@@ -106,23 +106,23 @@ public class CreateChoiceHandlerTest extends LambdaTest {
 //		Assert.assertEquals(ccr.getDescription(), c_resp.response);
 //	}
 	@Test
-    public void testShouldBeOk() {
-    	ArrayList<AlternativeChoice> alternatives = new ArrayList<AlternativeChoice>();
-    	AlternativeChoice alt1 = new AlternativeChoice("alt1_description");
-    	AlternativeChoice alt2 = new AlternativeChoice("alt2_description");
-    	AlternativeChoice alt3 = new AlternativeChoice("alt3_description");
-    	alternatives.add(alt1);
-    	alternatives.add(alt2);
-    	alternatives.add(alt3);
-    	CreateChoiceRequest ccr = new CreateChoiceRequest("testChoice4", 10, alternatives);
-        String SAMPLE_INPUT_STRING = new Gson().toJson(ccr);  
-        System.out.print(SAMPLE_INPUT_STRING);
-        String choiceID = null;
-        try {
-        	 choiceID = testSuccessInput(SAMPLE_INPUT_STRING);
-        } catch (IOException ioe) {
-        	Assert.fail("Invalid:" + ioe.getMessage());
-        }
-        
-    }
+	public void testShouldBeOk() {
+		ArrayList<AlternativeChoice> alternatives = new ArrayList<AlternativeChoice>();
+		AlternativeChoice alt1 = new AlternativeChoice("alt1_description");
+		AlternativeChoice alt2 = new AlternativeChoice("alt2_description");
+		AlternativeChoice alt3 = new AlternativeChoice("alt3_description");
+		alternatives.add(alt1);
+		alternatives.add(alt2);
+		alternatives.add(alt3);
+		CreateChoiceRequest ccr = new CreateChoiceRequest("testChoice4", 10, alternatives);
+		String SAMPLE_INPUT_STRING = new Gson().toJson(ccr);
+		System.out.print(SAMPLE_INPUT_STRING);
+		String choiceID = null;
+		try {
+			choiceID = testSuccessInput(SAMPLE_INPUT_STRING);
+		} catch (IOException ioe) {
+			Assert.fail("Invalid:" + ioe.getMessage());
+		}
+
+	}
 }
