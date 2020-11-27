@@ -28,7 +28,7 @@ public GetAllChoicesResponse(List<Choice> list, int code) {
 	public GetAllChoicesResponse (int code, String errorMessage) {
 		this.list = new ArrayList<Choice>();
 		this.statusCode = code;
-		this.error = errorMessage;
+		this.error = errorMessage; 
 	}
 	
 	public String toString() {
