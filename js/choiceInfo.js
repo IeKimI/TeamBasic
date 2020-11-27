@@ -1,11 +1,21 @@
 function refreshChoiceInfo() {
-	var xhr = new XMLHttpRequest();
+	
 
 	var choiceURL = window.location.href;
 	var choiceID = choiceURL.split('=')[1];
 
+	var data = {};
+	data["choiceID"] = choiceID;
+	console.log(choiceID);
+	
+	var js = JSON.stringify(data);
+	console.log(js);
+	
+	choiceID_display.innerHTML = js;
+	var xhr = new XMLHttpRequest();
+	
 	xhr.open("GET", getChoice_url + "/" + choiceID, true);
-	xhr.send();
+	xhr.send(js);
 
 	xhr.onloadend = function() {
 		if (xhr.readyState == XMLHttpRequest.DONE) {
@@ -16,10 +26,8 @@ function refreshChoiceInfo() {
 				processChoiceResponse("N/A");
 			}
 		}
-
 	}
 }
-	
 
 
 function processChoiceResponse(result) {
@@ -29,22 +37,17 @@ function processChoiceResponse(result) {
 	var choiceInfo = document.getElementById('choiceInfo');
 	console.log(js);
 
-
+	js = js["choice"];
 	var description = js["description"];
-	var maxnum = js["maxNum"];
-
-	var alternative1 = js["alternatives"][0];
-	var alternative2 = js["alternatives"][1];
-	var alternative3 = js["alternatives"][2];
-	var alternative4 = js["alternatives"][3];
-	var alternative5 = js["alternatives"][4];
+	var maxnum = js["maxNumOfTeamMembers"];
 
 
 	var output = "";
 
-	output = output + "\t<div>\n\t<label id = \"desc\">Description: " + description + "</label>\n\t<label id = \"maxNum\">Maximum Number of Participants: " + maxnum + "</label>\n\t<label id = \"alternative1\">Alternative 1: </label>\n\t\n\t</div>"; 
+	output = output + "\t<div>\n\t<label id = \"desc\">Description: " + description + "</label><br>\n\t<label id = \"maxNum\">Maximum Number of Participants: " + maxnum + "</label><br>"; 
 
 	choiceInfo.innerHTML = output;
 }
+
 
 

@@ -61,4 +61,9 @@ function processLogIn(result) {
 	var output = "";*/
 
 	/*refreshChoiceList();*/
+	
+	var js = JSON.parse(result);
+	js = js["name"];
+	
+	document.getElementById("message").innerText = "Welcome!";
 }
