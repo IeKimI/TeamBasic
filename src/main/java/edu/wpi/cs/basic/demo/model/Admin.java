@@ -7,11 +7,8 @@ import java.util.List;
 
 import edu.wpi.cs.basic.demo.CreateChoiceHandler;
 
-public class Admin extends TeamMember { //Eren
-	
-	public Admin() {
-		super("ADMIN");
-	}
+public class Admin  { //Eren
+
 
 	String createReport(Collection<Choice> choices) {
 		Iterator<Choice> iterator = choices.iterator();
@@ -30,9 +27,5 @@ public class Admin extends TeamMember { //Eren
 		return reportOutput;
 	}
 	
-	boolean deleteChoice(int daysOld, List<Choice> choices) {
-		return false;
-		
-	}
 
 }
