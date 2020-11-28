@@ -216,31 +216,22 @@ public class ChoiceDAO {
 
 	public List<Choice> deleteChoicesNDaysOld(float n) throws Exception {
 		List<Choice> listOfChoices = getAllChoices();
-		System.out.println(listOfChoices);
+//		System.out.println(listOfChoices);
 		List<Choice> resultLog = new ArrayList<Choice>();
-		System.out.println(n);
+//		System.out.println(n);
 		float miliseconds = n * 86400000;
-		System.out.println(miliseconds);
+//		System.out.println(miliseconds);
 		long milisecondsPassed = (long) miliseconds; // converting n days into n seconds
-		System.out.println(milisecondsPassed);
-		System.out.println(n * 86400000);
-
+//		System.out.println(milisecondsPassed);
+//		System.out.println(n * 86400000);
 		for (Choice c : listOfChoices) {
-			System.out.println(c.getDateOfCreation());
+			//System.out.println(c.getDateOfCreation());
 			long choiceMilisecondsFrom = c.getDateOfCreation().getTime();// Get the total number of seconds from
-//			String localTimeString = LocalDate.now().toString(); // 2007-12-03
-//			String year = localTimeString.substring(0, 4);       // 0123456789
-//			String month = localTimeString.substring(5, 7);
-//			String day = localTimeString.substring(8);
-//			Date date = new Date(Integer.valueOf(year), Integer.valueOf(month), Integer.valueOf(day));
-//			long currentMilisecondsFrom = date.getTime();
-			long millis = System.currentTimeMillis();
-			java.sql.Date date = new java.sql.Date(millis);
-			long currentMilisecondsFrom = date.getTime();
+			long currentMilisecondsFrom = (new Date(System.currentTimeMillis())).getTime();
 			if (currentMilisecondsFrom - choiceMilisecondsFrom >= milisecondsPassed) {
-				System.out.println(currentMilisecondsFrom);
-				System.out.println(choiceMilisecondsFrom);
-				System.out.println(milisecondsPassed);
+//				System.out.println(currentMilisecondsFrom);
+//				System.out.println(choiceMilisecondsFrom);
+//				System.out.println(milisecondsPassed);
 				deleteChoice(c);
 				resultLog.add(c);
 			}
