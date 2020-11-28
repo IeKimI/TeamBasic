@@ -214,10 +214,12 @@ public class ChoiceDAO {
 
 	public List<Choice> deleteChoicesNDaysOld(Integer n) throws Exception {
 		List<Choice> listOfChoices = getAllChoices();
+		System.out.println(listOfChoices); 
 		List<Choice> resultLog = new ArrayList<Choice>();
 		long milisecondsPassed = n.intValue() * 24 * 60 * 60 * 1000; // converting n days into n seconds
 
 		for (Choice c : listOfChoices) {
+			System.out.println(c.getDateOfCreation());
 			long choiceMilisecondsFrom = c.getDateOfCreation().getTime();// Get the total number of seconds from
 			String localTimeString = LocalDate.now().toString(); // 2007-12-03
 			String year = localTimeString.substring(0, 4);       // 0123456789
