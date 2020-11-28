@@ -13,9 +13,8 @@ import edu.wpi.cs.basic.demo.model.Feedback;
 import edu.wpi.cs.basic.demo.model.TeamMember;
 
 /**
- * create table `alternativeChoice` ( 
- * `alternativeID` VARCHAR(64) not null default, 
- * `choiceID` VARCHAR(64) not null default,
+ * create table `alternativeChoice` ( `alternativeID` VARCHAR(64) not null
+ * default, `choiceID` VARCHAR(64) not null default,
  * 
  * `description` VARCHAR(64), primary key (`alternativeID`)
  * 
@@ -75,13 +74,12 @@ public class AlternativeChoiceDAO {
 //		}
 //	}
 
-	boolean deleteChoice(Choice Choice) throws Exception {
+	public boolean deleteChoice(Choice Choice) throws Exception {
 		try {
 			PreparedStatement ps = conn.prepareStatement("DELETE FROM " + tblName + " WHERE uniqueID = ?;");
 			ps.setString(1, Choice.uniqueID);
 			int numAffected = ps.executeUpdate();
 			ps.close();
-
 			return (numAffected == 1);
 
 		} catch (Exception e) {
@@ -138,7 +136,7 @@ public class AlternativeChoiceDAO {
 
 	private AlternativeChoice generateAltnerativeChoice(ResultSet resultSet) throws Exception {
 		int alternativeID = resultSet.getInt("alternativeID");
-		
+
 //		// pass in the alternativeID to get the approvals of a specific alternative
 //		ArrayList<TeamMember> approvals= ApprovalDAO.getApprovals(alternativeID);
 //		
@@ -151,21 +149,16 @@ public class AlternativeChoiceDAO {
 		String choiceID = resultSet.getString("choiceID");
 		String description = resultSet.getString("description");
 
-	
 //		AlternativeChoice databaseInquery= 
 		return new AlternativeChoice(alternativeID, choiceID, description);
-	/**
-	 * 	public AlternativeChoice(ArrayList<TeamMember> approvals, ArrayList<TeamMember> disapprovals,
-			ArrayList<Feedback> feedback, String description, String alternativeID, String choiceID) {
-		super();
-		this.approvals = approvals;
-		this.disapprovals = disapprovals;
-		this.feedback = feedback;
-		this.description = description;
-		this.alternativeID = alternativeID;
-		this.choiceID = choiceID;
-	}
-
-	 */
+		/**
+		 * public AlternativeChoice(ArrayList<TeamMember> approvals,
+		 * ArrayList<TeamMember> disapprovals, ArrayList<Feedback> feedback, String
+		 * description, String alternativeID, String choiceID) { super(); this.approvals
+		 * = approvals; this.disapprovals = disapprovals; this.feedback = feedback;
+		 * this.description = description; this.alternativeID = alternativeID;
+		 * this.choiceID = choiceID; }
+		 * 
+		 */
 	}
 }
