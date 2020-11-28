@@ -215,17 +215,17 @@ public class ChoiceDAO {
 	public List<Choice> deleteChoicesNDaysOld(Integer n) throws Exception {
 		List<Choice> listOfChoices = getAllChoices();
 		List<Choice> resultLog = new ArrayList<Choice>();
-		int secondsPassed = n.intValue() * 24 * 60 * 60; // converting n days into n seconds
+		int milisecondsPassed = n.intValue() * 24 * 60 * 60 * 1000; // converting n days into n seconds
 
 		for (Choice c : listOfChoices) {
-			long choiceSecondsFrom = c.getDateOfCreation().getTime();// Get the total number of seconds from
+			long choiceMilisecondsFrom = c.getDateOfCreation().getTime();// Get the total number of seconds from
 			String localTimeString = LocalDate.now().toString(); // 2007-12-03
 			String year = localTimeString.substring(0, 4);       // 0123456789
 			String month = localTimeString.substring(5, 7);
 			String day = localTimeString.substring(8);
 			Date date = new Date(Integer.valueOf(year), Integer.valueOf(month), Integer.valueOf(day));
-			long currentSecondsFrom = date.getTime();
-			if (currentSecondsFrom - choiceSecondsFrom >= secondsPassed) {
+			long currentMilisecondsFrom = date.getTime();
+			if (currentMilisecondsFrom - choiceMilisecondsFrom >= milisecondsPassed) {
 				deleteChoice(c);
 				resultLog.add(c);
 			}
