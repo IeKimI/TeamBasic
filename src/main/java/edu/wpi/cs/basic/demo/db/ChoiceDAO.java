@@ -4,6 +4,8 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -210,22 +212,30 @@ public class ChoiceDAO {
 //		output.setChosenAlternative(null);
 //		AlternativeChoice databaseInquery= 
 //		return output;
-	} 
+	}
 
-	public List<Choice> deleteChoicesNDaysOld(Integer n) throws Exception {
+	public List<Choice> deleteChoicesNDaysOld(float n) throws Exception {
 		List<Choice> listOfChoices = getAllChoices();
-		System.out.println(listOfChoices); 
+		System.out.println(listOfChoices);
 		List<Choice> resultLog = new ArrayList<Choice>();
-		long milisecondsPassed = n.intValue() * 24 * 60 * 60 * 1000; // converting n days into n seconds
+		System.out.println(n);
+		float miliseconds = n * 86400000;
+		System.out.println(miliseconds);
+		long milisecondsPassed = (long) miliseconds; // converting n days into n seconds
+		System.out.println(milisecondsPassed);
+		System.out.println(n * 86400000);
 
 		for (Choice c : listOfChoices) {
 			System.out.println(c.getDateOfCreation());
 			long choiceMilisecondsFrom = c.getDateOfCreation().getTime();// Get the total number of seconds from
-			String localTimeString = LocalDate.now().toString(); // 2007-12-03
-			String year = localTimeString.substring(0, 4);       // 0123456789
-			String month = localTimeString.substring(5, 7);
-			String day = localTimeString.substring(8);
-			Date date = new Date(Integer.valueOf(year), Integer.valueOf(month), Integer.valueOf(day));
+//			String localTimeString = LocalDate.now().toString(); // 2007-12-03
+//			String year = localTimeString.substring(0, 4);       // 0123456789
+//			String month = localTimeString.substring(5, 7);
+//			String day = localTimeString.substring(8);
+//			Date date = new Date(Integer.valueOf(year), Integer.valueOf(month), Integer.valueOf(day));
+//			long currentMilisecondsFrom = date.getTime();
+			long millis = System.currentTimeMillis();
+			java.sql.Date date = new java.sql.Date(millis);
 			long currentMilisecondsFrom = date.getTime();
 			if (currentMilisecondsFrom - choiceMilisecondsFrom >= milisecondsPassed) {
 				System.out.println(currentMilisecondsFrom);
