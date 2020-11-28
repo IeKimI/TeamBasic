@@ -210,7 +210,7 @@ public class ChoiceDAO {
 //		output.setChosenAlternative(null);
 //		AlternativeChoice databaseInquery= 
 //		return output;
-	}
+	} 
 
 	public List<Choice> deleteChoicesNDaysOld(Integer n) throws Exception {
 		List<Choice> listOfChoices = getAllChoices();
@@ -226,6 +226,9 @@ public class ChoiceDAO {
 			Date date = new Date(Integer.valueOf(year), Integer.valueOf(month), Integer.valueOf(day));
 			long currentMilisecondsFrom = date.getTime();
 			if (currentMilisecondsFrom - choiceMilisecondsFrom >= milisecondsPassed) {
+				System.out.println(currentMilisecondsFrom);
+				System.out.println(choiceMilisecondsFrom);
+				System.out.println(milisecondsPassed);
 				deleteChoice(c);
 				resultLog.add(c);
 			}
