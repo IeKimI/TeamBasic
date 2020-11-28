@@ -215,7 +215,7 @@ public class ChoiceDAO {
 	public List<Choice> deleteChoicesNDaysOld(Integer n) throws Exception {
 		List<Choice> listOfChoices = getAllChoices();
 		List<Choice> resultLog = new ArrayList<Choice>();
-		int milisecondsPassed = n.intValue() * 24 * 60 * 60 * 1000; // converting n days into n seconds
+		long milisecondsPassed = n.intValue() * 24 * 60 * 60 * 1000; // converting n days into n seconds
 
 		for (Choice c : listOfChoices) {
 			long choiceMilisecondsFrom = c.getDateOfCreation().getTime();// Get the total number of seconds from
