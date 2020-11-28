@@ -35,6 +35,7 @@ public class DeleteChoicesHandler implements RequestHandler<Integer, Integer> {
 
 	@Override
 	public Integer handleRequest(Integer numberOfDays, Context context) {
+		AlternativeChoiceDAO altDatabase = new AlternativeChoiceDAO();
 		logger = context.getLogger();
 		logger.log("Deleting Choices " + numberOfDays + " days old.");
 
@@ -42,6 +43,7 @@ public class DeleteChoicesHandler implements RequestHandler<Integer, Integer> {
 			List<Choice> deletedItems = deleteChoice(numberOfDays);
 			for (Choice choice : deletedItems) {
 				logger.log("Deleted choice " + choice.uniqueID + ".");
+				altDatabase.deleteChoice(choice);
 			}
 			return new Integer(deletedItems.size());
 		} catch (Exception e) {

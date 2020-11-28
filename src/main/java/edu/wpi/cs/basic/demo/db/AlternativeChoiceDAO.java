@@ -83,7 +83,7 @@ public class AlternativeChoiceDAO {
 			return (numAffected == 1);
 
 		} catch (Exception e) {
-			throw new Exception("Failed to insert Alternative: " + e.getMessage());
+			throw new Exception("Failed to delete Alternative: " + e.getMessage());
 		}
 	}
 
