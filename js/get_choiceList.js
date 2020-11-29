@@ -14,10 +14,9 @@ function refreshChoiceList() {
 	// This will process results and update HTML as appropriate. 
 	xhr.onloadend = function() {
 		if (xhr.readyState == XMLHttpRequest.DONE) {
-			if (XMLHttpRequest.status == 200) {
 				console.log("XHR:" + xhr.responseText);
 				processListResponse(xhr.responseText);
-			}
+			
 		} else {
 			processListResponse("N/A");
 		}
@@ -42,8 +41,8 @@ function processListResponse(result) {
 
 		var choiceID = choiceJson["uniqueID"];
 		var dateOfCreation = choiceJson["dateOfCreation"];
-		var isCompleted = choiceJson["isCompleted"];
-		output = output + "<div id=\"choiceReport" + choiceID + "\"><b>" + dateOfCreation + ":</b> = " + isCompleted + "<br></div>";
+		var isCompleted = choiceJson["completed"];
+		output = output + "<div id=\"choiceReport" + choiceID + "\"><b>" + "Choice ID: " + choiceID+ "<br>"+ "Date of creation: " + dateOfCreation +  "<br>" + "isCompleted: " + isCompleted+ "<br><br>"+"<br></div>";
 
 		/*			output = output + "<div id=\"choiceReport" + choiceID + "\"><b>" + dateOfCreation + ":</b> = " + isCompleted + "(<a href='javaScript:requestDelete(\"" + cname + "\")'><img src='deleteIcon.png'></img></a>) <br></div>";
 		*/

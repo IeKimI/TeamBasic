@@ -2,9 +2,7 @@
 <!-- relative path-name to access js -->
 <script type='text/javascript' src='../js/api.js'></script>
 <script type='text/javascript' src='../js/get_choiceList.js'></script>
-<script type='text/javascript' src='../js/add.js'></script>
-<script type='text/javascript' src='../js/create.js'></script>
-<script type='text/javascript' src='../js/delete.js'></script>
+
 
 <script type="text/javascript">
 function initialize() {
@@ -21,6 +19,7 @@ function initialize() {
 <div>
 <form name="Generate Report" method="post" >
    <input type="button" id="generateReport" value="Generate Report" onClick="JavaScript:handleGenerateClick(this)">
+   </form>
 
 </div>
 
@@ -30,6 +29,7 @@ function initialize() {
     <input name="N days" value="N days"/>
     <input type="button" id="deleteChoices" value="Delete Choices" onClick="JavaScript:handleDeleteClick(this)">
     <br><br>
+    </form>
     
  </div>
    	
@@ -37,7 +37,6 @@ function initialize() {
    
    
   
-</form>
 
 <div id="choiceListDIV">
 	<h3>Current Choices</h3>

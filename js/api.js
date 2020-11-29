@@ -3,7 +3,7 @@
 var base_url = "https://2zylw79630.execute-api.us-east-2.amazonaws.com/teamBasic/";
 var getChoice_url = base_url + "choice";
 var add_url    = base_url + "choice";   // POST
-var list_url   = base_url + "choice";    // GET
+var list_url   = base_url + "admin";    // GET
 var create_url = base_url + "choice";    // POST
 var a_choice_url=base_url + "choice";    // GET
 var login_url = base_url + "login"; // POST
