@@ -225,7 +225,7 @@ public class ChoiceDAO {
 //		System.out.println(milisecondsPassed);
 //		System.out.println(n * 86400000);
 		for (Choice c : listOfChoices) {
-			//System.out.println(c.getDateOfCreation());
+			// System.out.println(c.getDateOfCreation());
 			long choiceMilisecondsFrom = c.getDateOfCreation().getTime();// Get the total number of seconds from
 			long currentMilisecondsFrom = (new Date(System.currentTimeMillis())).getTime();
 			if (currentMilisecondsFrom - choiceMilisecondsFrom >= milisecondsPassed) {
@@ -238,5 +238,29 @@ public class ChoiceDAO {
 		}
 		return resultLog;
 
+	}
+
+	public boolean deleteNDaysOld(float n) throws Exception {
+		try {
+			float miliseconds = n * 86400000;
+			long milisecondsPassed = (long) miliseconds;
+			long currentMiliseconds = (new Date(System.currentTimeMillis())).getTime();
+			long daysOld = currentMiliseconds - milisecondsPassed;
+			DateFormat simple = new SimpleDateFormat("yyyy-MM-dd");
+			Date result = new Date(daysOld);
+			String useThis = simple.format(result);
+			Date finalDate = Date.valueOf(useThis);
+			System.out.println(finalDate);
+			PreparedStatement ps = conn.prepareStatement("DELETE FROM " + tblName + " WHERE dateOfCreation = ?;");
+			ps.setDate(1, finalDate);
+
+			int numAffected = ps.executeUpdate();
+			ps.close();
+
+			return (numAffected >= 1);
+
+		} catch (Exception e) {
+			throw new Exception("Failed to insert constant: " + e.getMessage());
+		}
 	}
 }
