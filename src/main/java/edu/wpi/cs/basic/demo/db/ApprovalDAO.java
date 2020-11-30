@@ -23,6 +23,14 @@ public class ApprovalDAO {
 //		}
 //	}
 //
+	
+	
+//  approvals:
+//	list of tm, number of votes
+	
+	
+	
+	
 //	public Approvals getApproval(AlternativeChoice alternativeID) throws Exception {
 //
 //		try {
