@@ -73,6 +73,26 @@ public class TeamMemberDAO {
 			throw new Exception("Failed in getting alternatives: " + e.getMessage());
 		}
 	}
+	 public String getTeamMemberByID(int teamMemberID) throws Exception {
+	    	try {
+	    		TeamMember teamMember = null;
+	    		PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE teamMemberID=?;");
+	    		ps.setInt(1,  teamMemberID);
+	    		ResultSet resultSet = ps.executeQuery();
+
+	    		while (resultSet.next()) {
+	    			teamMember = generateTeamMember(resultSet);
+	    		}
+	    		resultSet.close();
+	    		ps.close();
+
+	    		return teamMember.getName();
+
+	    	} catch (Exception e) {
+	    		e.printStackTrace();
+	    		throw new Exception("Failed in getting participant: " + e.getMessage());
+	    	}
+	    }
 
 	TeamMember generateTeamMember(ResultSet resultSet) throws Exception {
 		String name = resultSet.getString("uniqueID");
