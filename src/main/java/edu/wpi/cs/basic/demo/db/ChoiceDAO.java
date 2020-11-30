@@ -216,22 +216,12 @@ public class ChoiceDAO {
 
 	public List<Choice> deleteChoicesNDaysOld(float n) throws Exception {
 		List<Choice> listOfChoices = getAllChoices();
-//		System.out.println(listOfChoices);
 		List<Choice> resultLog = new ArrayList<Choice>();
-//		System.out.println(n);
-		float miliseconds = n * 86400000;
-//		System.out.println(miliseconds);
-		long milisecondsPassed = (long) miliseconds; // converting n days into n seconds
-//		System.out.println(milisecondsPassed);
-//		System.out.println(n * 86400000);
+		long milisecondsPassed = (long) (n * 86400000); // converting n days into n miliseconds
 		for (Choice c : listOfChoices) {
-			// System.out.println(c.getDateOfCreation());
 			long choiceMilisecondsFrom = c.getDateOfCreation().getTime();// Get the total number of seconds from
 			long currentMilisecondsFrom = (new Date(System.currentTimeMillis())).getTime();
 			if (currentMilisecondsFrom - choiceMilisecondsFrom >= milisecondsPassed) {
-//				System.out.println(currentMilisecondsFrom);
-//				System.out.println(choiceMilisecondsFrom);
-//				System.out.println(milisecondsPassed);
 				deleteChoice(c);
 				resultLog.add(c);
 			}

@@ -14,6 +14,7 @@ import edu.wpi.cs.basic.demo.model.TeamMember;
 
 public class ApprovalDAO {
 	
+
 	static java.sql.Connection conn;
 
 	final static String tblName = "Approvals/Disapprovals"; // Exact capitalization
@@ -89,7 +90,7 @@ public class ApprovalDAO {
     	List<AlternativeChoice> alternatives = altDAO.getAllAlternatives(choiceID);
     	for(AlternativeChoice alt : alternatives) {
     		approvals.add(getApprovals(alt.getAlternativeID()));
-    	}
+    	} 
     	
     	return approvals;
     }
@@ -133,5 +134,4 @@ public class ApprovalDAO {
     	int alternativeID = resultSet.getInt("alternativeID");
         return new Approval(approvalOrDisapprovalID, teamMemberID, alternativeID);
     }
-
 }

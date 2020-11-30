@@ -12,18 +12,18 @@ import edu.wpi.cs.basic.demo.db.AlternativeChoiceDAO;
 import edu.wpi.cs.basic.demo.db.ChoiceDAO;
 import edu.wpi.cs.basic.demo.model.Choice;
 
-public class DeleteChoicesHandler implements RequestHandler<Integer, Integer> {
+public class DeleteChoicesHandler implements RequestHandler<Float, Integer> {
 	LambdaLogger logger;
 
 	public DeleteChoicesHandler() {
 	}
 
-	private List<Choice> deleteChoice(int n) throws Exception {
+	private List<Choice> deleteChoice(Float numberOfDays) throws Exception {
 		if (logger != null)
 			logger.log("deleteChoice has been called.");
 		ChoiceDAO database = new ChoiceDAO();
 		AlternativeChoiceDAO altDatabase = new AlternativeChoiceDAO();
-		List<Choice> result = database.deleteChoicesNDaysOld(n);
+		List<Choice> result = database.deleteChoicesNDaysOld(numberOfDays);
 		for (Choice c : result) {
 			altDatabase.deleteChoice(c);
 		}
@@ -34,7 +34,7 @@ public class DeleteChoicesHandler implements RequestHandler<Integer, Integer> {
 	}
 
 	@Override
-	public Integer handleRequest(Integer numberOfDays, Context context) {
+	public Integer handleRequest(Float numberOfDays, Context context) {
 		AlternativeChoiceDAO altDatabase = new AlternativeChoiceDAO();
 		logger = context.getLogger();
 		logger.log("Deleting Choices " + numberOfDays + " days old.");

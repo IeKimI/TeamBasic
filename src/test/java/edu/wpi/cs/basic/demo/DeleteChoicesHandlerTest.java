@@ -24,7 +24,7 @@ public class DeleteChoicesHandlerTest extends LambdaTest {
 		CreateChoiceRequest ccr = new CreateChoiceRequest("Test1", 10, null);
 		CreateChoiceResponse c_resp = cch.handleRequest(ccr, createContext("create"));
 
-		dch.handleRequest(new Integer(0), createContext("delete"));
+		dch.handleRequest((float) 0, createContext("delete"));
 		assertTrue(database.getAllChoices().size() == 0);
 
 		ccr = new CreateChoiceRequest("Test1", 10, null);
@@ -34,12 +34,12 @@ public class DeleteChoicesHandlerTest extends LambdaTest {
 		ccr = new CreateChoiceRequest("Test3", 10, null);
 		c_resp = cch.handleRequest(ccr, createContext("create"));
 
-		dch.handleRequest(new Integer(0), createContext("delete"));
+		dch.handleRequest((float) 0, createContext("delete"));
 		assertTrue(database.getAllChoices().size() == 0);
 
 		ccr = new CreateChoiceRequest("Test1", 10, null);
 		c_resp = cch.handleRequest(ccr, createContext("create"));
-		dch.handleRequest(new Integer(1), createContext("delete"));
+		dch.handleRequest((float) 1, createContext("delete"));
 
 		assertTrue(database.getAllChoices().size() == 1);
 
@@ -50,7 +50,7 @@ public class DeleteChoicesHandlerTest extends LambdaTest {
 		ccr = new CreateChoiceRequest("Test3", 10, null);
 		c_resp = cch.handleRequest(ccr, createContext("create"));
 
-		dch.handleRequest(new Integer(1), createContext("delete"));
+		dch.handleRequest((float) 1, createContext("delete"));
 		assertTrue(database.getAllChoices().size() == 3);
 	}
 
@@ -70,7 +70,7 @@ public class DeleteChoicesHandlerTest extends LambdaTest {
 		CreateChoiceRequest ccr = new CreateChoiceRequest("TestDeleteAlternatives", 10, alternatives);
 		CreateChoiceResponse c_resp = cch.handleRequest(ccr, createContext("create"));
 
-		dch.handleRequest(new Integer(0), createContext("delete"));
+		dch.handleRequest((float) 0, createContext("delete"));
 
 		assertTrue(database.getAllAlternatives(c_resp.response).size() == 0);
 	}
