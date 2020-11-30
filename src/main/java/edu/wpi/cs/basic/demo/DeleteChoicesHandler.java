@@ -23,9 +23,9 @@ public class DeleteChoicesHandler implements RequestHandler<Float, Integer> {
 			logger.log("deleteChoice has been called.");
 		ChoiceDAO database = new ChoiceDAO();
 		AlternativeChoiceDAO altDatabase = new AlternativeChoiceDAO();
-		List<Choice> result = database.deleteChoicesNDaysOld(numberOfDays);
+		List<Choice> result = database.deleteChoicesNDaysOld(logger, numberOfDays);
 		for (Choice c : result) {
-			altDatabase.deleteChoice(c);
+			//altDatabase.deleteChoice(c);
 		}
 		if (logger != null)
 			logger.log("Returning result to handler");
@@ -43,7 +43,7 @@ public class DeleteChoicesHandler implements RequestHandler<Float, Integer> {
 			List<Choice> deletedItems = deleteChoice(numberOfDays);
 			for (Choice choice : deletedItems) {
 				logger.log("Deleted choice " + choice.uniqueID + ".");
-				altDatabase.deleteChoice(choice);
+				//altDatabase.deleteChoice(choice);
 			}
 			return new Integer(deletedItems.size());
 		} catch (Exception e) {

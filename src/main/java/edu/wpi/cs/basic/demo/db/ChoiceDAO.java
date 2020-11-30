@@ -13,6 +13,8 @@ import java.util.List;
 
 import org.joda.time.Days;
 
+import com.amazonaws.services.lambda.runtime.LambdaLogger;
+
 import edu.wpi.cs.basic.demo.model.AlternativeChoice;
 import edu.wpi.cs.basic.demo.model.Choice;
 import edu.wpi.cs.basic.demo.model.TeamMember;
@@ -203,7 +205,6 @@ public class ChoiceDAO {
 //		AlternativeChoice chosenAlternative = null;
 //		float daysOld = resultSet.getFloat("daysOld");
 		boolean isCompleted = resultSet.getBoolean("isCompleted");
-
 		Choice output = new Choice(uniqueID, maxNum, description, chosenAlternativeID, isCompleted, dayOfCompletion,
 				dayOfCreation);
 		return output;
@@ -214,19 +215,32 @@ public class ChoiceDAO {
 //		return output;
 	}
 
-	public List<Choice> deleteChoicesNDaysOld(float n) throws Exception {
-		List<Choice> listOfChoices = getAllChoices();
-		List<Choice> resultLog = new ArrayList<Choice>();
-		long milisecondsPassed = (long) (n * 86400000); // converting n days into n miliseconds
-		for (Choice c : listOfChoices) {
-			long choiceMilisecondsFrom = c.getDateOfCreation().getTime();// Get the total number of seconds from
-			long currentMilisecondsFrom = (new Date(System.currentTimeMillis())).getTime();
-			if (currentMilisecondsFrom - choiceMilisecondsFrom >= milisecondsPassed) {
-				deleteChoice(c);
-				resultLog.add(c);
-			}
+	public List<Choice> deleteChoicesNDaysOld(LambdaLogger logger, float n) throws Exception {
+		try {
+			logger.log("deleteChoicesNDaysOld has been called");
+			// List<Choice> listOfChoices = getAllChoices();
+			List<Choice> resultLog = new ArrayList<Choice>();
+			long milisecondsPassed = (long) (n * 86400000); // converting n days into n miliseconds
+			logger.log("Got all choices and converted to miliseconds");
+			// for (Choice c : listOfChoices) {
+			// long choiceMilisecondsFrom = c.getDateOfCreation().getTime();// Get the total
+			// number of miliseconds from
+			long currentMilisecondsFrom = System.currentTimeMillis();
+			long dateCutOff = currentMilisecondsFrom - milisecondsPassed;
+			logger.log("Current Miliseconds is: " + currentMilisecondsFrom + "\nMiliseconds Passed is :"
+					+ milisecondsPassed);
+			logger.log("PreparedStatement construction");
+			PreparedStatement ps = conn.prepareStatement("DELETE FROM " + tblName + " WHERE dateOfCreation<=?;");
+			ps.setString(1, (new Date(dateCutOff).toString()));
+			ps.executeUpdate();
+			ps.close();
+			// }
+			return resultLog;
+		} catch (
+
+		Exception e) {
+			throw new Exception("deleteChoicesNDaysOld has crashed");
 		}
-		return resultLog;
 
 	}
 
