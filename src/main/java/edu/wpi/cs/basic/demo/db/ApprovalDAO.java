@@ -17,7 +17,7 @@ public class ApprovalDAO {
 
 	static java.sql.Connection conn;
 
-	final static String tblName = "Approvals/Disapprovals"; // Exact capitalization
+	final static String tblName = "Approvals"; // Exact capitalization
 
 	public ApprovalDAO() {
 		try {
@@ -27,13 +27,13 @@ public class ApprovalDAO {
 		}
 	}
 
-	public Approval getApproval(int alternativeID, int teamMemberName) throws Exception {
+	public Approval getApproval(int alternativeID, int teamMemberID) throws Exception {
 
 		try {
 			Approval approval = null;
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE alternativeID=? AND teamMemberName=?;");
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE alternativeID=? AND teamMemberID=?;");
 			ps.setInt(1, alternativeID);
-			ps.setInt(2,  teamMemberName);
+			ps.setInt(2,  teamMemberID);
 			ResultSet resultSet = ps.executeQuery();
 
 			while (resultSet.next()) {
@@ -50,6 +50,29 @@ public class ApprovalDAO {
 		}
 	}
 
+	/**
+	 * try {
+			Choice choice = null;
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE uniqueID=?;");
+			ps.setString(1, uniqueID);
+			ResultSet resultSet = ps.executeQuery();
+
+			while (resultSet.next()) {
+				choice = generateChoice(resultSet);
+			}
+			resultSet.close();
+			ps.close();
+
+			return choice;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception("Failed in getting choice: " + e.getMessage());
+		}
+	 * @param alternativeID
+	 * @return
+	 * @throws Exception
+	 */
 	public ApprovalInfo getApprovalsAltID(int alternativeID) throws Exception {
 		try {
 			int numOfApprovals = 0;
@@ -57,9 +80,8 @@ public class ApprovalDAO {
 			TeamMemberDAO teamMemberDAO = new TeamMemberDAO();
 			AlternativeChoiceDAO altDAO = new AlternativeChoiceDAO();
 			
-			Statement statement = conn.createStatement();
 			
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + "WHERE alternativeID=?;");
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE alternativeID=?;");
 			ps.setInt(1, alternativeID);
 			
 			ResultSet resultSet = ps.executeQuery();
@@ -68,11 +90,11 @@ public class ApprovalDAO {
 				Approval approval = generateApprovals(resultSet);
 				numOfApprovals++;
 				listOfTeamMembers.add(teamMemberDAO.getTeamMemberByID(approval.getTeamMemberID()));
+
 				// check for the vote type?
 				// add the num of approvals and teamMembers to the list
 			}
 			resultSet.close();
-			statement.close();
 			
 			String altDescription = altDAO.getAlternativeChoiceByID(alternativeID);
 			
@@ -82,6 +104,7 @@ public class ApprovalDAO {
 			throw new Exception ("Failed in getting approvals for the alternative: " + alternativeID + e.getMessage());
 		}
 	}
+	
 	
 	public List<ApprovalInfo> getApprovalsChoiceID(String choiceID) throws Exception {
     	List<ApprovalInfo> approvals = new ArrayList<ApprovalInfo>();
@@ -132,6 +155,6 @@ public class ApprovalDAO {
 		int approvalOrDisapprovalID = resultSet.getInt("approval/disapprovalID");
     	int teamMemberID = resultSet.getInt("teamMemberID");
     	int alternativeID = resultSet.getInt("alternativeID");
-        return new Approval(approvalOrDisapprovalID, teamMemberID, alternativeID);
+        return new Approval(approvalOrDisapprovalID, alternativeID, teamMemberID);
     }
 }

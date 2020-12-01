@@ -7,6 +7,7 @@ public class ApprovalInfo {
 	String altDescription;
 	int numOfApprovals;
 	List<String> listOfTeamMembers;
+	
 	public int getAlternativeID() {
 		return alternativeID;
 	}
