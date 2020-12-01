@@ -7,6 +7,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.amazonaws.services.lambda.runtime.LambdaLogger;
+
 import edu.wpi.cs.basic.demo.model.AlternativeChoice;
 import edu.wpi.cs.basic.demo.model.Choice;
 import edu.wpi.cs.basic.demo.model.Feedback;
@@ -25,7 +27,7 @@ public class AlternativeChoiceDAO {
 
 	static java.sql.Connection conn;
 
-	final String tblName = "AlternativeChoice"; // Exact capitalization
+	final static String tblName = "AlternativeChoice"; // Exact capitalization
 
 	public AlternativeChoiceDAO() {
 		try {
@@ -74,16 +76,17 @@ public class AlternativeChoiceDAO {
 //		}
 //	}
 
-	public boolean deleteChoice(Choice Choice) throws Exception {
+	public boolean deleteAlternativeChoice(LambdaLogger logger, Choice Choice) {
 		try {
-			PreparedStatement ps = conn.prepareStatement("DELETE FROM " + tblName + " WHERE uniqueID = ?;");
+			logger.log("deleteAlternativeChoice has been entered");
+			PreparedStatement ps = conn.prepareStatement("DELETE FROM " + tblName + " WHERE choiceID = ?;");
 			ps.setString(1, Choice.uniqueID);
 			int numAffected = ps.executeUpdate();
 			ps.close();
-			return (numAffected == 1);
+			return (numAffected >= 1);
 
 		} catch (Exception e) {
-			throw new Exception("Failed to delete Alternative: " + e.getMessage());
+			return false;
 		}
 	}
 

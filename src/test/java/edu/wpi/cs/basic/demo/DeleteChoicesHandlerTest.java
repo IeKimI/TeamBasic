@@ -14,70 +14,41 @@ import edu.wpi.cs.basic.demo.db.AlternativeChoiceDAO;
 import edu.wpi.cs.basic.demo.db.ChoiceDAO;
 import edu.wpi.cs.basic.demo.http.CreateChoiceRequest;
 import edu.wpi.cs.basic.demo.http.CreateChoiceResponse;
+import edu.wpi.cs.basic.demo.http.DeleteChoicesRequest;
+import edu.wpi.cs.basic.demo.http.DeleteChoicesResponse;
+import edu.wpi.cs.basic.demo.http.GetAlternativesResponse;
 import edu.wpi.cs.basic.demo.model.AlternativeChoice;
 
 public class DeleteChoicesHandlerTest extends LambdaTest {
 
 	@Test
 	public void testDeleteChoices() throws Exception {
-		ChoiceDAO database = new ChoiceDAO();
-		DeleteChoicesHandler dch = new DeleteChoicesHandler();
-		dch.handleRequest((float) 1, createContext("delete"));
 		CreateChoiceHandler handler = new CreateChoiceHandler();
 
-		CreateChoiceRequest ccr = new CreateChoiceRequest("testChoice4", 10, null);
+		ArrayList<AlternativeChoice> alternatives = new ArrayList<AlternativeChoice>();
+		AlternativeChoice alt1 = new AlternativeChoice("alt1_description");
+		AlternativeChoice alt2 = new AlternativeChoice("alt2_description");
+		AlternativeChoice alt3 = new AlternativeChoice("alt3_description");
+		alternatives.add(alt1);
+		alternatives.add(alt2);
+		alternatives.add(alt3);
+		CreateChoiceRequest ccr = new CreateChoiceRequest("TESTING2", 10, alternatives);
+		CreateChoiceResponse choiceResponse = handler.handleRequest(ccr, createContext("create"));
+		Assert.assertEquals(200, choiceResponse.httpCode);
 
-		CreateChoiceResponse resp = handler.handleRequest(
-				new Gson().fromJson(new Gson().toJson(ccr), CreateChoiceRequest.class), createContext("create"));
-		dch.handleRequest((float) 0, createContext("delete"));
-		assertTrue(database.getAllChoices().size() == 0);
-//
-//		ccr = new CreateChoiceRequest("Test1", 10, null);
-//		c_resp = cch.handleRequest(ccr, createContext("create"));
-//		ccr = new CreateChoiceRequest("Test2", 10, null);
-//		c_resp = cch.handleRequest(ccr, createContext("create"));
-//		ccr = new CreateChoiceRequest("Test3", 10, null);
-//		c_resp = cch.handleRequest(ccr, createContext("create"));
-//		assertTrue(false);
-		return;
-//		dch.handleRequest((float) 0, createContext("delete"));
-//		assertTrue(database.getAllChoices().size() == 0);
-//
-//		ccr = new CreateChoiceRequest("Test1", 10, null);
-//		c_resp = cch.handleRequest(ccr, createContext("create"));
-//		dch.handleRequest((float) 1, createContext("delete"));
-//
-//		assertTrue(database.getAllChoices().size() == 1);
-//
-//		ccr = new CreateChoiceRequest("Test1", 10, null);
-//		c_resp = cch.handleRequest(ccr, createContext("create"));
-//		ccr = new CreateChoiceRequest("Test2", 10, null);
-//		c_resp = cch.handleRequest(ccr, createContext("create"));
-//		ccr = new CreateChoiceRequest("Test3", 10, null);
-//		c_resp = cch.handleRequest(ccr, createContext("create"));
-//
-//		dch.handleRequest((float) 1, createContext("delete"));
-//		assertTrue(database.getAllChoices().size() == 3);
+		// now delete
+		DeleteChoicesRequest dcr = new DeleteChoicesRequest(1);
+		DeleteChoicesResponse d_resp = new DeleteChoicesHandler().handleRequest(dcr, createContext("delete"));
+		Assert.assertEquals(200, d_resp.statusCode);
+
+		GetAlternativeChoiceHandler gach = new GetAlternativeChoiceHandler();
+		GetAlternativesResponse gar = gach.handleRequest(choiceResponse.response, createContext("list"));
+		Assert.assertTrue(!gar.alternatives.isEmpty());
+		DeleteChoicesRequest dcr2 = new DeleteChoicesRequest(0);
+		DeleteChoicesResponse d_resp2 = new DeleteChoicesHandler().handleRequest(dcr2, createContext("delete"));
+		Assert.assertEquals(200, d_resp2.statusCode);
+		GetAlternativeChoiceHandler gach2 = new GetAlternativeChoiceHandler();
+		GetAlternativesResponse gar2 = gach2.handleRequest(choiceResponse.response, createContext("list"));
+		Assert.assertTrue(gar2.alternatives.isEmpty());
 	}
-
-//	@Test
-//	public void testDeleteAlternatives() throws Exception {
-//		AlternativeChoiceDAO database = new AlternativeChoiceDAO();
-//		DeleteChoicesHandler dch = new DeleteChoicesHandler();
-//		ArrayList<AlternativeChoice> alternatives = new ArrayList<AlternativeChoice>();
-//		AlternativeChoice alt1 = new AlternativeChoice("alt1_description");
-//		AlternativeChoice alt2 = new AlternativeChoice("alt2_description");
-//		AlternativeChoice alt3 = new AlternativeChoice("alt3_description");
-//		alternatives.add(alt1);
-//		alternatives.add(alt2);
-//		alternatives.add(alt3);
-//
-//		CreateChoiceHandler cch = new CreateChoiceHandler();
-//		CreateChoiceRequest ccr = new CreateChoiceRequest("TestDeleteAlternatives", 10, alternatives);
-//		CreateChoiceResponse c_resp = cch.handleRequest(ccr, createContext("create"));
-//
-//		dch.handleRequest((float) 0, createContext("delete"));
-//
-//		assertTrue(database.getAllAlternatives(c_resp.response).size() == 0);
-//	}
 }

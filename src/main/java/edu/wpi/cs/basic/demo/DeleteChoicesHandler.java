@@ -10,9 +10,11 @@ import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 
 import edu.wpi.cs.basic.demo.db.AlternativeChoiceDAO;
 import edu.wpi.cs.basic.demo.db.ChoiceDAO;
+import edu.wpi.cs.basic.demo.http.DeleteChoicesRequest;
+import edu.wpi.cs.basic.demo.http.DeleteChoicesResponse;
 import edu.wpi.cs.basic.demo.model.Choice;
 
-public class DeleteChoicesHandler implements RequestHandler<Float, Integer> {
+public class DeleteChoicesHandler implements RequestHandler<DeleteChoicesRequest, DeleteChoicesResponse> {
 	LambdaLogger logger;
 
 	public DeleteChoicesHandler() {
@@ -25,7 +27,9 @@ public class DeleteChoicesHandler implements RequestHandler<Float, Integer> {
 		AlternativeChoiceDAO altDatabase = new AlternativeChoiceDAO();
 		List<Choice> result = database.deleteChoicesNDaysOld(logger, numberOfDays);
 		for (Choice c : result) {
-			//altDatabase.deleteChoice(c);
+			if (altDatabase.deleteAlternativeChoice(logger, c))
+				continue;
+			throw new Exception("Failed to Delete Alternative Choice");
 		}
 		if (logger != null)
 			logger.log("Returning result to handler");
@@ -34,7 +38,8 @@ public class DeleteChoicesHandler implements RequestHandler<Float, Integer> {
 	}
 
 	@Override
-	public Integer handleRequest(Float numberOfDays, Context context) {
+	public DeleteChoicesResponse handleRequest(DeleteChoicesRequest request, Context context) {
+		Float numberOfDays = request.getNDaysOld();
 		AlternativeChoiceDAO altDatabase = new AlternativeChoiceDAO();
 		logger = context.getLogger();
 		logger.log("Deleting Choices " + numberOfDays + " days old.");
@@ -43,13 +48,13 @@ public class DeleteChoicesHandler implements RequestHandler<Float, Integer> {
 			List<Choice> deletedItems = deleteChoice(numberOfDays);
 			for (Choice choice : deletedItems) {
 				logger.log("Deleted choice " + choice.uniqueID + ".");
-				//altDatabase.deleteChoice(choice);
+				// altDatabase.deleteChoice(choice);
 			}
-			return new Integer(deletedItems.size());
+			return new DeleteChoicesResponse(numberOfDays, 200);
 		} catch (Exception e) {
 			logger.log("An exception was caught in the handleRequest when deleting choices " + numberOfDays
 					+ " days old.");
-			return 0;
+			return new DeleteChoicesResponse(numberOfDays, 400, "The Choices Failed to Delete");
 		}
 	}
 }
