@@ -53,10 +53,12 @@ public class LoginHandler implements RequestHandler<CreateTeamMemberRequest, Cre
 		ChoiceDAO choiceDAO = new ChoiceDAO();
 
 		List<TeamMember> list = teamMemberDAO.getAllTeamMembers(req.getChoiceID());
-		
+
 		int maxNum = choiceDAO.getMaxNum(req.getChoiceID());
-		if (list.size() >= maxNum) { return false;}
-		
+		if (list.size() >= maxNum) {
+			return false;
+		}
+
 		TeamMember exist = new TeamMember(req.getName(), req.getPassword(), req.getChoiceID());
 //		TeamMember tm = new TeamMember(name);
 //		if (exist == null) {
@@ -65,33 +67,31 @@ public class LoginHandler implements RequestHandler<CreateTeamMemberRequest, Cre
 //			return false;
 //		}
 //		return true;
-		for (TeamMember tm: list) {
-			if(exist.equals(tm)) {
+		for (TeamMember tm : list) {
+			if (exist.equals(tm)) {
 				return false;
 			}
 		}
-		
+
 		return teamMemberDAO.addTeamMember(exist);
 	}
-
-
 
 	@Override
 	public CreateTeamMemberResponse handleRequest(CreateTeamMemberRequest req, Context context) {
 		logger = context.getLogger();
 		logger.log(req.toString());
-
+		TeamMemberDAO dao = new TeamMemberDAO();
 		CreateTeamMemberResponse response;
 		try {
-			
+
 			if (createTeamMember(req)) {
-				response = new CreateTeamMemberResponse("Sucessful: " + req.getName(), 200);
+				response = new CreateTeamMemberResponse("Sucessful: " + req.getName() + dao.getTeamMemberID(req.getName()), 200);
 			} else {
 				response = new CreateTeamMemberResponse("Cannot create a teamMember" + req.getName(), 400);
 			}
-		}catch (Exception e) {
+		} catch (Exception e) {
 			response = new CreateTeamMemberResponse("Cant" + req.getName() + e.getMessage());
-		}	
+		}
 
 		return response;
 	}

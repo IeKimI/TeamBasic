@@ -73,6 +73,27 @@ public class TeamMemberDAO {
 			throw new Exception("Failed in getting alternatives: " + e.getMessage());
 		}
 	}
+	
+	public int getTeamMemberID(String teamMemberName) throws Exception{
+		try {
+    		TeamMember teamMember = null;
+    		PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE uniqueID=?;");
+    		ps.setString(1,  teamMemberName);
+    		ResultSet resultSet = ps.executeQuery();
+
+    		while (resultSet.next()) {
+    			teamMember = generateTeamMember(resultSet);
+    		}
+    		resultSet.close();
+    		ps.close();
+
+    		return teamMember.getTeamMemberID();
+
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    		throw new Exception("Failed in getting participant: " + e.getMessage());
+    	}		
+	}
 	 public String getTeamMemberByID(int teamMemberID) throws Exception {
 	    	try {
 	    		TeamMember teamMember = null;
@@ -98,8 +119,9 @@ public class TeamMemberDAO {
 		String name = resultSet.getString("uniqueID");
 		String password = resultSet.getString("password");
 		String choiceID = resultSet.getString("choiceID");
+		int teamMemberID = resultSet.getInt("teamMemberID");
 
-		return new TeamMember(name, password, choiceID);
+		return new TeamMember(name, password, choiceID, teamMemberID);
 
 	}
 

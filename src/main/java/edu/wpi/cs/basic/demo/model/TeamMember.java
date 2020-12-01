@@ -4,6 +4,7 @@ public class TeamMember { // Eren
 	String name;
 	String password;
 	String choiceID;
+	int teamMemberID;
 
 	public TeamMember() {
 
@@ -23,6 +24,19 @@ public class TeamMember { // Eren
 		this.name = name;
 		this.password = password;
 		this.choiceID = choiceID;
+	}
+	public TeamMember(String name, String password, String choiceID, int teamMemberID) {
+		this.name = name;
+		this.password = password;
+		this.choiceID = choiceID;
+		this.teamMemberID = teamMemberID;
+	}
+	public int getTeamMemberID() {
+		return teamMemberID;
+	}
+
+	public void setTeamMemberID(int teamMemberID) {
+		this.teamMemberID = teamMemberID;
 	}
 
 	public String getName() {
