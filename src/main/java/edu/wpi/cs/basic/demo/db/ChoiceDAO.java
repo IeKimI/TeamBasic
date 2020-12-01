@@ -255,7 +255,7 @@ public class ChoiceDAO {
 			String useThis = simple.format(result);
 			Date finalDate = Date.valueOf(useThis);
 			System.out.println(finalDate);
-			PreparedStatement ps = conn.prepareStatement("DELETE FROM " + tblName + " WHERE dateOfCreation = ?;");
+			PreparedStatement ps = conn.prepareStatement("DELETE FROM " + tblName + " WHERE dateOfCreation <= ?;");
 			ps.setDate(1, finalDate);
 
 			int numAffected = ps.executeUpdate();
