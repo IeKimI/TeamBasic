@@ -7,7 +7,7 @@ import edu.wpi.cs.basic.demo.model.AlternativeChoice;
 import edu.wpi.cs.basic.demo.model.TeamMember;
 
 public class ApprovalRequest {
-//matt
+//matt and aru
 	int alternativeID;
 	int numOfApprovals;
 	List<TeamMember> listOfTeamMembers;
