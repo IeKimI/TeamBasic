@@ -74,7 +74,7 @@ public class LoginHandler implements RequestHandler<CreateTeamMemberRequest, Cre
 		}
 
 		return teamMemberDAO.addTeamMember(exist);
-	}
+	} 
 
 	@Override
 	public CreateTeamMemberResponse handleRequest(CreateTeamMemberRequest req, Context context) {
