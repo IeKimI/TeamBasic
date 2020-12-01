@@ -63,7 +63,9 @@ function processLogIn(result) {
 	/*refreshChoiceList();*/
 	
 	var js = JSON.parse(result);
-	js = js["name"];
+	js = js["response"];
+		var username = js.split(':')[1];
+
 	
-	document.getElementById("message").innerText = "Welcome!";
+	document.getElementById("message").innerText = "Welcome!" + username;
 }
