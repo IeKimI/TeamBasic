@@ -39,7 +39,7 @@ function processAlternatives(result) {
 	console.log(js);
 	var output = "";
 	var count = 0;
-	var buttons = document.images("jsbutton");
+	var buttons = "<a href=\"#\" onClick=\"changeImage()\" onClick= \"JavaScript:changeImageBack()\"\n>\t<img name=\"jsbutton\" src=\"wink.png\" width=\"28\" height=\"28\" border=\"0\" alt=\"javascript button\">\n</a>";
 	
 	for (var i in js) {
 		var alternative = js[i];
@@ -55,7 +55,7 @@ function processAlternatives(result) {
 
 function changeImage() 
 {
-  document.images["jsbutton"].src = "wink(1).png";
+  document.images["jsbutton"].src = "wink (1).png";
   return true;
 }
 
