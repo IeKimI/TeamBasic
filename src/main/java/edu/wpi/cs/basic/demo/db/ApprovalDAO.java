@@ -50,7 +50,7 @@ public class ApprovalDAO {
 		}
 	}
 
-	public ApprovalInfo getApprovals(int alternativeID) throws Exception {
+	public ApprovalInfo getApprovalsAltID(int alternativeID) throws Exception {
 		try {
 			int numOfApprovals = 0;
 			List<String> listOfTeamMembers = new ArrayList<String>();
@@ -83,13 +83,13 @@ public class ApprovalDAO {
 		}
 	}
 	
-	public List<ApprovalInfo> getApprovals(String choiceID) throws Exception {
+	public List<ApprovalInfo> getApprovalsChoiceID(String choiceID) throws Exception {
     	List<ApprovalInfo> approvals = new ArrayList<ApprovalInfo>();
     	AlternativeChoiceDAO altDAO = new AlternativeChoiceDAO();
     	
     	List<AlternativeChoice> alternatives = altDAO.getAllAlternatives(choiceID);
     	for(AlternativeChoice alt : alternatives) {
-    		approvals.add(getApprovals(alt.getAlternativeID()));
+    		approvals.add(getApprovalsAltID(alt.getAlternativeID()));
     	} 
     	
     	return approvals;
