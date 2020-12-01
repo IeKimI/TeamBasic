@@ -11,6 +11,7 @@ public class ApprovalRequest {
 	int alternativeID;
 	int numOfApprovals;
 	List<TeamMember> listOfTeamMembers;
+	TeamMember requestingMember;
 	
 	public int getAlternativeID() {
 		return alternativeID;
@@ -30,11 +31,35 @@ public class ApprovalRequest {
 	public void setListOfTeamMembers(List<TeamMember> listOfTeamMembers) {
 		this.listOfTeamMembers = listOfTeamMembers;
 	}
+	public TeamMember getRequestingMember() {
+		return requestingMember;
+	}
+	public void setRequestingMember(TeamMember requestingMember) {
+		this.requestingMember = requestingMember;
+	}
+	
+	public ApprovalRequest(int alternativeID, int numOfApprovals, List<TeamMember> listOfTeamMembers, TeamMember requestingMember) {
+		this.alternativeID = alternativeID;
+		this.numOfApprovals = numOfApprovals;
+		this.listOfTeamMembers = listOfTeamMembers;
+		this.requestingMember = requestingMember;
+	}
 	
 	public ApprovalRequest(int alternativeID, int numOfApprovals, List<TeamMember> listOfTeamMembers) {
 		this.alternativeID = alternativeID;
 		this.numOfApprovals = numOfApprovals;
 		this.listOfTeamMembers = listOfTeamMembers;
+	}
+	
+	public ApprovalRequest(int numOfApprovals, List<TeamMember> listOfTeamMembers) {
+		this.numOfApprovals = numOfApprovals;
+		this.listOfTeamMembers = listOfTeamMembers;
+	}
+	
+	public ApprovalRequest(int numOfApprovals, List<TeamMember> listOfTeamMembers, TeamMember requestingMember) {
+		this.numOfApprovals = numOfApprovals;
+		this.listOfTeamMembers = listOfTeamMembers;
+		this.requestingMember = requestingMember;
 	}
 	
 	public ApprovalRequest() {
