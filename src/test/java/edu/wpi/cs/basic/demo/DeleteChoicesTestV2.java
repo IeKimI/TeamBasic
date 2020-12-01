@@ -25,12 +25,12 @@ public class DeleteChoicesTestV2 extends LambdaTest{
 		alternatives.add(alt1);
 		alternatives.add(alt2);
 		alternatives.add(alt3);
-		CreateChoiceRequest ccr = new CreateChoiceRequest("TESTING2", 10, alternatives);
+		CreateChoiceRequest ccr = new CreateChoiceRequest("TESTING3", 10, alternatives);
 		CreateChoiceResponse resp = handler.handleRequest(ccr, createContext("create"));
 		Assert.assertEquals(200, resp.httpCode);
 
 		// now delete
-		DeleteChoicesRequest dcr = new DeleteChoicesRequest(0);
+		DeleteChoicesRequest dcr = new DeleteChoicesRequest(100);
 		DeleteChoicesResponse d_resp = new DeleteChoicesHandlerV2().handleRequest(dcr, createContext("delete"));
 		Assert.assertEquals(200, d_resp.statusCode);
 
