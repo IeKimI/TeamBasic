@@ -42,8 +42,8 @@ public class ChoiceDAO {
 
 	java.sql.Connection conn;
 
-	final String tblName = "Choice"; // Exact capitalization
-
+	final static String tblName = "Choice"; // Exact capitalization
+	
 	public ChoiceDAO() {
 		try {
 			conn = DatabaseUtil.connect();
@@ -215,56 +215,31 @@ public class ChoiceDAO {
 //		return output;
 	}
 
-	public List<Choice> deleteChoicesNDaysOld(LambdaLogger logger, float n) throws Exception {
+	public List<Choice> deleteChoicesNDaysOld(LambdaLogger logger, float n) {
 		try {
 			logger.log("deleteChoicesNDaysOld has been called");
-			// List<Choice> listOfChoices = getAllChoices();
 			List<Choice> resultLog = new ArrayList<Choice>();
 			long milisecondsPassed = (long) (n * 86400000); // converting n days into n miliseconds
 			logger.log("Got all choices and converted to miliseconds");
-			// for (Choice c : listOfChoices) {
-			// long choiceMilisecondsFrom = c.getDateOfCreation().getTime();// Get the total
-			// number of miliseconds from
 			long currentMilisecondsFrom = System.currentTimeMillis();
 			long dateCutOff = currentMilisecondsFrom - milisecondsPassed;
 			logger.log("Current Miliseconds is: " + currentMilisecondsFrom + "\nMiliseconds Passed is :"
 					+ milisecondsPassed);
 			logger.log("PreparedStatement construction");
+			PreparedStatement getAllChoices = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE dateOfCreation<=?;");
+			getAllChoices.setNString(1, (new Date(dateCutOff).toString()));
+			ResultSet resultSet = getAllChoices.executeQuery();
+			while (resultSet.next()) {
+				resultLog.add(generateChoice(resultSet));
+			}
 			PreparedStatement ps = conn.prepareStatement("DELETE FROM " + tblName + " WHERE dateOfCreation<=?;");
 			ps.setString(1, (new Date(dateCutOff).toString()));
 			ps.executeUpdate();
 			ps.close();
-			// }
 			return resultLog;
-		} catch (
-
-		Exception e) {
-			throw new Exception("deleteChoicesNDaysOld has crashed");
-		}
-
-	}
-
-	public boolean deleteNDaysOld(float n) throws Exception {
-		try {
-			float miliseconds = n * 86400000;
-			long milisecondsPassed = (long) miliseconds;
-			long currentMiliseconds = (new Date(System.currentTimeMillis())).getTime();
-			long daysOld = currentMiliseconds - milisecondsPassed;
-			DateFormat simple = new SimpleDateFormat("yyyy-MM-dd");
-			Date result = new Date(daysOld);
-			String useThis = simple.format(result);
-			Date finalDate = Date.valueOf(useThis);
-			System.out.println(finalDate);
-			PreparedStatement ps = conn.prepareStatement("DELETE FROM " + tblName + " WHERE dateOfCreation <= ?;");
-			ps.setDate(1, finalDate);
-
-			int numAffected = ps.executeUpdate();
-			ps.close();
-
-			return (numAffected >= 1);
-
 		} catch (Exception e) {
-			throw new Exception("Failed to insert constant: " + e.getMessage());
+			return new ArrayList<Choice>();
 		}
+
 	}
 }
