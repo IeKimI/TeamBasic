@@ -40,7 +40,7 @@ public class Choice {
 		this.uniqueID = uniqueID;
 		this.description = description;
 		this.maxNumOfTeamMembers = maxNumOfTeamMembers;
-		this.dateOfCreation = new java.sql.Date(System.currentTimeMillis());
+		this.dateOfCreation = new Date(System.currentTimeMillis());
 		this.isCompleted = false;
 		this.dateOfCompletion = null;
 		this.chosenAlternativeID = null;

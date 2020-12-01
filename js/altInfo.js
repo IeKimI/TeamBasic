@@ -39,6 +39,7 @@ function processAlternatives(result) {
 	console.log(js);
 	var output = "";
 	var count = 0;
+	var buttons = "<a href=\"#\" onClick=\"changeImage()\" onClick= \"JavaScript:changeImageBack()\"\n>\t<img name=\"jsbutton\" src=\"wink.png\" width=\"28\" height=\"28\" border=\"0\" alt=\"javascript button\">\n</a>";
 	
 	for (var i in js) {
 		var alternative = js[i];
@@ -46,8 +47,21 @@ function processAlternatives(result) {
 		
 		let alternativeDesc = alternative["description"];
 		console.log(alternativeDesc)
-		output = output + "<h4> Alternative " + count + ": </h4><label>" + alternativeDesc + "</label><br>";
+		output = output + "<h4> Alternative " + count + ": </h4><label>" + alternativeDesc + "</label> "+ buttons + "<br>";
 		console.log(output);
 	}
 	alternatives.innerHTML = output;
 }
+
+function changeImage() 
+{
+  document.images["jsbutton"].src = "wink (1).png";
+  return true;
+}
+
+function changeImageBack() 
+{
+  document.images["jsbutton"].src = "wink.png";
+  return true;
+}
+
