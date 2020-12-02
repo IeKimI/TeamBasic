@@ -42,6 +42,8 @@ public class TeamMemberDAO {
 			ps.setString(1, teamMember.getName());
 			ps.setString(2, teamMember.getPassword());
 			ps.setString(3, teamMember.getChoiceID());
+			
+			ps.execute();
 
 			List<TeamMember> listOfMembersFromChoice = getAllTeamMembers(teamMember.getChoiceID());
 
@@ -60,7 +62,7 @@ public class TeamMemberDAO {
 		for (AlternativeChoice altChoice : listOfAlternatives) {
 			approvalDatabase.initializeApproval(new Approval(altChoice.getAlternativeID(), teamMemberID));
 		}
-		return false;
+		return true;
 	}
 
 	public List<TeamMember> getAllTeamMembers(String choiceID) throws Exception {
