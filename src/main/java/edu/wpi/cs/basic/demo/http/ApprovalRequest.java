@@ -6,8 +6,9 @@ import java.util.List;
 import edu.wpi.cs.basic.demo.model.AlternativeChoice;
 import edu.wpi.cs.basic.demo.model.TeamMember;
 
+@Deprecated
 public class ApprovalRequest {
-//matt and aru
+//matt and aru and Eren
 	int alternativeID;
 	int numOfApprovals;
 	List<TeamMember> listOfTeamMembers;
