@@ -7,13 +7,28 @@ public class Approval {
 	int approvalID;
 	int alternativeID;
 	int teamMemberID;
-	boolean isApproval;
+	boolean isApproved;
+	boolean isDisapproved;
 	
+	public Approval(int approvalID, int alternativeID, int teamMemberID, boolean isApproval, boolean isDisapproved) {
+		super();
+		this.approvalID = approvalID;
+		this.alternativeID = alternativeID;
+		this.teamMemberID = teamMemberID;
+		this.isApproved = isApproval;
+		this.isDisapproved = isDisapproved;
+	}
+	public boolean isDisapproved() {
+		return isDisapproved;
+	}
+	public void setDisapproved(boolean isDisapproved) {
+		this.isDisapproved = isDisapproved;
+	}
 	public boolean isApproval() {
-		return isApproval;
+		return isApproved;
 	}
 	public void setApproval(boolean isApproval) {
-		this.isApproval = isApproval;
+		this.isApproved = isApproval;
 	}
 	public int getApprovalID() {
 		return approvalID;
@@ -42,7 +57,7 @@ public class Approval {
 		this.approvalID = approvalID;
 		this.alternativeID = alternativeID;
 		this.teamMemberID = teamMemberID;
-		this.isApproval = isApproval;
+		this.isApproved = isApproval;
 	}
 	public Approval(int approvalID, int alternativeID, int teamMemberID) {
 		super();
@@ -54,6 +69,12 @@ public class Approval {
 		super();
 		this.alternativeID = alternativeID;
 		this.teamMemberID = teamMemberID;
+	}
+	public boolean isApproved() {
+		return isApproved;
+	}
+	public void setApproved(boolean isApproved) {
+		this.isApproved = isApproved;
 	}
 	
 	

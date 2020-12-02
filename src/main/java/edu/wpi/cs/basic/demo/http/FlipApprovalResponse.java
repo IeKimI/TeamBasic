@@ -7,22 +7,21 @@ import edu.wpi.cs.basic.demo.model.ApprovalInfo;
 import edu.wpi.cs.basic.demo.model.Choice;
 import edu.wpi.cs.basic.demo.model.TeamMember;
 
-
 public class FlipApprovalResponse {
-	//matt and aru
-	public final String response;
-	public boolean hasBeenApproved;
-	public boolean hasBeenDisapproved;
-	public int httpCode;
-	
-	public FlipApprovalResponse(String response, ApprovalInfo approvInfo, boolean hasBeenApproved, boolean hasBeenDisapproved) {
+	// matt and Eren
+	final String response;
+	boolean hasBeenApproved;
+	boolean hasBeenDisapproved;
+	int httpCode;
+
+	public FlipApprovalResponse(String response, boolean hasBeenApproved,
+			boolean hasBeenDisapproved, int httpCode) {
 		this.response = response;
 		this.httpCode = 200;
 		this.hasBeenApproved = hasBeenApproved;
 		this.hasBeenDisapproved = hasBeenDisapproved;
 	}
-	
-	
+
 	public String toString() {
 		return "Response(" + response + ")";
 	}
