@@ -49,11 +49,14 @@ function processAlternatives(result) {
 		var alternative = js[i];
 		count = count + 1;
 		realCount = count - 1;
-		buttons = "<a href=\"#\" onClick=\"changeImage(" + realCount.toString() + ")\"\n>\t<img value=" + realCount.toString() + " src=\"check-mark_b&w.png\" width=\"28\" height=\"28\" border=\"0\" alt=\"javascript button\">\n</a>"
+		buttons = "<a onClick=\"changeImage(" + realCount.toString() + ")\"\n>\t<img value=" + realCount.toString() + " src=\"check-mark_b&w.png\" width=\"28\" height=\"28\" border=\"0\" alt=\"javascript button\">\n</a>"
 		let alternativeDesc = alternative["description"];
 		console.log(alternativeDesc)
-		output = output + "<h4> Alternative " + count + ": </h4><label>" + alternativeDesc + "</label> " + buttons + "<br>";
-		console.log(output);
+		if (alternativeDesc != "") {
+			output = output + "<h4> Alternative " + count + ": </h4><label>" + alternativeDesc + "</label> " + buttons + "<br>" + "<div id=\"approvals" + count + "\"></div>";
+			console.log(output);
+		}
+
 	}
 	alternatives.innerHTML = output;
 }
