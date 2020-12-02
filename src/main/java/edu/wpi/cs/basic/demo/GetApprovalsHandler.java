@@ -25,7 +25,7 @@ public LambdaLogger logger;
 		
 		try {
 			ApprovalDAO dao = new ApprovalDAO();
-			List<ApprovalInfo> approvals = dao.getApprovalsChoiceID(choiceID);
+			List<ApprovalInfo> approvals = dao.getApprovalsChoiceID(logger, choiceID);
 			return new GetAllApprovalsResponse(approvals, 200);
 			
 		} catch (Exception e) {

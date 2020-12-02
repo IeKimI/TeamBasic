@@ -55,7 +55,9 @@ public class DeleteChoicesHandler implements RequestHandler<DeleteChoicesRequest
 			
 			for (Choice choice : deletedItems) {
 				logger.log("Deleted choice " + choice.uniqueID + ".");
-				List<ApprovalInfo> listOfApprovals = approvalDatabase.getApprovalsChoiceID(choice.uniqueID);
+			
+				List<ApprovalInfo> listOfApprovals = approvalDatabase.getApprovalsChoiceID(logger, choice.uniqueID);
+				logger.log(Integer.toString(listOfApprovals.size()));
 				for (ApprovalInfo approval : listOfApprovals) {
 					for (String teamMemberName : approval.getListOfTeamMembers()) {
 						approvalDatabase.deleteApproval(logger, approval.getAlternativeID(),
