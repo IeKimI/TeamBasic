@@ -39,7 +39,7 @@ function getApprovals() {
 			} else {
 				processApprovals("N/A");
 			}
-		}
+		} 
 	}
 }
 
