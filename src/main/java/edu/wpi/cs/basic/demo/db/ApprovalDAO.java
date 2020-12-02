@@ -154,12 +154,11 @@ public class ApprovalDAO {
         }
     }
 
-	public boolean deleteApproval(LambdaLogger logger, int alternativeID, int teamMemberID) throws Exception {
+	public boolean deleteApproval(LambdaLogger logger, int alternativeID) throws Exception {
 		 try {
 			 logger.log("In delteApproval");
-	            PreparedStatement ps = conn.prepareStatement("DELETE FROM " + tblName + " WHERE alternativeID = ? AND teamMemberID = ?;");
+	            PreparedStatement ps = conn.prepareStatement("DELETE FROM " + tblName + " WHERE alternativeID = ?;");
 	            ps.setInt(1, alternativeID);
-	            ps.setInt(2, teamMemberID);
 	            logger.log("The statement is done being constructed.");
 	            int numAffected = ps.executeUpdate();
 	            ps.close();
