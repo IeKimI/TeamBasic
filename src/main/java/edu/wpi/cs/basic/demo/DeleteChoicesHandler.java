@@ -1,5 +1,6 @@
 package edu.wpi.cs.basic.demo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.amazonaws.services.lambda.runtime.Context;
@@ -14,6 +15,7 @@ import edu.wpi.cs.basic.demo.db.ChoiceDAO;
 import edu.wpi.cs.basic.demo.db.TeamMemberDAO;
 import edu.wpi.cs.basic.demo.http.DeleteChoicesRequest;
 import edu.wpi.cs.basic.demo.http.DeleteChoicesResponse;
+import edu.wpi.cs.basic.demo.model.AlternativeChoice;
 import edu.wpi.cs.basic.demo.model.Approval;
 import edu.wpi.cs.basic.demo.model.ApprovalInfo;
 import edu.wpi.cs.basic.demo.model.Choice;
@@ -29,10 +31,19 @@ public class DeleteChoicesHandler implements RequestHandler<DeleteChoicesRequest
 			logger.log("deleteChoice has been called.");
 		ChoiceDAO database = new ChoiceDAO();
 		AlternativeChoiceDAO altDatabase = new AlternativeChoiceDAO();
+		ApprovalDAO approvalDatabase = new ApprovalDAO();
 		List<Choice> result = database.deleteChoicesNDaysOld(logger, numberOfDays);
 		for (Choice c : result) {
-			if (altDatabase.deleteAlternativeChoice(logger, c))
+			List<AlternativeChoice> deletedAlternatives = altDatabase.getAllAlternatives(c.uniqueID);
+			if (altDatabase.deleteAlternativeChoice(logger, c)) {
+				for (AlternativeChoice altChoice : deletedAlternatives) {
+					if (approvalDatabase.deleteApproval(logger, altChoice.getAlternativeID())) {
+						continue;
+					}
+					throw new Exception("Failed to Delete Approval from Alternative Choice ID");
+				}
 				continue;
+			}
 			throw new Exception("Failed to Delete Alternative Choice");
 		}
 		if (logger != null)
@@ -52,20 +63,17 @@ public class DeleteChoicesHandler implements RequestHandler<DeleteChoicesRequest
 
 		try {
 			List<Choice> deletedItems = deleteChoice(numberOfDays);
-			
-			for (Choice choice : deletedItems) {
-				logger.log("Deleted choice " + choice.uniqueID + ".");
-			
-				List<ApprovalInfo> listOfApprovals = approvalDatabase.getApprovalsChoiceID(logger, choice.uniqueID);
-				logger.log(Integer.toString(listOfApprovals.size()));
-				for (ApprovalInfo approval : listOfApprovals) {
-					for (String teamMemberName : approval.getListOfTeamMembers()) {
-						approvalDatabase.deleteApproval(logger, approval.getAlternativeID(),
-								teamMemberDatabase.getTeamMemberID(teamMemberName));
-					}
-				}
-				altDatabase.deleteAlternativeChoice(logger, choice);
-			}
+//			for (Choice choice : deletedItems) {
+//				logger.log("Deleted choice " + choice.uniqueID + ".");
+//
+//				List<ApprovalInfo> listOfApprovals = approvalDatabase.getApprovalsChoiceID(logger, choice.uniqueID);
+//				logger.log(Integer.toString(listOfApprovals.size()));
+//				for (ApprovalInfo approval : listOfApprovals) {
+//					for (String teamMemberName : approval.getListOfTeamMembers()) {
+//						approvalDatabase.deleteApproval(logger, approval.getAlternativeID());
+//					}
+//				}
+//			}
 			return new DeleteChoicesResponse(numberOfDays, 200);
 		} catch (Exception e) {
 			logger.log("An exception was caught in the handleRequest when deleting choices " + numberOfDays
