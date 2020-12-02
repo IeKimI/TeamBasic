@@ -6,6 +6,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.amazonaws.services.lambda.runtime.LambdaLogger;
+
 import edu.wpi.cs.basic.demo.model.AlternativeChoice;
 import edu.wpi.cs.basic.demo.model.Approval;
 import edu.wpi.cs.basic.demo.model.ApprovalInfo;
@@ -149,15 +151,17 @@ public class ApprovalDAO {
         }
     }
 
-	public boolean deleteApproval(int alternativeID, int teamMemberID) throws Exception {
+	public boolean deleteApproval(LambdaLogger logger, int alternativeID, int teamMemberID) throws Exception {
 		 try {
+			 logger.log("In delteApproval");
 	            PreparedStatement ps = conn.prepareStatement("DELETE FROM " + tblName + " WHERE alternativeID = ? AND teamMemberID = ?;");
 	            ps.setInt(1, alternativeID);
 	            ps.setInt(2, teamMemberID);
+	            logger.log("The statement is done being constructed.");
 	            int numAffected = ps.executeUpdate();
 	            ps.close();
 	            
-	            return (numAffected == 1);
+	            return (numAffected >= 1);
 
 	        } catch (Exception e) {
 	            throw new Exception("Failed to delete the approval: " + e.getMessage());
