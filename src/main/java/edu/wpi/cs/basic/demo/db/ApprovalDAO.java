@@ -2,12 +2,15 @@ package edu.wpi.cs.basic.demo.db;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 
+import edu.wpi.cs.basic.demo.http.ApprovalResponse;
+import edu.wpi.cs.basic.demo.http.FlipApprovalResponse;
 import edu.wpi.cs.basic.demo.model.AlternativeChoice;
 import edu.wpi.cs.basic.demo.model.Approval;
 import edu.wpi.cs.basic.demo.model.ApprovalInfo;
@@ -15,7 +18,6 @@ import edu.wpi.cs.basic.demo.model.Choice;
 import edu.wpi.cs.basic.demo.model.TeamMember;
 
 public class ApprovalDAO {
-	
 
 	static java.sql.Connection conn;
 
@@ -33,9 +35,10 @@ public class ApprovalDAO {
 
 		try {
 			Approval approval = null;
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE alternativeID=? AND teamMemberID=?;");
+			PreparedStatement ps = conn
+					.prepareStatement("SELECT * FROM " + tblName + " WHERE alternativeID=? AND teamMemberID=?;");
 			ps.setInt(1, alternativeID);
-			ps.setInt(2,  teamMemberID);
+			ps.setInt(2, teamMemberID);
 			ResultSet resultSet = ps.executeQuery();
 
 			while (resultSet.next()) {
@@ -53,25 +56,19 @@ public class ApprovalDAO {
 	}
 
 	/**
-	 * try {
-			Choice choice = null;
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE uniqueID=?;");
-			ps.setString(1, uniqueID);
-			ResultSet resultSet = ps.executeQuery();
-
-			while (resultSet.next()) {
-				choice = generateChoice(resultSet);
-			}
-			resultSet.close();
-			ps.close();
-
-			return choice;
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new Exception("Failed in getting choice: " + e.getMessage());
-		}
-	 * @param logger 
+	 * try { Choice choice = null; PreparedStatement ps =
+	 * conn.prepareStatement("SELECT * FROM " + tblName + " WHERE uniqueID=?;");
+	 * ps.setString(1, uniqueID); ResultSet resultSet = ps.executeQuery();
+	 * 
+	 * while (resultSet.next()) { choice = generateChoice(resultSet); }
+	 * resultSet.close(); ps.close();
+	 * 
+	 * return choice;
+	 * 
+	 * } catch (Exception e) { e.printStackTrace(); throw new Exception("Failed in
+	 * getting choice: " + e.getMessage()); }
+	 * 
+	 * @param logger
 	 * @param alternativeID
 	 * @return
 	 * @throws Exception
@@ -83,103 +80,147 @@ public class ApprovalDAO {
 			List<String> listOfTeamMembers = new ArrayList<String>();
 			TeamMemberDAO teamMemberDAO = new TeamMemberDAO();
 			AlternativeChoiceDAO altDAO = new AlternativeChoiceDAO();
-			
-			
+
 			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE alternativeID=?;");
 			ps.setInt(1, alternativeID);
 			logger.log("preparedstatemnt?");
 
 			ResultSet resultSet = ps.executeQuery();
-			
+
 			while (resultSet.next()) {
 				Approval approval = generateApprovals(resultSet);
 				if (approval.isApproval()) {
-				numOfApprovals++;
-				listOfTeamMembers.add(teamMemberDAO.getTeamMemberByID(approval.getTeamMemberID()));
+					numOfApprovals++;
+					listOfTeamMembers.add(teamMemberDAO.getTeamMemberByID(approval.getTeamMemberID()));
 				}
 
 				// check for the vote type?
 				// add the num of approvals and teamMembers to the list
 			}
 			resultSet.close();
-			
+
 			String altDescription = altDAO.getAlternativeChoiceByID(alternativeID);
-			
+
 			return new ApprovalInfo(alternativeID, altDescription, numOfApprovals, listOfTeamMembers);
-		}
-		catch (Exception e) {
-			throw new Exception ("Failed in getting approvals for the alternative: " + alternativeID + e.getMessage());
+		} catch (Exception e) {
+			throw new Exception("Failed in getting approvals for the alternative: " + alternativeID + e.getMessage());
 		}
 	}
-	
-	
+
 	public List<ApprovalInfo> getApprovalsChoiceID(LambdaLogger logger, String choiceID) throws Exception {
-    	List<ApprovalInfo> approvals = new ArrayList<ApprovalInfo>();
-    	AlternativeChoiceDAO altDAO = new AlternativeChoiceDAO();
-    	
-    	List<AlternativeChoice> alternatives = altDAO.getAllAlternatives(choiceID);
-    	System.out.println(alternatives);
-    	for(AlternativeChoice alt : alternatives) {
-    		approvals.add(getApprovalsAltID(logger, alt.getAlternativeID()));
-    	} 
-    	
-    	return approvals;
-    }
+		List<ApprovalInfo> approvals = new ArrayList<ApprovalInfo>();
+		AlternativeChoiceDAO altDAO = new AlternativeChoiceDAO();
+
+		List<AlternativeChoice> alternatives = altDAO.getAllAlternatives(choiceID);
+		System.out.println(alternatives);
+		for (AlternativeChoice alt : alternatives) {
+			approvals.add(getApprovalsAltID(logger, alt.getAlternativeID()));
+		}
+
+		return approvals;
+	}
+
 	public boolean initializeApproval(Approval approval) throws Exception {
-        try {
-            PreparedStatement ps = conn.prepareStatement("INSERT INTO " + tblName + " (teamMemberID,alternativeID,approval,disapproval) values(?,?,?,?);");
-            ps.setInt(1, approval.getTeamMemberID());
-            ps.setInt(2, approval.getAlternativeID());
-            ps.setBoolean(3, false);  
-            ps.setBoolean(4, false);      
+		try {
+			PreparedStatement ps = conn.prepareStatement(
+					"INSERT INTO " + tblName + " (teamMemberID,alternativeID,approval,disapproval) values(?,?,?,?);");
+			ps.setInt(1, approval.getTeamMemberID());
+			ps.setInt(2, approval.getAlternativeID());
+			ps.setBoolean(3, false);
+			ps.setBoolean(4, false);
 
-            ps.execute();
-            return true;
+			ps.execute();
+			return true;
 
-        } catch (Exception e) {
-            throw new Exception("Failed to add an approval: " + e.getMessage());
-        }
-    }
+		} catch (Exception e) {
+			throw new Exception("Failed to add an approval: " + e.getMessage());
+		}
+	}
+
 	@Deprecated
 	public boolean addApproval(Approval approval) throws Exception {
-        try {
-            PreparedStatement ps = conn.prepareStatement("INSERT INTO " + tblName + " (teamMemberID,alternativeID,approval,disapproval) values(?,?,?,?);");
-            ps.setInt(1, approval.getTeamMemberID());
-            ps.setInt(2, approval.getAlternativeID());
-            ps.setBoolean(3, true);  
-            ps.setBoolean(4, false);      
+		try {
+			PreparedStatement ps = conn.prepareStatement(
+					"INSERT INTO " + tblName + " (teamMemberID,alternativeID,approval,disapproval) values(?,?,?,?);");
+			ps.setInt(1, approval.getTeamMemberID());
+			ps.setInt(2, approval.getAlternativeID());
+			ps.setBoolean(3, true);
+			ps.setBoolean(4, false);
 
-            ps.execute();
-            return true;
+			ps.execute();
+			return true;
 
-        } catch (Exception e) {
-            throw new Exception("Failed to add an approval: " + e.getMessage());
-        }
-    }
-
-	public boolean deleteApproval(LambdaLogger logger, int alternativeID) throws Exception {
-		 try {
-			 logger.log("In delteApproval");
-	            PreparedStatement ps = conn.prepareStatement("DELETE FROM " + tblName + " WHERE alternativeID = ?;");
-	            ps.setInt(1, alternativeID);
-	            logger.log("The statement is done being constructed.");
-	            int numAffected = ps.executeUpdate();
-	            ps.close();
-	            
-	            return (numAffected >= 1);
-
-	        } catch (Exception e) {
-	            throw new Exception("Failed to delete the approval: " + e.getMessage());
-	        }
+		} catch (Exception e) {
+			throw new Exception("Failed to add an approval: " + e.getMessage());
+		}
 	}
 
+	public boolean deleteApproval(LambdaLogger logger, int alternativeID) throws Exception {
+		try {
+			logger.log("In delteApproval");
+			PreparedStatement ps = conn.prepareStatement("DELETE FROM " + tblName + " WHERE alternativeID = ?;");
+			ps.setInt(1, alternativeID);
+			logger.log("The statement is done being constructed.");
+			int numAffected = ps.executeUpdate();
+			ps.close();
 
+			return (numAffected >= 1);
+
+		} catch (Exception e) {
+			throw new Exception("Failed to delete the approval: " + e.getMessage());
+		}
+	}
+
+	public FlipApprovalResponse flipApprovalOrDisapproval(LambdaLogger logger, boolean whichIsFlipped, int approvalID)
+			throws Exception {
+		PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE approval/disapprovalID=?;");
+		PreparedStatement insertBack = conn
+				.prepareStatement("UPDATE " + tblName + " SET ? = ? WHERE approval/disapprovalID = ?;");
+		ps.setInt(1, approvalID);
+		ResultSet resultSet = ps.executeQuery();
+		Approval toChange = generateApprovals(resultSet);
+
+		if (whichIsFlipped) {
+			logger.log("Flipping Approval");
+			// Flip approval
+			if (toChange.isDisapproved()) {
+				logger.log("Nothing could be changed as the approval cannot be approved if it is already disapproved.");
+				return new FlipApprovalResponse(
+						"Nothing could be changed as the approval cannot be approved if it is already disapproved. ApprovalID: "
+								+ approvalID,
+						false, false, 400);
+			}
+			toChange.setApproval(!toChange.isApproved());
+			insertBack.setString(1,"approval");
+			insertBack.setBoolean(2, toChange.isApproved());
+			insertBack.setInt(3, approvalID);
+			logger.log("Changing insertBack statement");
+			return new FlipApprovalResponse(
+					"Approval was flipped to " + toChange.isApproval() + ". ApprovalID: " + approvalID, insertBack.execute(), false,
+					200);
+		}
+
+		// Flip disapproval
+		logger.log("Flipping Disapproval");
+		if (toChange.isApproved()) {
+			logger.log("Nothing could be changed as the disapproval cannot be approved if it is already disapproved.");
+			return new FlipApprovalResponse(
+					"Nothing could be changed as the disapproval cannot be approved if it is already disapproved. ApprovalID: "
+							+ approvalID,
+					false, false, 400);
+		}
+		toChange.setDisapproved(!toChange.isDisapproved());
+		insertBack.setString(1,"disapproval");
+		insertBack.setBoolean(2, toChange.isDisapproved());
+		insertBack.setInt(3, approvalID);
+		return new FlipApprovalResponse(
+				"Disapproval was flipped to " + toChange.isDisapproved() + ". ApprovalID: " + approvalID, false, true,
+				200);
+	}
 
 	private Approval generateApprovals(ResultSet resultSet) throws Exception {
-		int approvalOrDisapprovalID = resultSet.getInt("approval/disapprovalID");
-    	int teamMemberID = resultSet.getInt("teamMemberID");
-    	int alternativeID = resultSet.getInt("alternativeID");
-    	boolean isApproval = resultSet.getBoolean("approval");
-        return new Approval(approvalOrDisapprovalID, alternativeID, teamMemberID, isApproval);
-    }
+		return new Approval(resultSet.getInt("approval/disapprovalID"), resultSet.getInt("alternativeID"),
+				resultSet.getInt("teamMemberID"), resultSet.getBoolean("approval"),
+				resultSet.getBoolean("disapproval"));
+	}
 }
