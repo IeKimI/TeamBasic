@@ -116,6 +116,7 @@ public class ApprovalDAO {
     	AlternativeChoiceDAO altDAO = new AlternativeChoiceDAO();
     	
     	List<AlternativeChoice> alternatives = altDAO.getAllAlternatives(choiceID);
+    	System.out.println(alternatives);
     	for(AlternativeChoice alt : alternatives) {
     		approvals.add(getApprovalsAltID(logger, alt.getAlternativeID()));
     	} 
