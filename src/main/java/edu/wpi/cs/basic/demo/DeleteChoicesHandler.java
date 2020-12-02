@@ -38,7 +38,7 @@ public class DeleteChoicesHandler implements RequestHandler<DeleteChoicesRequest
 		if (logger != null)
 			logger.log("Returning result to handler");
 		return result;
-
+ 
 	}
 
 	@Override
