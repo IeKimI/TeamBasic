@@ -13,7 +13,7 @@ public class ListAllApprovalsHandler extends LambdaTest {
 	public void testGetList() {
 		GetApprovalsHandler handler = new GetApprovalsHandler();
 
-		GetAllApprovalsResponse resp = handler.handleRequest("2046186", createContext("list"));
+		GetAllApprovalsResponse resp = handler.handleRequest("1329772137", createContext("list"));
 
 		boolean hasE = false;
 		for (ApprovalInfo approvInfo : resp.list) {

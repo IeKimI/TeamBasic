@@ -1,16 +1,19 @@
-function getAlternatives(){
-	
-		var choiceURL = window.location.href;
+function getAlternatives() {
+
+	var choiceURL = window.location.href;
 	var choiceID = choiceURL.split('=')[1];
+	if (choiceID.includes("#")) {
+		choiceID.split("#")[0];
+	}
 
 	var data = {};
 	data["choiceID"] = choiceID;
-	
-		var data = {};
+
+	var data = {};
 	data["choiceID"] = choiceID;
-	
+
 	var js = JSON.stringify(data);
-	
+
 	var xhr = new XMLHttpRequest();
 	xhr.open("GET", alternative_url + "/" + choiceID, true);
 	xhr.send(js);
@@ -29,39 +32,41 @@ function getAlternatives(){
 
 function processAlternatives(result) {
 	console.log("res:" + result);
-	
+
 	var js = JSON.parse(result);
-	
+
 	var alternatives = document.getElementById('alternatives');
 	console.log(js);
-	
+
 	js = js["alternatives"];
 	console.log(js);
 	var output = "";
 	var count = 0;
-	var buttons = "<a href=\"#\" onClick=\"changeImage()\" onClick= \"JavaScript:changeImageBack()\"\n>\t<img name=\"jsbutton\" src=\"wink.png\" width=\"28\" height=\"28\" border=\"0\" alt=\"javascript button\">\n</a>";
-	
+	var realCount = 0;
+	var buttons = "";
+
 	for (var i in js) {
 		var alternative = js[i];
-		count  = count + 1;
-		
+		count = count + 1;
+		realCount = count - 1;
+		buttons = "<a href=\"#\" onClick=\"changeImage(" + realCount.toString() + ")\"\n>\t<img value=" + realCount.toString() + " src=\"check-mark_b&w.png\" width=\"28\" height=\"28\" border=\"0\" alt=\"javascript button\">\n</a>"
 		let alternativeDesc = alternative["description"];
 		console.log(alternativeDesc)
-		output = output + "<h4> Alternative " + count + ": </h4><label>" + alternativeDesc + "</label> "+ buttons + "<br>";
+		output = output + "<h4> Alternative " + count + ": </h4><label>" + alternativeDesc + "</label> " + buttons + "<br>";
 		console.log(output);
 	}
 	alternatives.innerHTML = output;
 }
 
-function changeImage() 
-{
-  document.images["jsbutton"].src = "wink (1).png";
-  return true;
+function changeImage(realCount) {
+	var image = document.images[realCount];
+	if (image.src.match("check-mark_b&w.png")) {
+		image.src = "check-mark.png";
+	}
+	else {
+		image.src = "check-mark_b&w.png";
+	}
 }
 
-function changeImageBack() 
-{
-  document.images["jsbutton"].src = "wink.png";
-  return true;
-}
+
 

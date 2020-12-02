@@ -7,6 +7,14 @@ public class Approval {
 	int approvalID;
 	int alternativeID;
 	int teamMemberID;
+	boolean isApproval;
+	
+	public boolean isApproval() {
+		return isApproval;
+	}
+	public void setApproval(boolean isApproval) {
+		this.isApproval = isApproval;
+	}
 	public int getApprovalID() {
 		return approvalID;
 	}
@@ -28,6 +36,13 @@ public class Approval {
 	
 	public Approval() {
 		
+	}
+	public Approval(int approvalID, int alternativeID, int teamMemberID, boolean isApproval) {
+		super();
+		this.approvalID = approvalID;
+		this.alternativeID = alternativeID;
+		this.teamMemberID = teamMemberID;
+		this.isApproval = isApproval;
 	}
 	public Approval(int approvalID, int alternativeID, int teamMemberID) {
 		super();

@@ -42,7 +42,7 @@ public class TeamMemberDAO {
 			ps.setString(1, teamMember.getName());
 			ps.setString(2, teamMember.getPassword());
 			ps.setString(3, teamMember.getChoiceID());
-			
+
 			ps.execute();
 
 			List<TeamMember> listOfMembersFromChoice = getAllTeamMembers(teamMember.getChoiceID());

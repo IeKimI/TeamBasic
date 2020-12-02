@@ -93,8 +93,10 @@ public class ApprovalDAO {
 			
 			while (resultSet.next()) {
 				Approval approval = generateApprovals(resultSet);
+				if (approval.isApproval()) {
 				numOfApprovals++;
 				listOfTeamMembers.add(teamMemberDAO.getTeamMemberByID(approval.getTeamMemberID()));
+				}
 
 				// check for the vote type?
 				// add the num of approvals and teamMembers to the list
@@ -155,12 +157,11 @@ public class ApprovalDAO {
         }
     }
 
-	public boolean deleteApproval(LambdaLogger logger, int alternativeID, int teamMemberID) throws Exception {
+	public boolean deleteApproval(LambdaLogger logger, int alternativeID) throws Exception {
 		 try {
 			 logger.log("In delteApproval");
-	            PreparedStatement ps = conn.prepareStatement("DELETE FROM " + tblName + " WHERE alternativeID = ? AND teamMemberID = ?;");
+	            PreparedStatement ps = conn.prepareStatement("DELETE FROM " + tblName + " WHERE alternativeID = ?;");
 	            ps.setInt(1, alternativeID);
-	            ps.setInt(2, teamMemberID);
 	            logger.log("The statement is done being constructed.");
 	            int numAffected = ps.executeUpdate();
 	            ps.close();
@@ -178,6 +179,7 @@ public class ApprovalDAO {
 		int approvalOrDisapprovalID = resultSet.getInt("approval/disapprovalID");
     	int teamMemberID = resultSet.getInt("teamMemberID");
     	int alternativeID = resultSet.getInt("alternativeID");
-        return new Approval(approvalOrDisapprovalID, alternativeID, teamMemberID);
+    	boolean isApproval = resultSet.getBoolean("approval");
+        return new Approval(approvalOrDisapprovalID, alternativeID, teamMemberID, isApproval);
     }
 }

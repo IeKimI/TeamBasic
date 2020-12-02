@@ -7,6 +7,7 @@ import edu.wpi.cs.basic.demo.model.ApprovalInfo;
 import edu.wpi.cs.basic.demo.model.Choice;
 import edu.wpi.cs.basic.demo.model.TeamMember;
 
+@Deprecated
 public class ApprovalResponse {
 	//matt and aru
 	public final String response;

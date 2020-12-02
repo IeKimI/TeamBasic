@@ -6,12 +6,14 @@
 <script type='text/javascript' src='../js/login.js'></script>
 <script type='text/javascript' src='../js/choiceInfo.js'></script>
 <script type='text/javascript' src='../js/altInfo.js'></script>
+<script type='text/javascript' src='../js/approvalInfo.js'></script>
 <script type="text/javascript">
-function initialize() {
-   // get all constants
-   refreshChoiceInfo();
-   getAlternatives();
-}
+	function initialize() {
+		// get all constants
+		refreshChoiceInfo();
+		getAlternatives();
+		getApprovals();
+	}
 </script>
 </head>
 <body onload="initialize()">
@@ -26,17 +28,24 @@ function initialize() {
 		</form>
 	</div>
 
-	<div id="choiceInfo">
-	</div>
-	
+	<div id="choiceInfo"></div>
+
 	<div id="alternatives">
-		</div>
-	
-	
+		<
+		<!-- div id="emojis">
+			<a href= "#" onClick="changeImage()"><img name=
+				"jsbutton" src= "wink.png" width= "28" height= "28" border=
+				"0" alt= "javascriptbutton"></a>
+		</div> -->
+	</div>
+	<div id="approvals"></div>
+
+
+
 
 
 
 	<div id="choiceID_display"></div>
- 
+
 </body>
 </html>
