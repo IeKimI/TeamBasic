@@ -39,7 +39,7 @@ function getApprovals() {
 			} else {
 				processApprovals("N/A");
 			}
-		}
+		} 
 	}
 }
 
@@ -48,20 +48,30 @@ function processApprovals(result) {
 
 	var js = JSON.parse(result);
 
-	var approval = document.getElementById('approvals');
-
 	console.log(js);
 	console.log(approval);
 
 
 	js = js["list"];
 	var output = "";
+	var count = 0;
 	for (var i in js) {
+
 		var eachApproval = js[i];
 		var num = eachApproval["numOfApprovals"];
 		var nameList = eachApproval["listOfTeamMembers"];
-		console.log(num);
-		output = output + "\t<div>\n\t<label id = \"num\">NumOfApprovals: " + num + "</label><br>\n\t<label id = \"nameList\">List of members: " + nameList + "</label><br>";
+		var altDesc = eachApproval["altDescription"];
+		count = count + 1;
+		var approval = document.getElementById('approvals' + count);
+
+		if (altDesc != "") {
+			console.log(num);
+			output = "";
+			output = output + "<label id = \"num"+ count +"\">NumOfApprovals: " + num + "</label><br>\n\t<label id = \"nameList"+ count +"\">List of members: " + nameList + "</label><br>";
+			approval.innerHTML = output;
+
+		}
+
+
 	}
-	approval.innerHTML = output;
 }
