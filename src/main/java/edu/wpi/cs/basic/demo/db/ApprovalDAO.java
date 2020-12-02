@@ -71,12 +71,14 @@ public class ApprovalDAO {
 			e.printStackTrace();
 			throw new Exception("Failed in getting choice: " + e.getMessage());
 		}
+	 * @param logger 
 	 * @param alternativeID
 	 * @return
 	 * @throws Exception
 	 */
-	public ApprovalInfo getApprovalsAltID(int alternativeID) throws Exception {
+	public ApprovalInfo getApprovalsAltID(LambdaLogger logger, int alternativeID) throws Exception {
 		try {
+			logger.log("In getApprovalsAltID");
 			int numOfApprovals = 0;
 			List<String> listOfTeamMembers = new ArrayList<String>();
 			TeamMemberDAO teamMemberDAO = new TeamMemberDAO();
@@ -85,7 +87,8 @@ public class ApprovalDAO {
 			
 			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE alternativeID=?;");
 			ps.setInt(1, alternativeID);
-			
+			logger.log("preparedstatemnt?");
+
 			ResultSet resultSet = ps.executeQuery();
 			
 			while (resultSet.next()) {
@@ -108,13 +111,13 @@ public class ApprovalDAO {
 	}
 	
 	
-	public List<ApprovalInfo> getApprovalsChoiceID(String choiceID) throws Exception {
+	public List<ApprovalInfo> getApprovalsChoiceID(LambdaLogger logger, String choiceID) throws Exception {
     	List<ApprovalInfo> approvals = new ArrayList<ApprovalInfo>();
     	AlternativeChoiceDAO altDAO = new AlternativeChoiceDAO();
     	
     	List<AlternativeChoice> alternatives = altDAO.getAllAlternatives(choiceID);
     	for(AlternativeChoice alt : alternatives) {
-    		approvals.add(getApprovalsAltID(alt.getAlternativeID()));
+    		approvals.add(getApprovalsAltID(logger, alt.getAlternativeID()));
     	} 
     	
     	return approvals;

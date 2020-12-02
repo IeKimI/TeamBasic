@@ -51,4 +51,4 @@ public class DeleteChoicesHandlerTest extends LambdaTest {
 		GetAlternativesResponse gar2 = gach2.handleRequest(choiceResponse.response, createContext("list"));
 		Assert.assertTrue(gar2.alternatives.isEmpty());
 	}
-}
+} 
