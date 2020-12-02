@@ -51,7 +51,6 @@ public class LoginHandler implements RequestHandler<CreateTeamMemberRequest, Cre
 
 		TeamMemberDAO teamMemberDAO = new TeamMemberDAO();
 		ChoiceDAO choiceDAO = new ChoiceDAO();
-
 		List<TeamMember> list = teamMemberDAO.getAllTeamMembers(req.getChoiceID());
 
 		int maxNum = choiceDAO.getMaxNum(req.getChoiceID());

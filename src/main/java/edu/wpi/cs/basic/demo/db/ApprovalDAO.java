@@ -117,7 +117,22 @@ public class ApprovalDAO {
     	
     	return approvals;
     }
-	
+	public boolean initializeApproval(Approval approval) throws Exception {
+        try {
+            PreparedStatement ps = conn.prepareStatement("INSERT INTO " + tblName + " (teamMemberID,alternativeID,approval,disapproval) values(?,?,?,?);");
+            ps.setInt(1, approval.getTeamMemberID());
+            ps.setInt(2, approval.getAlternativeID());
+            ps.setBoolean(3, false);  
+            ps.setBoolean(4, false);      
+
+            ps.execute();
+            return true;
+
+        } catch (Exception e) {
+            throw new Exception("Failed to add an approval: " + e.getMessage());
+        }
+    }
+	@Deprecated
 	public boolean addApproval(Approval approval) throws Exception {
         try {
             PreparedStatement ps = conn.prepareStatement("INSERT INTO " + tblName + " (teamMemberID,alternativeID,approval,disapproval) values(?,?,?,?);");

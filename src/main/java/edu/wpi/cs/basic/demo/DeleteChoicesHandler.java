@@ -9,9 +9,13 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 
 import edu.wpi.cs.basic.demo.db.AlternativeChoiceDAO;
+import edu.wpi.cs.basic.demo.db.ApprovalDAO;
 import edu.wpi.cs.basic.demo.db.ChoiceDAO;
+import edu.wpi.cs.basic.demo.db.TeamMemberDAO;
 import edu.wpi.cs.basic.demo.http.DeleteChoicesRequest;
 import edu.wpi.cs.basic.demo.http.DeleteChoicesResponse;
+import edu.wpi.cs.basic.demo.model.Approval;
+import edu.wpi.cs.basic.demo.model.ApprovalInfo;
 import edu.wpi.cs.basic.demo.model.Choice;
 
 public class DeleteChoicesHandler implements RequestHandler<DeleteChoicesRequest, DeleteChoicesResponse> {
@@ -41,14 +45,24 @@ public class DeleteChoicesHandler implements RequestHandler<DeleteChoicesRequest
 	public DeleteChoicesResponse handleRequest(DeleteChoicesRequest request, Context context) {
 		Float numberOfDays = request.getNDaysOld();
 		AlternativeChoiceDAO altDatabase = new AlternativeChoiceDAO();
+		ApprovalDAO approvalDatabase = new ApprovalDAO();
+		TeamMemberDAO teamMemberDatabase = new TeamMemberDAO();
 		logger = context.getLogger();
 		logger.log("Deleting Choices " + numberOfDays + " days old.");
 
 		try {
 			List<Choice> deletedItems = deleteChoice(numberOfDays);
+			
 			for (Choice choice : deletedItems) {
 				logger.log("Deleted choice " + choice.uniqueID + ".");
-				// altDatabase.deleteChoice(choice);
+				List<ApprovalInfo> listOfApprovals = approvalDatabase.getApprovalsChoiceID(choice.uniqueID);
+				for (ApprovalInfo approval : listOfApprovals) {
+					for (String teamMemberName : approval.getListOfTeamMembers()) {
+						approvalDatabase.deleteApproval(approval.getAlternativeID(),
+								teamMemberDatabase.getTeamMemberID(teamMemberName));
+					}
+				}
+				altDatabase.deleteAlternativeChoice(logger, choice);
 			}
 			return new DeleteChoicesResponse(numberOfDays, 200);
 		} catch (Exception e) {

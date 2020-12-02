@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.wpi.cs.basic.demo.model.AlternativeChoice;
+import edu.wpi.cs.basic.demo.model.Approval;
 import edu.wpi.cs.basic.demo.model.Choice;
 import edu.wpi.cs.basic.demo.model.TeamMember;
 
@@ -22,7 +23,7 @@ import edu.wpi.cs.basic.demo.model.TeamMember;
 public class TeamMemberDAO {
 	static java.sql.Connection conn;
 
-	final String tblName = "TeamMember"; // Exact capitalization
+	final static String tblName = "TeamMember"; // Exact capitalization
 
 	public TeamMemberDAO() {
 		try {
@@ -41,12 +42,25 @@ public class TeamMemberDAO {
 			ps.setString(1, teamMember.getName());
 			ps.setString(2, teamMember.getPassword());
 			ps.setString(3, teamMember.getChoiceID());
-			ps.execute();
-			return true;
+
+			List<TeamMember> listOfMembersFromChoice = getAllTeamMembers(teamMember.getChoiceID());
+
+			return addTeamMemberToApprovalsDatabase(teamMember.getChoiceID(), getTeamMemberID(teamMember.getName()));
 
 		} catch (Exception e) {
 			throw new Exception("Failed to insert teamMember: " + e.getMessage());
 		}
+	}
+
+	boolean addTeamMemberToApprovalsDatabase(String choiceID, int teamMemberID) throws Exception {
+		AlternativeChoiceDAO altDatabase = new AlternativeChoiceDAO();
+		List<AlternativeChoice> listOfAlternatives = altDatabase.getAllAlternatives(choiceID);
+
+		ApprovalDAO approvalDatabase = new ApprovalDAO();
+		for (AlternativeChoice altChoice : listOfAlternatives) {
+			approvalDatabase.initializeApproval(new Approval(altChoice.getAlternativeID(), teamMemberID));
+		}
+		return false;
 	}
 
 	public List<TeamMember> getAllTeamMembers(String choiceID) throws Exception {
@@ -73,47 +87,48 @@ public class TeamMemberDAO {
 			throw new Exception("Failed in getting alternatives: " + e.getMessage());
 		}
 	}
-	
-	public int getTeamMemberID(String teamMemberName) throws Exception{
+
+	public int getTeamMemberID(String teamMemberName) throws Exception {
 		try {
-    		TeamMember teamMember = null;
-    		PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE uniqueID=?;");
-    		ps.setString(1,  teamMemberName);
-    		ResultSet resultSet = ps.executeQuery();
+			TeamMember teamMember = null;
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE uniqueID=?;");
+			ps.setString(1, teamMemberName);
+			ResultSet resultSet = ps.executeQuery();
 
-    		while (resultSet.next()) {
-    			teamMember = generateTeamMember(resultSet);
-    		}
-    		resultSet.close();
-    		ps.close();
+			while (resultSet.next()) {
+				teamMember = generateTeamMember(resultSet);
+			}
+			resultSet.close();
+			ps.close();
 
-    		return teamMember.getTeamMemberID();
+			return teamMember.getTeamMemberID();
 
-    	} catch (Exception e) {
-    		e.printStackTrace();
-    		throw new Exception("Failed in getting participant: " + e.getMessage());
-    	}		
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception("Failed in getting participant: " + e.getMessage());
+		}
 	}
-	 public String getTeamMemberByID(int teamMemberID) throws Exception {
-	    	try {
-	    		TeamMember teamMember = null;
-	    		PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE teamMemberID=?;");
-	    		ps.setInt(1,  teamMemberID);
-	    		ResultSet resultSet = ps.executeQuery();
 
-	    		while (resultSet.next()) {
-	    			teamMember = generateTeamMember(resultSet);
-	    		}
-	    		resultSet.close();
-	    		ps.close();
+	public String getTeamMemberByID(int teamMemberID) throws Exception {
+		try {
+			TeamMember teamMember = null;
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE teamMemberID=?;");
+			ps.setInt(1, teamMemberID);
+			ResultSet resultSet = ps.executeQuery();
 
-	    		return teamMember.getName();
+			while (resultSet.next()) {
+				teamMember = generateTeamMember(resultSet);
+			}
+			resultSet.close();
+			ps.close();
 
-	    	} catch (Exception e) {
-	    		e.printStackTrace();
-	    		throw new Exception("Failed in getting participant: " + e.getMessage());
-	    	}
-	    }
+			return teamMember.getName();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception("Failed in getting participant: " + e.getMessage());
+		}
+	}
 
 	TeamMember generateTeamMember(ResultSet resultSet) throws Exception {
 		String name = resultSet.getString("uniqueID");
