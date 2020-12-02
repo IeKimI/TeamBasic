@@ -155,19 +155,20 @@ public class ApprovalDAO {
 		}
 	}
 
-	public boolean deleteApproval(LambdaLogger logger, int alternativeID) throws Exception {
+	public boolean deleteApproval(LambdaLogger logger, int alternativeID) {
 		try {
 			logger.log("In delteApproval");
 			PreparedStatement ps = conn.prepareStatement("DELETE FROM " + tblName + " WHERE alternativeID = ?;");
 			ps.setInt(1, alternativeID);
 			logger.log("The statement is done being constructed.");
-			int numAffected = ps.executeUpdate();
+			ps.executeUpdate();
 			ps.close();
-
-			return (numAffected >= 1);
+			logger.log("Exiting deleteApproval");
+			return true;
 
 		} catch (Exception e) {
-			throw new Exception("Failed to delete the approval: " + e.getMessage());
+			logger.log("Failed to delete the approval: " + e.getMessage());
+			return false;
 		}
 	}
 
@@ -191,13 +192,13 @@ public class ApprovalDAO {
 						false, false, 400);
 			}
 			toChange.setApproval(!toChange.isApproved());
-			insertBack.setString(1,"approval");
+			insertBack.setString(1, "approval");
 			insertBack.setBoolean(2, toChange.isApproved());
 			insertBack.setInt(3, approvalID);
 			logger.log("Changing insertBack statement");
 			return new FlipApprovalResponse(
-					"Approval was flipped to " + toChange.isApproval() + ". ApprovalID: " + approvalID, insertBack.execute(), false,
-					200);
+					"Approval was flipped to " + toChange.isApproval() + ". ApprovalID: " + approvalID,
+					insertBack.execute(), false, 200);
 		}
 
 		// Flip disapproval
@@ -210,7 +211,7 @@ public class ApprovalDAO {
 					false, false, 400);
 		}
 		toChange.setDisapproved(!toChange.isDisapproved());
-		insertBack.setString(1,"disapproval");
+		insertBack.setString(1, "disapproval");
 		insertBack.setBoolean(2, toChange.isDisapproved());
 		insertBack.setInt(3, approvalID);
 		return new FlipApprovalResponse(
