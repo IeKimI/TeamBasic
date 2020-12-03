@@ -6,9 +6,7 @@ function handleLoginClick(e) {
 	data = {};
 	var url = window.location.href;
 	var choiceID = url.split('=')[1];
-	if (choiceID.includes("#")) {
-		choiceID.split("#")[0];
-	}
+
 
 	/*	var username = "";
 		var password = "";*/
@@ -71,4 +69,9 @@ function processLogIn(result) {
 
 	
 	document.getElementById("message").innerText = "Welcome!" + username;
+	
+	refreshChoiceInfo();
+	getAlternatives();
+	getApprovals();
+
 }

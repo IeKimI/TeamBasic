@@ -11,7 +11,7 @@ function refreshChoiceInfo() {
 	var js = JSON.stringify(data);
 	console.log(js);
 	
-	choiceID_display.innerHTML = js;
+	choiceID_display.innerHTML = "ChoiceID: " + choiceID;
 	var xhr = new XMLHttpRequest();
 	
 	xhr.open("GET", getChoice_url + "/" + choiceID, true);
