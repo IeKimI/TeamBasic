@@ -5,7 +5,8 @@ function handleLoginClick(e) {
 
 	data = {};
 	var url = window.location.href;
-	var choiceID = url.split('=')[1];
+	var wholeURL = url.split('=')[1];
+	var choiceID = wholeURL.split('?')[0];
 
 
 	/*	var username = "";
@@ -66,11 +67,18 @@ function processLogIn(result) {
 	var js = JSON.parse(result);
 	js = js["response"];
 		var username = js.split(':')[1];
-
+		
+		var teamMemberID = js.split(":")[2];
+		var currentURL = window.location.href;
+		currentURL = currentURL.split("html/")[1];
+		currentURL = currentURL.split("teamMemberID")[0]
+		
+		
 	
 	document.getElementById("message").innerText = "Welcome!" + username;
 	
-	refreshChoiceInfo();
+	window.history.replaceState({}, 'teamMemberID=0', currentURL+'teamMemberID=' + teamMemberID)
+	
 	getAlternatives();
 	getApprovals();
 

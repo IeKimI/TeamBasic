@@ -6,7 +6,7 @@ function loadingChoicePage(response, request) {
 	/*refreshChoiceList();*/
 	var choiceID = JSON.parse(response)["response"];
 	console.log(choiceID);
-	window.location.href = "https://teambasic.s3.us-east-2.amazonaws.com/html/choice.html" + "?choice=" + choiceID;
+	window.location.href = "https://teambasic.s3.us-east-2.amazonaws.com/html/choice.html" + "?choice=" + choiceID + "?teamMemberID=0";
 	
 		console.log("result:" + request);
 

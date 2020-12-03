@@ -20,9 +20,9 @@ function getApprovals() {
 
 	var choiceURL = window.location.href;
 	var choiceID = choiceURL.split('=')[1];
-	if (choiceID.includes("#")) {
-		choiceID.split("#")[0];
-	}
+	choiceID = choiceID.split("?")[0];
+	
+	
 	var data = {};
 	data["choiceID"] = choiceID;
 

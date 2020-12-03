@@ -2,7 +2,9 @@ function refreshChoiceInfo() {
 	
 
 	var choiceURL = window.location.href;
-	var choiceID = choiceURL.split('=')[1];
+	var wholeURL = choiceURL.split('=')[1];
+	var choiceID = wholeURL.split('?')[0];
+	
 
 	var data = {};
 	data["choiceID"] = choiceID;
