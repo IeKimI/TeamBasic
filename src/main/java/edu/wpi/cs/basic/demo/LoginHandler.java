@@ -68,12 +68,18 @@ public class LoginHandler implements RequestHandler<CreateTeamMemberRequest, Cre
 //		return true;
 		for (TeamMember tm : list) {
 			if (exist.equals(tm)) {
+				if (exist.getPassword().equals(tm.getPassword())) {
+					return true;
+
+				}
+
 				return false;
+
 			}
 		}
 
 		return teamMemberDAO.addTeamMember(exist);
-	} 
+	}
 
 	@Override
 	public CreateTeamMemberResponse handleRequest(CreateTeamMemberRequest req, Context context) {
@@ -84,7 +90,8 @@ public class LoginHandler implements RequestHandler<CreateTeamMemberRequest, Cre
 		try {
 
 			if (createTeamMember(req)) {
-				response = new CreateTeamMemberResponse("Sucessful: " + req.getName()+ ":"+ dao.getTeamMemberID(req.getName()), 200);
+				response = new CreateTeamMemberResponse(
+						"Sucessful: " + req.getName() + ":" + dao.getTeamMemberID(req.getName()), 200);
 			} else {
 				response = new CreateTeamMemberResponse("Cannot create a teamMember" + req.getName(), 400);
 			}

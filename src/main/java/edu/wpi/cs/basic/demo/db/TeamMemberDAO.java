@@ -32,6 +32,8 @@ public class TeamMemberDAO {
 			conn = null;
 		}
 	}
+	
+
 
 	public boolean addTeamMember(TeamMember teamMember) throws Exception {
 		try {
@@ -86,7 +88,7 @@ public class TeamMemberDAO {
 			return participants;
 
 		} catch (Exception e) {
-			throw new Exception("Failed in getting alternatives: " + e.getMessage());
+			throw new Exception("Failed in getting teamMembers: " + e.getMessage());
 		}
 	}
 
