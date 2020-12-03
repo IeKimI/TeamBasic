@@ -30,6 +30,9 @@ public class FlipApprovalHandlerTest extends LambdaTest {
 
 		f_resp = handler.handleRequest(far2, createContext("flip"));
 		Assert.assertEquals(f_resp.httpCode, 200);
+		
+		f_resp = handler.handleRequest(far2, createContext("flip"));
+		Assert.assertEquals(f_resp.httpCode, 200);
 	}
 
 }
