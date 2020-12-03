@@ -318,7 +318,7 @@ public class ApprovalDAO {
 
 		} catch (Exception e) {
 			throw new Exception("Failed to determine what to flip: " + e.getMessage());
-		}
+		} 
 	}
 
 	private Approval generateApprovals(ResultSet resultSet) throws Exception {
