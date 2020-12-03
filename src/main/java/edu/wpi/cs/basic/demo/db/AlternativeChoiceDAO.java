@@ -83,6 +83,7 @@ public class AlternativeChoiceDAO {
 			ps.setString(1, Choice.uniqueID);
 			int numAffected = ps.executeUpdate();
 			ps.close();
+			logger.log("Exiting deleteAlternativeChoice");
 			return (numAffected >= 1);
 
 		} catch (Exception e) {

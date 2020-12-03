@@ -155,19 +155,20 @@ public class ApprovalDAO {
 		}
 	}
 
-	public boolean deleteApproval(LambdaLogger logger, int alternativeID) throws Exception {
+	public boolean deleteApproval(LambdaLogger logger, int alternativeID) {
 		try {
 			logger.log("In delteApproval");
 			PreparedStatement ps = conn.prepareStatement("DELETE FROM " + tblName + " WHERE alternativeID = ?;");
 			ps.setInt(1, alternativeID);
 			logger.log("The statement is done being constructed.");
-			int numAffected = ps.executeUpdate();
+			ps.executeUpdate();
 			ps.close();
-
-			return (numAffected >= 1);
+			logger.log("Exiting deleteApproval");
+			return true;
 
 		} catch (Exception e) {
-			throw new Exception("Failed to delete the approval: " + e.getMessage());
+			logger.log("Failed to delete the approval: " + e.getMessage());
+			return false;
 		}
 	}
 
