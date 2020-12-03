@@ -60,7 +60,7 @@ function processAlternatives(result) {
 			output = output + "<h4> Alternative " + count + ": </h4><label>" + alternativeDesc + "</label> " + buttons + "<br>" + "<div id=\"approvals" + count + "\"></div>";
 			console.log(output);
 		}
-		
+		 
 
 	}
 	alternatives.innerHTML = output;
