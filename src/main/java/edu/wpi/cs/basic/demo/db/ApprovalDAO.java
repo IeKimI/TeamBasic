@@ -172,49 +172,64 @@ public class ApprovalDAO {
 		}
 	}
 
-	public FlipApprovalResponse flipApprovalOrDisapproval(LambdaLogger logger, boolean whichIsFlipped, int approvalID)
-			throws Exception {
-		PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE approval/disapprovalID=?;");
-		PreparedStatement insertBack = conn
-				.prepareStatement("UPDATE " + tblName + " SET ? = ? WHERE approval/disapprovalID = ?;");
-		ps.setInt(1, approvalID);
-		ResultSet resultSet = ps.executeQuery();
-		Approval toChange = generateApprovals(resultSet);
+	public FlipApprovalResponse flipApprovalOrDisapproval(LambdaLogger logger, boolean whichIsFlipped,
+			int alternativeID, int teamMemberID) {
+		PreparedStatement ps;
+		try {
+			ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE alternativeID=? AND teamMemberID=?;");
+			PreparedStatement insertBack = null;
+			ps.setInt(1, alternativeID);
+			ps.setInt(2, teamMemberID);
+			logger.log("Done creating statements");
+			ResultSet resultSet = ps.executeQuery();
+			Approval toChange = generateApprovals(resultSet);
 
-		if (whichIsFlipped) {
-			logger.log("Flipping Approval");
-			// Flip approval
-			if (toChange.isDisapproved()) {
-				logger.log("Nothing could be changed as the approval cannot be approved if it is already disapproved.");
-				return new FlipApprovalResponse(
-						"Nothing could be changed as the approval cannot be approved if it is already disapproved. ApprovalID: "
-								+ approvalID,
-						400);
+			if (whichIsFlipped) {
+				logger.log("Flipping Approval");
+				// Flip approval
+				if (toChange.isDisapproved()) {
+					logger.log("Setting Dissapproval to False");
+					PreparedStatement changeDissaproval = conn.prepareStatement(
+							"UPDATE " + tblName + " SET disapproval = ? WHERE approvalAndDisapprovalID = ?;");
+					changeDissaproval.setBoolean(1, false);
+					changeDissaproval.setInt(2, toChange.getApprovalID());
+					changeDissaproval.execute();
+				}
+				logger.log("Setting insert back statement");
+				toChange.setApproval(!toChange.isApproved());
+				insertBack = conn.prepareStatement(
+						"UPDATE " + tblName + " SET approval = ? WHERE approvalAndDisapprovalID = ?;");
+				insertBack.setBoolean(1, toChange.isApproved());
+				insertBack.setInt(2, toChange.getApprovalID());
+				logger.log("Changing insertBack statement");
+				insertBack.execute();
+				return new FlipApprovalResponse("Approval was flipped to " + toChange.isApproval() + ". ApprovalID: "
+						+ toChange.getApprovalID(), 200);
 			}
-			toChange.setApproval(!toChange.isApproved());
-			insertBack.setString(1, "approval");
-			insertBack.setBoolean(2, toChange.isApproved());
-			insertBack.setInt(3, approvalID);
-			logger.log("Changing insertBack statement");
-			return new FlipApprovalResponse(
-					"Approval was flipped to " + toChange.isApproval() + ". ApprovalID: " + approvalID, 200);
-		}
 
-		// Flip disapproval
-		logger.log("Flipping Disapproval");
-		if (toChange.isApproved()) {
-			logger.log("Nothing could be changed as the disapproval cannot be approved if it is already disapproved.");
-			return new FlipApprovalResponse(
-					"Nothing could be changed as the disapproval cannot be approved if it is already disapproved. ApprovalID: "
-							+ approvalID,
-					400);
+			// Flip disapproval
+			logger.log("Flipping Disapproval");
+			if (toChange.isApproved()) {
+				logger.log("Setting Dissapproval to False");
+				PreparedStatement changeDissaproval = conn.prepareStatement(
+						"UPDATE " + tblName + " SET approval = ? WHERE approvalAndDisapprovalID = ?;");
+				changeDissaproval.setBoolean(1, false);
+				changeDissaproval.setInt(2, toChange.getApprovalID());
+				changeDissaproval.execute();
+			}
+			toChange.setDisapproved(!toChange.isDisapproved());
+			insertBack = conn
+					.prepareStatement("UPDATE " + tblName + " SET disapproval = ? WHERE approvalAndDisapprovalID = ?;");
+			insertBack.setBoolean(1, toChange.isDisapproved());
+			insertBack.setInt(2, toChange.getApprovalID());
+			logger.log("Changing insertBack statement");
+			insertBack.execute();
+			return new FlipApprovalResponse("Disapproval was flipped to " + toChange.isDisapproved() + ". ApprovalID: "
+					+ toChange.getApprovalID(), 200);
+		} catch (Exception e) {
+			logger.log(e.toString());
+			return new FlipApprovalResponse("An exception was caught ", 400);
 		}
-		toChange.setDisapproved(!toChange.isDisapproved());
-		insertBack.setString(1, "disapproval");
-		insertBack.setBoolean(2, toChange.isDisapproved());
-		insertBack.setInt(3, approvalID);
-		return new FlipApprovalResponse(
-				"Disapproval was flipped to " + toChange.isDisapproved() + ". ApprovalID: " + approvalID, 200);
 	}
 
 	// checks the current boolean value for approval or disapproval
@@ -286,18 +301,19 @@ public class ApprovalDAO {
 		try {
 			boolean status = getApprovalOrDisapprovalStatus(alternativeID, teamMemberID, isApproval);
 			boolean statusTwo = getApprovalOrDisapprovalStatus(alternativeID, teamMemberID, !isApproval);
-			
+
 			// check if approval is false and disapproval is true or
-			//		 if disapproval is false and approval is true
-			// If so, slip both -> changing approval to disapproval or disapproval to approval
-			if (status==false && statusTwo==true) {
+			// if disapproval is false and approval is true
+			// If so, slip both -> changing approval to disapproval or disapproval to
+			// approval
+			if (status == false && statusTwo == true) {
 				flipApproval(alternativeID, teamMemberID, true);
 				flipApproval(alternativeID, teamMemberID, false);
 			} else {
 				flipApproval(alternativeID, teamMemberID, isApproval);
-				
+
 			}
-			
+
 			return true;
 
 		} catch (Exception e) {
@@ -306,8 +322,14 @@ public class ApprovalDAO {
 	}
 
 	private Approval generateApprovals(ResultSet resultSet) throws Exception {
-		return new Approval(resultSet.getInt("approval/disapprovalID"), resultSet.getInt("alternativeID"),
-				resultSet.getInt("teamMemberID"), resultSet.getBoolean("approval"),
-				resultSet.getBoolean("disapproval"));
+		while (resultSet.next()) {
+			int approvalID = resultSet.getInt("approvalAndDisapprovalID");
+			int altID = resultSet.getInt("alternativeID");
+			int teamMemberID = resultSet.getInt("teamMemberID");
+			boolean approval = resultSet.getBoolean("approval");
+			boolean disapproval = resultSet.getBoolean("disapproval");
+			return new Approval(approvalID, altID, teamMemberID, approval, disapproval);
+		}
+		return null;
 	}
 }
