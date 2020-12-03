@@ -306,7 +306,7 @@ public class ApprovalDAO {
 	}
 
 	private Approval generateApprovals(ResultSet resultSet) throws Exception {
-		return new Approval(resultSet.getInt("approval/disapprovalID"), resultSet.getInt("alternativeID"),
+		return new Approval(resultSet.getInt("approvalAndDisapprovalID"), resultSet.getInt("alternativeID"),
 				resultSet.getInt("teamMemberID"), resultSet.getBoolean("approval"),
 				resultSet.getBoolean("disapproval"));
 	}
