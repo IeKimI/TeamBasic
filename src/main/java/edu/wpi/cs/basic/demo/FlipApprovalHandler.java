@@ -31,9 +31,7 @@ public class FlipApprovalHandler implements RequestHandler<FlipApprovalRequest, 
 			logger.log("in flipApprovalChoice");
 		}
 		ApprovalDAO approvalDatabase = new ApprovalDAO();
-		FlipApprovalResponse output = null;
-		output = approvalDatabase.flipApprovalOrDisapproval(logger, request.isWhichToFlip(), request.getAlternativeID(),
+		return approvalDatabase.flipApprovalOrDisapproval(logger, request.isWhichToFlip(), request.getAlternativeID(),
 				request.getTeamMemberID());
-		return output;
 	}
 }
