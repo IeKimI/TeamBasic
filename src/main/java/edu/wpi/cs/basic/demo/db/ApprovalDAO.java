@@ -188,16 +188,15 @@ public class ApprovalDAO {
 				return new FlipApprovalResponse(
 						"Nothing could be changed as the approval cannot be approved if it is already disapproved. ApprovalID: "
 								+ approvalID,
-						false, false, 400);
+						400);
 			}
 			toChange.setApproval(!toChange.isApproved());
-			insertBack.setString(1,"approval");
+			insertBack.setString(1, "approval");
 			insertBack.setBoolean(2, toChange.isApproved());
 			insertBack.setInt(3, approvalID);
 			logger.log("Changing insertBack statement");
 			return new FlipApprovalResponse(
-					"Approval was flipped to " + toChange.isApproval() + ". ApprovalID: " + approvalID, insertBack.execute(), false,
-					200);
+					"Approval was flipped to " + toChange.isApproval() + ". ApprovalID: " + approvalID, 200);
 		}
 
 		// Flip disapproval
@@ -207,15 +206,97 @@ public class ApprovalDAO {
 			return new FlipApprovalResponse(
 					"Nothing could be changed as the disapproval cannot be approved if it is already disapproved. ApprovalID: "
 							+ approvalID,
-					false, false, 400);
+					400);
 		}
 		toChange.setDisapproved(!toChange.isDisapproved());
-		insertBack.setString(1,"disapproval");
+		insertBack.setString(1, "disapproval");
 		insertBack.setBoolean(2, toChange.isDisapproved());
 		insertBack.setInt(3, approvalID);
 		return new FlipApprovalResponse(
-				"Disapproval was flipped to " + toChange.isDisapproved() + ". ApprovalID: " + approvalID, false, true,
-				200);
+				"Disapproval was flipped to " + toChange.isDisapproved() + ". ApprovalID: " + approvalID, 200);
+	}
+
+	// checks the current boolean value for approval or disapproval
+	public boolean getApprovalOrDisapprovalStatus(int alternativeID, int teamMemberID, boolean flipApproval)
+			throws Exception {
+		try {
+			boolean result;
+			PreparedStatement ps = conn
+					.prepareStatement("SELECT * FROM " + tblName + " WHERE alternativeID=? AND teamMemberID=?;");
+
+			ps.setInt(1, alternativeID);
+			ps.setInt(2, teamMemberID);
+
+			ResultSet resultSet = ps.executeQuery();
+
+			while (resultSet.next()) {
+				if (flipApproval) {
+					result = resultSet.getBoolean("approval");
+					ps.close();
+					resultSet.close();
+					return result;
+				}
+				result = resultSet.getBoolean("disapproval");
+				ps.close();
+				resultSet.close();
+				return result;
+			}
+			throw new Exception("It is not working when trying to flipApproval: " + flipApproval);
+		} catch (Exception e) {
+			throw new Exception("Failed to get the approval column boolean" + e.getMessage());
+		}
+
+	}
+
+	public boolean flipApproval(int alternativeID, int teamMemberID, boolean isApproval) throws Exception {
+		try {
+			boolean status = getApprovalOrDisapprovalStatus(alternativeID, teamMemberID, isApproval);
+
+			String column;
+			if (isApproval) {
+				column = "approval";
+
+			} else {
+				column = "disapproval";
+			}
+			// UPDATE Approvals SET approval = false WHERE alternativeID = 646 AND
+			// teamMemberID = 46;
+			PreparedStatement ps = conn.prepareStatement(
+					"UPDATE " + tblName + " SET " + column + "= ? WHERE alternativeID=? AND teamMemberID=?;");
+
+			ps.setBoolean(1, !status);
+			ps.setInt(2, alternativeID);
+			ps.setInt(3, teamMemberID);
+
+			ps.execute();
+
+			ps.close();
+
+			return true;
+
+		} catch (Exception e) {
+			throw new Exception("Failed to flip an approval: " + e.getMessage());
+		}
+	}
+
+	public boolean whatToFlip(int alternativeID, int teamMemberID, boolean isApproval) throws Exception {
+		try {
+			boolean status = getApprovalOrDisapprovalStatus(alternativeID, teamMemberID, isApproval);
+			boolean statusTwo = getApprovalOrDisapprovalStatus(alternativeID, teamMemberID, !isApproval);
+			
+			if (status==false && statusTwo==true) {
+				flipApproval(alternativeID, teamMemberID, true);
+				flipApproval(alternativeID, teamMemberID, false);
+			} else {
+				flipApproval(alternativeID, teamMemberID, isApproval);
+				
+			}
+			
+			return true;
+
+		} catch (Exception e) {
+			throw new Exception("Failed to determine what to flip: " + e.getMessage());
+		}
 	}
 
 	private Approval generateApprovals(ResultSet resultSet) throws Exception {

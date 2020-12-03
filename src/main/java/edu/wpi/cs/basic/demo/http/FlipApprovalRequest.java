@@ -8,11 +8,29 @@ import edu.wpi.cs.basic.demo.model.TeamMember;
 
 public class FlipApprovalRequest {
 //matt and Eren
-	int approvalID;
+	int alternativeID;
 	boolean whichToFlip; //true for flipping approval, false for flipping disapproval
+	int teamMemberID;
 	
+	
+	
+	public FlipApprovalRequest(int alternativeID, int teamMemberID, boolean whichToFlip) {
+		super();
+		this.alternativeID = alternativeID;
+		this.whichToFlip = whichToFlip;
+		this.teamMemberID = teamMemberID;
+	}
+
+	public int getTeamMemberID() {
+		return teamMemberID;
+	}
+
+	public void setTeamMemberID(int teamMemberID) {
+		this.teamMemberID = teamMemberID;
+	}
+
 	public FlipApprovalRequest(int alternativeID) {
-		this.approvalID = alternativeID;
+		this.alternativeID = alternativeID;
 	}
 	
 	public FlipApprovalRequest() {
@@ -28,11 +46,11 @@ public class FlipApprovalRequest {
 	}
 
 	public int getAlternativeID() {
-		return approvalID;
+		return alternativeID;
 	}
 	
 	public void setAlternativeID(int alternativeID) {
-		this.approvalID = alternativeID;
+		this.alternativeID = alternativeID;
 	}
 	
 	

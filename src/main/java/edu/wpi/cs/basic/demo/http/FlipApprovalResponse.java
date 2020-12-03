@@ -1,29 +1,18 @@
 package edu.wpi.cs.basic.demo.http;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import edu.wpi.cs.basic.demo.model.ApprovalInfo;
-import edu.wpi.cs.basic.demo.model.Choice;
-import edu.wpi.cs.basic.demo.model.TeamMember;
 
 public class FlipApprovalResponse {
 	// matt and Eren
-	final String response;
-	boolean hasBeenApproved;
-	boolean hasBeenDisapproved;
-	int httpCode;
+	public final String response;
+	public int httpCode;
 
-	public FlipApprovalResponse(String response, boolean hasBeenApproved,
-			boolean hasBeenDisapproved, int httpCode) {
+	public FlipApprovalResponse(String response, int httpCode) {
 		this.response = response;
-		this.httpCode = 200;
-		this.hasBeenApproved = hasBeenApproved;
-		this.hasBeenDisapproved = hasBeenDisapproved;
+		this.httpCode = httpCode;
 	}
 
 	public String toString() {
-		return "Response(" + response + ")";
+		return "Response(" + response + ")" + "httpCode: " + httpCode;
 	}
 
 }
