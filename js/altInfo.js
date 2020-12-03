@@ -56,6 +56,7 @@ function processAlternatives(result) {
 			/**
 			another if statement: check if the user is logged in using the url and if so, include the buttons if not, exclude them
 		 */
+	
 			output = output + "<h4> Alternative " + count + ": </h4><label>" + alternativeDesc + "</label> " + buttons + "<br>" + "<div id=\"approvals" + count + "\"></div>";
 			console.log(output);
 		}
