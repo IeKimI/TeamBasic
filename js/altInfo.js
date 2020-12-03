@@ -53,11 +53,14 @@ function processAlternatives(result) {
 		let alternativeDesc = alternative["description"];
 		console.log(alternativeDesc)
 		if (alternativeDesc != "") {
-			/**
-			another if statement: check if the user is logged in using the url and if so, include the buttons if not, exclude them
-		 */
-	
-			output = output + "<h4> Alternative " + count + ": </h4><label>" + alternativeDesc + "</label> " + buttons + "<br>" + "<div id=\"approvals" + count + "\"></div>";
+			var isLoggedIn = window.location.href ;
+			isLoggedIn = isLoggedIn.split(teamMemberID=)[1];
+			if(isLoggedIn != "0"){
+				output = output + "<h4> Alternative " + count + ": </h4><label>" + alternativeDesc + "</label> " + buttons + "<br>" + "<div id=\"approvals" + count + "\"></div>";
+			}
+			else{
+				output = output + "<h4> Alternative " + count + ": </h4><label>" + alternativeDesc + "</label> <br>" + "<div id=\"approvals" + count + "\"></div>";
+			}
 			console.log(output);
 		}
 		 
