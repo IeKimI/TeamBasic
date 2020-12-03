@@ -322,7 +322,6 @@ public class ApprovalDAO {
 	}
 
 	private Approval generateApprovals(ResultSet resultSet) throws Exception {
-<<<<<<< HEAD
 		while (resultSet.next()) {
 			int approvalID = resultSet.getInt("approvalAndDisapprovalID");
 			int altID = resultSet.getInt("alternativeID");
@@ -332,10 +331,5 @@ public class ApprovalDAO {
 			return new Approval(approvalID, altID, teamMemberID, approval, disapproval);
 		}
 		return null;
-=======
-		return new Approval(resultSet.getInt("approvalAndDisapprovalID"), resultSet.getInt("alternativeID"),
-				resultSet.getInt("teamMemberID"), resultSet.getBoolean("approval"),
-				resultSet.getBoolean("disapproval"));
->>>>>>> branch 'master' of https://github.com/IeKimI/TeamBasic
 	}
 }
