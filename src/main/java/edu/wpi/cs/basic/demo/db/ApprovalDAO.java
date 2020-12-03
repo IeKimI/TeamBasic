@@ -249,6 +249,7 @@ public class ApprovalDAO {
 
 	}
 
+	// flips the approval or disapproval
 	public boolean flipApproval(int alternativeID, int teamMemberID, boolean isApproval) throws Exception {
 		try {
 			boolean status = getApprovalOrDisapprovalStatus(alternativeID, teamMemberID, isApproval);
@@ -280,11 +281,15 @@ public class ApprovalDAO {
 		}
 	}
 
+	// checks which column (approval or disapproval?) to flip
 	public boolean whatToFlip(int alternativeID, int teamMemberID, boolean isApproval) throws Exception {
 		try {
 			boolean status = getApprovalOrDisapprovalStatus(alternativeID, teamMemberID, isApproval);
 			boolean statusTwo = getApprovalOrDisapprovalStatus(alternativeID, teamMemberID, !isApproval);
 			
+			// check if approval is false and disapproval is true or
+			//		 if disapproval is false and approval is true
+			// If so, slip both -> changing approval to disapproval or disapproval to approval
 			if (status==false && statusTwo==true) {
 				flipApproval(alternativeID, teamMemberID, true);
 				flipApproval(alternativeID, teamMemberID, false);
