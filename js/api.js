@@ -9,6 +9,7 @@ var a_choice_url=base_url + "choice";    // GET
 var login_url = base_url + "login"; // POST
 var alternative_url = base_url + "alternativeChoice" // GET
 var approvals_url = base_url + "approval";
+var approve_url = base_url + "approval";
 
 /*var delete_url = base_url + "constants";    // POST with {name} so we avoid CORS issues
 */ 

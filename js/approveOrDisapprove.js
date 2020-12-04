@@ -1,36 +1,36 @@
-function getAlternatives() {
-
+function getApprovals() {
+	/**
+	https://teambasic.s3.us-east-2.amazonaws.com/html/choice.html?choice=1395110188?teamMemberID=72 */
 	var choiceURL = window.location.href;
-	var choiceID = choiceURL.split('=')[1];
-	if (choiceID.includes("#")) {
-		choiceID.split("#")[0];
-	}
+	var choiceID = choiceURL.split('choice=')[1];
+	choiceID = choiceID.split('?')[0];
+
+	var teamMemberID = choiceURL.split('teamMemberID=')[1];
+
 
 	var data = {};
 	data["choiceID"] = choiceID;
 
-	var data = {};
-	data["choiceID"] = choiceID;
 
 	var js = JSON.stringify(data);
 
 	var xhr = new XMLHttpRequest();
-	xhr.open("GET", alternative_url + "/" + choiceID, true);
+	xhr.open("POST", approve_url + "//" + teamMemberID + true);
 	xhr.send(js);
 
 	xhr.onloadend = function() {
 		if (xhr.readyState == XMLHttpRequest.DONE) {
 			if (xhr.status == 200) {
 				console.log("XHR:" + xhr.responseText);
-				processAlternatives(xhr.responseText);
+				processApprovals(xhr.responseText);
 			} else {
-				processAlternatives("N/A");
+				processApprovals("N/A");
 			}
 		}
 	}
 }
 
-function processAlternatives(result) {
+function processApprovals(result) {
 	console.log("res:" + result);
 
 	var js = JSON.parse(result);
@@ -53,17 +53,17 @@ function processAlternatives(result) {
 		let alternativeDesc = alternative["description"];
 		console.log(alternativeDesc)
 		if (alternativeDesc != "") {
-			var isLoggedIn = window.location.href ;
+			var isLoggedIn = window.location.href;
 			isLoggedIn = isLoggedIn.split("teamMemberID=")[1];
-			if(isLoggedIn != "0"){
+			if (isLoggedIn != "0") {
 				output = output + "<h4> Alternative " + count + ": </h4><label>" + alternativeDesc + "</label> " + buttons + "<br>" + "<div id=\"approvals" + count + "\"></div>";
 			}
-			else{
+			else {
 				output = output + "<h4> Alternative " + count + ": </h4><label>" + alternativeDesc + "</label> <br>" + "<div id=\"approvals" + count + "\"></div>";
 			}
 			console.log(output);
 		}
-		 
+
 
 	}
 	alternatives.innerHTML = output;
@@ -78,6 +78,3 @@ function changeImage(realCount) {
 		image.src = "check-mark_b&w.png";
 	}
 }
-
-
-
