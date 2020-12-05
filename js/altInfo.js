@@ -51,9 +51,9 @@ function processAlternatives(result) {
 		var alternativeID = alternative["alternativeID"];
 		count = count + 1;
 		
-		approvalButtons = "<a onClick=\"changeImage(" + realCount.toString() + "," + alternativeID +")\"\n>\t<img value=" + realCount.toString() + " src=\"check-mark_b&w.png\" width=\"28\" height=\"28\" border=\"0\" alt=\"javascript button\">\n</a>";
+		approvalButtons = "<a onClick=\"changeImage("  + alternativeID +")\"\n>\t<img value=" + realCount.toString() + " src=\"check-mark_b&w.png\" width=\"28\" height=\"28\" border=\"0\" alt=\"javascript button\">\n</a>";
 		realCount = realCount + 1;
-		disapprovalButtons = "<a onClick=\"changeImageDisapproval(" + realCount.toString() + "," + alternativeID +")\"\n>\t<img value=" + realCount.toString() + " src=\"cancel.png\" width=\"28\" height=\"28\" border=\"0\" alt=\"javascript button\">\n</a>";
+		disapprovalButtons = "<a onClick=\"changeImageDisapproval("  + alternativeID +")\"\n>\t<img value=" + realCount.toString() + " src=\"cancel.png\" width=\"28\" height=\"28\" border=\"0\" alt=\"javascript button\">\n</a>";
 		realCount = realCount + 1;
 		let alternativeDesc = alternative["description"];
 		console.log(alternativeDesc)

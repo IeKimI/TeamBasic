@@ -1,5 +1,5 @@
 function approveOrDisapprove(whichToFlip, altID) {
-	
+
 	/**
 	https://teambasic.s3.us-east-2.amazonaws.com/html/choice.html?choice=1395110188?teamMemberID=72 */
 	var choiceURL = window.location.href;
@@ -35,49 +35,18 @@ function approveOrDisapprove(whichToFlip, altID) {
 	}
 }
 
-function changeImage(realCount, alternativeID) {
-	var choiceURL = window.location.href;
-	var choiceID = choiceURL.split('choice=')[1];
-	choiceID = choiceID.split('?')[0];
+function changeImage(alternativeID) {
 
-	var teamMemberID = choiceURL.split('teamMemberID=')[1];
-	
-	var image = document.images[realCount];
-	
-	if(teamMemberID != 0){
-		
-	}
-	if (image.src.match("check-mark_b&w.png")) {
-		image.src = "check-mark.png";
-		approveOrDisapprove(true, alternativeID)
-	}
-	else {
-		image.src = "check-mark_b&w.png";
-		approveOrDisapprove(true, alternativeID)
+	approveOrDisapprove(true, alternativeID);
+	getApprovals();
 
-	}
 }
 
-function changeImageDisapproval(realCount, alternativeID) {
-	var choiceURL = window.location.href;
-	var choiceID = choiceURL.split('choice=')[1];
-	choiceID = choiceID.split('?')[0];
+function changeImageDisapproval(alternativeID) {
 
-	var teamMemberID = choiceURL.split('teamMemberID=')[1];
-	
-	var image = document.images[realCount];
-	
-	if(teamMemberID != 0){
-		
-	}
-	if (image.src.match("cancel.png")) {
-		image.src = "cancel_color.png";
-		approveOrDisapprove(false, alternativeID)
-	}
 
-	else {
-		image.src = "cancel.png";
-		approveOrDisapprove(false, alternativeID)
+	approveOrDisapprove(false, alternativeID);
+	getApprovals();
 
-	}
+
 }

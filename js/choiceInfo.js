@@ -42,11 +42,13 @@ function processChoiceResponse(result) {
 	js = js["choice"];
 	var description = js["description"];
 	var maxnum = js["maxNumOfTeamMembers"];
-
+	var url = window.location.href;
+	url = url.split('teamMemberID=')[0];
+	url = url + "teamMemberID=0";
 
 	var output = "";
 
-	output = output + "\t<div>\n\t<label id = \"desc\">Description: " + description + "</label><br>\n\t<label id = \"maxNum\">Maximum Number of Participants: " + maxnum + "</label><br>"; 
+	output = output + "\t<div>\n\t<label id = \"desc\">Description: " + description + "</label><br>\n\t<label id = \"maxNum\">Maximum Number of Participants: " + maxnum + "</label><br>" + "<label id = \"url\"> Share this URL! " + url + "</label><br>" ; 
 
 	choiceInfo.innerHTML = output;
 }

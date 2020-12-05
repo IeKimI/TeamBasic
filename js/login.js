@@ -74,18 +74,22 @@ function processLogIn(result) {
 	currentURL = currentURL.split("teamMemberID")[0];
 	var realID = window.location.href.split("teamMemberID=")[1];
 
-	if (username === "undefined") {
+	console.log(username);
+	if (username === undefined) {
 		document.getElementById("message").innerText = "Exceeded the maximum number of participants!";
 
 	}
 
-	document.getElementById("message").innerText = "Welcome!" + username;
-	document.getElementById("login").innerHTML = "<label>Username</label><br> <input name=\"username\" value=\"\"readonly><br>\n\t\t\t<label>Password</label><br> <input type=\"password\" name=\"password\" value=\"\"readonly><br>\n\t\t\t>";
+	else {
+		document.getElementById("message").innerText = "Welcome!" + username;
+		document.getElementById("login").innerHTML = "<label>Username</label><br> <input name=\"username\" value=\"\"readonly><br>\n\t\t\t<label>Password</label><br> <input type=\"password\" name=\"password\" value=\"\"readonly><br>\n\t\t\t>";
 
-	window.history.replaceState({}, 'teamMemberID=0', currentURL + 'teamMemberID=' + teamMemberID)
+		window.history.replaceState({}, 'teamMemberID=0', currentURL + 'teamMemberID=' + teamMemberID)
 
-	getAlternatives();
-	getApprovals();
+		getAlternatives();
+		getApprovals();
+	}
+
 
 
 }
