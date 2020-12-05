@@ -36,7 +36,17 @@ function approveOrDisapprove(whichToFlip, altID) {
 }
 
 function changeImage(realCount, alternativeID) {
+	var choiceURL = window.location.href;
+	var choiceID = choiceURL.split('choice=')[1];
+	choiceID = choiceID.split('?')[0];
+
+	var teamMemberID = choiceURL.split('teamMemberID=')[1];
+	
 	var image = document.images[realCount];
+	
+	if(teamMemberID != 0){
+		
+	}
 	if (image.src.match("check-mark_b&w.png")) {
 		image.src = "check-mark.png";
 		approveOrDisapprove(true, alternativeID)
