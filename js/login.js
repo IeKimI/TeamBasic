@@ -83,5 +83,6 @@ function processLogIn(result) {
 	
 	getAlternatives();
 	getApprovals();
+	
 
 }
