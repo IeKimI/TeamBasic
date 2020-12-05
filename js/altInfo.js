@@ -50,21 +50,21 @@ function processAlternatives(result) {
 		var alternativeID = alternative["alternativeID"];
 		count = count + 1;
 		realCount = count - 1;
-		buttons = "<a onClick=\"changeImage(" + realCount.toString() + "," + alternativeID + ")\"\n>\t<img value=" + realCount.toString() + " src=\"check-mark_b&w.png\" width=\"28\" height=\"28\" border=\"0\" alt=\"javascript button\">\n</a>"
+		buttons = "<a onClick=\"changeImage(" + realCount.toString() + "," + alternativeID +")\"\n>\t<img value=" + realCount.toString() + " src=\"check-mark_b&w.png\" width=\"28\" height=\"28\" border=\"0\" alt=\"javascript button\">\n</a>"
 		let alternativeDesc = alternative["description"];
 		console.log(alternativeDesc)
 		if (alternativeDesc != "") {
-			var isLoggedIn = window.location.href;
+			var isLoggedIn = window.location.href ;
 			isLoggedIn = isLoggedIn.split("teamMemberID=")[1];
-			if (isLoggedIn != "0") {
+			if(isLoggedIn != "0"){
 				output = output + "<h4> Alternative " + count + ": </h4><label>" + alternativeDesc + "</label> " + buttons + "<br>" + "<div id=\"approvals" + count + "\"></div>";
 			}
-			else {
+			else{
 				output = output + "<h4> Alternative " + count + ": </h4><label>" + alternativeDesc + "</label> <br>" + "<div id=\"approvals" + count + "\"></div>";
 			}
 			console.log(output);
 		}
-
+		 
 
 	}
 	alternatives.innerHTML = output;

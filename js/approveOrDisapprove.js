@@ -11,12 +11,15 @@ function approveOrDisapprove(whichToFlip, altID) {
 
 	var data = {};
 	data["whichToFlip"] = whichToFlip;
+	console.log(whichToFlip)
 	data["alternativeID"] = altID;
-	
+	console.log(altID)
+
 	var js = JSON.stringify(data);
 
 	var xhr = new XMLHttpRequest();
-	xhr.open("POST", approve_url + "//" + teamMemberID, true);
+	xhr.open("POST", approve_url + "/" + choiceID + "/" + teamMemberID, true);
+	xhr.setRequestHeader('Content-Type', 'application/json');
 	xhr.send(js);
 
 	xhr.onloadend = function() {
@@ -24,6 +27,7 @@ function approveOrDisapprove(whichToFlip, altID) {
 			if (xhr.status == 200) {
 				console.log("XHR:" + xhr.responseText);
 				processApprovals(xhr.responseText);
+				getApprovals();
 			} else {
 				processApprovals("N/A");
 			}
