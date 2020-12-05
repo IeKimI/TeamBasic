@@ -74,6 +74,7 @@ function changeImageDisapproval(realCount, alternativeID) {
 		image.src = "cancel_color.png";
 		approveOrDisapprove(false, alternativeID)
 	}
+
 	else {
 		image.src = "cancel.png";
 		approveOrDisapprove(false, alternativeID)
