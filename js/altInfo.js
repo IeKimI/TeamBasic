@@ -43,21 +43,25 @@ function processAlternatives(result) {
 	var output = "";
 	var count = 0;
 	var realCount = 0;
-	var buttons = "";
+	var approvalButtons = "";
+	var disapprovalButtons ="";
 
 	for (var i in js) {
 		var alternative = js[i];
 		var alternativeID = alternative["alternativeID"];
 		count = count + 1;
 		realCount = count - 1;
-		buttons = "<a onClick=\"changeImage(" + realCount.toString() + "," + alternativeID +")\"\n>\t<img value=" + realCount.toString() + " src=\"check-mark_b&w.png\" width=\"28\" height=\"28\" border=\"0\" alt=\"javascript button\">\n</a>"
+		approvalButtons = "<a onClick=\"changeImage(" + realCount.toString() + "," + alternativeID +")\"\n>\t<img value=" + realCount.toString() + " src=\"check-mark_b&w.png\" width=\"28\" height=\"28\" border=\"0\" alt=\"javascript button\">\n</a>";
+		
+		disapprovalButtons = "<a onClick=\"changeImageDisapproval(" + realCount.toString() + "," + alternativeID +")\"\n>\t<img value=" + realCount.toString() + " src=\"cancel.png\" width=\"28\" height=\"28\" border=\"0\" alt=\"javascript button\">\n</a>";
+		
 		let alternativeDesc = alternative["description"];
 		console.log(alternativeDesc)
 		if (alternativeDesc != "") {
 			var isLoggedIn = window.location.href ;
 			isLoggedIn = isLoggedIn.split("teamMemberID=")[1];
 			if(isLoggedIn != "0"){
-				output = output + "<h4> Alternative " + count + ": </h4><label>" + alternativeDesc + "</label> " + buttons + "<br>" + "<div id=\"approvals" + count + "\"></div>";
+				output = output + "<h4> Alternative " + count + ": </h4><label>" + alternativeDesc + "</label> " + approvalButtons + disapprovalButtons + "<br>" + "<div id=\"approvals" + count + "\"></div>";
 			}
 			else{
 				output = output + "<h4> Alternative " + count + ": </h4><label>" + alternativeDesc + "</label> <br>" + "<div id=\"approvals" + count + "\"></div>";
@@ -77,6 +81,17 @@ function changeImage(realCount) {
 	}
 	else {
 		image.src = "check-mark_b&w.png";
+	}
+}
+
+function changeImageDisapproval(realCount) {
+	var image = document.images[realCount];
+	console.log(image.src);
+	if (image.src.match("cancel.png")) {
+		image.src = "cancel_color.png";
+	}
+	else {
+		image.src = "cancel.png";
 	}
 }
 

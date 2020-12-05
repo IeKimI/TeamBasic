@@ -59,7 +59,9 @@ function processApprovals(result) {
 
 		var eachApproval = js[i];
 		var num = eachApproval["numOfApprovals"];
+		var numDis = eachApproval["numOfDisapprovals"];
 		var nameList = eachApproval["listOfTeamMembers"];
+		var nameListDis = eachApproval["listOfTeamMebersDisapproval"];
 		var altDesc = eachApproval["altDescription"];
 		count = count + 1;
 		var approval = document.getElementById('approvals' + count);
@@ -67,7 +69,7 @@ function processApprovals(result) {
 		if (altDesc != "") {
 			console.log(num);
 			output = "";
-			output = output + "<label id = \"num"+ count +"\">NumOfApprovals: " + num + "</label><br>\n\t<label id = \"nameList"+ count +"\">List of members: " + nameList + "</label><br>";
+			output = output + "<label id = \"num"+ count +"\">NumOfApprovals: " + num + "</label><br>\n\t<label id = \"nameList"+ count +"\">List of members: " + nameList + "</label><br><br><label id = \"numDis"+ count +"\">NumOfDisapprovals: " + numDis + "</label><br>\n\t<label id = \"nameDisList"+ count +"\">List of members: " + nameListDis + "</label><br>";
 			approval.innerHTML = output;
 
 		}

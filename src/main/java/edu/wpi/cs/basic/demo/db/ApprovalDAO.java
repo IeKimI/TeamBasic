@@ -77,7 +77,9 @@ public class ApprovalDAO {
 		try {
 			logger.log("In getApprovalsAltID");
 			int numOfApprovals = 0;
+			int numOfDisapprovals = 0;
 			List<String> listOfTeamMembers = new ArrayList<String>();
+			List<String> listOfTeamMemberDisapproval = new ArrayList<String>();
 			TeamMemberDAO teamMemberDAO = new TeamMemberDAO();
 			AlternativeChoiceDAO altDAO = new AlternativeChoiceDAO();
 
@@ -89,9 +91,17 @@ public class ApprovalDAO {
 
 			while (resultSet.next()) {
 				Approval approval = generateApprovals(resultSet);
+				System.out.println(approval);
+				System.out.println(approval.isApproval());
+				System.out.println(approval.isDisapproved());
+
 				if (approval.isApproval()) {
 					numOfApprovals++;
 					listOfTeamMembers.add(teamMemberDAO.getTeamMemberByID(approval.getTeamMemberID()));
+				}
+				if (approval.isDisapproved()) {
+					numOfDisapprovals++;
+					listOfTeamMemberDisapproval.add(teamMemberDAO.getTeamMemberByID(approval.getTeamMemberID()));
 				}
 
 				// check for the vote type?
@@ -101,7 +111,8 @@ public class ApprovalDAO {
 
 			String altDescription = altDAO.getAlternativeChoiceByID(alternativeID);
 
-			return new ApprovalInfo(alternativeID, altDescription, numOfApprovals, listOfTeamMembers);
+			return new ApprovalInfo(alternativeID, altDescription, numOfApprovals, numOfDisapprovals, listOfTeamMembers,
+					listOfTeamMemberDisapproval);
 		} catch (Exception e) {
 			throw new Exception("Failed in getting approvals for the alternative: " + alternativeID + e.getMessage());
 		}
@@ -119,6 +130,18 @@ public class ApprovalDAO {
 
 		return approvals;
 	}
+//	public List<ApprovalInfo> getDisapprovalsChoiceID(LambdaLogger logger, String choiceID) throws Exception {
+//		List<ApprovalInfo> disapprovals = new ArrayList<ApprovalInfo>();
+//		AlternativeChoiceDAO altDAO = new AlternativeChoiceDAO();
+//
+//		List<AlternativeChoice> alternatives = altDAO.getAllAlternatives(choiceID);
+//		System.out.println(alternatives);
+//		for (AlternativeChoice alt : alternatives) {
+//			disapprovals.add(getApprovalsAltID(logger, alt.getAlternativeID()));
+//		}
+//
+//		return disapprovals;
+//	}
 
 	public boolean initializeApproval(Approval approval) throws Exception {
 		try {
@@ -182,7 +205,7 @@ public class ApprovalDAO {
 			ps.setInt(2, teamMemberID);
 			logger.log("Done creating statements");
 			ResultSet resultSet = ps.executeQuery();
-			Approval toChange = generateApprovals(resultSet);
+			Approval toChange = generateApprovalsFlip(resultSet);
 
 			if (whichIsFlipped) {
 				logger.log("Flipping Approval");
@@ -318,18 +341,28 @@ public class ApprovalDAO {
 
 		} catch (Exception e) {
 			throw new Exception("Failed to determine what to flip: " + e.getMessage());
-		} 
+		}
 	}
 
 	private Approval generateApprovals(ResultSet resultSet) throws Exception {
-		while (resultSet.next()) {
 			int approvalID = resultSet.getInt("approvalAndDisapprovalID");
 			int altID = resultSet.getInt("alternativeID");
 			int teamMemberID = resultSet.getInt("teamMemberID");
 			boolean approval = resultSet.getBoolean("approval");
 			boolean disapproval = resultSet.getBoolean("disapproval");
 			return new Approval(approvalID, altID, teamMemberID, approval, disapproval);
+	}
+	private Approval generateApprovalsFlip(ResultSet resultSet) throws Exception {
+		while(resultSet.next()) {
+		int approvalID = resultSet.getInt("approvalAndDisapprovalID");
+		int altID = resultSet.getInt("alternativeID");
+		int teamMemberID = resultSet.getInt("teamMemberID");
+		boolean approval = resultSet.getBoolean("approval");
+		boolean disapproval = resultSet.getBoolean("disapproval");
+		return new Approval(approvalID, altID, teamMemberID, approval, disapproval);
+
 		}
 		return null;
-	}
+}
+	
 }

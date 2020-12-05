@@ -57,3 +57,26 @@ function changeImage(realCount, alternativeID) {
 
 	}
 }
+
+function changeImageDisapproval(realCount, alternativeID) {
+	var choiceURL = window.location.href;
+	var choiceID = choiceURL.split('choice=')[1];
+	choiceID = choiceID.split('?')[0];
+
+	var teamMemberID = choiceURL.split('teamMemberID=')[1];
+	
+	var image = document.images[realCount];
+	
+	if(teamMemberID != 0){
+		
+	}
+	if (image.src.match("cancel.png")) {
+		image.src = "cancel_color.png";
+		approveOrDisapprove(false, alternativeID)
+	}
+	else {
+		image.src = "cancel.png";
+		approveOrDisapprove(false, alternativeID)
+
+	}
+}

@@ -6,8 +6,22 @@ public class ApprovalInfo {
 	int alternativeID;
 	String altDescription;
 	int numOfApprovals;
+	int numOfDisapprovals;
 	List<String> listOfTeamMembers;
+	List<String> listOfTeamMebersDisapproval;
 	
+	public int getNumOfDisapprovals() {
+		return numOfDisapprovals;
+	}
+	public void setNumOfDisapprovals(int numOfDisapprovals) {
+		this.numOfDisapprovals = numOfDisapprovals;
+	}
+	public List<String> getListOfTeamMebersDisapproval() {
+		return listOfTeamMebersDisapproval;
+	}
+	public void setListOfTeamMebersDisapproval(List<String> listOfTeamMebersDisapproval) {
+		this.listOfTeamMebersDisapproval = listOfTeamMebersDisapproval;
+	}
 	public int getAlternativeID() {
 		return alternativeID;
 	}
@@ -40,6 +54,16 @@ public class ApprovalInfo {
 		this.listOfTeamMembers = listOfTeamMembers;
 	}
 	
+	public ApprovalInfo(int alternativeID, String altDescription, int numOfApprovals, int numOfDisapprovals,
+			List<String> listOfTeamMembers, List<String> listOfTeamMebersDisapproval) {
+		super();
+		this.alternativeID = alternativeID;
+		this.altDescription = altDescription;
+		this.numOfApprovals = numOfApprovals;
+		this.numOfDisapprovals = numOfDisapprovals;
+		this.listOfTeamMembers = listOfTeamMembers;
+		this.listOfTeamMebersDisapproval = listOfTeamMebersDisapproval;
+	}
 	public ApprovalInfo() {
 		
 	}

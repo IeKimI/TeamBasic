@@ -8,12 +8,12 @@ import org.junit.Test;
 import edu.wpi.cs.basic.demo.http.GetAllApprovalsResponse;
 import edu.wpi.cs.basic.demo.model.ApprovalInfo;
 
-public class ListAllApprovalsHandler extends LambdaTest {
+public class ListAllApprovalsHandlerTest extends LambdaTest {
 	@Test
 	public void testGetList() {
 		GetApprovalsHandler handler = new GetApprovalsHandler();
 
-		GetAllApprovalsResponse resp = handler.handleRequest("2135024186", createContext("list"));
+		GetAllApprovalsResponse resp = handler.handleRequest("906905823", createContext("list"));
 
 		boolean hasE = false;
 		for (ApprovalInfo approvInfo : resp.list) {

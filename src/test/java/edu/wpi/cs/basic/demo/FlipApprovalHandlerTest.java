@@ -20,8 +20,8 @@ public class FlipApprovalHandlerTest extends LambdaTest {
 
 		FlipApprovalHandler handler = new FlipApprovalHandler();
 
-		FlipApprovalRequest far = new FlipApprovalRequest(736, 65, true);
-		FlipApprovalRequest far2 = new FlipApprovalRequest(736, 65, false);
+		FlipApprovalRequest far = new FlipApprovalRequest(830, 95, true);
+		FlipApprovalRequest far2 = new FlipApprovalRequest(830, 95, false);
 
 		FlipApprovalResponse f_resp = handler.handleRequest(far, createContext("flip"));
 
