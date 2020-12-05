@@ -71,7 +71,8 @@ function processLogIn(result) {
 		var teamMemberID = js.split(":")[2];
 		var currentURL = window.location.href;
 		currentURL = currentURL.split("html/")[1];
-		currentURL = currentURL.split("teamMemberID")[0]
+		currentURL = currentURL.split("teamMemberID")[0];
+		var realID = window.location.href.split("teamMemberID=")[1];
 		
 		
 	
