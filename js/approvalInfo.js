@@ -55,6 +55,7 @@ function processApprovals(result) {
 	js = js["list"];
 	var output = "";
 	var count = 0;
+	var realCount = 0;
 	for (var i in js) {
 
 		var eachApproval = js[i];
@@ -65,6 +66,7 @@ function processApprovals(result) {
 		var altDesc = eachApproval["altDescription"];
 		count = count + 1;
 		var approval = document.getElementById('approvals' + count);
+		
 
 		if (altDesc != "") {
 			console.log(num);
@@ -73,7 +75,42 @@ function processApprovals(result) {
 			approval.innerHTML = output;
 
 		}
-
-
+		
+		if(nameList.includes(document.getElementById("message").innerText.split("! ")[1])) {
+			setImageToColoredApproval(realCount);
+		} else {
+			setImageToBWApproval(realCount);
+		}
+		realCount = realCount + 1;
+		if (nameListDis.includes(document.getElementById("message").innerText.split("! ")[1])) {
+			setImageColoredDisapproval(realCount);
+		}
+		else {
+			setImageBWDisapproval(realCount);
+		}
+		realCount = realCount + 1;
 	}
+}
+
+function setImageToColoredApproval(realCount) {
+	var image = document.images[realCount];
+		image.src = "check-mark.png";
+	
+}
+
+function setImageToBWApproval(realCount) {
+	var image = document.images[realCount];
+		image.src = "check-mark_b&w.png";
+	
+}
+
+function setImageColoredDisapproval(realCount) {
+	var image = document.images[realCount];
+		image.src = "cancel_color.png";
+
+}
+function setImageBWDisapproval(realCount) {
+	var image = document.images[realCount];
+		image.src = "cancel.png";
+
 }

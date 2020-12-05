@@ -73,7 +73,7 @@ function processAlternatives(result) {
 	}
 	alternatives.innerHTML = output;
 }
-
+/*
 function changeImage(realCount) {
 	var image = document.images[realCount];
 	if (image.src.match("check-mark_b&w.png")) {
@@ -94,6 +94,6 @@ function changeImageDisapproval(realCount) {
 		image.src = "cancel.png";
 	}
 }
-
+*/
 
 

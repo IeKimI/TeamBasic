@@ -196,7 +196,7 @@ public class ApprovalDAO {
 	}
 
 	public FlipApprovalResponse flipApprovalOrDisapproval(LambdaLogger logger, boolean whichIsFlipped,
-			int alternativeID, int teamMemberID) {
+			int alternativeID, int teamMemberID, List<ApprovalInfo> list) {
 		PreparedStatement ps;
 		try {
 			ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE alternativeID=? AND teamMemberID=?;");
@@ -227,7 +227,7 @@ public class ApprovalDAO {
 				logger.log("Changing insertBack statement");
 				insertBack.execute();
 				return new FlipApprovalResponse("Approval was flipped to " + toChange.isApproval() + ". ApprovalID: "
-						+ toChange.getApprovalID(), 200);
+						+ toChange.getApprovalID(), 200, list);
 			}
 
 			// Flip disapproval
@@ -248,7 +248,7 @@ public class ApprovalDAO {
 			logger.log("Changing insertBack statement");
 			insertBack.execute();
 			return new FlipApprovalResponse("Disapproval was flipped to " + toChange.isDisapproved() + ". ApprovalID: "
-					+ toChange.getApprovalID(), 200);
+					+ toChange.getApprovalID(), 200, list);
 		} catch (Exception e) {
 			logger.log(e.toString());
 			return new FlipApprovalResponse("An exception was caught ", 400);

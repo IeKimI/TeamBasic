@@ -19,7 +19,7 @@ function handleLoginClick(e) {
 
 	var js = JSON.stringify(data);
 	console.log("JS:" + js);
-	
+
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", login_url, true);
 
@@ -63,26 +63,29 @@ function processLogIn(result) {
 	var output = "";*/
 
 	/*refreshChoiceList();*/
-	
+
 	var js = JSON.parse(result);
 	js = js["response"];
-		var username = js.split(':')[1];
-		
-		var teamMemberID = js.split(":")[2];
-		var currentURL = window.location.href;
-		currentURL = currentURL.split("html/")[1];
-		currentURL = currentURL.split("teamMemberID")[0];
-		var realID = window.location.href.split("teamMemberID=")[1];
-		
-		
-	
+	var username = js.split(':')[1];
+
+	var teamMemberID = js.split(":")[2];
+	var currentURL = window.location.href;
+	currentURL = currentURL.split("html/")[1];
+	currentURL = currentURL.split("teamMemberID")[0];
+	var realID = window.location.href.split("teamMemberID=")[1];
+
+	if (username === "undefined") {
+		document.getElementById("message").innerText = "Exceeded the maximum number of participants!";
+
+	}
+
 	document.getElementById("message").innerText = "Welcome!" + username;
-	document.getElementById("login").innerHTML ="<label>Username</label><br> <input name=\"username\" value=\"\"readonly><br>\n\t\t\t<label>Password</label><br> <input type=\"password\" name=\"password\" value=\"\"readonly><br>\n\t\t\t>";
-	
-	window.history.replaceState({}, 'teamMemberID=0', currentURL+'teamMemberID=' + teamMemberID)
-	
+	document.getElementById("login").innerHTML = "<label>Username</label><br> <input name=\"username\" value=\"\"readonly><br>\n\t\t\t<label>Password</label><br> <input type=\"password\" name=\"password\" value=\"\"readonly><br>\n\t\t\t>";
+
+	window.history.replaceState({}, 'teamMemberID=0', currentURL + 'teamMemberID=' + teamMemberID)
+
 	getAlternatives();
 	getApprovals();
-	
+
 
 }

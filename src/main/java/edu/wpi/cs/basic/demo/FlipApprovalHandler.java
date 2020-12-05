@@ -15,6 +15,7 @@ import edu.wpi.cs.basic.demo.http.FlipApprovalRequest;
 import edu.wpi.cs.basic.demo.http.FlipApprovalResponse;
 import edu.wpi.cs.basic.demo.http.GetAlternativesResponse;
 import edu.wpi.cs.basic.demo.model.AlternativeChoice;
+import edu.wpi.cs.basic.demo.model.ApprovalInfo;
 import edu.wpi.cs.basic.demo.model.Choice;
 
 public class FlipApprovalHandler implements RequestHandler<FlipApprovalRequest, FlipApprovalResponse> {
@@ -30,8 +31,16 @@ public class FlipApprovalHandler implements RequestHandler<FlipApprovalRequest, 
 		if (logger != null) {
 			logger.log("in flipApprovalChoice");
 		}
-		ApprovalDAO approvalDatabase = new ApprovalDAO();
-		return approvalDatabase.flipApprovalOrDisapproval(logger, request.isWhichToFlip(), request.getAlternativeID(),
-				request.getTeamMemberID());
+		ApprovalDAO approvalDatabase = new ApprovalDAO(); 
+		try {
+			List<ApprovalInfo> list = approvalDatabase.getApprovalsChoiceID(logger, request.getChoiceID());
+			return approvalDatabase.flipApprovalOrDisapproval(logger, request.isWhichToFlip(), request.getAlternativeID(),
+					request.getTeamMemberID(), list);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return new FlipApprovalResponse("Failed", 400);
+		
 	}
 }
