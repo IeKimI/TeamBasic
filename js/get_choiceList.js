@@ -42,7 +42,7 @@ function processListResponse(result) {
 		var choiceID = choiceJson["uniqueID"];
 		var dateOfCreation = choiceJson["dateOfCreation"];
 		var isCompleted = choiceJson["completed"];
-		output = output + "<div id=\"choiceReport" + choiceID + "\"><b>" + "Choice ID: " + choiceID+ "<br>"+ "Date of creation: " + dateOfCreation +  "<br>" + "isCompleted: " + isCompleted+ "<br><br>"+"<br></div>";
+		output = output + "<div style=\"font-family:verdana\" id=\"choiceReport" + choiceID + "\"><b>" + "Choice ID: " + choiceID+ "<br>"+ "Date of creation: " + dateOfCreation +  "<br>" + "isCompleted: " + isCompleted+ "<br><br>"+"<br></div>";
 
 		/*			output = output + "<div id=\"choiceReport" + choiceID + "\"><b>" + dateOfCreation + ":</b> = " + isCompleted + "(<a href='javaScript:requestDelete(\"" + cname + "\")'><img src='deleteIcon.png'></img></a>) <br></div>";
 		*/

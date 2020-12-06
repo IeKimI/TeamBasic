@@ -13,7 +13,7 @@ function refreshChoiceInfo() {
 	var js = JSON.stringify(data);
 	console.log(js);
 	
-	choiceID_display.innerHTML = "ChoiceID: " + choiceID;
+	choiceID_display.innerHTML = "<label style=\"font-family:verdana\" id = \"choiceID\">ChoiceID: " + choiceID + "</label><br>";
 	var xhr = new XMLHttpRequest();
 	
 	xhr.open("GET", getChoice_url + "/" + choiceID, true);
@@ -48,7 +48,7 @@ function processChoiceResponse(result) {
 
 	var output = "";
 
-	output = output + "\t<div>\n\t<label id = \"desc\">Description: " + description + "</label><br>\n\t<label id = \"maxNum\">Maximum Number of Participants: " + maxnum + "</label><br>" + "<label id = \"url\"> Share this URL! " + url + "</label><br>" ; 
+	output = output + "\t<div>\n\t<label style=\"font-family:verdana\" id = \"desc\">Description: " + description + "</label><br>\n\t<label style=\"font-family:verdana\" id = \"maxNum\">Maximum Number of Participants: " + maxnum + "</label><br>" + "<label style=\"font-family:verdana\" id = \"url\"> Share this URL! " + url + "</label><br>" ; 
 
 	choiceInfo.innerHTML = output;
 }

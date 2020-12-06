@@ -18,15 +18,59 @@
 		getName();
 	}
 </script>
+<style>
+input[type=text] {
+  width: 50%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: none;
+  background-color: #FFF6E1;
+  color: black;
+}
+input[type=textNotAllowed] {
+  width: 50%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: none;
+  background-color: #D3D3D3;
+  color: black;
+}
+.button {
+  border: none;
+  color: white;
+  width: 200px;
+  height: 50px;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+.buttonBlue {
+  background-color: white; 
+  color: black; 
+  border: 2px solid black;
+}
+
+.buttonBlue:hover {
+  background-color: #152238;
+  color: white;
+}
+</style>
 </head>
 <body onload="initialize()">
 
-	<h1 id="message">Register to participate</h1>
+	<h1 style="font-family:verdana" id="message">Register to participate</h1>
 	<div>
 		<form id="login" name="loginForm" method="post">
-			<label>Username</label><br> <input name="username" value=""><br>
-			<label>Password</label><br> <input name="password" value=""><br>
-			<input type="button" id="loginButton" value="Login"
+			<label style="font-family:verdana">Username</label><br> <input type="text" style="font-family:verdana" name="username" value=""><br>
+			<label style="font-family:verdana">Password</label><br> <input type="text" style="font-family:verdana" name="password" value=""><br>
+			<input type="button" button class = "button buttonBlue" id="loginButton" value="Login"
 				onClick="JavaScript:handleLoginClick(this)">
 		</form>
 	</div>
@@ -35,7 +79,7 @@
 	<div id="choiceInfo"></div>
 
 	<div id="alternatives">
-		<
+		
 		<!-- div id="emojis">
 			<a href= "#" onClick="changeImage()"><img name=
 				"jsbutton" src= "wink.png" width= "28" height= "28" border=

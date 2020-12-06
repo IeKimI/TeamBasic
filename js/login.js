@@ -82,7 +82,7 @@ function processLogIn(result) {
 
 	else {
 		document.getElementById("message").innerText = "Welcome!" + username;
-		document.getElementById("login").innerHTML = "<label>Username</label><br> <input name=\"username\" value=\"\"readonly><br>\n\t\t\t<label>Password</label><br> <input type=\"password\" name=\"password\" value=\"\"readonly><br>\n\t\t\t>";
+		document.getElementById("login").innerHTML = "<label style=\"font-family:verdana\">Username</label><br> <input type=\"textNotAllowed\" style=\"font-family:verdana\" name=\"username\" value=\"\" readonly><br>\n\t\t\t<label style=\"font-family:verdana\">Password</label><br> <input type=\"textNotAllowed\" style=\"font-family:verdana\" name=\"password\" value=\"\" readonly><br>";
 
 		window.history.replaceState({}, 'teamMemberID=0', currentURL + 'teamMemberID=' + teamMemberID)
 

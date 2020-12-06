@@ -7,12 +7,47 @@
 <!-- <script type='text/javascript' src='../js/delete.js'></script>
  -->
 
+<style>
+input[type=text] {
+  width: 50%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: none;
+  background-color: #FFF6E1;
+  color: black;
+}
+.button {
+  border: none;
+  color: white;
+  width: 200px;
+  height: 50px;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+.buttonBlue {
+  background-color: white; 
+  color: black; 
+  border: 2px solid black;
+}
+
+.buttonBlue:hover {
+  background-color: #152238;
+  color: white;
+}
+</style>
 
 </head>
 <body>
 
 
-<h1>Choices</h1>
+<h1 style="font-family:verdana">Create a Choice!</h1>
 
 
 <div >
@@ -21,20 +56,20 @@
 <!--    <input name="choiceID" value="uniqueID" />
 	
  -->   
- <label for="other">Description</label>
- <input name="description" value=""/><br>
- <label for="other">Maximum Number of Team Members</label>
-   <input name="maxNumOfMembers" value="" /><br> 
-   <label for="other">Alternatives (2-5)</label> <br>
-   <input name="alternative1" value=""/><br>
-   <input name="alternative2" value=""/><br>
-   <input name="alternative3" value=""/><br>
-   <input name="alternative4" value=""/><br>
-   <input name="alternative5" value=""/>
-   <input type="hidden" id="hidden" value=""/>
+ <label style="font-family:verdana" for="other">Description: </label>
+ <input type="text" style="font-family:verdana" name="description" value=""/><br>
+ <label style="font-family:verdana" for="other">Maximum Number of Team Members: </label>
+   <input type="text" style="font-family:verdana" name="maxNumOfMembers" value="" /><br> 
+   <label style="font-family:verdana" for="other">Alternatives (2-5): </label> <br>
+   <input type="text" style="font-family:verdana" name="alternative1" value=""/><br>
+   <input type="text" style="font-family:verdana" name="alternative2" value=""/><br>
+   <input type="text" style="font-family:verdana" name="alternative3" value=""/><br>
+   <input type="text" style="font-family:verdana" name="alternative4" value=""/><br>
+   <input type="text" style="font-family:verdana" name="alternative5" value=""/><br>
+   <input type="text" style="font-family:verdana" type="hidden" id="hidden" value=""/><br>
 
   
-   <input type="button" id="createButton" value="Create Choice" onClick="JavaScript:handleCreateClick(this)">
+   <input type="button" button class = "button buttonBlue" id="createButton" value="Create Choice" onClick="JavaScript:handleCreateClick(this)">
 </form>
 </div>
 <!--<div id="choiceList"></div>  -->

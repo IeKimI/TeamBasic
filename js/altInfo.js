@@ -51,7 +51,7 @@ function processAlternatives(result) {
 		var alternativeID = alternative["alternativeID"];
 		count = count + 1;
 		
-		approvalButtons = "<a onClick=\"changeImage("  + alternativeID +")\"\n>\t<img value=" + realCount.toString() + " src=\"check-mark_b&w.png\" width=\"28\" height=\"28\" border=\"0\" alt=\"javascript button\">\n</a>";
+		approvalButtons = "<br><br><a onClick=\"changeImage("  + alternativeID +")\"\n>\t<img value=" + realCount.toString() + " src=\"check-mark_b&w.png\" width=\"28\" height=\"28\" border=\"0\" alt=\"javascript button\">\n</a>";
 		realCount = realCount + 1;
 		disapprovalButtons = "<a onClick=\"changeImageDisapproval("  + alternativeID +")\"\n>\t<img value=" + realCount.toString() + " src=\"cancel.png\" width=\"28\" height=\"28\" border=\"0\" alt=\"javascript button\">\n</a>";
 		realCount = realCount + 1;
@@ -61,10 +61,10 @@ function processAlternatives(result) {
 			var isLoggedIn = window.location.href ;
 			isLoggedIn = isLoggedIn.split("teamMemberID=")[1];
 			if(isLoggedIn != "0"){
-				output = output + "<h4> Alternative " + count + ": </h4><label>" + alternativeDesc + "</label> " + approvalButtons + disapprovalButtons + "<br>" + "<div id=\"approvals" + count + "\"></div>";
+				output = output + "<h4 style=\"font-family:verdana\"> Alternative " + count + ": </h4><label>" + alternativeDesc + "</label> " + approvalButtons + disapprovalButtons  + "<div id=\"approvals" + count + "\"></div>";
 			}
 			else{
-				output = output + "<h4> Alternative " + count + ": </h4><label>" + alternativeDesc + "</label> <br>" + "<div id=\"approvals" + count + "\"></div>";
+				output = output + "<h4 style=\"font-family:verdana\"> Alternative " + count + ": </h4><label>" + alternativeDesc + "</label> <br>" + "<div id=\"approvals" + count + "\"></div>";
 			}
 			console.log(output);
 		}
@@ -73,27 +73,3 @@ function processAlternatives(result) {
 	}
 	alternatives.innerHTML = output;
 }
-/*
-function changeImage(realCount) {
-	var image = document.images[realCount];
-	if (image.src.match("check-mark_b&w.png")) {
-		image.src = "check-mark.png";
-	}
-	else {
-		image.src = "check-mark_b&w.png";
-	}
-}
-
-function changeImageDisapproval(realCount) {
-	var image = document.images[realCount];
-	console.log(image.src);
-	if (image.src.match("cancel.png")) {
-		image.src = "cancel_color.png";
-	}
-	else {
-		image.src = "cancel.png";
-	}
-}
-*/
-
-

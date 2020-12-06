@@ -71,7 +71,7 @@ function processApprovals(result) {
 		if (altDesc != "") {
 			console.log(num);
 			output = "";
-			output = output + "<label id = \"num" + count + "\">NumOfApprovals: " + num + "</label><br>\n\t<label id = \"nameList" + count + "\">List of members: " + nameList + "</label><br><br><label id = \"numDis" + count + "\">NumOfDisapprovals: " + numDis + "</label><br>\n\t<label id = \"nameDisList" + count + "\">List of members: " + nameListDis + "</label><br>";
+			output = output + "<br><label style=\"font-family:verdana\" id = \"num" + count + "\">NumOfApprovals: " + num + "</label><br>\n\t<label style=\"font-family:verdana\" id = \"nameList" + count + "\">List of members: " + nameList + "</label><br><br><label style=\"font-family:verdana\" id = \"numDis" + count + "\">NumOfDisapprovals: " + numDis + "</label><br>\n\t<label style=\"font-family:verdana\" id = \"nameDisList" + count + "\">List of members: " + nameListDis + "</label><br>";
 			approval.innerHTML = output;
 			if (nameList.includes(document.getElementById("message").innerText.split("! ")[1])) {
 				setImageToColoredApproval(realCount);
