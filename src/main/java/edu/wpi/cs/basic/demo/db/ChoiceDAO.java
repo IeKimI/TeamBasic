@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -151,7 +152,7 @@ public class ChoiceDAO {
 			ps.setString(4, null);
 			ps.setBoolean(5, choice.isComplete());
 			ps.setDate(6, choice.getDateOfCompletion());
-			ps.setDate(7, choice.getDateOfCreation());
+			ps.setTimestamp(7, choice.getDateOfCreation());
 
 			ps.execute();
 			System.out.println(choice.getDescription());
@@ -200,7 +201,7 @@ public class ChoiceDAO {
 		String description = resultSet.getString("description");
 		int maxNum = resultSet.getInt("maxNumOfTeamMembers");
 		Date dayOfCompletion = resultSet.getDate("dateOfCompletion");
-		Date dayOfCreation = resultSet.getDate("dateOfCreation");
+		Timestamp dayOfCreation = resultSet.getTimestamp("dateOfCreation");
 		String chosenAlternativeID = resultSet.getString("chosenAlternativeID");
 //		AlternativeChoice chosenAlternative = null;
 //		float daysOld = resultSet.getFloat("daysOld");

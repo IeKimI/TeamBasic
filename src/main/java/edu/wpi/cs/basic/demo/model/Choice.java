@@ -1,6 +1,7 @@
 package edu.wpi.cs.basic.demo.model;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +15,7 @@ public class Choice {
 	AlternativeChoice chosenAlternative = null;
 	boolean isCompleted;
 	Date dateOfCompletion;
-	Date dateOfCreation;
+	Timestamp dateOfCreation;
 	String chosenAlternativeID;
 
 	// test
@@ -24,7 +25,7 @@ public class Choice {
 	}
 
 	public Choice(String uniqueID, int maxNumOfTeamMembers, String description, String chosenAlternativeID,
-			boolean isCompleted, Date dateOfCompletion, Date dateOfCreation) {
+			boolean isCompleted, Date dateOfCompletion, Timestamp dateOfCreation) {
 		super();
 		this.uniqueID = uniqueID;
 		this.maxNumOfTeamMembers = maxNumOfTeamMembers;
@@ -40,7 +41,7 @@ public class Choice {
 		this.uniqueID = uniqueID;
 		this.description = description;
 		this.maxNumOfTeamMembers = maxNumOfTeamMembers;
-		this.dateOfCreation = new Date(System.currentTimeMillis());
+		this.dateOfCreation = new Timestamp(System.currentTimeMillis());
 		this.isCompleted = false;
 		this.dateOfCompletion = null;
 		this.chosenAlternativeID = null;
@@ -111,11 +112,11 @@ public class Choice {
 		this.dateOfCompletion = dateOfCompletion;
 	}
 
-	public Date getDateOfCreation() {
+	public Timestamp getDateOfCreation() {
 		return dateOfCreation;
 	}
 
-	public void setDateOfCreation(Date dateOfCreation) {
+	public void setDateOfCreation(Timestamp dateOfCreation) {
 		this.dateOfCreation = dateOfCreation;
 	}
 
