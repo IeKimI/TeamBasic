@@ -17,6 +17,15 @@ input[type=text] {
   background-color: #FFF6E1;
   color: black;
 }
+input[type=number] {
+  width: 10%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: none;
+  background-color: #FFF6E1;
+  color: black;
+}
 .button {
   border: none;
   color: white;
@@ -56,17 +65,17 @@ input[type=text] {
 <!--    <input name="choiceID" value="uniqueID" />
 	
  -->   
- <label style="font-family:verdana" for="other">Description: </label>
- <input type="text" style="font-family:verdana" name="description" value=""/><br>
- <label style="font-family:verdana" for="other">Maximum Number of Team Members: </label>
-   <input type="text" style="font-family:verdana" name="maxNumOfMembers" value="" /><br> 
+ <label style="font-family:verdana" for="other">Description: </label><br>
+ <input type="text" style="font-family:verdana" name="description" value=""/><br><br>
+ <label style="font-family:verdana" for="other">Maximum Number of Team Members: </label><br>
+   <input type="number" min="1" max="100" style="font-family:verdana" name="maxNumOfMembers" value="" /><br><br> 
    <label style="font-family:verdana" for="other">Alternatives (2-5): </label> <br>
    <input type="text" style="font-family:verdana" name="alternative1" value=""/><br>
    <input type="text" style="font-family:verdana" name="alternative2" value=""/><br>
    <input type="text" style="font-family:verdana" name="alternative3" value=""/><br>
    <input type="text" style="font-family:verdana" name="alternative4" value=""/><br>
    <input type="text" style="font-family:verdana" name="alternative5" value=""/><br>
-   <input type="text" style="font-family:verdana" type="hidden" id="hidden" value=""/><br>
+   <input type="text" style="font-family:verdana" type="hidden" id="hidden" value=""/><br><br>
 
   
    <input type="button" button class = "button buttonBlue" id="createButton" value="Create Choice" onClick="JavaScript:handleCreateClick(this)">
