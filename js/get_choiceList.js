@@ -34,20 +34,25 @@ function processListResponse(result) {
 	var js = JSON.parse(result);
 	var choiceList = document.getElementById('choice_List');
 
-	var output = "";
+	var output = "<table>\n  <tr>\n    <th>Choice ID</th>\n   <th>Description</th>\n   <th>Date Created</th>\n    <th>Is Completed</th>\n  </tr>";
+	
 	for (var i = 0; i < js.list.length; i++) {
 		var choiceJson = js.list[i];
 		console.log(choiceJson);
 
 		var choiceID = choiceJson["uniqueID"];
 		var dateOfCreation = choiceJson["dateOfCreation"];
+		var description = choiceJson["description"];
 		dateOfCreation = new Date(dateOfCreation).toLocaleString();
 		var isCompleted = choiceJson["completed"];
-		output = output + "<div style=\"font-family:verdana\" id=\"choiceReport" + choiceID + "\"><b>" + "Choice ID: " + choiceID+ "<br>"+ "Date of creation: " + dateOfCreation +  "<br>" + "isCompleted: " + isCompleted+ "<br><br>"+"<br></div>";
+		
+		
+		output = output + "<tr>\n    <td>"+ choiceID + "</td>\n    <td>" +description + "</td>\n    <td>" +dateOfCreation + "</td>\n    <td>" +isCompleted + "</td>\n  </tr>";
 
 		/*			output = output + "<div id=\"choiceReport" + choiceID + "\"><b>" + dateOfCreation + ":</b> = " + isCompleted + "(<a href='javaScript:requestDelete(\"" + cname + "\")'><img src='deleteIcon.png'></img></a>) <br></div>";
 		*/
 	}
+	output = output + "</table>"
 
 	// Update computation result
 	choiceList.innerHTML = output;

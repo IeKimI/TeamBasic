@@ -228,8 +228,7 @@ public class ChoiceDAO {
 					+ milisecondsPassed);
 			logger.log("PreparedStatement construction");
 			PreparedStatement getAllChoices = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE dateOfCreation<=?;");
-			getAllChoices.setNString(1, (new Date(dateCutOff).toString()));
-			System.out.println(new Timestamp(dateCutOff).toString());
+			getAllChoices.setNString(1, (new Timestamp(dateCutOff).toString()));
 			ResultSet resultSet = getAllChoices.executeQuery();
 			while (resultSet.next()) {
 				resultLog.add(generateChoice(resultSet));
