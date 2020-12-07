@@ -41,6 +41,7 @@ function processListResponse(result) {
 
 		var choiceID = choiceJson["uniqueID"];
 		var dateOfCreation = choiceJson["dateOfCreation"];
+		dateOfCreation = new Date(dateOfCreation).toLocaleString();
 		var isCompleted = choiceJson["completed"];
 		output = output + "<div style=\"font-family:verdana\" id=\"choiceReport" + choiceID + "\"><b>" + "Choice ID: " + choiceID+ "<br>"+ "Date of creation: " + dateOfCreation +  "<br>" + "isCompleted: " + isCompleted+ "<br><br>"+"<br></div>";
 
