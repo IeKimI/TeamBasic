@@ -74,11 +74,13 @@ public class DeleteChoicesHandler implements RequestHandler<DeleteChoicesRequest
 // }
 // }
 // }
-			return new DeleteChoicesResponse(numberOfDays, 200);
+			ChoiceDAO choiceDatabase = new ChoiceDAO();
+			System.out.println(choiceDatabase.getAllChoices());
+			return new DeleteChoicesResponse(numberOfDays, 200, choiceDatabase.getAllChoices(), "Successful");
 		} catch (Exception e) {
 			logger.log("An exception was caught in the handleRequest when deleting choices " + numberOfDays
 					+ " days old.");
-			return new DeleteChoicesResponse(numberOfDays, 400, "The Choices Failed to Delete");
+			return new DeleteChoicesResponse(numberOfDays, 400, null, "The Choices Failed to Delete");
 		}
 	}
 }

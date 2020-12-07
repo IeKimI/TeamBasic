@@ -36,8 +36,8 @@ function processListResponse(result) {
 
 	var output = "<table>\n  <tr>\n    <th>Choice ID</th>\n   <th>Description</th>\n   <th>Date Created</th>\n    <th>Is Completed</th>\n  </tr>";
 	
-	for (var i = 0; i < js.list.length; i++) {
-		var choiceJson = js.list[i];
+	for (i in js["list"]) {
+		var choiceJson = js["list"][i];
 		console.log(choiceJson);
 
 		var choiceID = choiceJson["uniqueID"];
