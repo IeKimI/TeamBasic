@@ -44,7 +44,7 @@ public class ChoiceDAO {
 	java.sql.Connection conn;
 
 	final static String tblName = "Choice"; // Exact capitalization
-	
+
 	public ChoiceDAO() {
 		try {
 			conn = DatabaseUtil.connect();
@@ -218,7 +218,24 @@ public class ChoiceDAO {
 
 	public List<Choice> deleteChoicesNDaysOld(LambdaLogger logger, float n) {
 		try {
-			logger.log("deleteChoicesNDaysOld has been called");
+			List<Choice> resultLog = getAllChoicesNDaysOld(logger, n);
+			long currentMilisecondsFrom = System.currentTimeMillis();
+			long milisecondsPassed = (long) (n * 86400000); // converting n days into n miliseconds
+			long dateCutOff = currentMilisecondsFrom - milisecondsPassed;
+			PreparedStatement ps = conn.prepareStatement("DELETE FROM " + tblName + " WHERE dateOfCreation<=?;");
+			ps.setString(1, (new Timestamp(dateCutOff).toString()));
+			ps.executeUpdate();
+			ps.close();
+			return resultLog;
+		} catch (Exception e) {
+			return new ArrayList<Choice>();
+		}
+
+	}
+
+	public List<Choice> getAllChoicesNDaysOld(LambdaLogger logger, float n) {
+		try {
+			logger.log("getChoicesNDaysOld has been called");
 			List<Choice> resultLog = new ArrayList<Choice>();
 			long milisecondsPassed = (long) (n * 86400000); // converting n days into n miliseconds
 			logger.log("Got all choices and converted to miliseconds");
@@ -227,20 +244,17 @@ public class ChoiceDAO {
 			logger.log("Current Miliseconds is: " + currentMilisecondsFrom + "\nMiliseconds Passed is :"
 					+ milisecondsPassed);
 			logger.log("PreparedStatement construction");
-			PreparedStatement getAllChoices = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE dateOfCreation<=?;");
+			PreparedStatement getAllChoices = conn
+					.prepareStatement("SELECT * FROM " + tblName + " WHERE dateOfCreation<=?;");
 			getAllChoices.setNString(1, (new Timestamp(dateCutOff).toString()));
 			ResultSet resultSet = getAllChoices.executeQuery();
 			while (resultSet.next()) {
 				resultLog.add(generateChoice(resultSet));
 			}
-			PreparedStatement ps = conn.prepareStatement("DELETE FROM " + tblName + " WHERE dateOfCreation<=?;");
-			ps.setString(1, (new Date(dateCutOff).toString()));
-			ps.executeUpdate();
-			ps.close();
 			return resultLog;
 		} catch (Exception e) {
-			return new ArrayList<Choice>();
+			logger.log(e.toString());
 		}
-
+		return new ArrayList<Choice>();
 	}
 }

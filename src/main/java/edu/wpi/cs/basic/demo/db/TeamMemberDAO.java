@@ -7,6 +7,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.amazonaws.services.lambda.runtime.LambdaLogger;
+
 import edu.wpi.cs.basic.demo.model.AlternativeChoice;
 import edu.wpi.cs.basic.demo.model.Approval;
 import edu.wpi.cs.basic.demo.model.Choice;
@@ -142,6 +144,23 @@ public class TeamMemberDAO {
 
 		return new TeamMember(name, password, choiceID, teamMemberID);
 
+	}
+	
+	public boolean deleteTeamMember(LambdaLogger logger, String uniqueID) {
+		try {
+			logger.log("In delteTeamMember");
+			PreparedStatement ps = conn.prepareStatement("DELETE FROM " + tblName + " WHERE choiceID = ?;");
+			ps.setString(1, uniqueID);
+			logger.log("The statement is done being constructed.");
+			ps.executeUpdate();
+			ps.close();
+			logger.log("Exiting deleteTeamMember");
+			return true;
+
+		} catch (Exception e) {
+			logger.log("Failed to delete the teamMember: " + e.getMessage());
+			return false;
+		}
 	}
 
 }

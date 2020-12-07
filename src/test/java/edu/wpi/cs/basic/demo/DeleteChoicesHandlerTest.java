@@ -52,5 +52,8 @@ public class DeleteChoicesHandlerTest extends LambdaTest {
 		GetAlternativeChoiceHandler gach2 = new GetAlternativeChoiceHandler();
 		GetAlternativesResponse gar2 = gach2.handleRequest(choiceResponse.response, createContext("list"));
 		Assert.assertTrue(gar2.alternatives.isEmpty());
+		for(AlternativeChoice alt: gar2.alternatives) {
+			
+		}
 	}
 } 

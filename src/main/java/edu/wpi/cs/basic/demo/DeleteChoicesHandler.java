@@ -33,19 +33,19 @@ public class DeleteChoicesHandler implements RequestHandler<DeleteChoicesRequest
 		AlternativeChoiceDAO altDatabase = new AlternativeChoiceDAO();
 		ApprovalDAO approvalDatabase = new ApprovalDAO();
 		List<Choice> result = database.deleteChoicesNDaysOld(logger, numberOfDays);
-		for (Choice c : result) {
-			List<AlternativeChoice> deletedAlternatives = altDatabase.getAllAlternatives(c.uniqueID);
-			if (altDatabase.deleteAlternativeChoice(logger, c)) {
-				for (AlternativeChoice altChoice : deletedAlternatives) {
-					if (approvalDatabase.deleteApproval(logger, altChoice.getAlternativeID())) {
-						continue;
-					}
-					throw new Exception("Failed to Delete Approval from Alternative Choice ID");
-				}
-				continue;
-			}
-			throw new Exception("Failed to Delete Alternative Choice");
-		}
+//		for (Choice c : result) {
+//			List<AlternativeChoice> deletedAlternatives = altDatabase.getAllAlternatives(c.uniqueID);
+//			if (altDatabase.deleteAlternativeChoice(logger, c)) {
+//				for (AlternativeChoice altChoice : deletedAlternatives) {
+//					if (approvalDatabase.deleteApproval(logger, altChoice.getAlternativeID())) {
+//						continue;
+//					}
+//					throw new Exception("Failed to Delete Approval from Alternative Choice ID");
+//				}
+//				continue;
+//			}
+//			throw new Exception("Failed to Delete Alternative Choice");
+//		}
 		if (logger != null)
 			logger.log("Returning result to handler");
 		return result;
@@ -55,14 +55,30 @@ public class DeleteChoicesHandler implements RequestHandler<DeleteChoicesRequest
 	@Override
 	public DeleteChoicesResponse handleRequest(DeleteChoicesRequest request, Context context) {
 		Float numberOfDays = request.getNDaysOld();
+		ChoiceDAO choiceDatabase = new ChoiceDAO();
 		AlternativeChoiceDAO altDatabase = new AlternativeChoiceDAO();
 		ApprovalDAO approvalDatabase = new ApprovalDAO();
 		TeamMemberDAO teamMemberDatabase = new TeamMemberDAO();
 		logger = context.getLogger();
 		logger.log("Deleting Choices " + numberOfDays + " days old.");
-
+		List<Choice> deletedChoices = choiceDatabase.getAllChoicesNDaysOld(logger, request.nDaysOld);
+		List<AlternativeChoice> deletedAlternatives = new ArrayList<AlternativeChoice>();
+		for (Choice c : deletedChoices) {
+			try {
+				deletedAlternatives.addAll(altDatabase.getAlternativeChoice(c.uniqueID));
+			} catch (Exception e) {
+				logger.log("SQL Error when getting alternatives to delete");
+			}
+		}
 		try {
-			List<Choice> deletedItems = deleteChoice(numberOfDays);
+			for(AlternativeChoice alt: deletedAlternatives) {
+				approvalDatabase.deleteApproval(logger, alt.getAlternativeID());
+			}
+			for (Choice c : deletedChoices) {
+				teamMemberDatabase.deleteTeamMember(logger, c.uniqueID);
+				altDatabase.deleteAlternativeChoice(logger, c);
+			}
+			deleteChoice(numberOfDays);
 // for (Choice choice : deletedItems) {
 // logger.log("Deleted choice " + choice.uniqueID + ".");
 //
@@ -74,12 +90,11 @@ public class DeleteChoicesHandler implements RequestHandler<DeleteChoicesRequest
 // }
 // }
 // }
-			ChoiceDAO choiceDatabase = new ChoiceDAO();
 			System.out.println(choiceDatabase.getAllChoices());
 			return new DeleteChoicesResponse(numberOfDays, 200, choiceDatabase.getAllChoices(), "Successful");
 		} catch (Exception e) {
 			logger.log("An exception was caught in the handleRequest when deleting choices " + numberOfDays
-					+ " days old.");
+					+ " days old. Exception: " + e.toString());
 			return new DeleteChoicesResponse(numberOfDays, 400, null, "The Choices Failed to Delete");
 		}
 	}
