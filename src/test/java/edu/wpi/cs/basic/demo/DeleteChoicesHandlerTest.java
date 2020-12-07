@@ -32,7 +32,7 @@ public class DeleteChoicesHandlerTest extends LambdaTest {
 		alternatives.add(alt1);
 		alternatives.add(alt2);
 		alternatives.add(alt3);
-		CreateChoiceRequest ccr = new CreateChoiceRequest("TESTING2", 10, alternatives);
+		CreateChoiceRequest ccr = new CreateChoiceRequest("test", 10, alternatives);
 		CreateChoiceResponse choiceResponse = handler.handleRequest(ccr, createContext("create"));
 		Assert.assertEquals(200, choiceResponse.httpCode);
 
@@ -44,7 +44,9 @@ public class DeleteChoicesHandlerTest extends LambdaTest {
 		GetAlternativeChoiceHandler gach = new GetAlternativeChoiceHandler();
 		GetAlternativesResponse gar = gach.handleRequest(choiceResponse.response, createContext("list"));
 		Assert.assertTrue(!gar.alternatives.isEmpty());
-		DeleteChoicesRequest dcr2 = new DeleteChoicesRequest(0);
+		
+		// Because of the GMT time difference
+		DeleteChoicesRequest dcr2 = new DeleteChoicesRequest(-1);
 		DeleteChoicesResponse d_resp2 = new DeleteChoicesHandler().handleRequest(dcr2, createContext("delete"));
 		Assert.assertEquals(200, d_resp2.statusCode);
 		GetAlternativeChoiceHandler gach2 = new GetAlternativeChoiceHandler();
