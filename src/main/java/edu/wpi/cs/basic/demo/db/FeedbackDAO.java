@@ -25,25 +25,24 @@ public class FeedbackDAO {
 		}
 	}
 
-	boolean deleteFeedback(Feedback Choice) throws Exception {
-//		try {
-//			PreparedStatement ps = conn.prepareStatement("DELETE FROM " + tblName + " WHERE uniqueID = ?;");
-//			ps.setString(1, Choice.uniqueID);
-//			int numAffected = ps.executeUpdate();
-//			ps.close();
-//
-//			return (numAffected == 1);
-//
-//		} catch (Exception e) {
-//			throw new Exception("Failed to insert Choice: " + e.getMessage());
-//		}
-		return false;
+	boolean deleteFeedback(int alternativeID) throws Exception {
+		try {
+			PreparedStatement ps = conn.prepareStatement("DELETE FROM " + tblName + " WHERE falternativeID = ?;");
+			ps.setInt(1, feedback.getFeedbackID());
+			int numAffected = ps.executeUpdate();
+			ps.close();
+
+			return (numAffected == 1);
+
+		} catch (Exception e) {
+			throw new Exception("Failed to delete Choice: " + e.getMessage());
+		}
 	}
 
 	public boolean addFeedback(Feedback feedback) throws Exception {
 		try {
 			PreparedStatement ps = conn.prepareStatement(
-					"INSERT INTO " + tblName + " (text,alternativeID,timestamp,teamMemberID) values(?,?,?,?);");
+					"INSERT INTO " + tblName + " (text,alternativeChoiceID,timestamp,teamMemberID) values(?,?,?,?);");
 			ps.setString(1, feedback.getText());
 			ps.setInt(2, feedback.getAlternativeChoiceID());
 			ps.setTimestamp(3, feedback.getTimeStamp());
