@@ -14,7 +14,7 @@ import edu.wpi.cs.basic.demo.model.Choice;
 public class ListAllChoicesHandlerTest extends LambdaTest {
 	
     @Test
-    public void testGetList() throws IOException {
+    public void testGetList() {
     	ListAllChoicesHandler handler = new ListAllChoicesHandler();
 
         GetAllChoicesResponse resp = handler.handleRequest(null, createContext("list"));
