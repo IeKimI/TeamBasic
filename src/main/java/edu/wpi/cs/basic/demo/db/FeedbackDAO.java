@@ -7,6 +7,8 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.amazonaws.services.lambda.runtime.LambdaLogger;
+
 import edu.wpi.cs.basic.demo.model.AlternativeChoice;
 import edu.wpi.cs.basic.demo.model.Choice;
 import edu.wpi.cs.basic.demo.model.Feedback;
@@ -25,15 +27,18 @@ public class FeedbackDAO {
 		}
 	}
 
-	boolean deleteFeedback(int alternativeID) throws Exception {
+	public boolean deleteFeedback(LambdaLogger logger, int alternativeID) throws Exception {
 		try {
+			logger.log("In deleteFeedback");
 			PreparedStatement ps = conn.prepareStatement("DELETE FROM " + tblName + " WHERE alternativeChoiceID = ?;");
 			ps.setInt(1, alternativeID);
 			int numAffected = ps.executeUpdate();
 			ps.close();
+			logger.log("Exiting Delete Feedback");
 			return (numAffected >= 1);
 
 		} catch (Exception e) {
+			logger.log(e.toString());
 			throw new Exception("Failed to delete Choice: " + e.getMessage());
 		}
 	}
