@@ -8,12 +8,12 @@ import edu.wpi.cs.basic.demo.http.GetTeamMemberNameByIDHandlerResponse;
 import edu.wpi.cs.basic.demo.http.GetTeamMemberNameByIDRequest;
 import edu.wpi.cs.basic.demo.model.ApprovalInfo;
 
-public class GetTeamMemberNameByIDHandlerTest extends LambdaTest{
+public class GetTeamMemberNameHandlerTest extends LambdaTest{
 	@Test
 	public void testGetTeamMemberName() {
 		GetTeamMemberNameByIDHandler handler = new GetTeamMemberNameByIDHandler();
 
-		GetTeamMemberNameByIDRequest req = new GetTeamMemberNameByIDRequest("906905823", "95");
+		GetTeamMemberNameByIDRequest req = new GetTeamMemberNameByIDRequest("1300038818", "120");
 		GetTeamMemberNameByIDHandlerResponse resp = handler.handleRequest(req, createContext("list"));
 
 		

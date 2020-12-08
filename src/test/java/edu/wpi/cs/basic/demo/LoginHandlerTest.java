@@ -95,7 +95,7 @@ public class LoginHandlerTest extends LambdaTest {
 		CreateChoiceResponse c_resp = choiceHandler.handleRequest(ccr, createContext("create"));
 		uniqueID = c_resp.response;
 		
-		TeamMember tm1 = new TeamMember("3dg", "sersqderser", uniqueID);
+		TeamMember tm1 = new TeamMember("hu", "hu", uniqueID);
 //		TeamMember tm1 = new TeamMember(uniqueID, "name", "password");
 //		TeamMember tm1 = new TeamMember(uniqueID, "name", "password");
 //		TeamMember tm1 = new TeamMember(uniqueID, "name", "password");
