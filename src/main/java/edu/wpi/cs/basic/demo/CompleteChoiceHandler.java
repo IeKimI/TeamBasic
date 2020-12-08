@@ -6,8 +6,6 @@ import com.amazonaws.services.lambda.runtime.RequestHandler;
 
 import edu.wpi.cs.basic.demo.http.CompleteChoiceRequest;
 import edu.wpi.cs.basic.demo.http.CompleteChoiceResponse;
-import edu.wpi.cs.basic.demo.http.CreateChoiceRequest;
-import edu.wpi.cs.basic.demo.http.CreateChoiceResponse;
 
 public class CompleteChoiceHandler implements RequestHandler<CompleteChoiceRequest, CompleteChoiceResponse>{
 	
