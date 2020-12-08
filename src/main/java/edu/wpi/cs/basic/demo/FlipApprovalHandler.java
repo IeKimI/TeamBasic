@@ -37,8 +37,7 @@ public class FlipApprovalHandler implements RequestHandler<FlipApprovalRequest, 
 			return approvalDatabase.flipApprovalOrDisapproval(logger, request.isWhichToFlip(), request.getAlternativeID(),
 					request.getTeamMemberID(), list);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.log(e.toString());
 		}
 		return new FlipApprovalResponse("Failed", 400);
 		
