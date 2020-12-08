@@ -158,7 +158,7 @@ public class AlternativeChoiceDAO {
         }
    }
 
-	private AlternativeChoice generateAltnerativeChoice(ResultSet resultSet) throws Exception {
+	public AlternativeChoice generateAltnerativeChoice(ResultSet resultSet) throws Exception {
 		int alternativeID = resultSet.getInt("alternativeID");
 
 //		// pass in the alternativeID to get the approvals of a specific alternative

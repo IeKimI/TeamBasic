@@ -27,12 +27,11 @@ public class FeedbackDAO {
 
 	boolean deleteFeedback(int alternativeID) throws Exception {
 		try {
-			PreparedStatement ps = conn.prepareStatement("DELETE FROM " + tblName + " WHERE falternativeID = ?;");
-			ps.setInt(1, feedback.getFeedbackID());
+			PreparedStatement ps = conn.prepareStatement("DELETE FROM " + tblName + " WHERE alternativeChoiceID = ?;");
+			ps.setInt(1, alternativeID);
 			int numAffected = ps.executeUpdate();
 			ps.close();
-
-			return (numAffected == 1);
+			return (numAffected >= 1);
 
 		} catch (Exception e) {
 			throw new Exception("Failed to delete Choice: " + e.getMessage());
@@ -72,11 +71,10 @@ public class FeedbackDAO {
 		}
 	}
 
-	public static List<Feedback> getAllFeedbackForAlternative(int altID) throws Exception {
+	public static List<Feedback> getAllFeedback(int altID) throws Exception {
 		List<Feedback> allFeedback = new ArrayList<>();
 		try {
-			PreparedStatement ps = conn
-					.prepareStatement("SELECT * FROM " + AlternativeChoiceDAO.tblName + " WHERE alternativeID=?;");
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE alternativeID=?;");
 			ps.setInt(1, altID);
 			ResultSet resultSet = ps.executeQuery();
 			while (resultSet.next()) {
@@ -85,6 +83,28 @@ public class FeedbackDAO {
 			}
 			resultSet.close();
 			ps.close();
+			return allFeedback;
+		} catch (Exception e) {
+			throw new Exception("Failed in getting Choices: " + e.getMessage());
+		}
+	}
+
+	public static List<Feedback> getAllFeedback(String choice) throws Exception {
+		List<Feedback> allFeedback = new ArrayList<>();
+		List<AlternativeChoice> altChoice = new ArrayList<AlternativeChoice>();
+		try {
+			PreparedStatement ps = conn
+					.prepareStatement("SELECT * FROM " + AlternativeChoiceDAO.tblName + " WHERE alternativeID=?;");
+			ps.setString(1, choice);
+			ResultSet resultSet = ps.executeQuery();
+			while (resultSet.next()) {
+				altChoice.add((new AlternativeChoiceDAO()).generateAltnerativeChoice(resultSet));
+			}
+			resultSet.close();
+			ps.close();
+			for (AlternativeChoice altC : altChoice) {
+				allFeedback.addAll(getAllFeedback(altC.getAlternativeID()));
+			}
 			return allFeedback;
 		} catch (Exception e) {
 			throw new Exception("Failed in getting Choices: " + e.getMessage());
