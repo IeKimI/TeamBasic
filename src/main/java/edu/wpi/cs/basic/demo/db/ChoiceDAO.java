@@ -100,12 +100,12 @@ public class ChoiceDAO {
 		}
 	}
 
-	public boolean updateChoice(Choice choice) throws Exception {
+	public boolean updateChoice(Choice choice, String chosenAltID) throws Exception {
 		try {
 			String query = "UPDATE " + tblName + " SET isCompleted=? WHERE uniqueID=?;";
 			PreparedStatement ps = conn.prepareStatement(query);
 			ps.setString(1, choice.uniqueID);
-//            ps.setString(2, Choice.getChosenAlternative().getAlternativeID());
+            ps.setString(2, chosenAltID);
 			ps.setBoolean(7, choice.completeChoice(choice));
 			int numAffected = ps.executeUpdate();
 			ps.close();
@@ -126,7 +126,7 @@ public class ChoiceDAO {
 			return (numAffected == 1);
 
 		} catch (Exception e) {
-			throw new Exception("Failed to insert Choice: " + e.getMessage());
+			throw new Exception("Failed to delete Choice: " + e.getMessage());
 		}
 	}
 
@@ -257,4 +257,15 @@ public class ChoiceDAO {
 		}
 		return new ArrayList<Choice>();
 	}
+	
+	
+//	public void setChoiceToComplete(String choiceID, String chosenAltID) {
+//		try {
+//			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE uniqueID=?;");
+//			
+//			ResultSet resultSet = ps.executeQuery();
+//		} catch (Exception e) {
+//			throw new Exception("Failed to complete report: " + e.getMessage());
+//		}
+//	}
 }
