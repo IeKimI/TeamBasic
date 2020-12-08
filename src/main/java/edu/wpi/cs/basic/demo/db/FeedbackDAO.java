@@ -25,7 +25,6 @@ public class FeedbackDAO {
 		}
 	}
 
-
 	boolean deleteFeedback(Feedback Choice) throws Exception {
 //		try {
 //			PreparedStatement ps = conn.prepareStatement("DELETE FROM " + tblName + " WHERE uniqueID = ?;");
@@ -65,6 +64,8 @@ public class FeedbackDAO {
 			Feedback feedback = generateFeedback(resultSet);
 			resultSet.close();
 			ps.close();
+			if (feedback == null)
+				throw new Exception();
 			return feedback;
 
 		} catch (Exception e) {
@@ -75,8 +76,9 @@ public class FeedbackDAO {
 	public static List<Feedback> getAllFeedbackForAlternative(int altID) throws Exception {
 		List<Feedback> allFeedback = new ArrayList<>();
 		try {
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + AlternativeChoiceDAO.tblName + " WHERE alternativeID=?;");
-			ps.setInt(1,altID);
+			PreparedStatement ps = conn
+					.prepareStatement("SELECT * FROM " + AlternativeChoiceDAO.tblName + " WHERE alternativeID=?;");
+			ps.setInt(1, altID);
 			ResultSet resultSet = ps.executeQuery();
 			while (resultSet.next()) {
 				Feedback feedback = generateMultipleFeedback(resultSet);

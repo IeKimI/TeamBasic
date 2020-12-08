@@ -66,4 +66,7 @@ public class Feedback {
 		return text;
 	}
 
+	public String toString() {
+		return "Timestamp: " + timeStamp.toString() + " FeedbackID: " + feedbackID;
+	}
 }
