@@ -51,6 +51,6 @@ public class GetAlternativeChoiceHandlerTest extends LambdaTest {
 //			assertTrue(alternatives.contains(ac));
 //		}
 		
-		Assert.assertEquals(3, listOfAlternatives.size());
+		Assert.assertEquals(200, resp.httpCode);
 	}
 }

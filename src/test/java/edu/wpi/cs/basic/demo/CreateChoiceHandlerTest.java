@@ -25,7 +25,7 @@ import edu.wpi.cs.basic.demo.model.TeamMember;
  */
 public class CreateChoiceHandlerTest extends LambdaTest {
 
-	String testSuccessInput(String incoming) throws IOException {
+	String testSuccessInput(String incoming) {
 		CreateChoiceHandler handler = new CreateChoiceHandler();
 		CreateChoiceRequest req = new Gson().fromJson(incoming, CreateChoiceRequest.class);
 
@@ -38,7 +38,7 @@ public class CreateChoiceHandlerTest extends LambdaTest {
 
 	}
 
-	String testFailInput(String incoming, int failureCode) throws IOException {
+	String testFailInput(String incoming, int failureCode)  {
 		CreateChoiceHandler handler = new CreateChoiceHandler();
 		CreateChoiceRequest req = new Gson().fromJson(incoming, CreateChoiceRequest.class);
 
@@ -106,7 +106,7 @@ public class CreateChoiceHandlerTest extends LambdaTest {
 //		Assert.assertEquals(ccr.getDescription(), c_resp.response);
 //	}
 	@Test
-	public void testShouldBeOk() {
+	public void testShouldBeOk() throws Exception{
 		ArrayList<AlternativeChoice> alternatives = new ArrayList<AlternativeChoice>();
 		AlternativeChoice alt1 = new AlternativeChoice("alt1_description");
 		AlternativeChoice alt2 = new AlternativeChoice("alt2_description");
@@ -114,13 +114,16 @@ public class CreateChoiceHandlerTest extends LambdaTest {
 		alternatives.add(alt1);
 		alternatives.add(alt2);
 		alternatives.add(alt3);
-		CreateChoiceRequest ccr = new CreateChoiceRequest("testChoice4", 10, alternatives);
+		CreateChoiceRequest ccr = new CreateChoiceRequest("geege", 10, alternatives);
 		String SAMPLE_INPUT_STRING = new Gson().toJson(ccr);
+		CreateChoiceHandler cch = new CreateChoiceHandler();
+
+		CreateChoiceResponse c_resp = cch.handleRequest(ccr, createContext("create"));
 		System.out.print(SAMPLE_INPUT_STRING);
 		String choiceID = null;
 		try {
-			choiceID = testSuccessInput(SAMPLE_INPUT_STRING);
-		} catch (IOException ioe) {
+			Assert.assertEquals(c_resp.httpCode, 200);
+		} catch (Exception ioe) {
 			Assert.fail("Invalid:" + ioe.getMessage());
 		}
 
