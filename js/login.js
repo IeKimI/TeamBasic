@@ -76,8 +76,12 @@ function processLogIn(result) {
 
 	console.log(username);
 	if (username === undefined) {
-		document.getElementById("message").innerText = "Exceeded the maximum number of participants!";
-
+		/*		document.getElementById("message").innerText = "Registration rejected! \n Check if \n 1) You entered the correct username and password. \n 2) The choice has exceeded the maximum number of participants.";
+		*/
+		function myFunction() {
+			alert("Registration rejected! \n Check if \n1) You entered the correct username and password. \n2) The choice has exceeded the maximum number of participants.");
+		}
+		myFunction();
 	}
 
 	else {

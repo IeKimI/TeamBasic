@@ -1,21 +1,21 @@
 function refreshChoiceInfo() {
-	
+
 
 	var choiceURL = window.location.href;
 	var wholeURL = choiceURL.split('=')[1];
 	var choiceID = wholeURL.split('?')[0];
-	
+
 
 	var data = {};
 	data["choiceID"] = choiceID;
 	console.log(choiceID);
-	
+
 	var js = JSON.stringify(data);
 	console.log(js);
-	
+
 	choiceID_display.innerHTML = "<label style=\"font-family:verdana\" id = \"choiceID\">ChoiceID: " + choiceID + "</label><br>";
 	var xhr = new XMLHttpRequest();
-	
+
 	xhr.open("GET", getChoice_url + "/" + choiceID, true);
 	xhr.send(js);
 
@@ -40,6 +40,14 @@ function processChoiceResponse(result) {
 	console.log(js);
 
 	js = js["choice"];
+	
+		// if the choice is deleted
+	if (js == undefined) {
+		function myFunction() {
+			alert("The choice does not exist!");
+		}
+		myFunction();
+	}
 	var description = js["description"];
 	var maxnum = js["maxNumOfTeamMembers"];
 	var url = window.location.href;
@@ -48,7 +56,9 @@ function processChoiceResponse(result) {
 
 	var output = "";
 
-	output = output + "\t<div>\n\t<label style=\"font-family:verdana\" id = \"desc\">Description: " + description + "</label><br>\n\t<label style=\"font-family:verdana\" id = \"maxNum\">Maximum Number of Participants: " + maxnum + "</label><br>" + "<label style=\"font-family:verdana\" id = \"url\"> Share this URL! " + url + "</label><br>" ; 
+
+
+	output = output + "\t<div>\n\t<label style=\"font-family:verdana\" id = \"desc\">Description: " + description + "</label><br>\n\t<label style=\"font-family:verdana\" id = \"maxNum\">Maximum Number of Participants: " + maxnum + "</label><br>" + "<label style=\"font-family:verdana\" id = \"url\"> Share this URL! " + url + "</label><br>";
 
 	choiceInfo.innerHTML = output;
 }
