@@ -66,13 +66,15 @@ function processApprovals(result) {
 		var altDesc = eachApproval["altDescription"];
 		count = count + 1;
 		var approval = document.getElementById('approvals' + count);
+		var feedback = document.getElementById('feedback' + count);
 
 
 		if (altDesc != "") {
 			console.log(num);
 			output = "";
-			output = output + "<br><label style=\"font-family:verdana\" id = \"num" + count + "\">NumOfApprovals: " + num + "</label><br>\n\t<label style=\"font-family:verdana\" id = \"nameList" + count + "\">List of members: " + nameList + "</label><br><br><label style=\"font-family:verdana\" id = \"numDis" + count + "\">NumOfDisapprovals: " + numDis + "</label><br>\n\t<label style=\"font-family:verdana\" id = \"nameDisList" + count + "\">List of members: " + nameListDis + "</label><br>";
+			output = output + "<br><label style=\"font-family:verdana\" id = \"num" + count + "\">NumOfApprovals: " + num + "</label><br>\n\t<label style=\"font-family:verdana\" id = \"nameList" + count + "\">List of members: " + nameList + "</label><br><br><label style=\"font-family:verdana\" id = \"numDis" + count + "\">NumOfDisapprovals: " + numDis + "</label><br>\n\t<label style=\"font-family:verdana\" id = \"nameDisList" + count + "\">List of members: " + nameListDis + "</label><br><br>";
 			approval.innerHTML = output;
+			feedback.innerHTML = "<label style=\"font-family:verdana\" for=\"feedback\">Feedback:</label><br>\n<textarea type=\"styled\" name=\"feedbackText\" id=\"feedback\" rows=\"4\" cols=\"50\">\n  </textarea>\n  <br><br>   <input type=\"button\" button class = \"button buttonBlue\" value=\"Create Feedback\" onClick=\"JavaScript:handleFeedbackClick(this)\">\n";
 			if (nameList.includes(document.getElementById("message").innerText.split("! ")[1])) {
 				setImageToColoredApproval(realCount);
 			} else {
