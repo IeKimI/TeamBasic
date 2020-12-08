@@ -7,15 +7,24 @@ import java.util.List;
 public class Feedback {
 	final Timestamp timeStamp;
 	final String text;
-	List <TeamMember> users;
-
-	public Feedback(Timestamp timeS, String txt, ArrayList<TeamMember> users) {
+	int teamMemberID;
+	int alternativeChoiceID;
+	int feedbackID;
+	public Feedback(Timestamp timeStamp, String text, int teamMemberID, int alternativeChoiceID, int feedbackID) {
 		super();
-		this.timeStamp=timeS;
-		this.text=txt;
-		this.users=users;
-		
-		
+		this.timeStamp = timeStamp;
+		this.text = text;
+		this.teamMemberID = teamMemberID;
+		this.alternativeChoiceID = alternativeChoiceID;
+		this.feedbackID = feedbackID;
 	}
+	public Feedback(Timestamp timeStamp, String text, int teamMemberID, int alternativeChoiceID) {
+		super();
+		this.timeStamp = timeStamp;
+		this.text = text;
+		this.teamMemberID = teamMemberID;
+		this.alternativeChoiceID = alternativeChoiceID;
+	}
+
 
 }
