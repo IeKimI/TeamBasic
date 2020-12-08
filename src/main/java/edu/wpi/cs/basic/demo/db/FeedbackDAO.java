@@ -15,7 +15,7 @@ import edu.wpi.cs.basic.demo.model.TeamMember;
 public class FeedbackDAO {
 	static java.sql.Connection conn;
 
-	final static String tblName = "AlternativeChoices"; // Exact capitalization
+	final static String tblName = "Feedback"; // Exact capitalization
 
 	public FeedbackDAO() {
 		try {

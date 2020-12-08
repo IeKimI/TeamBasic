@@ -12,6 +12,10 @@ public class CreateFeedbackRequest {
 	int alternativeChoiceID;
 	int feedbackID;
 
+	public CreateFeedbackRequest() {
+		this.text = "";
+		
+	}
 	public CreateFeedbackRequest(String text, int teamMemberID, int alternativeChoiceID, int feedbackID) {
 		super();
 		this.text = text;
