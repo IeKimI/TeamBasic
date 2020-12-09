@@ -58,7 +58,7 @@ function processChoiceResponse(result) {
 
 
 
-	output = output + "\t<div>\n\t<label style=\"font-family:verdana\" id = \"desc\">Description: " + description + "</label><br>\n\t<label style=\"font-family:verdana\" id = \"maxNum\">Maximum Number of Participants: " + maxnum + "</label><br>" + "<label style=\"font-family:verdana\" id = \"url\"> Share this URL! " + url + "</label><br>";
+	output = output + "<div><label style=\"font-family:verdana; font-size: 15px\" id = \"url\">  Share this URL! " + url + "</label><br><br><label style=\"font-family:verdana-bold; font-size: 18px\" id = \"desc\">Choice description: " + description + "</label><br><label style=\"font-family:verdana\" id = \"maxNum\">Maximum Number of Participants: " + maxnum + "</label><br>\n";
 
 	choiceInfo.innerHTML = output;
 }
