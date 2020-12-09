@@ -92,6 +92,9 @@ function processLogIn(result) {
 
 		getAlternatives();
 		getApprovals();
+		setTimeout(function() {
+			processGetFeedbackResponse();
+		}, 1000)
 	}
 
 

@@ -84,7 +84,7 @@ function processApprovals(result) {
 			disapproval.innerHTML = "Disapproved by: " + nameListDis;
 			disapprovalNum.innerHTML = numDis;
 
-			feedback.innerHTML = "<label style=\"font-family:verdana\" for=\"feedback\">Feedback:</label><br>\n<textarea type=\"styled\" name=\"feedbackText\" id=\"feedback" + alternativeID + "\" rows=\"4\" cols=\"50\">\n  </textarea>\n  <br><br>   <input type=\"button\" button class = \"buttonSmall buttonBlue\" value=\"Create Feedback\" onClick=\"JavaScript:handleFeedbackClick(" + alternativeID + ")\">\n";
+			feedback.innerHTML = "<label style=\"font-family:verdana\" id=feedbackText" + alternativeID + "></label><br><label style=\"font-family:verdana\" for=\"feedback\">Feedback:</label><br>\n<textarea type=\"styled\" name=\"feedbackText\" id=\"feedback" + alternativeID + "\" rows=\"4\" cols=\"50\">\n  </textarea>\n  <br><br>   <input type=\"button\" button class = \"buttonSmall buttonBlue\" value=\"Create Feedback\" onClick=\"JavaScript:handleFeedbackClick(" + alternativeID + ")\">\n";
 
 			if (nameList.includes(document.getElementById("message").innerText.split("! ")[1])) {
 				setImageToColoredApproval(realCount);

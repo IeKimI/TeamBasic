@@ -53,8 +53,8 @@ function getName() {
 		var username = js["teamMemberName"];
 
 
-	console.log(username);
-		
+		console.log(username);
+
 		document.getElementById("message").innerText = "Welcome! " + username;
 		/*	document.getElementById("login").innerHTML ="<label>Username</label><br> <input name=\"username\" value=\"\"readonly><br>\n\t\t\t<label>Password</label><br> <input type=\"password\" name=\"password\" value=\"\"readonly><br>\n\t\t\t<input type=\"button\" id=\"login\" value=\"Login\"\n\t\t\t\tonClick=\"JavaScript:handleLoginClick(this)\">";
 		*/
@@ -63,6 +63,9 @@ function getName() {
 		document.getElementById("login").innerHTML = "<label style=\"font-family:verdana\">Username</label><br> <input type=\"textNotAllowed\" style=\"font-family:verdana\" name=\"username\" value=\"\" readonly><br>\n\t\t\t<label style=\"font-family:verdana\">Password</label><br> <input type=\"textNotAllowed\" style=\"font-family:verdana\" name=\"password\" value=\"\" readonly><br>";
 		getAlternatives();
 		getApprovals();
+		setTimeout(function() {
+			processGetFeedbackResponse();
+		}, 1000)
 
 	}
 
