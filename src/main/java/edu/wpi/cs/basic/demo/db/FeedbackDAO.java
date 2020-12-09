@@ -99,7 +99,7 @@ public class FeedbackDAO {
 		List<AlternativeChoice> altChoice = new ArrayList<AlternativeChoice>();
 		try {
 			PreparedStatement ps = conn
-					.prepareStatement("SELECT * FROM " + AlternativeChoiceDAO.tblName + " WHERE alternativeID=?;");
+					.prepareStatement("SELECT * FROM " + AlternativeChoiceDAO.tblName + " WHERE choiceID=?;");
 			ps.setString(1, choice);
 			ResultSet resultSet = ps.executeQuery();
 			while (resultSet.next()) {
