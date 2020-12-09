@@ -79,7 +79,7 @@ public class FeedbackDAO {
 	public static List<Feedback> getAllFeedback(int altID) throws Exception {
 		List<Feedback> allFeedback = new ArrayList<>();
 		try {
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE alternativeID=?;");
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE alternativeChoiceID=?;");
 			ps.setInt(1, altID);
 			ResultSet resultSet = ps.executeQuery();
 			while (resultSet.next()) {
