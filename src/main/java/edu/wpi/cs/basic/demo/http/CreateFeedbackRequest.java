@@ -55,7 +55,7 @@ public class CreateFeedbackRequest {
 		this.feedbackID = feedbackID;
 	}
 
-	public String getText() {
+	public String getText() { 
 		return text;
 	}
 	
