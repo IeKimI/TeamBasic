@@ -7,7 +7,7 @@ import java.util.List;
 import edu.wpi.cs.basic.demo.model.AlternativeChoice;
 
 public class CreateFeedbackRequest {
-	final String text;
+	String text;
 	int teamMemberID;
 	int alternativeChoiceID;
 	int feedbackID;
@@ -16,6 +16,13 @@ public class CreateFeedbackRequest {
 		this.text = "";
 		
 	}
+	
+	public CreateFeedbackRequest(String text, int teamMemberID, int alternativeChoiceID) {
+		this.text = text;
+		this.teamMemberID = teamMemberID;
+		this.alternativeChoiceID = alternativeChoiceID;
+	}
+	
 	public CreateFeedbackRequest(String text, int teamMemberID, int alternativeChoiceID, int feedbackID) {
 		super();
 		this.text = text;
@@ -48,8 +55,12 @@ public class CreateFeedbackRequest {
 		this.feedbackID = feedbackID;
 	}
 
-	public String getText() {
+	public String getText() { 
 		return text;
+	}
+	
+	public void setText(String text) {
+		this.text = text;
 	}
 
 }
