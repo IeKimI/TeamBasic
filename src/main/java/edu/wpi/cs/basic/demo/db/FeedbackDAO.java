@@ -59,7 +59,7 @@ public class FeedbackDAO {
 		}
 	}
 
-	public static Feedback getFeedback(int feedbackID) throws Exception {
+	public Feedback getFeedback(int feedbackID) throws Exception {
 		try {
 			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + "WHERE feedbackID=?;");
 			ps.setInt(1, feedbackID);
@@ -76,7 +76,7 @@ public class FeedbackDAO {
 		}
 	}
 
-	public static List<Feedback> getAllFeedback(int altID) throws Exception {
+	public List<Feedback> getAllFeedback(int altID) throws Exception {
 		List<Feedback> allFeedback = new ArrayList<>();
 		try {
 			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE alternativeChoiceID=?;");
@@ -94,7 +94,7 @@ public class FeedbackDAO {
 		}
 	}
 
-	public static List<Feedback> getAllFeedback(String choice) throws Exception {
+	public List<Feedback> getAllFeedback(String choice) throws Exception {
 		List<Feedback> allFeedback = new ArrayList<>();
 		List<AlternativeChoice> altChoice = new ArrayList<AlternativeChoice>();
 		try {
@@ -116,7 +116,7 @@ public class FeedbackDAO {
 		}
 	}
 
-	static Feedback generateFeedback(ResultSet resultSet) throws Exception {
+	private Feedback generateFeedback(ResultSet resultSet) throws Exception {
 		while (resultSet.next()) {
 			int alternativeID = resultSet.getInt("alternativeChoiceID");
 			int feedbackID = resultSet.getInt("feedbackID");
@@ -128,7 +128,7 @@ public class FeedbackDAO {
 		return null;
 	}
 
-	static Feedback generateMultipleFeedback(ResultSet resultSet) throws Exception {
+	private Feedback generateMultipleFeedback(ResultSet resultSet) throws Exception {
 		int alternativeID = resultSet.getInt("alternativeChoiceID");
 		int feedbackID = resultSet.getInt("feedbackID");
 		int teamMemberID = resultSet.getInt("teamMemberID");

@@ -27,7 +27,7 @@ public class GetFeedbackHandler implements RequestHandler<String, GetFeedbackRes
 		}
 		// check if present
 		try {
-			List<Feedback> feedback = FeedbackDAO.getAllFeedback(choiceID);
+			List<Feedback> feedback = new FeedbackDAO().getAllFeedback(choiceID);
 			return new GetFeedbackResponse("Succesfully fetched feedback: " + feedback.toString(), 200, feedback);
 		} catch (Exception e) {
 			logger.log(e.getMessage());
