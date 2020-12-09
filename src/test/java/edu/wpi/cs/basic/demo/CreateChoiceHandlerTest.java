@@ -77,7 +77,8 @@ public class CreateChoiceHandlerTest extends LambdaTest {
 		alternatives.add(alt1);
 		alternatives.add(alt2);
 		alternatives.add(alt3);
-		CreateChoiceRequest ccr = new CreateChoiceRequest("asfdg", 10, alternatives);
+		ChoiceDAO choiceDAO = new ChoiceDAO();
+		CreateChoiceRequest ccr = new CreateChoiceRequest("test", 10, alternatives);
 		String SAMPLE_INPUT_STRING = new Gson().toJson(ccr);
 		CreateChoiceHandler cch = new CreateChoiceHandler();
 
@@ -86,6 +87,8 @@ public class CreateChoiceHandlerTest extends LambdaTest {
 		String choiceID = null;
 		try {
 			Assert.assertEquals(c_resp.httpCode, 200);
+			boolean result = choiceDAO.deleteChoice(c_resp.response);
+			Assert.assertTrue(result);
 		} catch (Exception ioe) {
 			Assert.fail("Invalid:" + ioe.getMessage());
 		}

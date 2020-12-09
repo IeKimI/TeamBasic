@@ -116,10 +116,10 @@ public class ChoiceDAO {
 		}
 	}
 
-	boolean deleteChoice(Choice Choice) throws Exception {
+	public boolean deleteChoice(String choiceID) throws Exception {
 		try {
 			PreparedStatement ps = conn.prepareStatement("DELETE FROM " + tblName + " WHERE uniqueID = ?;");
-			ps.setString(1, Choice.uniqueID);
+			ps.setString(1, choiceID);
 			int numAffected = ps.executeUpdate();
 			ps.close();
 
