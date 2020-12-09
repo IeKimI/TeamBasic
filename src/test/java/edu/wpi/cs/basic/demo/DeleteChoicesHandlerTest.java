@@ -32,7 +32,7 @@ public class DeleteChoicesHandlerTest extends LambdaTest {
 		alternatives.add(alt1);
 		alternatives.add(alt2);
 		alternatives.add(alt3);
-		CreateChoiceRequest ccr = new CreateChoiceRequest("dffds", 10, alternatives);
+		CreateChoiceRequest ccr = new CreateChoiceRequest("DeleteChoiceTest", 10, alternatives);
 		CreateChoiceResponse choiceResponse = handler.handleRequest(ccr, createContext("create"));
 		Assert.assertEquals(200, choiceResponse.httpCode);
 

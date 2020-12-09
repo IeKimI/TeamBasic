@@ -78,13 +78,10 @@ public class CreateChoiceHandlerTest extends LambdaTest {
 		alternatives.add(alt2);
 		alternatives.add(alt3);
 		ChoiceDAO choiceDAO = new ChoiceDAO();
-		CreateChoiceRequest ccr = new CreateChoiceRequest("test", 10, alternatives);
-		String SAMPLE_INPUT_STRING = new Gson().toJson(ccr);
+		CreateChoiceRequest ccr = new CreateChoiceRequest("CreateChoiceTest", 10, alternatives);
 		CreateChoiceHandler cch = new CreateChoiceHandler();
 
 		CreateChoiceResponse c_resp = cch.handleRequest(ccr, createContext("create"));
-		System.out.print(SAMPLE_INPUT_STRING);
-		String choiceID = null;
 		try {
 			Assert.assertEquals(c_resp.httpCode, 200);
 			boolean result = choiceDAO.deleteChoice(c_resp.response);
