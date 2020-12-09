@@ -16,7 +16,7 @@ ApprovalInfo:
       altDescription:
         type: "string" */
 
-function getApprovals() {
+function getApprovals() { 
 
 	var choiceURL = window.location.href;
 	var choiceID = choiceURL.split('=')[1];
