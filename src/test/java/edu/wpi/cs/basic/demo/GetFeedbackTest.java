@@ -15,7 +15,7 @@ import edu.wpi.cs.basic.demo.http.CreateChoiceResponse;
 import edu.wpi.cs.basic.demo.http.GetFeedbackResponse;
 import edu.wpi.cs.basic.demo.model.AlternativeChoice;
 
-public class GetFeedbackTest extends LambdaTest{
+public class GetFeedbackTest extends LambdaTest{ 
 	
 	@Test
 	public void testGetFeedback()  {

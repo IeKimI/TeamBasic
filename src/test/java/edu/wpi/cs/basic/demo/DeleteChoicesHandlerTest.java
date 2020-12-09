@@ -21,7 +21,7 @@ import edu.wpi.cs.basic.demo.model.AlternativeChoice;
 
 public class DeleteChoicesHandlerTest extends LambdaTest {
 
-	@Test
+	@Test 
 	public void testDeleteChoices() throws Exception {
 		CreateChoiceHandler handler = new CreateChoiceHandler();
 

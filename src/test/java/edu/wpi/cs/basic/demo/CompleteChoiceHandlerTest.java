@@ -15,7 +15,7 @@ import edu.wpi.cs.basic.demo.model.AlternativeChoice;
 import edu.wpi.cs.basic.demo.model.Choice;
 
 public class CompleteChoiceHandlerTest extends LambdaTest {
-	@Test
+	@Test 
 	public void testCompleteChoiceHandler() throws Exception {
 		ArrayList<AlternativeChoice> alternatives = new ArrayList<AlternativeChoice>();
 		AlternativeChoice alt1 = new AlternativeChoice("alt1_description");
