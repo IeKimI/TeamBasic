@@ -119,6 +119,27 @@ public class ChoiceDAO {
 		}
 	}
 
+	public boolean isCompleted(String choiceID) throws Exception {
+		try {
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE uniqueID = ?;");
+			ps.setString(1, choiceID);
+			ResultSet resultSet = ps.executeQuery();
+
+			// already present?
+			while (resultSet.next()) {
+				Choice c = generateChoice(resultSet);
+				if (c.isComplete()) {
+					return true;
+				}
+				resultSet.close();
+				return false;
+			}
+
+		} catch (Exception e) {
+			throw new Exception("Failed to find a completed Choice: " + e.getMessage());
+		}
+		return false;
+	}
 	public boolean deleteChoice(String choiceID) throws Exception {
 		try {
 			PreparedStatement ps = conn.prepareStatement("DELETE FROM " + tblName + " WHERE uniqueID = ?;");

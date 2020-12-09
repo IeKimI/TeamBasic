@@ -14,6 +14,7 @@ var approve_url = base_url + "approval";
 var teamMember_url=base_url+"choice";
 var createFeedback_url = base_url + "feedback"; //POST
 var getFeedback_url = base_url + "feedback"; //GET
+var completechoice_url = base_url + "completeChoice"; // POST
 
 /*var delete_url = base_url + "constants";    // POST with {name} so we avoid CORS issues
 */ 
