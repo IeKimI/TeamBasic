@@ -29,8 +29,7 @@ public class CreateFeedbackHandler implements RequestHandler<CreateFeedbackReque
 		}
 		FeedbackDAO feedbackDAO = new FeedbackDAO();
 		// String text, int teamMemberID, int alternativeChoiceID, int feedbackID
-		Feedback feedback = new Feedback(req.getText(), req.getTeamMemberID(), req.getAlternativeChoiceID(),
-				req.getFeedbackID()); // make actual constructor for feedback here
+		Feedback feedback = new Feedback(req.getText(), req.getTeamMemberID(), req.getAlternativeChoiceID()); // make actual constructor for feedback here
 		return feedbackDAO.addFeedback(feedback);
 	}
 
