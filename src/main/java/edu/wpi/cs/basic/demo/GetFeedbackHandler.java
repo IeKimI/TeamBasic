@@ -31,7 +31,7 @@ public class GetFeedbackHandler implements RequestHandler<String, GetFeedbackRes
 			return new GetFeedbackResponse("Succesfully fetched feedback: " + feedback.toString(), 200, feedback);
 		} catch (Exception e) {
 			logger.log(e.getMessage());
-			return new GetFeedbackResponse("FeedbackID could not be found", 400, new ArrayList<Feedback>());
+			return new GetFeedbackResponse("FeedbackID could not be found" + e.getMessage(), 400, new ArrayList<Feedback>());
 		}
 	}
 

@@ -90,7 +90,7 @@ public class FeedbackDAO {
 			ps.close();
 			return allFeedback;
 		} catch (Exception e) {
-			throw new Exception("Failed in getting Choices: " + e.getMessage());
+			throw new Exception("Failed in getting feedback given the altID: " + e.getMessage());
 		}
 	}
 
@@ -112,7 +112,7 @@ public class FeedbackDAO {
 			}
 			return allFeedback;
 		} catch (Exception e) {
-			throw new Exception("Failed in getting Choices: " + e.getMessage());
+			throw new Exception("Failed in getting feedback given the choiceID: " + e.getMessage());
 		}
 	}
 
