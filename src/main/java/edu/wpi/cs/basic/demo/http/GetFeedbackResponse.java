@@ -9,10 +9,10 @@ public class GetFeedbackResponse {
 	public final int httpCode;
 	List<Feedback> feedback;
 	
-	public GetFeedbackResponse(String response, int httpCode, List<Feedback> feedbackList) {
+	public GetFeedbackResponse(String response, int httpCode, List<Feedback> feedback) {
 		this.response = response;
 		this.httpCode = httpCode;
-		feedback=feedbackList;
+		this.feedback=feedback;
 	}
 	public String getResponse() {
 		return response;
@@ -20,11 +20,11 @@ public class GetFeedbackResponse {
 	public int getHttpCode() {
 		return httpCode;
 	}
-	public List<Feedback> getListOfFeedback() {
+	public List<Feedback> getFeedback() {
 		return feedback;
 	}
-	public void setListOfFeedback(List<Feedback> listOfFeedback) {
-		this.feedback = listOfFeedback;
+	public void setFeedback(List<Feedback> feedback) {
+		this.feedback = feedback;
 	}
 
 }

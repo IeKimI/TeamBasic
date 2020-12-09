@@ -17,7 +17,7 @@ public class TestGetFeedback extends LambdaTest{
 			GetFeedbackResponse g_resp = handler.handleRequest("1232890052", createContext("getFeedback"));
 			
 			assertEquals(g_resp.httpCode, 200);
-			System.out.println(g_resp.getListOfFeedback());
+			System.out.println(g_resp.getFeedback());
 			
 			assertTrue(feedbackDatabase.getAllFeedback(1211).size()==1);
 			assertTrue(feedbackDatabase.getAllFeedback(1212).size()==1);
