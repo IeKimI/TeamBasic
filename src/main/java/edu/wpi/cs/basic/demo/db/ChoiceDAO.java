@@ -100,19 +100,22 @@ public class ChoiceDAO {
 		}
 	}
 
-	public boolean updateChoice(Choice choice, String chosenAltID) throws Exception {
+	public boolean updateChoice(Choice choice, int chosenAltID) throws Exception {
 		try {
-			String query = "UPDATE " + tblName + " SET isCompleted=? WHERE uniqueID=?;";
+			/**
+			 * UPDATE `sys`.`Choice` SET `chosenAlternativeID` = '1226', `isCompleted` = '1' WHERE (`uniqueID` = '1749316646');
+			 */
+			String query = "UPDATE " + tblName + " SET chosenAlternativeID=?, isCompleted=? WHERE uniqueID=?;";
 			PreparedStatement ps = conn.prepareStatement(query);
-			ps.setString(1, choice.uniqueID);
-            ps.setString(2, chosenAltID);
-			ps.setBoolean(7, choice.completeChoice(choice));
+            ps.setInt(1, chosenAltID);
+			ps.setBoolean(2, true);
+			ps.setString(3, choice.getUniqueID());
 			int numAffected = ps.executeUpdate();
 			ps.close();
 
 			return (numAffected == 1);
 		} catch (Exception e) {
-			throw new Exception("Failed to update report: " + e.getMessage());
+			throw new Exception("Failed to update the choice: " + e.getMessage());
 		}
 	}
 

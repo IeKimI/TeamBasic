@@ -20,7 +20,7 @@ public class CompleteChoiceHandler implements RequestHandler<CompleteChoiceReque
 	@Override
 	public CompleteChoiceResponse handleRequest(CompleteChoiceRequest request, Context context) {
 		String choiceID = request.getChoiceID();
-		String chosenAltID = request.getChosenAltID();
+		int chosenAltID = request.getChosenAltID();
 		ChoiceDAO choiceDao = new ChoiceDAO();
 		Choice currentChoice;
 		try {

@@ -2,9 +2,9 @@ package edu.wpi.cs.basic.demo.http;
 
 public class CompleteChoiceRequest {
 	String choiceID;
-	String chosenAltID;
+	int chosenAltID;
 	
-	public CompleteChoiceRequest(String choiceID, String chosenAltID) {
+	public CompleteChoiceRequest(String choiceID,int chosenAltID) {
 		super();
 		this.choiceID=choiceID;
 		this.chosenAltID=chosenAltID;
@@ -18,11 +18,11 @@ public class CompleteChoiceRequest {
 		this.choiceID = choiceID;
 	}
 	
-	public String getChosenAltID() {
+	public int getChosenAltID() {
 		return chosenAltID;
 	}
 
-	public void setChosenAltID(String chosenAltID) {
+	public void setChosenAltID(int chosenAltID) {
 		this.chosenAltID = chosenAltID;
 	}
 	
