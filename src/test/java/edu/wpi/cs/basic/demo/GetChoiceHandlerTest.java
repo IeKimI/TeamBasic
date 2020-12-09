@@ -35,7 +35,7 @@ public class GetChoiceHandlerTest extends LambdaTest {
 		String choiceID = null;
 		
 		CreateChoiceHandler cch = new CreateChoiceHandler();
-		CreateChoiceRequest ccr = new CreateChoiceRequest("testtesttest", 10, alternatives);
+		CreateChoiceRequest ccr = new CreateChoiceRequest("GetChoiceTest", 10, alternatives);
 		CreateChoiceResponse c_resp = cch.handleRequest(ccr, createContext("create"));
 		
 
@@ -48,7 +48,7 @@ public class GetChoiceHandlerTest extends LambdaTest {
         
         Choice choice = resp.choice;
         
-        Assert.assertTrue(choice.getDescription().equals("testtesttest"));
+        Assert.assertTrue(choice.getDescription().equals("GetChoiceTest"));
         Assert.assertTrue(choice.getMaxNumOfTeamMembers() == 10);
 	}
 }

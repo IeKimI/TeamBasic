@@ -6,9 +6,10 @@ import edu.wpi.cs.basic.demo.model.Choice;
 
 public class CompleteChoiceResponse {
 	public boolean isComplete;
-	public final int statusCode;
+	public int statusCode;
 	public final String error;
 
+	
 	public CompleteChoiceResponse (int statusCode) {
 		super();
 		this.statusCode = statusCode;
