@@ -20,6 +20,8 @@ import edu.wpi.cs.basic.demo.model.AlternativeChoice;
 public class GetAlternativeChoiceHandlerTest extends LambdaTest {
 	@Test
 	public void testGetAlternativeChoiceHandler() throws Exception {
+		
+		ChoiceDAO choiceDAO = new ChoiceDAO();
 
 		GetAlternativeChoiceHandler handler = new GetAlternativeChoiceHandler();
 		ArrayList<AlternativeChoice> alternatives = new ArrayList<AlternativeChoice>();
@@ -33,7 +35,7 @@ public class GetAlternativeChoiceHandlerTest extends LambdaTest {
 		String choiceID = null;
 
 		CreateChoiceHandler cch = new CreateChoiceHandler();
-		CreateChoiceRequest ccr = new CreateChoiceRequest("testtesttest", 10, alternatives);
+		CreateChoiceRequest ccr = new CreateChoiceRequest("GetAlternativeChoiceTest", 10, alternatives);
 		CreateChoiceResponse c_resp = cch.handleRequest(ccr, createContext("create"));
 
 		choiceID = c_resp.response;
@@ -52,5 +54,9 @@ public class GetAlternativeChoiceHandlerTest extends LambdaTest {
 //		}
 		
 		Assert.assertEquals(200, resp.httpCode);
+		boolean result = choiceDAO.deleteChoice(c_resp.response);
+		
+		Assert.assertTrue(result);
+
 	}
 }

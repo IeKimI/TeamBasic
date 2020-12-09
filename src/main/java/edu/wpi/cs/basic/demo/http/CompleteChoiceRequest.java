@@ -4,6 +4,9 @@ public class CompleteChoiceRequest {
 	String choiceID;
 	int chosenAltID;
 	
+	public CompleteChoiceRequest() {
+		
+	}
 	public CompleteChoiceRequest(String choiceID,int chosenAltID) {
 		super();
 		this.choiceID=choiceID;
