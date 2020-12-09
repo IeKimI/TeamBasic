@@ -61,7 +61,7 @@ function processAlternatives(result) {
 			var isLoggedIn = window.location.href ;
 			isLoggedIn = isLoggedIn.split("teamMemberID=")[1];
 			if(isLoggedIn != "0"){
-				output = output + "<h4 style=\"font-family:verdana\"> Alternative " + count + ": </h4><label style=\"font-family:verdana; font-size:40px\">" + alternativeDesc + "</label> "  + "<div id=\"approvals" + count + "\">" +approvalButtons + "</div>" + "<div id=\"disapprovals" + count + "\">" +disapprovalButtons + "</div>"+ "<div id=\"feedback" + count + "\"></div>";
+				output = output + "<h4 style=\"font-family:verdana\"> Alternative " + count + ": </h4><label style=\"font-family:verdana; font-size:40px\">" + alternativeDesc + "</label> "  + "<div id=\"approvals" + count + "\">" +approvalButtons +"<label style=\"font-family:verdana\" id = \"nameList" + count + "\">Loading...</label><br><label style=\"font-family:verdana\" id = \"num" + count + "\"> "  + "</label><br><br>"+ "</div>" + "<div id=\"disapprovals" + count + "\">" +disapprovalButtons + "<label style=\"font-family:verdana\" id = \"nameDisList" + count + "\">Loading... "  + "</label><br><label style=\"font-family:verdana\" id = \"numDis" + count + "\"> "  + "</label><br><br>" + "</div>"+ "<div id=\"feedback" + count + "\"></div>";
 			}
 			else{
 				output = output + "<h4 style=\"font-family:verdana\"> Alternative " + count + ": </h4><label style=\"font-family:verdana; font-size:40px\">" + alternativeDesc + "</label> <br>" + "<div id=\"approvals" + count + "\"></div>";

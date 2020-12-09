@@ -26,7 +26,6 @@ function approveOrDisapprove(whichToFlip, altID) {
 		if (xhr.readyState == XMLHttpRequest.DONE) {
 			if (xhr.status == 200) {
 				console.log("XHR:" + xhr.responseText);
-				processApprovals(xhr.responseText);
 				getApprovals();
 			} else {
 				processApprovals("N/A");
@@ -38,7 +37,6 @@ function approveOrDisapprove(whichToFlip, altID) {
 function changeImage(alternativeID) {
 
 	approveOrDisapprove(true, alternativeID);
-	getApprovals();
 
 }
 
@@ -46,7 +44,6 @@ function changeImageDisapproval(alternativeID) {
 
 
 	approveOrDisapprove(false, alternativeID);
-	getApprovals();
 
 
 }
