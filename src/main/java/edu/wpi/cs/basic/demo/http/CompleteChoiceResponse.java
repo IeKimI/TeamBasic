@@ -10,10 +10,11 @@ public class CompleteChoiceResponse {
 	public final String error;
 
 	
-	public CompleteChoiceResponse (int statusCode) {
+	public CompleteChoiceResponse (int statusCode, boolean isComplete) {
 		super();
 		this.statusCode = statusCode;
 		this.error = "";
+		this.isComplete = isComplete;
 	}
 
 	public CompleteChoiceResponse ( String errorMessage, int statusCode) {
