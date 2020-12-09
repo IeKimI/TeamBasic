@@ -12,6 +12,7 @@ import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import edu.wpi.cs.basic.demo.db.AlternativeChoiceDAO;
 import edu.wpi.cs.basic.demo.db.ApprovalDAO;
 import edu.wpi.cs.basic.demo.db.ChoiceDAO;
+import edu.wpi.cs.basic.demo.db.FeedbackDAO;
 import edu.wpi.cs.basic.demo.db.TeamMemberDAO;
 import edu.wpi.cs.basic.demo.http.DeleteChoicesRequest;
 import edu.wpi.cs.basic.demo.http.DeleteChoicesResponse;
@@ -59,6 +60,7 @@ public class DeleteChoicesHandler implements RequestHandler<DeleteChoicesRequest
 		AlternativeChoiceDAO altDatabase = new AlternativeChoiceDAO();
 		ApprovalDAO approvalDatabase = new ApprovalDAO();
 		TeamMemberDAO teamMemberDatabase = new TeamMemberDAO();
+		FeedbackDAO feedbackDatabase = new FeedbackDAO();
 		logger = context.getLogger();
 		logger.log("Deleting Choices " + numberOfDays + " days old.");
 		List<Choice> deletedChoices = choiceDatabase.getAllChoicesNDaysOld(logger, request.nDaysOld);
@@ -71,8 +73,9 @@ public class DeleteChoicesHandler implements RequestHandler<DeleteChoicesRequest
 			}
 		}
 		try {
-			for(AlternativeChoice alt: deletedAlternatives) {
+			for (AlternativeChoice alt : deletedAlternatives) {
 				approvalDatabase.deleteApproval(logger, alt.getAlternativeID());
+				feedbackDatabase.deleteFeedback(logger, alt.getAlternativeID());
 			}
 			for (Choice c : deletedChoices) {
 				teamMemberDatabase.deleteTeamMember(logger, c.uniqueID);
