@@ -8,7 +8,7 @@ function processGetFeedbackResponse() {
 	var data = {};
 	data["choiceID"] = choiceID;
 
-		var xhr = new XMLHttpRequest();
+	var xhr = new XMLHttpRequest();
 	xhr.open("GET", getFeedback_url + "/" + choiceID, true);
 	xhr.send();
 
@@ -17,9 +17,9 @@ function processGetFeedbackResponse() {
 	// This will process results and update HTML as appropriate. 
 	xhr.onloadend = function() {
 		if (xhr.readyState == XMLHttpRequest.DONE) {
-				console.log("XHR:" + xhr.responseText);
-				processFeedback(xhr.responseText);
-			
+			console.log("XHR:" + xhr.responseText);
+			processFeedback(xhr.responseText);
+
 		} else {
 			processFeedback("N/A");
 		}
@@ -37,6 +37,7 @@ function processFeedback(result) {
 	js = js["feedback"];
 
 	var count = 0;
+	var output = "";
 	for (var i in js) {
 
 
@@ -45,18 +46,16 @@ function processFeedback(result) {
 		var text = eachFeedback["text"];
 		var teamMemberName = eachFeedback["teamMemberName"];
 		var alternativeID = eachFeedback["alternativeChoiceID"];
-		
+
 		var feedback = document.getElementById('feedbackText' + alternativeID);
 
 		var timestmpString = new Date(timeStamp).toLocaleString();
 		count = count + 1;
-		
-		
 
-			feedback.innerHTML = feedback.innerHTML + "<div class=\"feedback\">\n  \"Time:" + timestmpString + " Feedback: " + text + " by" + teamMemberName + "<br>\"\n</div>";
-		}
+		output = output + "<div class=\"feedback\">\n Feedback: " + text + " by " + teamMemberName + "<br>Time: " + timestmpString + "<br></div>";
 
+		feedback.innerHTML = output;
+	}
 
-	
 }
 

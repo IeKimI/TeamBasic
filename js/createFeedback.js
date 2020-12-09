@@ -30,8 +30,7 @@ function handleFeedbackClick(alternativeID) {
 		if (xhr.readyState == XMLHttpRequest.DONE) {
 			if (xhr.status == 200) {
 				console.log("XHR:" + xhr.responseText);
-				var js = JSON.stringify(data);
-				processGetFeedbackResponse(xhr.responseText, js);
+				processGetFeedbackResponse();
 			} else {
 				console.log("actual:" + xhr.responseText)
 				var js = JSON.parse(xhr.responseText);
@@ -39,7 +38,7 @@ function handleFeedbackClick(alternativeID) {
 				alert(err);
 			}
 		} else {
-			processGetFeedbackResponse("N/A");
+			alert("Can't post the feedbaack");
 		}
 	};
 
