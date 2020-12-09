@@ -7,8 +7,8 @@ function loadingChoicePage(response, request) {
 	var choiceID = JSON.parse(response)["response"];
 	console.log(choiceID);
 	window.location.href = "https://teambasic.s3.us-east-2.amazonaws.com/html/choice.html" + "?choice=" + choiceID + "?teamMemberID=0";
-	
-		console.log("result:" + request);
+
+	console.log("result:" + request);
 
 	/*refreshChoiceList();*/
 	var description = JSON.parse(request)["description"];
@@ -39,6 +39,15 @@ function handleCreateClick(e) {
 	var alternative3 = {};
 	var alternative4 = {};
 	var alternative5 = {};
+
+	if (form.alternative1.value === "" && form.alternative2.value === "" && form.alternative3.value === "" && form.alternative4.value === "" && form.alternative5.value === "") {
+		alert("No alternative found.");
+		return;
+	}
+	else if (form.alternative1.value != "" && form.alternative2.value === "" && form.alternative3.value === "" && form.alternative4.value === "" && form.alternative5.value === "") {
+		alert("Need more than one alternative!");
+		return;
+	}
 
 	alternative1["description"] = form.alternative1.value;
 	alternative2["description"] = form.alternative2.value;

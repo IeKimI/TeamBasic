@@ -35,17 +35,40 @@ function processFeedback(result) {
 
 
 	js = js["feedback"];
+	console.log("Feedback: " + js);
 
 	var count = 0;
 	var output = "";
+	var oldAlternative = 0;
 	for (var i in js) {
 
-
+/**
+"feedback": [
+    {
+      "timeStamp": 1607480419390,
+      "text": "  I am creating a feedback",
+      "teamMemberID": 135,
+      "teamMemberName": "Eri",
+      "alternativeChoiceID": 1206,
+      "feedbackID": 9
+    },
+    {
+      "timeStamp": 1607488972620,
+      "text": "  feedback",
+      "teamMemberID": 135,
+      "teamMemberName": "Eri",
+      "alternativeChoiceID": 1206,
+      "feedbackID": 12
+    }, */
 		var eachFeedback = js[i];
 		var timeStamp = eachFeedback["timeStamp"];
 		var text = eachFeedback["text"];
 		var teamMemberName = eachFeedback["teamMemberName"];
 		var alternativeID = eachFeedback["alternativeChoiceID"];
+		if (alternativeID !== oldAlternative) {
+			output = "";
+			oldAlternative = alternativeID;
+		}
 
 		var feedback = document.getElementById('feedbackText' + alternativeID);
 
