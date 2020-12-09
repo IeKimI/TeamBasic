@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import com.google.gson.Gson;
 
+import edu.wpi.cs.basic.demo.db.ChoiceDAO;
 import edu.wpi.cs.basic.demo.http.CreateChoiceRequest;
 import edu.wpi.cs.basic.demo.http.CreateChoiceResponse;
 import edu.wpi.cs.basic.demo.http.CreateTeamMemberRequest;
@@ -90,7 +91,7 @@ public class LoginHandlerTest extends LambdaTest {
 		String uniqueID = null; 
 		
 		CreateChoiceHandler choiceHandler = new CreateChoiceHandler();
-		CreateChoiceRequest ccr = new CreateChoiceRequest("gegege", 3, alternatives);
+		CreateChoiceRequest ccr = new CreateChoiceRequest("LogInTest", 3, alternatives);
 		
 		CreateChoiceResponse c_resp = choiceHandler.handleRequest(ccr, createContext("create"));
 		uniqueID = c_resp.response;
@@ -120,5 +121,16 @@ public class LoginHandlerTest extends LambdaTest {
 //		if(uniqueID!=null) {
 //			
 //		}
+		
+		ChoiceDAO choiceDAO = new ChoiceDAO();
+		boolean result = false;
+		try {
+			result = choiceDAO.deleteChoice(c_resp.response);
+			Assert.assertTrue(result);
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
