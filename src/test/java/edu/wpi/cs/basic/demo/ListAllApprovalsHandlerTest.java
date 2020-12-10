@@ -20,7 +20,7 @@ import edu.wpi.cs.basic.demo.model.ApprovalInfo;
 import edu.wpi.cs.basic.demo.model.TeamMember;
 
 public class ListAllApprovalsHandlerTest extends LambdaTest {
-	@Test
+	@Test 
 	public void testGetList() {
 		
 		ArrayList<AlternativeChoice> alternatives = new ArrayList<AlternativeChoice>();
