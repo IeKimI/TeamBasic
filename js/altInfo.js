@@ -41,7 +41,7 @@ function processAlternatives(result) {
 	js = js["alternatives"];
 	console.log(js);
 	var output = "";
-	var count = 0;
+	var count = 0; 
 	var realCount = 0;
 	var approvalButtons = "";
 	var disapprovalButtons = "";
