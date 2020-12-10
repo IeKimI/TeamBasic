@@ -232,18 +232,6 @@ public class ChoiceDAO {
 
 	Choice generateChoice(ResultSet resultSet) throws Exception {
 		String uniqueID = resultSet.getString("uniqueID");
-//		String alternativeID = resultSet.getString("alternativeChoice");
-//		//Do we need an alternativeID in the choice?
-//		//No, the table that stores choice will just have that index. Then when you get the choice, you take the choice ID
-//		//check the alternative table for the alternativeChocies with corresponding forgein key (the choice ID)
-
-		// pass in the choiceID to get the list of alternatives that belongs to the
-		// specific choice
-//		ArrayList<AlternativeChoice> alternativeChoices = AlternativeChoiceDAO.getAllAlternatives(uniqueID);
-
-		// pass in the choiceID to get the list of participating members that belongs to
-		// the specific choice
-//		ArrayList<TeamMember> participatingMembers = TeamMemberDAO.getAllTeamMembers(uniqueID);
 		String description = resultSet.getString("description");
 		int maxNum = resultSet.getInt("maxNumOfTeamMembers");
 		Date dayOfCompletion = resultSet.getDate("dateOfCompletion");
@@ -256,10 +244,6 @@ public class ChoiceDAO {
 				dayOfCreation);
 		return output;
 
-		// set the chosenAlternative to null when generating the choice
-//		output.setChosenAlternative(null);
-//		AlternativeChoice databaseInquery= 
-//		return output;
 	}
 
 	public List<Choice> deleteChoicesNDaysOld(LambdaLogger logger, float n) {
@@ -304,14 +288,4 @@ public class ChoiceDAO {
 		return new ArrayList<Choice>();
 	}
 	
-	
-//	public void setChoiceToComplete(String choiceID, String chosenAltID) {
-//		try {
-//			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE uniqueID=?;");
-//			
-//			ResultSet resultSet = ps.executeQuery();
-//		} catch (Exception e) {
-//			throw new Exception("Failed to complete report: " + e.getMessage());
-//		}
-//	}
 }

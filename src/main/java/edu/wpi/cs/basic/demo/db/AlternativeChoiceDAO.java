@@ -207,28 +207,11 @@ public class AlternativeChoiceDAO {
 	public AlternativeChoice generateAltnerativeChoice(ResultSet resultSet) throws Exception {
 		int alternativeID = resultSet.getInt("alternativeID");
 
-//		// pass in the alternativeID to get the approvals of a specific alternative
-//		ArrayList<TeamMember> approvals= ApprovalDAO.getApprovals(alternativeID);
-//		
-//		// pass in the altnerativeID to get the disapprovals of a specific alternative
-//		ArrayList<TeamMember> disapprovals= DisapprovalDAO.getDisapprovals(alternativeID);
-//		
-//		// pass in the alternativeID to get the feedback of a specific alternativeID
-//		ArrayList<Feedback> feedback = FeedbackDAO.getFeedbacks(alternativeID);
 
 		String choiceID = resultSet.getString("choiceID");
 		String description = resultSet.getString("description");
 
-//		AlternativeChoice databaseInquery= 
 		return new AlternativeChoice(alternativeID, choiceID, description);
-		/**
-		 * public AlternativeChoice(ArrayList<TeamMember> approvals,
-		 * ArrayList<TeamMember> disapprovals, ArrayList<Feedback> feedback, String
-		 * description, String alternativeID, String choiceID) { super(); this.approvals
-		 * = approvals; this.disapprovals = disapprovals; this.feedback = feedback;
-		 * this.description = description; this.alternativeID = alternativeID;
-		 * this.choiceID = choiceID; }
-		 * 
-		 */
+
 	}
 }

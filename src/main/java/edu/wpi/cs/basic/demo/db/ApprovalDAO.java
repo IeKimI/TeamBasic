@@ -9,7 +9,6 @@ import java.util.List;
 
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 
-import edu.wpi.cs.basic.demo.http.ApprovalResponse;
 import edu.wpi.cs.basic.demo.http.FlipApprovalResponse;
 import edu.wpi.cs.basic.demo.model.AlternativeChoice;
 import edu.wpi.cs.basic.demo.model.Approval;
@@ -130,18 +129,7 @@ public class ApprovalDAO {
 
 		return approvals;
 	}
-//	public List<ApprovalInfo> getDisapprovalsChoiceID(LambdaLogger logger, String choiceID) throws Exception {
-//		List<ApprovalInfo> disapprovals = new ArrayList<ApprovalInfo>();
-//		AlternativeChoiceDAO altDAO = new AlternativeChoiceDAO();
-//
-//		List<AlternativeChoice> alternatives = altDAO.getAllAlternatives(choiceID);
-//		System.out.println(alternatives);
-//		for (AlternativeChoice alt : alternatives) {
-//			disapprovals.add(getApprovalsAltID(logger, alt.getAlternativeID()));
-//		}
-//
-//		return disapprovals;
-//	}
+
 
 	public boolean initializeApproval(Approval approval) throws Exception {
 		try {
@@ -150,24 +138,6 @@ public class ApprovalDAO {
 			ps.setInt(1, approval.getTeamMemberID());
 			ps.setInt(2, approval.getAlternativeID());
 			ps.setBoolean(3, false);
-			ps.setBoolean(4, false);
-
-			ps.execute();
-			return true;
-
-		} catch (Exception e) {
-			throw new Exception("Failed to add an approval: " + e.getMessage());
-		}
-	}
-
-	@Deprecated
-	public boolean addApproval(Approval approval) throws Exception {
-		try {
-			PreparedStatement ps = conn.prepareStatement(
-					"INSERT INTO " + tblName + " (teamMemberID,alternativeID,approval,disapproval) values(?,?,?,?);");
-			ps.setInt(1, approval.getTeamMemberID());
-			ps.setInt(2, approval.getAlternativeID());
-			ps.setBoolean(3, true);
 			ps.setBoolean(4, false);
 
 			ps.execute();
@@ -255,94 +225,6 @@ public class ApprovalDAO {
 		}
 	}
 
-	// checks the current boolean value for approval or disapproval
-	public boolean getApprovalOrDisapprovalStatus(int alternativeID, int teamMemberID, boolean flipApproval)
-			throws Exception {
-		try {
-			boolean result;
-			PreparedStatement ps = conn
-					.prepareStatement("SELECT * FROM " + tblName + " WHERE alternativeID=? AND teamMemberID=?;");
-
-			ps.setInt(1, alternativeID);
-			ps.setInt(2, teamMemberID);
-
-			ResultSet resultSet = ps.executeQuery();
-
-			while (resultSet.next()) {
-				if (flipApproval) {
-					result = resultSet.getBoolean("approval");
-					ps.close();
-					resultSet.close();
-					return result;
-				}
-				result = resultSet.getBoolean("disapproval");
-				ps.close();
-				resultSet.close();
-				return result;
-			}
-			throw new Exception("It is not working when trying to flipApproval: " + flipApproval);
-		} catch (Exception e) {
-			throw new Exception("Failed to get the approval column boolean" + e.getMessage());
-		}
-
-	}
-
-	// flips the approval or disapproval
-	public boolean flipApproval(int alternativeID, int teamMemberID, boolean isApproval) throws Exception {
-		try {
-			boolean status = getApprovalOrDisapprovalStatus(alternativeID, teamMemberID, isApproval);
-
-			String column;
-			if (isApproval) {
-				column = "approval";
-
-			} else {
-				column = "disapproval";
-			}
-			// UPDATE Approvals SET approval = false WHERE alternativeID = 646 AND
-			// teamMemberID = 46;
-			PreparedStatement ps = conn.prepareStatement(
-					"UPDATE " + tblName + " SET " + column + "= ? WHERE alternativeID=? AND teamMemberID=?;");
-
-			ps.setBoolean(1, !status);
-			ps.setInt(2, alternativeID);
-			ps.setInt(3, teamMemberID);
-
-			ps.execute();
-
-			ps.close();
-
-			return true;
-
-		} catch (Exception e) {
-			throw new Exception("Failed to flip an approval: " + e.getMessage());
-		}
-	}
-
-	// checks which column (approval or disapproval?) to flip
-	public boolean whatToFlip(int alternativeID, int teamMemberID, boolean isApproval) throws Exception {
-		try {
-			boolean status = getApprovalOrDisapprovalStatus(alternativeID, teamMemberID, isApproval);
-			boolean statusTwo = getApprovalOrDisapprovalStatus(alternativeID, teamMemberID, !isApproval);
-
-			// check if approval is false and disapproval is true or
-			// if disapproval is false and approval is true
-			// If so, slip both -> changing approval to disapproval or disapproval to
-			// approval
-			if (status == false && statusTwo == true) {
-				flipApproval(alternativeID, teamMemberID, true);
-				flipApproval(alternativeID, teamMemberID, false);
-			} else {
-				flipApproval(alternativeID, teamMemberID, isApproval);
-
-			}
-
-			return true;
-
-		} catch (Exception e) {
-			throw new Exception("Failed to determine what to flip: " + e.getMessage());
-		}
-	}
 
 	private Approval generateApprovals(ResultSet resultSet) throws Exception {
 			int approvalID = resultSet.getInt("approvalAndDisapprovalID");

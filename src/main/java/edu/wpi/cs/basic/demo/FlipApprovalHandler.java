@@ -10,7 +10,6 @@ import com.amazonaws.services.lambda.runtime.RequestHandler;
 import edu.wpi.cs.basic.demo.db.AlternativeChoiceDAO;
 import edu.wpi.cs.basic.demo.db.ApprovalDAO;
 import edu.wpi.cs.basic.demo.db.ChoiceDAO;
-import edu.wpi.cs.basic.demo.http.ApprovalResponse;
 import edu.wpi.cs.basic.demo.http.FlipApprovalRequest;
 import edu.wpi.cs.basic.demo.http.FlipApprovalResponse;
 import edu.wpi.cs.basic.demo.http.GetAlternativesResponse;
