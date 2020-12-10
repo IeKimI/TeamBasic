@@ -51,8 +51,11 @@ function processGetCompleteChoiceResponse() {
 		if (xhr.readyState == XMLHttpRequest.DONE) {
 			if (xhr.status == 200) {
 				console.log("XHR:" + xhr.responseText);
-				console.log("isComplete?" + JSON.parse(xhr.responseText)["isComplete"]);
 				if (JSON.parse(xhr.responseText)["isComplete"] == true) {
+					var chosenDesc = JSON.parse(xhr.responseText)["chosenDesc"]
+
+					var choiceInfo = document.getElementById('choiceInfo');
+					choiceInfo.innerHTML = choiceInfo.innerHTML + "<p class=\"chosenDesc\">The choice is complete. The chosen alternative is: " + chosenDesc + " </p>";
 					var div = document.getElementsByTagName('div');
 					var input = document.getElementsByTagName('input');
 					var a = document.getElementsByTagName('a');
@@ -71,7 +74,7 @@ function processGetCompleteChoiceResponse() {
 						label[i].setAttribute('disabled', true);
 					}
 					var textarea = document.getElementsByTagName('textarea');
-					for(var i = 0; i < textarea.length; i++) {
+					for (var i = 0; i < textarea.length; i++) {
 						textarea[i].setAttribute('disabled', true);
 					}					/*var btn = document.querySelectorAll('button');
 					var input = document.querySelectorAll('input');
