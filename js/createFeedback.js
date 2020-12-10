@@ -35,6 +35,10 @@ function handleFeedbackClick(alternativeID) {
 			if (xhr.readyState == XMLHttpRequest.DONE) {
 				if (xhr.status == 200) {
 					console.log("XHR:" + xhr.responseText);
+					if (JSON.parse(xhr.responseText)["httpCode"] != 200) {
+						alert("Can't Do that becuase: " + JSON.parse(xhr.responseText)["response"]);
+						return;
+					}
 					processGetFeedbackResponse();
 				} else {
 					console.log("actual:" + xhr.responseText)

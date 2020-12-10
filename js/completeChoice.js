@@ -1,11 +1,7 @@
 function handleCompleteChoiceClick(alternativeID) {
 	console.log("button is clicked");
-	if (processGetCompleteChoiceResponse()){
-		alert("This choice is completed.")
-		return;
-		
-	} else {
-		var choiceURL = window.location.href;
+
+	var choiceURL = window.location.href;
 	var choiceID = choiceURL.split('choice=')[1];
 	choiceID = choiceID.split('?')[0];
 
@@ -27,14 +23,18 @@ function handleCompleteChoiceClick(alternativeID) {
 		if (xhr.readyState == XMLHttpRequest.DONE) {
 			if (xhr.status == 200) {
 				console.log("XHR:" + xhr.responseText);
+				if (JSON.parse(xhr.responseText)["statusCode"] != 200) {
+					alert("Can't Do that becuase: " + JSON.parse(xhr.responseText)["error"]);
+					return;
+				}
 				processGetCompleteChoiceResponse();
 			} else {
 				processGetCompleteChoiceResponse("N/A");
 			}
 		}
 	}
-	}
-	
+
+
 }
 
 function processGetCompleteChoiceResponse() {
@@ -57,11 +57,12 @@ function processGetCompleteChoiceResponse() {
 		if (xhr.readyState == XMLHttpRequest.DONE) {
 			if (xhr.status == 200) {
 				console.log("XHR:" + xhr.responseText);
+
 				if (JSON.parse(xhr.responseText)["isComplete"] == true) {
 					var chosenDesc = JSON.parse(xhr.responseText)["chosenDesc"]
 
 					var choiceInfo = document.getElementById('choiceInfo');
-					choiceInfo.innerHTML = choiceInfo.innerHTML + "<p class=\"chosenDesc\">The choice is complete. The chosen alternative is: " + chosenDesc + " </p>";
+					choiceInfo.innerHTML = choiceInfo.innerHTML + "<p class=\"chosenAlt\" style=\"font-family:verdana; font-size: 18px\" class=\"chosenDesc\">The choice is complete. The chosen alternative is: " + chosenDesc + " </p>";
 					var div = document.getElementsByTagName('div');
 					var input = document.getElementsByTagName('input');
 					var a = document.getElementsByTagName('a');
@@ -84,10 +85,10 @@ function processGetCompleteChoiceResponse() {
 						textarea[i].setAttribute('disabled', true);
 					}
 					return true;
-										/*var btn = document.querySelectorAll('button');
-					var input = document.querySelectorAll('input');
-					btn.disabled = true;
-					input.disabled = true;*/
+					/*var btn = document.querySelectorAll('button');
+var input = document.querySelectorAll('input');
+btn.disabled = true;
+input.disabled = true;*/
 
 					/*					completeChoice(alternativeID);
 */

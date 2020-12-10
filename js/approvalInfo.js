@@ -16,7 +16,7 @@ ApprovalInfo:
       altDescription:
         type: "string" */
 
-function getApprovals() { 
+function getApprovals() {
 
 	var choiceURL = window.location.href;
 	var choiceID = choiceURL.split('=')[1];
@@ -36,6 +36,8 @@ function getApprovals() {
 			if (xhr.status == 200) {
 				console.log("XHR:" + xhr.responseText);
 				processApprovals(xhr.responseText);
+				processGetFeedbackResponse();
+
 			} else {
 				processApprovals("N/A");
 			}
