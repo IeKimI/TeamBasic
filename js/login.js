@@ -94,6 +94,7 @@ function processLogIn(result) {
 		getApprovals();
 		setTimeout(function() {
 			processGetFeedbackResponse();
+			processGetCompleteChoiceResponse();
 		}, 1000)
 	}
 

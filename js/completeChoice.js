@@ -1,5 +1,5 @@
 function handleCompleteChoiceClick(alternativeID) {
-	
+
 	console.log("button is clicked");
 	var choiceURL = window.location.href;
 	var choiceID = choiceURL.split('choice=')[1];
@@ -10,7 +10,7 @@ function handleCompleteChoiceClick(alternativeID) {
 
 	var data = {};
 	data["chosenAltID"] = alternativeID;
-	data["choiceID"]= choiceID;
+	data["choiceID"] = choiceID;
 
 
 	var js = JSON.stringify(data);
@@ -23,16 +23,80 @@ function handleCompleteChoiceClick(alternativeID) {
 		if (xhr.readyState == XMLHttpRequest.DONE) {
 			if (xhr.status == 200) {
 				console.log("XHR:" + xhr.responseText);
-				completeChoice(alternativeID);
+				processGetCompleteChoiceResponse();
 			} else {
-				completeChoice("N/A");
+				processGetCompleteChoiceResponse("N/A");
 			}
 		}
 	}
 }
 
-function completeChoice(alternativeID) { 
-	var btn = document.getElementById("complete("+ alternativeID +")"); 
-	btn.disabled = true;
+function processGetCompleteChoiceResponse() {
+
+
+	var choiceURL = window.location.href;
+	var choiceID = choiceURL.split('choice=')[1];
+	choiceID = choiceID.split('?')[0];
+
+	var data = {};
+	data["choiceID"] = choiceID;
+
+
+
+	var xhr = new XMLHttpRequest();
+	xhr.open("GET", getComplete_url + "/" + choiceID, true);
+	xhr.send();
+
+	xhr.onloadend = function() {
+		if (xhr.readyState == XMLHttpRequest.DONE) {
+			if (xhr.status == 200) {
+				console.log("XHR:" + xhr.responseText);
+				console.log("isComplete?" + JSON.parse(xhr.responseText)["isComplete"]);
+				if (JSON.parse(xhr.responseText)["isComplete"] == true) {
+					var div = document.getElementsByTagName('div');
+					var input = document.getElementsByTagName('input');
+					var a = document.getElementsByTagName('a');
+					var label = document.getElementsByTagName('label');
+					for (var i = 0; i < div.length; i++) {
+						div[i].setAttribute('disabled', true);
+					}
+					for (var i = 0; i < input.length; i++) {
+						input[i].onclick = function() { alert("The choice is completed."); };
+					}
+					for (var i = 0; i < a.length; i++) {
+						a[i].setAttribute('disabled', true);
+						a[i].onclick = function() { alert("The choice is completed."); };
+					}
+					for (var i = 0; i < label.length; i++) {
+						label[i].setAttribute('disabled', true);
+					}
+					var textarea = document.getElementsByTagName('textarea');
+					for(var i = 0; i < textarea.length; i++) {
+						textarea[i].setAttribute('disabled', true);
+					}					/*var btn = document.querySelectorAll('button');
+					var input = document.querySelectorAll('input');
+					btn.disabled = true;
+					input.disabled = true;*/
+
+					/*					completeChoice(alternativeID);
+*/
+				}
+			} else {
+				return;
+			}
+		}
+	}
+}
+
+function completeChoice(alternativeID) {
+	var btn = document.querySelector('button');
+	var input = document.querySelector('input');
+	btn.style.display = "none"
+	input.style.display = "none"
+
+
+	console.log("button is clicked");
+
+
 }
 

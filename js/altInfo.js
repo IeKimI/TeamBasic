@@ -51,9 +51,9 @@ function processAlternatives(result) {
 		var alternativeID = alternative["alternativeID"];
 		count = count + 1;
 
-		approvalButtons = "<br><br><a onClick=\"changeImage(" + alternativeID + ")\"\n>\t<img value=" + realCount.toString() + " src=\"check-mark_b&w.png\" width=\"28\" height=\"28\" border=\"0\" alt=\"javascript button\">\n</a>";
+		approvalButtons = "<br><br><a onclick=\"changeImage(" + alternativeID + ")\"\n>\t<img value=" + realCount.toString() + " src=\"check-mark_b&w.png\" width=\"28\" height=\"28\" border=\"0\" alt=\"javascript button\">\n</a>";
 		realCount = realCount + 1;
-		disapprovalButtons = "<a onClick=\"changeImageDisapproval(" + alternativeID + ")\"\n>\t<img value=" + realCount.toString() + " src=\"cancel.png\" width=\"28\" height=\"28\" border=\"0\" alt=\"javascript button\">\n</a>";
+		disapprovalButtons = "<a onclick=\"changeImageDisapproval(" + alternativeID + ")\"\n>\t<img value=" + realCount.toString() + " src=\"cancel.png\" width=\"28\" height=\"28\" border=\"0\" alt=\"javascript button\">\n</a>";
 		realCount = realCount + 1;
 		let alternativeDesc = alternative["description"];
 		console.log(alternativeDesc)
@@ -61,7 +61,7 @@ function processAlternatives(result) {
 			var isLoggedIn = window.location.href;
 			isLoggedIn = isLoggedIn.split("teamMemberID=")[1];
 			if (isLoggedIn != "0") {
-				output = output + "<br><div id = alternative" + count + " class = \"myDiv\"><input id=complete(" + alternativeID + ") type=\"button\" button class = \"buttonSmall buttonBlue\" value=\"Complete Choice\" onClick=\"JavaScript:handleCompleteChoiceClick(" + alternativeID + ")\"> <h4 style=\"font-family:verdana\"> Alternative " + count + ": </h4><label style=\"font-family:verdana; padding: 5px; font-size:20px\">" + "	" + alternativeDesc + "</label> " + "<div id=\"approvals" + count + "\">" + approvalButtons + "<label style=\"font-family:verdana; padding: 5px\" id = \"nameList" + count + "\">Loading...</label><br><label style=\"font-family:verdana; padding: 8px\" id = \"num" + count + "\"> " + "</label><br><br>" + "</div>" + "<div id=\"disapprovals" + count + "\">" + disapprovalButtons + "<label style=\"font-family:verdana; padding: 5px\" id = \"nameDisList" + count + "\">Loading... " + "</label><br><label style=\"font-family:verdana; padding: 8px\" id = \"numDis" + count + "\"> " + "</label><br><br>" + "</div>" + "<div id=\"feedback" + count + "\"></div></div><br>";
+				output = output + "<br><div id = alternative" + count + " class = \"myDiv\"><input id=complete(" + alternativeID + ") type=\"button\" button class = \"buttonSmall buttonBlue\" value=\"Complete Choice\" onclick=\"JavaScript:handleCompleteChoiceClick(" + alternativeID + ")\"> <h4 style=\"font-family:verdana\"> Alternative " + count + ": </h4><label style=\"font-family:verdana; padding: 5px; font-size:20px\">" + "	" + alternativeDesc + "</label> " + "<div id=\"approvals" + count + "\">" + approvalButtons + "<label style=\"font-family:verdana; padding: 5px\" id = \"nameList" + count + "\">Loading...</label><br><label style=\"font-family:verdana; padding: 8px\" id = \"num" + count + "\"> " + "</label><br><br>" + "</div>" + "<div id=\"disapprovals" + count + "\">" + disapprovalButtons + "<label style=\"font-family:verdana; padding: 5px\" id = \"nameDisList" + count + "\">Loading... " + "</label><br><label style=\"font-family:verdana; padding: 8px\" id = \"numDis" + count + "\"> " + "</label><br><br>" + "</div>" + "<div id=\"feedback" + count + "\"></div></div><br>";
 			}
 			else {
 				output = output + "<h4 style=\"font-family:verdana\"> Alternative " + count + ": </h4><label style=\"font-family:verdana; padding: 5px; font-size:20px\">" + "	" + alternativeDesc + "</label> <br>" + "<div id=\"approvals" + count + "\"></div>";

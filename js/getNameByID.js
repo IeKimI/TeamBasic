@@ -65,6 +65,7 @@ function getName() {
 		getApprovals();
 		setTimeout(function() {
 			processGetFeedbackResponse();
+			processGetCompleteChoiceResponse();
 		}, 1000)
 
 	}
