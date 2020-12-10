@@ -55,7 +55,7 @@ public class GetTeamMemberNameHandlerTest extends LambdaTest {
 
 		TeamMemberDAO teamMemberDAO = new TeamMemberDAO();
 		try {
-			int teamMemberID = teamMemberDAO.getTeamMemberID(tm1.getName());
+			int teamMemberID = teamMemberDAO.getTeamMemberID(tm1.getName(),uniqueID);
 			GetTeamMemberNameByIDRequest req = new GetTeamMemberNameByIDRequest(uniqueID,
 					Integer.toString(teamMemberID));
 			GetTeamMemberNameByIDHandlerResponse resp = getNameHandler.handleRequest(req, createContext("list"));

@@ -51,7 +51,7 @@ public class TeamMemberDAO {
 
 			List<TeamMember> listOfMembersFromChoice = getAllTeamMembers(teamMember.getChoiceID());
 
-			return addTeamMemberToApprovalsDatabase(teamMember.getChoiceID(), getTeamMemberID(teamMember.getName()));
+			return addTeamMemberToApprovalsDatabase(teamMember.getChoiceID(), getTeamMemberID(teamMember.getName(), teamMember.getChoiceID()));
 
 		} catch (Exception e) {
 			throw new Exception("Failed to insert teamMember: " + e.getMessage());
@@ -94,11 +94,12 @@ public class TeamMemberDAO {
 		}
 	}
 
-	public int getTeamMemberID(String teamMemberName) throws Exception {
+	public int getTeamMemberID(String teamMemberName, String choiceID) throws Exception {
 		try {
 			TeamMember teamMember = null;
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE uniqueID=?;");
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE uniqueID=? AND choiceID=?;");
 			ps.setString(1, teamMemberName);
+			ps.setString(2, choiceID);
 			ResultSet resultSet = ps.executeQuery();
 
 			while (resultSet.next()) {

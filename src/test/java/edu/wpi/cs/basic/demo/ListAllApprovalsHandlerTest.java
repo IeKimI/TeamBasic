@@ -70,7 +70,8 @@ public class ListAllApprovalsHandlerTest extends LambdaTest {
 		}
 		int teamMemberID = 0;
 		try {
-			teamMemberID = teamMemberDAO.getTeamMemberID(tm1.getName());
+			teamMemberID = teamMemberDAO.getTeamMemberID(tm1.getName(), uniqueID);
+			System.out.println(teamMemberID);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

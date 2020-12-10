@@ -92,7 +92,7 @@ public class LoginHandler implements RequestHandler<CreateTeamMemberRequest, Cre
 
 			if (createTeamMember(req)) {
 				response = new CreateTeamMemberResponse(
-						"Sucessful: " + req.getName() + ":" + dao.getTeamMemberID(req.getName()), 200);
+						"Sucessful: " + req.getName() + ":" + dao.getTeamMemberID(req.getName(), req.getChoiceID()), 200);
 			} else {
 				response = new CreateTeamMemberResponse("Cannot create a teamMember" + req.getName(), 400);
 			}

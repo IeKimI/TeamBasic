@@ -16,7 +16,7 @@ public class CreateChoiceRequest {
 	public List<AlternativeChoice> getAlternativeChoices() {
 		return alternativeChoices;
 	}
-	public void setAlternativeChoices(ArrayList<AlternativeChoice> alternativeChoices) {
+	public void setAlternativeChoices(List<AlternativeChoice> alternativeChoices) {
 		this.alternativeChoices = alternativeChoices;
 	}
 	
@@ -35,7 +35,7 @@ public class CreateChoiceRequest {
 	}
 	
 	//using this for the lambda function
-	public CreateChoiceRequest(String description, int maxNum, ArrayList<AlternativeChoice> alternativeChoices) {
+	public CreateChoiceRequest(String description, int maxNum, List<AlternativeChoice> alternativeChoices) {
 		this.description = description;
 		this.maxNum = maxNum;
 		this.alternativeChoices = alternativeChoices;

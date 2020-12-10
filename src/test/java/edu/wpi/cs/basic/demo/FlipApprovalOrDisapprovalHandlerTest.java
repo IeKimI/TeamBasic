@@ -59,7 +59,7 @@ public class FlipApprovalOrDisapprovalHandlerTest extends LambdaTest{
 		FlipApprovalHandler handler = new FlipApprovalHandler();
 
 		int altID = altDAO.getAltIDByChoiceIDAndDesc(uniqueID, "alt1_description");
-		int teamMemberID = teamMemberDAO.getTeamMemberID(tm1.getName());
+		int teamMemberID = teamMemberDAO.getTeamMemberID(tm1.getName(), c_resp.response);
 		
 		FlipApprovalRequest far = new FlipApprovalRequest(altID, teamMemberID , true);
 
