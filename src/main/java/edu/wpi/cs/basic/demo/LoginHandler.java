@@ -53,10 +53,7 @@ public class LoginHandler implements RequestHandler<CreateTeamMemberRequest, Cre
 		ChoiceDAO choiceDAO = new ChoiceDAO();
 		List<TeamMember> list = teamMemberDAO.getAllTeamMembers(req.getChoiceID());
 
-		int maxNum = choiceDAO.getMaxNum(req.getChoiceID());
-		if (list.size() >= maxNum) {
-			return false;
-		}
+
 
 		TeamMember exist = new TeamMember(req.getName(), req.getPassword(), req.getChoiceID());
 //		TeamMember tm = new TeamMember(name);
@@ -76,6 +73,10 @@ public class LoginHandler implements RequestHandler<CreateTeamMemberRequest, Cre
 				return false;
 
 			}
+		}
+		int maxNum = choiceDAO.getMaxNum(req.getChoiceID());
+		if (list.size() >= maxNum) {
+			return false;
 		}
 
 		return teamMemberDAO.addTeamMember(exist);
