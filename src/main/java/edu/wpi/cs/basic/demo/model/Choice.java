@@ -12,7 +12,6 @@ public class Choice {
 	public String uniqueID = "";
 	int maxNumOfTeamMembers;
 	String description;
-	AlternativeChoice chosenAlternative = null;
 	boolean isCompleted;
 	Date dateOfCompletion;
 	Timestamp dateOfCreation;
@@ -120,17 +119,11 @@ public class Choice {
 		this.dateOfCreation = dateOfCreation;
 	}
 
-	public AlternativeChoice getChosenAlternative() {
-		return chosenAlternative;
+	public String getChosenAlternative() {
+		return chosenAlternativeID;
 	}
 
-	public void setChosenAlternative(AlternativeChoice alternativeChoice) {
-		if (this.alternativeChoices.contains(alternativeChoice) || alternativeChoice == null) {
-			this.chosenAlternative = alternativeChoice;
-		} else {
-			// must display error message;
-		}
-	}
+
 
 //	public String getReport(TeamMember member) {
 //		String reportOutput = "";

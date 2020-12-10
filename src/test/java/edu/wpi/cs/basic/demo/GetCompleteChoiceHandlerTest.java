@@ -46,6 +46,8 @@ public class GetCompleteChoiceHandlerTest extends LambdaTest{
 		GetCompleteChoiceHandler gcc = new GetCompleteChoiceHandler();
 		
 		CompleteChoiceResponse getComplete = gcc.handleRequest(c_resp.response, createContext("getCompleteChoice"));
+		
+		System.out.println(getComplete.chosenDesc);
 
 //		// delete the created choice so that the test passes all the time
 //		boolean result = choiceDAO.deleteChoice(c_resp.response);

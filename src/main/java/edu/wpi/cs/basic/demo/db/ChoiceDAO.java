@@ -140,6 +140,28 @@ public class ChoiceDAO {
 		}
 		return false;
 	}
+	
+	public int altID (String choiceID) throws Exception {
+		try {
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE uniqueID = ?;");
+			ps.setString(1, choiceID);
+			ResultSet resultSet = ps.executeQuery();
+
+			// already present?
+			while (resultSet.next()) {
+				Choice c = generateChoice(resultSet);
+				if (c.isComplete()) {
+					return Integer.valueOf(c.getChosenAlternative());
+				}
+				resultSet.close();
+				throw new Exception("Choice isn't complete ");
+			}
+
+		} catch (Exception e) {
+			throw new Exception("Failed to get the chosen altID: " + e.getMessage());
+		}
+		throw new Exception("Failed to get the chosen altID: ");
+	}
 	public boolean deleteChoice(String choiceID) throws Exception {
 		try {
 			PreparedStatement ps = conn.prepareStatement("DELETE FROM " + tblName + " WHERE uniqueID = ?;");

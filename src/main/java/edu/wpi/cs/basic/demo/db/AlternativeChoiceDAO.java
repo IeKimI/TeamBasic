@@ -137,6 +137,8 @@ public class AlternativeChoiceDAO {
 			throw new Exception("Failed in getting Alternatives: " + e.getMessage());
 		}
 	}
+	
+	
     public String getAlternativeChoiceByID(int alternativeID) throws Exception {
    	 try {
         	AlternativeChoice alternative = null;

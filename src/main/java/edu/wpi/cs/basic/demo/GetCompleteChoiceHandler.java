@@ -7,6 +7,7 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 
+import edu.wpi.cs.basic.demo.db.AlternativeChoiceDAO;
 import edu.wpi.cs.basic.demo.db.ChoiceDAO;
 import edu.wpi.cs.basic.demo.db.FeedbackDAO;
 import edu.wpi.cs.basic.demo.http.CompleteChoiceResponse;
@@ -14,7 +15,7 @@ import edu.wpi.cs.basic.demo.http.GetChoiceResponse;
 import edu.wpi.cs.basic.demo.http.GetFeedbackResponse;
 import edu.wpi.cs.basic.demo.model.Feedback;
 
-public class GetCompleteChoiceHandler implements RequestHandler<String, CompleteChoiceResponse>{
+public class GetCompleteChoiceHandler implements RequestHandler<String, CompleteChoiceResponse> {
 	LambdaLogger logger;
 
 	public CompleteChoiceResponse handleRequest(String choiceID, Context context) {
@@ -27,10 +28,13 @@ public class GetCompleteChoiceHandler implements RequestHandler<String, Complete
 		// check if present
 		try {
 			ChoiceDAO choiceDAO = new ChoiceDAO();
-			return new CompleteChoiceResponse(200, choiceDAO.isCompleted(choiceID));
+			int altID = choiceDAO.altID(choiceID);
+			AlternativeChoiceDAO altDAO = new AlternativeChoiceDAO();
+
+			return new CompleteChoiceResponse(200, choiceDAO.isCompleted(choiceID), altDAO.getAlternativeChoiceByID(altID));
 		} catch (Exception e) {
 			logger.log(e.getMessage());
-			return new CompleteChoiceResponse(400, false);
+			return new CompleteChoiceResponse(e.getMessage(), 400);
 		}
 	}
 }
