@@ -20,14 +20,11 @@ public class CreateFeedbackTest extends LambdaTest {
 
 	@Test
 	public void testCreateAndGetFeedback() throws Exception {
-		String choiceID = (new CreateChoiceHandler()).handleRequest(
-				new CreateChoiceRequest("TestingCreateFeedback", 5,
-						Arrays.asList((new AlternativeChoice("1")), (new AlternativeChoice("2")))),
-				createContext("create")).response;
-		(new CreateChoiceHandler()).handleRequest(
-				new CreateChoiceRequest("TestingCreateFeedback", 5,
-						Arrays.asList((new AlternativeChoice("1")), (new AlternativeChoice("2")))),
-				createContext("create"));
+		String choiceID = (new CreateChoiceHandler())
+				.handleRequest(
+						new CreateChoiceRequest("TestingCreateFeedback", 5, Arrays.asList((new AlternativeChoice("1")),
+								(new AlternativeChoice("2")), (new AlternativeChoice("3")))),
+						createContext("create")).response;
 		(new LoginHandler()).handleRequest(new CreateTeamMemberRequest("username", "password", choiceID),
 				createContext("create"));
 		(new CreateFeedbackHandler())
@@ -39,8 +36,8 @@ public class CreateFeedbackTest extends LambdaTest {
 						createContext("create"));
 		Feedback feedback = (new GetFeedbackHandler()).handleRequest(choiceID, createContext("get")).getFeedback()
 				.get(0);
-		Assert.assertTrue(feedback.getText().equals("TestingCreateFeedbackHandler"));
-		Assert.assertTrue(feedback.getTeamMemberName().equals("username"));
+		Assert.assertTrue(feedback.getText().equals("TestingCreateFeedbackHandler")
+				&& feedback.getTeamMemberName().equals("username"));
 	}
 
 }
