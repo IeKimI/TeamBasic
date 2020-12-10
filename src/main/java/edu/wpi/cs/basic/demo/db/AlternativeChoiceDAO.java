@@ -183,6 +183,26 @@ public class AlternativeChoiceDAO {
          }
     }
 
+    public String getChoiceIDByAltID (int altID) throws Exception {
+    	try {
+        	AlternativeChoice alternative = null;
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE alternativeID=?;");
+            ps.setInt(1,  altID);
+            ResultSet resultSet = ps.executeQuery();
+            
+            while (resultSet.next()) {
+            	alternative = generateAltnerativeChoice(resultSet);
+            }
+            resultSet.close();
+            ps.close();
+            
+            return alternative.getChoiceID();
+
+        } catch (Exception e) {
+        	e.printStackTrace();
+            throw new Exception("Failed in getting the choiceID by altID: " + e.getMessage());
+        }
+    }
 
 	public AlternativeChoice generateAltnerativeChoice(ResultSet resultSet) throws Exception {
 		int alternativeID = resultSet.getInt("alternativeID");

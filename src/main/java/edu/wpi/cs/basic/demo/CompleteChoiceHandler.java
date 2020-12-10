@@ -25,6 +25,9 @@ public class CompleteChoiceHandler implements RequestHandler<CompleteChoiceReque
 		Choice currentChoice;
 		try {
 			currentChoice = choiceDao.getChoice(choiceID);
+			if (choiceDao.isCompleted(choiceID)) {
+				return new CompleteChoiceResponse("The choice is already completed.", 404);
+			}
 			logger = context.getLogger();
 			logger.log("Completing choice " + choiceID);
 			CompleteChoiceResponse response;
@@ -39,7 +42,7 @@ public class CompleteChoiceHandler implements RequestHandler<CompleteChoiceReque
 				logger.log(e.getMessage());
 				return new CompleteChoiceResponse("ChoiceID could not be completed", 404);
 			}
-			
+
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			return new CompleteChoiceResponse("ChoiceID could not be completed", 404);

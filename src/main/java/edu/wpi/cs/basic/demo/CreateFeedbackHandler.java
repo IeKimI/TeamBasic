@@ -39,6 +39,12 @@ public class CreateFeedbackHandler implements RequestHandler<CreateFeedbackReque
 		logger.log(req.toString());
 
 		try {
+			ChoiceDAO choiceDAO = new ChoiceDAO();
+			String choiceID = new AlternativeChoiceDAO().getChoiceIDByAltID(req.getAlternativeChoiceID());
+			if (choiceDAO.isCompleted(choiceID)) {
+				return new CreateFeedbackResponse(
+						"Unable to create Feedback because the choice is completed: " + req.getFeedbackID(), 400);
+			}
 			if (!createFeedback(req)) {
 				throw new Exception();
 			}

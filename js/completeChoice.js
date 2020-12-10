@@ -1,7 +1,11 @@
 function handleCompleteChoiceClick(alternativeID) {
-
 	console.log("button is clicked");
-	var choiceURL = window.location.href;
+	if (processGetCompleteChoiceResponse()){
+		alert("This choice is completed.")
+		return;
+		
+	} else {
+		var choiceURL = window.location.href;
 	var choiceID = choiceURL.split('choice=')[1];
 	choiceID = choiceID.split('?')[0];
 
@@ -29,6 +33,8 @@ function handleCompleteChoiceClick(alternativeID) {
 			}
 		}
 	}
+	}
+	
 }
 
 function processGetCompleteChoiceResponse() {
@@ -76,7 +82,9 @@ function processGetCompleteChoiceResponse() {
 					var textarea = document.getElementsByTagName('textarea');
 					for (var i = 0; i < textarea.length; i++) {
 						textarea[i].setAttribute('disabled', true);
-					}					/*var btn = document.querySelectorAll('button');
+					}
+					return true;
+										/*var btn = document.querySelectorAll('button');
 					var input = document.querySelectorAll('input');
 					btn.disabled = true;
 					input.disabled = true;*/
@@ -85,7 +93,7 @@ function processGetCompleteChoiceResponse() {
 */
 				}
 			} else {
-				return;
+				return false;
 			}
 		}
 	}

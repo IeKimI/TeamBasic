@@ -32,7 +32,11 @@ public class FlipApprovalHandler implements RequestHandler<FlipApprovalRequest, 
 			logger.log("in flipApprovalChoice");
 		}
 		ApprovalDAO approvalDatabase = new ApprovalDAO(); 
+		ChoiceDAO choiceDAO = new ChoiceDAO();
 		try {
+			if (choiceDAO.isCompleted(request.getChoiceID())) {
+				return new FlipApprovalResponse("Choice is completed", 400);
+			}
 			List<ApprovalInfo> list = approvalDatabase.getApprovalsChoiceID(logger, request.getChoiceID());
 			return approvalDatabase.flipApprovalOrDisapproval(logger, request.isWhichToFlip(), request.getAlternativeID(),
 					request.getTeamMemberID(), list);
