@@ -37,7 +37,7 @@ public class DeleteChoicesHandlerTest extends LambdaTest {
 		Assert.assertEquals(200, choiceResponse.httpCode);
 
 		// now delete
-		DeleteChoicesRequest dcr = new DeleteChoicesRequest(1);
+		DeleteChoicesRequest dcr = new DeleteChoicesRequest(0);
 		DeleteChoicesResponse d_resp = new DeleteChoicesHandler().handleRequest(dcr, createContext("delete"));
 		Assert.assertEquals(200, d_resp.statusCode);
 
