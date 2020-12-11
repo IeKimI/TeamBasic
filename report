@@ -1,3 +1,507 @@
+commit ce3e97e3a32feb4c1d7692cf141061f76e01a88f
+Author: Eri Kim <erikim0413@gmail.com>
+Date:   Thu Dec 10 17:47:18 2020 -0500
+
+    FINAL FINAL FINAL
+
+commit 573c312a667a49305824c1b4896b33363e50f879
+Author: erene <erene@Laptop>
+Date:   Thu Dec 10 17:32:17 2020 -0500
+
+    Finished test for feedback. Best test ever. Believe me. They said it
+    couldn't be done. Ask anyone, the best test they've ever seen. Believe
+    me.
+
+commit 26cacd378bfbe269b80fb306e32aabcb3156cac6
+Author: Eri Kim <erikim0413@gmail.com>
+Date:   Thu Dec 10 16:27:05 2020 -0500
+
+    Started cleaning up some codes...
+
+commit e1698f338b4df0d53d9a1202521a6862187e93bb
+Author: Eri Kim <erikim0413@gmail.com>
+Date:   Thu Dec 10 14:42:57 2020 -0500
+
+    Fixed the issues and this should be final?
+
+commit 7f2ee4aea5c6818c17b9d18a8c7a3b56292abc8f
+Author: Eri Kim <erikim0413@gmail.com>
+Date:   Thu Dec 10 14:15:50 2020 -0500
+
+    Flip approvals, create feedback, and complete choice check whether the
+    choice is completed or not. If it is, return the response with the
+    httpCoe 400
+
+commit 7da9adfabdcd90cf2ac6750d3066f74da7d14066
+Author: erene <erene@Laptop>
+Date:   Wed Dec 9 23:11:20 2020 -0500
+
+    Test
+
+commit 188d729b174006eb793226028107f860b3343d9f
+Author: Eri Kim <erikim0413@gmail.com>
+Date:   Wed Dec 9 20:14:47 2020 -0500
+
+    Fixed the error and the test works now
+
+commit 7e89ea0e969e87636c77d840b41cbb4f84ad7d31
+Author: Eri Kim <erikim0413@gmail.com>
+Date:   Wed Dec 9 19:57:19 2020 -0500
+
+    Changed the order of checking the max num of participants and returning
+    participants
+
+commit bbeb823fbdc8d84b878b70a4cc5fb5d768a1344e
+Author: Eri Kim <erikim0413@gmail.com>
+Date:   Wed Dec 9 19:53:07 2020 -0500
+
+    Everything works now?
+
+commit cd6e4e0cdf91f53e4494f6d53c4c54c19aec09da
+Author: Eri Kim <erikim0413@gmail.com>
+Date:   Wed Dec 9 19:35:55 2020 -0500
+
+    Edited the CompleteChoiceResponse so that it has the chosenAlt
+    description
+
+commit 91f8e4decf573fa7499810b131a3f930ff71255c
+Author: Eri Kim <erikim0413@gmail.com>
+Date:   Wed Dec 9 19:19:57 2020 -0500
+
+    altInfo onclick now disabled
+
+commit 94e8351a4941d2420125622a223ae119a8ebd277
+Merge: ad962e0 ee4a830
+Author: Eri Kim <erikim0413@gmail.com>
+Date:   Wed Dec 9 19:19:29 2020 -0500
+
+    Merge branch 'master' of https://github.com/IeKimI/TeamBasic.git
+
+commit ad962e0b2ecac443f13c07a1bc90a7291fec7fdd
+Author: Eri Kim <erikim0413@gmail.com>
+Date:   Wed Dec 9 19:19:14 2020 -0500
+
+    Everything is disabled after the choice is complete
+
+commit ee4a8300588f28a883c0362a59a9f8678d442019
+Merge: 92f4a76 cd8cb0d
+Author: Matthew Hlushko <Matthew Hlushko@DESKTOP-OAKP5I1.lan>
+Date:   Wed Dec 9 17:22:12 2020 -0500
+
+    Merge branch 'master' of https://github.com/IeKimI/TeamBasic
+
+commit 92f4a7663727035be7ce56c52d56a6a9bcb048e4
+Author: Matthew Hlushko <Matthew Hlushko@DESKTOP-OAKP5I1.lan>
+Date:   Wed Dec 9 17:21:42 2020 -0500
+
+    t e s t s
+
+commit cd8cb0da3f655dd97c85dc72feb26e5bc1fb06c4
+Author: Eri Kim <erikim0413@gmail.com>
+Date:   Wed Dec 9 17:14:09 2020 -0500
+
+    Created a function that checks whether the choice is completed or not
+
+commit 0a57c16c241e277e8733fe707650a9889d09e0ff
+Author: Eri Kim <erikim0413@gmail.com>
+Date:   Wed Dec 9 16:56:00 2020 -0500
+
+    Created a getCompletedChoice class
+
+commit c94f153ee2074e71203d35603dbeb140acf11c28
+Author: Eri Kim <erikim0413@gmail.com>
+Date:   Wed Dec 9 15:56:55 2020 -0500
+
+    Cleaning up the classes and functions we are not using
+
+commit 252714e61ac386f704e0bedb5d0ea4aae19f6ea7
+Author: Eri Kim <erikim0413@gmail.com>
+Date:   Wed Dec 9 15:35:07 2020 -0500
+
+    CompleteChoiceHandlerTest, GetTeamMemberNameHandlerTest DONE
+
+commit 84501802c6b18365f484d7947da2468bf22f6cf1
+Author: Eri Kim <erikim0413@gmail.com>
+Date:   Wed Dec 9 15:19:22 2020 -0500
+
+    Created a button for complete choice
+
+commit cc88d68fceb98bbef17b00ae136c3c0ec7badcf1
+Author: Eri Kim <erikim0413@gmail.com>
+Date:   Wed Dec 9 12:30:16 2020 -0500
+
+    Changed the data type of the parameters needed for completing the choice
+    and the test passed! woo hoo
+
+commit f37b26a75c32a3d3e30fa2709ead2e6dfa47bca8
+Author: Eri Kim <erikim0413@gmail.com>
+Date:   Wed Dec 9 12:15:04 2020 -0500
+
+    Workin on the test cases..
+
+commit 3882d49f1da83568ad4bfee557c6ed8dc0e01136
+Author: Eri Kim <erikim0413@gmail.com>
+Date:   Wed Dec 9 10:48:24 2020 -0500
+
+    Editing the tests ...
+
+commit 4139689f86a32ee5b905b629c21e8c0416be5149
+Author: Eri Kim <erikim0413@gmail.com>
+Date:   Wed Dec 9 10:41:05 2020 -0500
+
+    Fixed the issue so that the feedback is not added to other alternatives
+
+commit 07fce97f44dd998ae551eaba6bd24eb835e767bc
+Author: Eri Kim <erikim0413@gmail.com>
+Date:   Wed Dec 9 10:40:26 2020 -0500
+
+    Fixed the issue where the feedback appears for every alternative
+
+commit 48a13e23602475faa4b375ed60356d102a9d65ec
+Author: Eri Kim <erikim0413@gmail.com>
+Date:   Wed Dec 9 00:45:49 2020 -0500
+
+    Finalized the js and html for feedback
+
+commit fdc1425ffbbec552eda2835de84fec9f6e66d789
+Author: Eri Kim <erikim0413@gmail.com>
+Date:   Wed Dec 9 00:23:03 2020 -0500
+
+    The website displays all the feedbacks now yoo hoo~
+
+commit 1b35e843c321bde62059be861772c432cc0e831f
+Author: Eri Kim <erikim0413@gmail.com>
+Date:   Tue Dec 8 23:26:27 2020 -0500
+
+    Added the teamMemberName in the Feedback so that the front end can
+    access it
+
+commit 51a2ea4d7901a16ae46d7d3155e52ae3e374d2f4
+Author: Eri Kim <erikim0413@gmail.com>
+Date:   Tue Dec 8 22:55:14 2020 -0500
+
+    Removed static from the functions in feedbackDAO
+
+commit e79f2979bea7fc9b7b7d279b5534b32f9d400acf
+Merge: 09ca047 7d4a147
+Author: erene <erene@Laptop>
+Date:   Tue Dec 8 22:21:42 2020 -0500
+
+    Merge branch 'master' of https://github.com/IeKimI/TeamBasic
+
+commit 09ca0472763278aeaab0ea85e887176fdbf7627f
+Author: erene <erene@Laptop>
+Date:   Tue Dec 8 22:21:29 2020 -0500
+
+    Functional test
+
+commit 7d4a1474955e62c006450c0afb71b352ba37f741
+Author: Eri Kim <erikim0413@gmail.com>
+Date:   Tue Dec 8 22:17:49 2020 -0500
+
+    Trying to make the website look better...
+
+commit 84483df332f811cc555f4570083492cc32b75e32
+Author: Eri Kim <erikim0413@gmail.com>
+Date:   Tue Dec 8 21:23:27 2020 -0500
+
+    Create feedback js works now woo hooo~
+
+commit 899ed2928d43e21f99967649d292bd315dc6e140
+Author: Eri Kim <erikim0413@gmail.com>
+Date:   Tue Dec 8 19:28:10 2020 -0500
+
+    Added the error message to debug
+
+commit 552bba15d9525588c6fdc71a9a20ebff0e4d7ab8
+Author: erene <erene@Laptop>
+Date:   Tue Dec 8 19:22:59 2020 -0500
+
+    Oops the wrong column name again
+
+commit 95d0776441a44ceebe9404506ad74e2fdde95fc1
+Merge: e45d8c4 adca46a
+Author: erene <erene@Laptop>
+Date:   Tue Dec 8 19:10:51 2020 -0500
+
+    Merge branch 'master' of https://github.com/IeKimI/TeamBasic
+
+commit e45d8c4539062b4446b88ece3144cdc4ba93c9d8
+Author: erene <erene@Laptop>
+Date:   Tue Dec 8 19:10:37 2020 -0500
+
+    Quick bug fix on getAllFeedback
+
+commit adca46abe56d366cb8bb2b0d1c481b6498b1cbb0
+Author: Eri Kim <erikim0413@gmail.com>
+Date:   Tue Dec 8 19:06:17 2020 -0500
+
+    Pushing again because of the merge error
+
+commit 79d075f537a5a652bba7a2ccde27669bb7a9e9e9
+Merge: 67711b6 2faf5c7
+Author: Eri Kim <erikim0413@gmail.com>
+Date:   Tue Dec 8 19:06:05 2020 -0500
+
+    Merge branch 'master' of https://github.com/IeKimI/TeamBasic.git
+
+commit 67711b62070e62e100ea7fb387ddf03b076bf315
+Author: Eri Kim <erikim0413@gmail.com>
+Date:   Tue Dec 8 19:05:51 2020 -0500
+
+    Created a constructor for createFeedbackRequest
+
+commit 2faf5c73b0d4c8fe34783efdf82306d1883e7a3b
+Author: erene <erene@Laptop>
+Date:   Tue Dec 8 18:37:41 2020 -0500
+
+    Deletion is now 100% complete. Testing is needed
+
+commit de1abba080dbd8c140f4a85c874003c128b8cd5e
+Author: Eri Kim <erikim0413@gmail.com>
+Date:   Tue Dec 8 18:33:41 2020 -0500
+
+    Changed the tblname to Feedback, added an empty constructor in the
+    request, and the test passed:)
+
+commit 05f3e05ab53049afeccc9cbe49cfc114929b56aa
+Author: erene <erene@Laptop>
+Date:   Tue Dec 8 18:01:00 2020 -0500
+
+    Changing flipApproval handler to if an error occurs it is printed to the
+    logger. It was a 1 line change.
+
+commit 52de9abefe3f3d17ca490b57723fe3af2bc85760
+Merge: 17fd61d 7bbb8a2
+Author: erene <erene@Laptop>
+Date:   Tue Dec 8 17:57:45 2020 -0500
+
+    Merge branch 'master' of https://github.com/IeKimI/TeamBasic
+
+commit 17fd61de8c4f218a10d34ee7b8296e35d0580171
+Author: erene <erene@Laptop>
+Date:   Tue Dec 8 17:57:35 2020 -0500
+
+    Updated Feedback Responses
+
+commit 7bbb8a21afdb02320cf2208e7a68388dd89c152c
+Author: Eri Kim <erikim0413@gmail.com>
+Date:   Tue Dec 8 16:34:33 2020 -0500
+
+    separated the disapproval buttons from approvals div
+
+commit 8903cbe7635d0cf1694098496538ce4385c2c92a
+Author: Eri Kim <erikim0413@gmail.com>
+Date:   Tue Dec 8 15:56:18 2020 -0500
+
+    Added style in choice.html
+
+commit b81cf6d64def028fd54354f710063ccdfe7771a9
+Merge: 6892b8b 6975300
+Author: Eri Kim <erikim0413@gmail.com>
+Date:   Tue Dec 8 15:55:36 2020 -0500
+
+    Merge branch 'master' of https://github.com/IeKimI/TeamBasic.git
+
+commit 6892b8b99ae47554a91647c71de0bd11aef624a1
+Author: Eri Kim <erikim0413@gmail.com>
+Date:   Tue Dec 8 15:55:23 2020 -0500
+
+    Added the text area for the feedback
+
+commit 6975300bcebf1cca9500de8d58bd5fc011d3c17e
+Author: erene <erene@Laptop>
+Date:   Tue Dec 8 15:17:07 2020 -0500
+
+    Oops fixing add feedback
+
+commit 9c68d17f01124478935ac7bc4fedeeaa024c211e
+Merge: 31c8555 38a8bca
+Author: erene <erene@Laptop>
+Date:   Tue Dec 8 15:06:03 2020 -0500
+
+    Merge branch 'master' of https://github.com/IeKimI/TeamBasic
+
+commit 31c8555b2a9a2fd55d4620b7f1a67408ba4a8086
+Author: erene <erene@Laptop>
+Date:   Tue Dec 8 15:03:22 2020 -0500
+
+    Finished up feedback except for delete with Matt
+
+commit 7e08ca316514d5182f7cd00f1f581455393f3b47
+Author: Aruana279 <aruzhan.koshkarova@gmail.com>
+Date:   Wed Dec 9 02:02:00 2020 +0600
+
+    edited updateChoice function and finished completeChoiceHandler
+
+commit edcb019063bc7784fcabb9edebd707092789eac7
+Author: Aruana279 <aruzhan.koshkarova@gmail.com>
+Date:   Wed Dec 9 02:01:10 2020 +0600
+
+    finished CompleteChoiceRequest and CompleteChoiceResponse.
+
+commit d8f96dcf383c1299cf81fc109b3951bfa54d3f00
+Author: Aruana279 <aruzhan.koshkarova@gmail.com>
+Date:   Tue Dec 8 22:11:44 2020 +0600
+
+    sorry the previous file was wrong
+
+commit 8113c98bebde4a42f21f22d5f432a1a80b5398ae
+Author: Aruana279 <aruzhan.koshkarova@gmail.com>
+Date:   Tue Dec 8 22:11:24 2020 +0600
+
+    created CompleteChoiceHandler and request/response files
+
+commit 38a8bca321db81c52604bad23cd9b7c6535ca59e
+Merge: aeaefc6 ea2c7cc
+Author: erene <erene@Laptop>
+Date:   Tue Dec 8 15:03:38 2020 -0500
+
+    Merge branch 'master' of https://github.com/IeKimI/TeamBasic
+
+commit aeaefc6d001e8902a4eec273de956437765eab2c
+Author: erene <erene@Laptop>
+Date:   Tue Dec 8 15:03:22 2020 -0500
+
+    Finished up feedback except for delete
+
+commit ea2c7cc08b7f8259c7f7f251a10f4dda6ef55a30
+Author: Aruana279 <aruzhan.koshkarova@gmail.com>
+Date:   Wed Dec 9 02:02:00 2020 +0600
+
+    edited updateChoice function and finished completeChoiceHandler
+
+commit 797fdb8047ec265dfb81592ac7af937a78f11db3
+Author: Aruana279 <aruzhan.koshkarova@gmail.com>
+Date:   Wed Dec 9 02:01:10 2020 +0600
+
+    finished CompleteChoiceRequest and CompleteChoiceResponse.
+
+commit c0ee4ec9cd86b2585411388deb31927082c90a17
+Merge: 85f81a0 f32d1ce
+Author: Aruana279 <aruzhan.koshkarova@gmail.com>
+Date:   Wed Dec 9 01:35:27 2020 +0600
+
+    Merge branch 'master' of https://github.com/IeKimI/TeamBasic.git
+
+commit f32d1cec897a145684848efb174edc6cab04c391
+Author: Matthew Hlushko <Matthew Hlushko@DESKTOP-OAKP5I1.lan>
+Date:   Tue Dec 8 14:15:57 2020 -0500
+
+    e
+
+commit 597bfbeb223d48d71a2ab255504210424265e89f
+Author: Matthew Hlushko <Matthew Hlushko@DESKTOP-OAKP5I1.lan>
+Date:   Tue Dec 8 14:15:40 2020 -0500
+
+    feedback handlers
+
+commit ff09fb9f111f79eef5e5dd17c48b514423ffa5ed
+Author: erene <erene@Laptop>
+Date:   Tue Dec 8 13:47:30 2020 -0500
+
+    Finished Feedback DAO except for delete Feedback, Will do that later
+
+commit d5870d79e7a286fb70224cc31c16a928b8935b1a
+Author: erene <erene@Laptop>
+Date:   Tue Dec 8 12:56:00 2020 -0500
+
+    Pushing so matt has access while working on llambda
+
+commit b5ff95ec9f2f419b261a4981eed6ac94f18172eb
+Author: Eri Kim <erikim0413@gmail.com>
+Date:   Tue Dec 8 11:58:42 2020 -0500
+
+    Testing...
+
+commit 07b008df493b00a87dac96509d4c0240cd2f287a
+Author: Eri Kim <erikim0413@gmail.com>
+Date:   Tue Dec 8 11:40:50 2020 -0500
+
+    Deleted disapprovalDAO since we are using one table for approval and
+    disapproval
+
+commit 0133108518c750ae73fcaf4b48189601e961293c
+Author: Eri Kim <erikim0413@gmail.com>
+Date:   Tue Dec 8 11:37:31 2020 -0500
+
+    A few changes in test classes coverage is ~50%
+
+commit 85f81a0e5ce8056eec7f2d7aa28bdbf94f92f77d
+Merge: 3bee166 cf12288
+Author: Aruana279 <aruzhan.koshkarova@gmail.com>
+Date:   Tue Dec 8 22:12:16 2020 +0600
+
+    Merge branch 'master' of https://github.com/IeKimI/TeamBasic.git
+
+commit cf122889c9184988956e711d66cd9ccd69b34a54
+Author: Eri Kim <erikim0413@gmail.com>
+Date:   Tue Dec 8 11:11:56 2020 -0500
+
+    Started cleaning up some code
+
+commit 3bee166dac92f733b3fc8136895bcbe6ec56ccc6
+Author: Aruana279 <aruzhan.koshkarova@gmail.com>
+Date:   Tue Dec 8 22:11:44 2020 +0600
+
+    sorry the previous file was wrong
+
+commit f645dfaf84c4b8166167b0b749cb4833f7354a48
+Author: Aruana279 <aruzhan.koshkarova@gmail.com>
+Date:   Tue Dec 8 22:11:24 2020 +0600
+
+    created CompleteChoiceHandler and request/response files
+
+commit 8e0d7a0a292361f0b26118742dba99707c2dea79
+Author: Eri Kim <erikim0413@gmail.com>
+Date:   Tue Dec 8 10:12:14 2020 -0500
+
+    Changed the date to timestamp
+
+commit 34ccf6e016c200ce8426ce7dd7f04729d37e9727
+Author: Eri Kim <erikim0413@gmail.com>
+Date:   Mon Dec 7 22:35:02 2020 -0500
+
+    The website displays the alert message when the choice is full or the
+    user inputs the wrong username or password.
+
+commit a06a4486417db561684ed030633339d4f19b64ba
+Author: Eri Kim <erikim0413@gmail.com>
+Date:   Mon Dec 7 22:08:29 2020 -0500
+
+    Deleted the 6th textfield for the alternatives
+
+commit 5516502491ec9c510629aef4036085a9f7e639b0
+Author: erene <erene@Laptop>
+Date:   Mon Dec 7 16:52:42 2020 -0500
+
+    Finished DeleteNDaysOld. Feedback is not deleted as it has not yet be
+    created
+
+commit c9247ae09a49596e5989952fa3d234f12475ffcb
+Author: Eri Kim <erikim0413@gmail.com>
+Date:   Mon Dec 7 15:39:53 2020 -0500
+
+    Working on the admin delete choices N days old...
+
+commit 85c6a723ef8d53529ea46e1e23a5908cc57b58b9
+Author: Eri Kim <erikim0413@gmail.com>
+Date:   Mon Dec 7 14:39:20 2020 -0500
+
+    The report is shown in a table now woo hoo
+
+commit a190238b44e836d521d7aadedda096f8e09859f4
+Author: Eri Kim <erikim0413@gmail.com>
+Date:   Mon Dec 7 14:22:13 2020 -0500
+
+    Changed the date of creation type from date to timestamp
+
+commit a69b254793d394f90c1f57d0efcb7866f13670ed
+Author: Eri Kim <erikim0413@gmail.com>
+Date:   Mon Dec 7 13:14:49 2020 -0500
+
+    Used the toLocaleString() to change from long to string - timestamp
+
 commit bdeb667b70d5f63024d3575dceab1824ab3f05a7
 Author: Eri Kim <erikim0413@gmail.com>
 Date:   Mon Dec 7 12:58:54 2020 -0500

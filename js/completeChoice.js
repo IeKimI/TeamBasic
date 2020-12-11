@@ -24,7 +24,7 @@ function handleCompleteChoiceClick(alternativeID) {
 			if (xhr.status == 200) {
 				console.log("XHR:" + xhr.responseText);
 				if (JSON.parse(xhr.responseText)["statusCode"] != 200) {
-					alert("Can't Do that becuase: " + JSON.parse(xhr.responseText)["error"]);
+					alert("Rejected! " + JSON.parse(xhr.responseText)["error"]);
 					return;
 				}
 				processGetCompleteChoiceResponse();
